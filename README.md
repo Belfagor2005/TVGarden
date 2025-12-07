@@ -2,7 +2,7 @@
 
 [![TV Garden](https://img.shields.io/badge/TVGarden-00aaff.svg)](https://github.com/Belfagor2005/tv-garden-channel-list)
 [![Enigma2](https://img.shields.io/badge/Enigma2-Plugin-ff6600.svg)](https://www.enigma2.net)
-[![Python](https://img.shields.io/badge/Python-2.7%2F3.x-blue.svg)](https://www.python.org)
+[![Python](https://img.shields.io/badge/Python-3.x-blue.svg)](https://www.python.org)
 [![License](https://img.shields.io/badge/License-GPLv3-green.svg)](LICENSE)
 
 **Professional IPTV Streaming Solution** for Enigma2 receivers with access to **50,000+ channels** from **150+ countries** and **29 categories**.
