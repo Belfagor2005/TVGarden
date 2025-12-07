@@ -1,66 +1,71 @@
 ﻿#!/bin/sh
+# postrm script for TV Garden Plugin
+# This script runs AFTER package removal
 
-# **************************************
-# Softcam Manager - Post Removal Script
-# **************************************
+echo "=== TV Garden Plugin Post-Removal ==="
 
-echo "========================================"
-echo "Softcam Manager - Cleaning System"
-echo "========================================"
+TVGARDEN_DIR="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden"
+CONFIG_DIR="/etc/enigma2/tvgarden"
+CACHE_DIR="/tmp/tvgarden_cache"
 
-PLUGIN_DIR="/usr/lib/enigma2/python/Plugins/Extensions/tvManager/"
-
-CONFIG_FILES="
-/etc/clist.list
-/etc/startcam.sh
-/etc/CurrentBhCamName
-/etc/autocam.txt
-/etc/autocam2.txt
-/tmp/softcam_backups
-"
-
-echo "Removing plugin directory..."
-if [ -d "$PLUGIN_DIR" ]; then
-    rm -rf "$PLUGIN_DIR" > /dev/null 2>&1
-    echo "✓ Plugin directory removed"
-else
-    echo "⚠ Plugin directory not found"
+# 1. Rimuovi directory plugin se vuota
+echo "Cleaning up plugin directory..."
+if [ -d "$TVGARDEN_DIR" ]; then
+    # Controlla se la directory è vuota (potrebbe avere dati utente)
+    if [ -z "$(ls -A "$TVGARDEN_DIR" 2>/dev/null)" ]; then
+        rmdir "$TVGARDEN_DIR" 2>/dev/null || true
+    else
+        echo "WARNING: $TVGARDEN_DIR not empty - may contain user data"
+        echo "         Manual cleanup may be required"
+    fi
 fi
 
-echo "Cleaning configuration files..."
-for file in $CONFIG_FILES; do
-    if [ -e "$file" ]; then
-        rm -rf "$file" > /dev/null 2>&1
-        echo "✓ Removed: $file"
-    fi
-done
-
-echo "Cleaning temporary files..."
-rm -f /tmp/*.ipk /tmp/*.deb /tmp/*.tar.gz /tmp/*.zip > /dev/null 2>&1
-echo "✓ Temporary files cleaned"
-
-if [ -f "/etc/init.d/dccamdOrig" ]; then
-    echo "Restoring original dccamd script..."
-    mv /etc/init.d/dccamdOrig /etc/init.d/dccamd > /dev/null 2>&1
-    echo "✓ Original dccamd restored"
+# 2. Pulisci cache (ma conserva per possibile reinstallazione)
+echo "Cleaning cache..."
+if [ -d "$CACHE_DIR" ]; then
+    # Rimuovi solo file vecchi (>30 giorni) se si vuole conservare cache
+    # find "$CACHE_DIR" -type f -mtime +30 -delete 2>/dev/null || true
+    
+    # Opzione: rimuovi completamente
+    # rm -rf "$CACHE_DIR" 2>/dev/null || true
+    
+    echo "Cache directory preserved at: $CACHE_DIR"
+    echo "  (Remove manually if desired: 'rm -rf $CACHE_DIR')"
 fi
 
-echo "Removing symbolic links..."
-for link in "/var/bin" "/var/keys" "/var/scce" "/var/script"; do
-    if [ -L "$link" ]; then
-        rm -f "$link" > /dev/null 2>&1
-        echo "✓ Removed link: $link"
+# 3. Rimuovi link simbolici delle skin
+echo "Removing skin symlinks..."
+SKINS_DIR="/usr/share/enigma2"
+for skin_link in "$SKINS_DIR"/TVGarden_*; do
+    if [ -L "$skin_link" ]; then
+        rm -f "$skin_link"
     fi
-done
+done 2>/dev/null || true
 
-echo "========================================"
-echo "Softcam Manager - Cleanup Complete"
-echo "========================================"
+# 4. Opzione: mantieni configurazione utente
 echo ""
-echo " IMPORTANT: Restart Enigma2 to complete cleanup"
+echo "⚠️  User data and configuration preserved:"
+echo "   - Configuration: $CONFIG_DIR"
+echo "   - Favorites: $CONFIG_DIR/favorites/"
+echo "   - Cache: $CACHE_DIR"
 echo ""
-echo "****************************************"
-echo "* Please Restart Enigma2 Now!          *"
-echo "****************************************"
+echo "To completely remove all TV Garden data:"
+echo "  rm -rf $CONFIG_DIR"
+echo "  rm -rf $CACHE_DIR"
+echo ""
+
+# 5. Aggiorna cache plugin Enigma2
+echo "Updating plugin cache..."
+if [ -f /usr/bin/enigma2.sh ]; then
+    # Forza ricaricamento plugin
+    touch /usr/lib/enigma2/python/Plugins/__init__.py 2>/dev/null || true
+fi
+
+# 6. Suggerimento riavvio
+echo "For complete cleanup, restart Enigma2 GUI:"
+echo "  systemctl restart enigma2"
+echo ""
+echo "✅ TV Garden Plugin removal completed!"
+echo "   Some user data was preserved (see above)."
 
 exit 0

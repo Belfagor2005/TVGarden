@@ -1,0 +1,39 @@
+TVGarden/
+├── __init__.py
+├── plugin.py
+├── helpers.py
+├── browser/
+│   ├── __init__.py
+│   ├── base.py
+│   ├── countries.py
+│   ├── categories.py
+│   ├── channels.py
+│   ├── favorites.py
+│   └── search.py
+├── player/
+│   ├── __init__.py
+│   └── iptv_player.py
+├── utils/
+│   ├── config.py
+│   ├── cache.py
+│   ├── settings.py
+│   └── favorites.py
+├── skins/
+│   ├── default/
+│   │   ├── skin.json
+│   │   └── main.xml
+│   ├── wqhd/
+│   ├── fhd/
+│   └── hd/
+├── icons/
+│   ├── plugin.png
+│   ├── logo.png
+│   ├── country/
+│   └── category/
+├── locale/
+│   ├── it/
+│   ├── en/
+│   └── ...
+├── Makefile
+├── install.sh
+└── README.md
