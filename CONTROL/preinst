@@ -1,0 +1,473 @@
+#!/bin/sh
+
+# **************************************
+# Softcam Manager - Pre-Installation Script
+# **************************************
+
+LINE="======================================================================="
+
+echo "$LINE"
+echo "Softcam Manager - Pre-Installation Check"
+echo "$LINE"
+
+# Controlla versione Python
+echo "Checking Python version..."
+if python -V 2>&1 | grep -q "Python 2"; then
+    echo "✓ Python 2.x detected"
+    PYTHON_OK=true
+elif python -V 2>&1 | grep -q "Python 3"; then
+    echo "✓ Python 3.x detected" 
+    PYTHON_OK=true
+else
+    echo "✗ Python not found or unsupported version"
+    PYTHON_OK=false
+fi
+
+# Controlla e rimuovi versione precedente
+PLUGIN_DIR="/usr/lib/enigma2/python/Plugins/Extensions/tvManager/"
+echo "Checking for previous version..."
+if [ -d "$PLUGIN_DIR" ]; then
+    echo "✓ Previous version found, removing..."
+    rm -rf "$PLUGIN_DIR" > /dev/null 2>&1
+    echo "✓ Old version removed successfully"
+else
+    echo "✓ No previous version found"
+fi
+
+# Determina il tipo di package manager
+echo "Detecting package manager..."
+if [ -f /etc/apt/apt.conf ]; then
+    echo "✓ DreamOS (dpkg) detected"
+    PKG_MANAGER="dpkg"
+    LIB_FILES="/var/lib/dpkg/status"
+    LIST_FILES="/var/lib/dpkg/info"
+elif [ -f /etc/opkg/opkg.conf ]; then
+    echo "✓ OpenPLi/OpenATV (opkg) detected" 
+    PKG_MANAGER="opkg"
+    LIB_FILES="/var/lib/opkg/status"
+    LIST_FILES="/var/lib/opkg/info"
+else
+    echo "⚠ Unknown package manager, continuing anyway..."
+    PKG_MANAGER="unknown"
+fi
+
+# Controlla dipendenze essenziali
+echo "Checking essential dependencies..."
+MISSING_DEPS=""
+
+# Controlla libusb
+if ! ldconfig -p | grep -q "libusb-1.0.so"; then
+    if [ ! -f /usr/lib/libusb-1.0.so.0 ] && [ ! -f /usr/lib/libusb-1.0.so ]; then
+        MISSING_DEPS="$MISSING_DEPS libusb-1.0-0"
+    fi
+fi
+
+# Controlla libssl
+if ! ldconfig -p | grep -q "libssl.so"; then
+    MISSING_DEPS="$MISSING_DEPS libssl"
+fi
+
+if [ -n "$MISSING_DEPS" ]; then
+    echo "⚠ Missing dependencies:$MISSING_DEPS"
+    echo "These will be installed automatically if possible"
+else
+    echo "✓ All essential dependencies available"
+fi
+
+# Controlla spazio disco
+echo "Checking disk space..."
+AVAILABLE_SPACE=$(df /usr/lib/enigma2/python/Plugins/Extensions/ | awk 'NR==2 {print $4}')
+if [ "$AVAILABLE_SPACE" -lt 1024 ]; then
+    echo "⚠ Low disk space: ${AVAILABLE_SPACE}KB available"
+    echo "Recommended: at least 1MB free space"
+else
+    echo "✓ Sufficient disk space: ${AVAILABLE_SPACE}KB"
+fi
+
+# Controlla permessi
+echo "Checking permissions..."
+if [ -w "/usr/lib/enigma2/python/Plugins/Extensions/" ]; then
+    echo "✓ Write permissions OK"
+else
+    echo "✗ No write permission to plugin directory"
+    echo "Please run as root or check permissions"
+    exit 1
+fi
+
+# Pulisci file temporanei vecchi
+echo "Cleaning old temporary files..."
+find /tmp -name "*tvManager*" -mtime +1 -delete 2>/dev/null
+find /tmp -name "*.ipk" -mtime +1 -delete 2>/dev/null
+find /tmp -name "*.deb" -mtime +1 -delete 2>/dev/null
+
+
+usrlibpath="/usr/lib/"
+libpath="/lib/"
+if [ -d "/etc/tuxbox/config" ] ; then
+    mv /etc/tuxbox/config /etc/tuxbox/config_backup > /dev/null 2>&1
+fi
+opkg remove enigma2-plugin-softcams-ncam-mips > /dev/null 2>&1
+if [ -d "/etc/tuxbox/config_backup" ] ; then
+    mv /etc/tuxbox/config_backup /etc/tuxbox/config > /dev/null 2>&1
+fi
+sleep 3
+opkg update > /dev/null 2>&1
+############################## libssl ####################
+if grep -qs 'Package: libssl3' cat $lib_files ; then
+    echo "$images libssl3"
+    ln -s libssl.so.3 $usrlibpath/libssl.so.1.1 > /dev/null 2>&1
+    ln -s libssl.so.3 $usrlibpath/libssl.so.1.0.0 > /dev/null 2>&1
+    ln -s libssl.so.3 $usrlibpath/libssl.so.0.9.8 > /dev/null 2>&1
+    ln -s libssl.so.3 $usrlibpath/libssl.so.0.9.7 > /dev/null 2>&1
+    ln -s $usrlibpath/libssl.so.3 $libpath/libssl.so.1.1 > /dev/null 2>&1
+    ln -s $usrlibpath/libssl.so.3 $libpath/libssl.so.1.0.0 > /dev/null 2>&1
+    ln -s $usrlibpath/libssl.so.3 $libpath/libssl.so.0.9.8 > /dev/null 2>&1
+    ln -s $usrlibpath/libssl.so.3 $libpath/libssl.so.0.9.7 > /dev/null 2>&1
+elif grep -qs 'Package: libssl1.1' cat $lib_files ; then
+    echo "$images libssl1.1"
+    ln -s libssl.so.1.1 $usrlibpath/libssl.so.1.0.0 > /dev/null 2>&1
+    ln -s libssl.so.1.1 $usrlibpath/libssl.so.0.9.8 > /dev/null 2>&1
+    ln -s libssl.so.1.1 $usrlibpath/libssl.so.0.9.7 > /dev/null 2>&1
+    ln -s $usrlibpath/libssl.so.1.1 $libpath/libssl.so.1.0.0 > /dev/null 2>&1
+    ln -s $usrlibpath/libssl.so.1.1 $libpath/libssl.so.0.9.8 > /dev/null 2>&1
+    ln -s $usrlibpath/libssl.so.1.1 $libpath/libssl.so.0.9.7 > /dev/null 2>&1
+elif grep -qs 'Package: libssl1.0.0' cat $lib_files ; then
+    echo "$images libssl.1.0.0"
+    ln -s libssl.so.1.0.0 $usrlibpath/libssl.so.0.9.8 > /dev/null 2>&1
+    ln -s libssl.so.1.0.0 $usrlibpath/libssl.so.0.9.7 > /dev/null 2>&1
+    ln -s $usrlibpath/libssl.so.1.0.0 $libpath/libssl.so.0.9.8 > /dev/null 2>&1
+    ln -s $usrlibpath/libssl.so.1.0.0 $libpath/libssl.so.0.9.7 > /dev/null 2>&1
+elif grep -qs 'Package: libssl1.0.2' cat $lib_files ; then
+    echo "$images libssl.1.0.2"
+    ln -s libssl.so.1.0.2 $usrlibpath/libssl.so.1.0.0 > /dev/null 2>&1
+    ln -s libssl.so.1.0.2 $usrlibpath/libssl.so.0.9.8 > /dev/null 2>&1
+    ln -s libssl.so.1.0.2 $usrlibpath/libssl.so.0.9.7 > /dev/null 2>&1
+    ln -s $usrlibpath/libssl.so.1.0.2 $libpath/libssl.so.1.0.0 > /dev/null 2>&1
+    ln -s $usrlibpath/libssl.so.1.0.2 $libpath/libssl.so.0.9.8 > /dev/null 2>&1
+    ln -s $usrlibpath/libssl.so.1.0.2 $libpath/libssl.so.0.9.7 > /dev/null 2>&1
+elif grep -qs 'Package: libssl0.9.8' cat $lib_files ; then
+    echo "$images libssl.0.9.8"
+    ln -s libssl.so.0.9.8 $usrlibpath/libssl.so.0.9.7 > /dev/null 2>&1
+    ln -s libssl.so.0.9.8 $usrlibpath/libssl.so.1.0.0 > /dev/null 2>&1
+    ln -s $usrlibpath/libssl.so.0.9.8 $libpath/libssl.so.0.9.7 > /dev/null 2>&1
+    ln -s $usrlibpath/libssl.so.0.9.8 $libpath/libssl.so.1.0.0 > /dev/null 2>&1
+elif [ -f /usr/lib/libssl.so.3 ] ; then
+    echo "$images libssl3"
+    ln -s libssl.so.3 $usrlibpath/libssl.so.1.1 > /dev/null 2>&1
+    ln -s libssl.so.3 $usrlibpath/libssl.so.1.0.0 > /dev/null 2>&1
+    ln -s libssl.so.3 $usrlibpath/libssl.so.0.9.8 > /dev/null 2>&1
+    ln -s libssl.so.3 $usrlibpath/libssl.so.0.9.7 > /dev/null 2>&1
+    ln -s $usrlibpath/libssl.so.3 $libpath/libssl.so.1.1 > /dev/null 2>&1
+    ln -s $usrlibpath/libssl.so.3 $libpath/libssl.so.1.0.0 > /dev/null 2>&1
+    ln -s $usrlibpath/libssl.so.3 $libpath/libssl.so.0.9.8 > /dev/null 2>&1
+    ln -s $usrlibpath/libssl.so.3 $libpath/libssl.so.0.9.7 > /dev/null 2>&1
+elif [ -f /usr/lib/libssl.so.1.1 ] ; then
+    echo "$images libssl1.1"
+    ln -s libssl.so.1.1 $usrlibpath/libssl.so.1.0.0 > /dev/null 2>&1
+    ln -s libssl.so.1.1 $usrlibpath/libssl.so.0.9.8 > /dev/null 2>&1
+    ln -s libssl.so.1.1 $usrlibpath/libssl.so.0.9.7 > /dev/null 2>&1
+    ln -s $usrlibpath/libssl.so.1.1 $libpath/libssl.so.1.0.0 > /dev/null 2>&1
+    ln -s $usrlibpath/libssl.so.1.1 $libpath/libssl.so.0.9.8 > /dev/null 2>&1
+    ln -s $usrlibpath/libssl.so.1.1 $libpath/libssl.so.0.9.7 > /dev/null 2>&1
+elif [ -f /usr/lib/libssl.so.1.0.0 ] ; then
+    echo "$images libssl1.0"
+    ln -s libssl.so.1.0.0 $usrlibpath/libssl.so.0.9.8 > /dev/null 2>&1
+    ln -s libssl.so.1.0.0 $usrlibpath/libssl.so.0.9.7 > /dev/null 2>&1
+    ln -s $usrlibpath/libssl.so.1.0.0 $libpath/libssl.so.0.9.8 > /dev/null 2>&1
+    ln -s $usrlibpath/libssl.so.1.0.0 $libpath/libssl.so.0.9.7 > /dev/null 2>&1
+elif [ -f /usr/lib/libssl.so.1.0.2 ] ; then
+    echo "$images libssl.1.0.2"
+    ln -s libssl.so.1.0.2 $usrlibpath/libssl.so.1.0.0 > /dev/null 2>&1
+    ln -s libssl.so.1.0.2 $usrlibpath/libssl.so.0.9.8 > /dev/null 2>&1
+    ln -s libssl.so.1.0.2 $usrlibpath/libssl.so.0.9.7 > /dev/null 2>&1
+    ln -s $usrlibpath/libssl.so.1.0.2 $libpath/libssl.so.1.0.0 > /dev/null 2>&1
+    ln -s $usrlibpath/libssl.so.1.0.2 $libpath/libssl.so.0.9.8 > /dev/null 2>&1
+    ln -s $usrlibpath/libssl.so.1.0.2 $libpath/libssl.so.0.9.7 > /dev/null 2>&1
+elif [ -f /usr/lib/libssl.so.0.9.8 ] ; then
+    echo "$images libssl.0.9.8"
+    ln -s libssl.so.0.9.8 $usrlibpath/libssl.so.0.9.7 > /dev/null 2>&1
+    ln -s libssl.so.0.9.8 $usrlibpath/libssl.so.1.0.0 > /dev/null 2>&1
+    ln -s $usrlibpath/libssl.so.0.9.8 $libpath/libssl.so.0.9.7 > /dev/null 2>&1
+    ln -s $usrlibpath/libssl.so.0.9.8 $libpath/libssl.so.1.0.0 > /dev/null 2>&1
+else ## Try to Download libssl from feed
+    if [ -n "$(opkg list | grep libssl3)" ]; then
+        echo "install libssl3"
+        if [ -f /etc/apt/apt.conf ] ; then
+            apt-get install --reinstall libssl3 > /dev/null 2>&1
+            ln -s libssl.so.3 $usrlibpath/libssl.so.1.1 > /dev/null 2>&1
+            ln -s libssl.so.3 $usrlibpath/libssl.so.1.0.0 > /dev/null 2>&1
+            ln -s libssl.so.3 $usrlibpath/libssl.so.0.9.8 > /dev/null 2>&1
+            ln -s libssl.so.3 $usrlibpath/libssl.so.0.9.7 > /dev/null 2>&1
+            ln -s $usrlibpath/libssl.so.3 $libpath/libssl.so.1.1 > /dev/null 2>&1
+            ln -s $usrlibpath/libssl.so.3 $libpath/libssl.so.1.0.0 > /dev/null 2>&1
+            ln -s $usrlibpath/libssl.so.3 $libpath/libssl.so.0.9.8 > /dev/null 2>&1
+            ln -s $usrlibpath/libssl.so.3 $libpath/libssl.so.0.9.7 > /dev/null 2>&1
+        elif [ -f /etc/opkg/opkg.conf ] ; then
+            opkg install --force-overwrite --force-depends libssl3 > /dev/null
+            ln -s libssl.so.3 $usrlibpath/libssl.so.1.1 > /dev/null 2>&1
+            ln -s libssl.so.3 $usrlibpath/libssl.so.1.0.0 > /dev/null 2>&1
+            ln -s libssl.so.3 $usrlibpath/libssl.so.0.9.8 > /dev/null 2>&1
+            ln -s libssl.so.3 $usrlibpath/libssl.so.0.9.7 > /dev/null 2>&1
+            ln -s $usrlibpath/libssl.so.3 $libpath/libssl.so.1.1 > /dev/null 2>&1
+            ln -s $usrlibpath/libssl.so.3 $libpath/libssl.so.1.0.0 > /dev/null 2>&1
+            ln -s $usrlibpath/libssl.so.3 $libpath/libssl.so.0.9.8 > /dev/null 2>&1
+            ln -s $usrlibpath/libssl.so.3 $libpath/libssl.so.0.9.7 > /dev/null 2>&1
+        fi
+    elif [ -n "$(opkg list | grep libssl1.1)" ]; then
+        echo "install libssl1.1"
+        if [ -f /etc/apt/apt.conf ] ; then
+            apt-get install --reinstall libssl1.1 > /dev/null 2>&1
+            ln -s libssl.so.1.1 $usrlibpath/libssl.so.1.0.0 > /dev/null 2>&1
+            ln -s libssl.so.1.1 $usrlibpath/libssl.so.0.9.8 > /dev/null 2>&1
+            ln -s libssl.so.1.1 $usrlibpath/libssl.so.0.9.7 > /dev/null 2>&1
+            ln -s $usrlibpath/libssl.so.1.1 $libpath/libssl.so.1.0.0 > /dev/null 2>&1
+            ln -s $usrlibpath/libssl.so.1.1 $libpath/libssl.so.0.9.8 > /dev/null 2>&1
+            ln -s $usrlibpath/libssl.so.1.1 $libpath/libssl.so.0.9.7 > /dev/null 2>&1
+        elif [ -f /etc/opkg/opkg.conf ] ; then
+            opkg install --force-overwrite --force-depends libssl1.1 > /dev/null
+            ln -s libssl.so.1.1 $usrlibpath/libssl.so.1.0.0 > /dev/null 2>&1
+            ln -s libssl.so.1.1 $usrlibpath/libssl.so.0.9.8 > /dev/null 2>&1
+            ln -s libssl.so.1.1 $usrlibpath/libssl.so.0.9.7 > /dev/null 2>&1
+            ln -s $usrlibpath/libssl.so.1.1 $libpath/libssl.so.1.0.0 > /dev/null 2>&1
+            ln -s $usrlibpath/libssl.so.1.1 $libpath/libssl.so.0.9.8 > /dev/null 2>&1
+            ln -s $usrlibpath/libssl.so.1.1 $libpath/libssl.so.0.9.7 > /dev/null 2>&1
+        fi
+    elif [ -n "$(opkg list | grep libssl1.0.2)" ]; then
+        echo "install libssl1.0.2"
+        if [ -f /etc/apt/apt.conf ] ; then
+            apt-get install --reinstall libssl1.0.2 > /dev/null 2>&1
+            ln -s libssl.so.1.0.2 $usrlibpath/libssl.so.1.0.0 > /dev/null 2>&1
+            ln -s libssl.so.1.0.2 $usrlibpath/libssl.so.0.9.8 > /dev/null 2>&1
+            ln -s libssl.so.1.0.2 $usrlibpath/libssl.so.0.9.7 > /dev/null 2>&1
+            ln -s $usrlibpath/libssl.so.1.0.2 $libpath/libssl.so.1.0.0 > /dev/null 2>&1
+            ln -s $usrlibpath/libssl.so.1.0.2 $libpath/libssl.so.0.9.8 > /dev/null 2>&1
+            ln -s $usrlibpath/libssl.so.1.0.2 $libpath/libssl.so.0.9.7 > /dev/null 2>&1
+        elif [ -f /etc/opkg/opkg.conf ] ; then
+            opkg install --force-overwrite --force-depends libssl1.0.2 > /dev/null
+            ln -s libssl.so.1.0.2 $usrlibpath/libssl.so.1.0.0 > /dev/null 2>&1
+            ln -s libssl.so.1.0.2 $usrlibpath/libssl.so.0.9.8 > /dev/null 2>&1
+            ln -s libssl.so.1.0.2 $usrlibpath/libssl.so.0.9.7 > /dev/null 2>&1
+            ln -s $usrlibpath/libssl.so.1.0.2 $libpath/libssl.so.1.0.0 > /dev/null 2>&1
+            ln -s $usrlibpath/libssl.so.1.0.2 $libpath/libssl.so.0.9.8 > /dev/null 2>&1
+            ln -s $usrlibpath/libssl.so.1.0.2 $libpath/libssl.so.0.9.7 > /dev/null 2>&1
+        fi
+    elif [ -n "$(opkg list | grep libssl1.0.0)" ]; then
+        echo "install libssl1.0.0"
+        if [ -f /etc/apt/apt.conf ] ; then
+            apt-get install --reinstall libssl1.0.0 > /dev/null 2>&1
+            ln -s libssl.so.1.0.0 $usrlibpath/libssl.so.0.9.8 > /dev/null 2>&1
+            ln -s libssl.so.1.0.0 $usrlibpath/libssl.so.0.9.7 > /dev/null 2>&1
+            ln -s $usrlibpath/libssl.so.1.0.0 $libpath/libssl.so.0.9.8 > /dev/null 2>&1
+            ln -s $usrlibpath/libssl.so.1.0.0 $libpath/libssl.so.0.9.7 > /dev/null 2>&1
+        elif [ -f /etc/opkg/opkg.conf ] ; then
+            opkg install --force-overwrite --force-depends libssl1.0.0 > /dev/null
+            ln -s libssl.so.1.0.0 $usrlibpath/libssl.so.0.9.8 > /dev/null 2>&1
+            ln -s libssl.so.1.0.0 $usrlibpath/libssl.so.0.9.7 > /dev/null 2>&1
+            ln -s $usrlibpath/libssl.so.1.0.0 $libpath/libssl.so.0.9.8 > /dev/null 2>&1
+            ln -s $usrlibpath/libssl.so.1.0.0 $libpath/libssl.so.0.9.7 > /dev/null 2>&1
+        fi
+    elif [ -n "$(opkg list | grep libssl0.9.8)" ]; then
+        echo "install libssl0.9.8"
+        if [ -f /etc/apt/apt.conf ] ; then
+            apt-get install --reinstall libssl0.9.8 > /dev/null 2>&1
+            ln -s libssl.so.0.9.8 $usrlibpath/libssl.so.0.9.7 > /dev/null 2>&1
+            ln -s libssl.so.0.9.8 $usrlibpath/libssl.so.1.0.0 > /dev/null 2>&1
+            ln -s $usrlibpath/libssl.so.0.9.8 $libpath/libssl.so.0.9.7 > /dev/null 2>&1
+            ln -s $usrlibpath/libssl.so.0.9.8 $libpath/libssl.so.1.0.0 > /dev/null 2>&1
+        elif [ -f /etc/opkg/opkg.conf ] ; then
+            opkg install --force-overwrite --force-depends libssl0.9.8 > /dev/null 2>&1
+            ln -s libssl.so.0.9.8 $usrlibpath/libssl.so.0.9.7 > /dev/null 2>&1
+            ln -s libssl.so.0.9.8 $usrlibpath/libssl.so.1.0.0 > /dev/null 2>&1
+            ln -s $usrlibpath/libssl.so.0.9.8 $libpath/libssl.so.0.9.7 > /dev/null 2>&1
+            ln -s $usrlibpath/libssl.so.0.9.8 $libpath/libssl.so.1.0.0 > /dev/null 2>&1
+        fi
+    else
+        echo $LINE
+        echo "ERROR: The libsslx.x.x file could not be loaded from the repository."
+        echo $LINE
+        exit 1
+    fi
+fi
+############################## libcrypto ####################
+if grep -qs 'Package: libcrypto3' cat $lib_files ; then
+    echo "$images libcrypto3"
+    ln -s libcrypto.so.3 $usrlibpath/libcrypto.so.1.1 > /dev/null 2>&1
+    ln -s libcrypto.so.3 $usrlibpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+    ln -s libcrypto.so.3 $usrlibpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+    ln -s libcrypto.so.3 $usrlibpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+    ln -s $usrlibpath/libcrypto.so.3 $libpath/libcrypto.so.1.1 > /dev/null 2>&1
+    ln -s $usrlibpath/libcrypto.so.3 $libpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+    ln -s $usrlibpath/libcrypto.so.3 $libpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+    ln -s $usrlibpath/libcrypto.so.3 $libpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+elif grep -qs 'Package: libcrypto1.1' cat $lib_files ; then
+    echo "$images libcrypto1.1"
+    ln -s libcrypto.so.1.1 $usrlibpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+    ln -s libcrypto.so.1.1 $usrlibpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+    ln -s libcrypto.so.1.1 $usrlibpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+    ln -s $usrlibpath/libcrypto.so.1.1 $libpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+    ln -s $usrlibpath/libcrypto.so.1.1 $libpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+    ln -s $usrlibpath/libcrypto.so.1.1 $libpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+elif grep -qs 'Package: libcrypto1.0.0' cat $lib_files ; then
+    echo "$images libcrypto.1.0.0"
+    ln -s libcrypto.so.1.0.0 $usrlibpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+    ln -s libcrypto.so.1.0.0 $usrlibpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+    ln -s $usrlibpath/libcrypto.so.1.0.0 $libpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+    ln -s $usrlibpath/libcrypto.so.1.0.0 $libpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+elif grep -qs 'Package: libcrypto1.0.2' cat $lib_files ; then
+    echo "$images libcrypto.1.0.2"
+    ln -s libcrypto.so.1.0.2 $usrlibpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+    ln -s libcrypto.so.1.0.2 $usrlibpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+    ln -s libcrypto.so.1.0.2 $usrlibpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+    ln -s $usrlibpath/libcrypto.so.1.0.2 $libpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+    ln -s $usrlibpath/libcrypto.so.1.0.2 $libpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+    ln -s $usrlibpath/libcrypto.so.1.0.2 $libpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+elif grep -qs 'Package: libcrypto0.9.8' cat $lib_files ; then
+    echo "$images libcrypto.0.9.8"
+    ln -s libcrypto.so.0.9.8 $usrlibpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+    ln -s libcrypto.so.0.9.8 $usrlibpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+    ln -s $usrlibpath/libcrypto.so.0.9.8 $libpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+    ln -s $usrlibpath/libcrypto.so.0.9.8 $libpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+elif [ -f /usr/lib/libcrypto.so.3 ] ; then
+    echo "$images libcrypto3"
+    ln -s libcrypto.so.3 $usrlibpath/libcrypto.so.1.1 > /dev/null 2>&1
+    ln -s libcrypto.so.3 $usrlibpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+    ln -s libcrypto.so.3 $usrlibpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+    ln -s libcrypto.so.3 $usrlibpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+    ln -s $usrlibpath/libcrypto.so.3 $libpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+    ln -s $usrlibpath/libcrypto.so.3 $libpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+    ln -s $usrlibpath/libcrypto.so.3 $libpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+elif [ -f /usr/lib/libcrypto.so.1.1 ] ; then
+    echo "$images libcrypto1.1"
+    ln -s libcrypto.so.1.1 $usrlibpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+    ln -s libcrypto.so.1.1 $usrlibpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+    ln -s libcrypto.so.1.1 $usrlibpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+    ln -s $usrlibpath/libcrypto.so.1.1 $libpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+    ln -s $usrlibpath/libcrypto.so.1.1 $libpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+    ln -s $usrlibpath/libcrypto.so.1.1 $libpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+elif [ -f /usr/lib/libcrypto.so.1.0.0 ] ; then
+    echo "$images libcrypto.1.0.0"
+    ln -s libcrypto.so.1.0.0 $usrlibpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+    ln -s libcrypto.so.1.0.0 $usrlibpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+    ln -s $usrlibpath/libcrypto.so.1.0.0 $libpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+    ln -s $usrlibpath/libcrypto.so.1.0.0 $libpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+elif [ -f /usr/lib/libcrypto.so.1.0.2 ] ; then
+    echo "$images libcrypto.1.0.2"
+    ln -s libcrypto.so.1.0.2 $usrlibpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+    ln -s libcrypto.so.1.0.2 $usrlibpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+    ln -s libcrypto.so.1.0.2 $usrlibpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+    ln -s $usrlibpath/libcrypto.so.1.0.2 $libpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+    ln -s $usrlibpath/libcrypto.so.1.0.2 $libpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+    ln -s $usrlibpath/libcrypto.so.1.0.2 $libpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+elif [ -f /usr/lib/libcrypto.so.0.9.8 ] ; then
+    echo "$images libcrypto.0.9.8"
+    ln -s libcrypto.so.0.9.8 $usrlibpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+    ln -s libcrypto.so.0.9.8 $usrlibpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+    ln -s $usrlibpath/libcrypto.so.0.9.8 $libpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+    ln -s $usrlibpath/libcrypto.so.0.9.8 $libpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+else ## Try to Download libcrypto from feed
+    opkg update
+    if [ -n "$(opkg list | grep libcrypto3)" ]; then
+        echo "install libcrypto3"
+        if [ -f /etc/apt/apt.conf ] ; then
+            apt-get install --reinstall libcrypto3 > /dev/null 2>&1
+            ln -s libcrypto.so.3 $usrlibpath/libcrypto.so.1.1 > /dev/null 2>&1
+            ln -s libcrypto.so.3 $usrlibpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+            ln -s libcrypto.so.3 $usrlibpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+            ln -s libcrypto.so.3 $usrlibpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+            ln -s $usrlibpath/libcrypto.so.3 $libpath/libcrypto.so.1.1 > /dev/null 2>&1
+            ln -s $usrlibpath/libcrypto.so.3 $libpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+            ln -s $usrlibpath/libcrypto.so.3 $libpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+            ln -s $usrlibpath/libcrypto.so.3 $libpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+        elif [ -f /etc/opkg/opkg.conf ] ; then
+            opkg install --force-overwrite --force-depends libcrypto3 > /dev/null
+            ln -s libcrypto.so.3 $usrlibpath/libcrypto.so.1.1 > /dev/null 2>&1
+            ln -s libcrypto.so.3 $usrlibpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+            ln -s libcrypto.so.3 $usrlibpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+            ln -s libcrypto.so.3 $usrlibpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+            ln -s $usrlibpath/libcrypto.so.3 $libpath/libcrypto.so.1.1 > /dev/null 2>&1
+            ln -s $usrlibpath/libcrypto.so.3 $libpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+            ln -s $usrlibpath/libcrypto.so.3 $libpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+            ln -s $usrlibpath/libcrypto.so.3 $libpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+        fi
+    elif [ -n "$(opkg list | grep libcrypto1.1)" ]; then
+        echo "install libcrypto1.1"
+        if [ -f /etc/apt/apt.conf ] ; then
+            apt-get install --reinstall libcrypto1.1 > /dev/null 2>&1
+            ln -s libcrypto.so.1.1 $usrlibpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+            ln -s libcrypto.so.1.1 $usrlibpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+            ln -s libcrypto.so.1.1 $usrlibpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+            ln -s $usrlibpath/libcrypto.so.1.1 $libpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+            ln -s $usrlibpath/libcrypto.so.1.1 $libpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+            ln -s $usrlibpath/libcrypto.so.1.1 $libpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+        elif [ -f /etc/opkg/opkg.conf ] ; then
+            opkg install --force-overwrite --force-depends libcrypto1.1 > /dev/null
+            ln -s libcrypto.so.1.1 $usrlibpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+            ln -s libcrypto.so.1.1 $usrlibpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+            ln -s libcrypto.so.1.1 $usrlibpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+            ln -s $usrlibpath/libcrypto.so.1.1 $libpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+            ln -s $usrlibpath/libcrypto.so.1.1 $libpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+            ln -s $usrlibpath/libcrypto.so.1.1 $libpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+        fi
+    elif [ -n "$(opkg list | grep libcrypto1.0.2)" ]; then
+        echo "install libcrypto1.0.2"
+        if [ -f /etc/apt/apt.conf ] ; then
+            apt-get install --reinstall libcrypto1.0.2 > /dev/null 2>&1
+            ln -s libcrypto.so.1.0.2 $usrlibpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+            ln -s libcrypto.so.1.0.2 $usrlibpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+            ln -s libcrypto.so.1.0.2 $usrlibpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+            ln -s $usrlibpath/libcrypto.so.1.0.2 $libpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+            ln -s $usrlibpath/libcrypto.so.1.0.2 $libpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+            ln -s $usrlibpath/libcrypto.so.1.0.2 $libpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+        elif [ -f /etc/opkg/opkg.conf ] ; then
+            opkg install --force-overwrite --force-depends libcrypto1.0.2 > /dev/null
+            ln -s libcrypto.so.1.0.2 $usrlibpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+            ln -s libcrypto.so.1.0.2 $usrlibpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+            ln -s libcrypto.so.1.0.2 $usrlibpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+            ln -s $usrlibpath/libcrypto.so.1.0.2 $libpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+            ln -s $usrlibpath/libcrypto.so.1.0.2 $libpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+            ln -s $usrlibpath/libcrypto.so.1.0.2 $libpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+        fi
+    elif [ -n "$(opkg list | grep libcrypto1.0.0)" ]; then
+        echo "install libcrypto1.0.0"
+        if [ -f /etc/apt/apt.conf ] ; then
+            apt-get install --reinstall libcrypto1.0.0 > /dev/null 2>&1
+            ln -s libcrypto.so.1.0.0 $usrlibpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+            ln -s libcrypto.so.1.0.0 $usrlibpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+            ln -s $usrlibpath/libcrypto.so.1.0.0 $libpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+            ln -s $usrlibpath/libcrypto.so.1.0.0 $libpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+        elif [ -f /etc/opkg/opkg.conf ] ; then
+            opkg install --force-overwrite --force-depends libcrypto1.0.0 > /dev/null
+            ln -s libcrypto.so.1.0.0 $usrlibpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+            ln -s libcrypto.so.1.0.0 $usrlibpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+            ln -s $usrlibpath/libcrypto.so.1.0.0 $libpath/libcrypto.so.0.9.8 > /dev/null 2>&1
+            ln -s $usrlibpath/libcrypto.so.1.0.0 $libpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+        fi
+    elif [ -n "$(opkg list | grep libcrypto0.9.8)" ]; then
+        echo "install libcrypto0.9.8"
+        if [ -f /etc/apt/apt.conf ] ; then
+            apt-get install --reinstall libcrypto0.9.8 > /dev/null 2>&1
+            ln -s libcrypto.so.0.9.8 $usrlibpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+            ln -s libcrypto.so.0.9.8 $usrlibpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+            ln -s $usrlibpath/libcrypto.so.0.9.8 $libpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+            ln -s $usrlibpath/libcrypto.so.0.9.8 $libpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+        elif [ -f /etc/opkg/opkg.conf ] ; then
+            opkg install --force-overwrite --force-depends libcrypto0.9.8 > /dev/null 2>&1
+            ln -s libcrypto.so.0.9.8 $usrlibpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+            ln -s libcrypto.so.0.9.8 $usrlibpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+            ln -s $usrlibpath/libcrypto.so.0.9.8 $libpath/libcrypto.so.0.9.7 > /dev/null 2>&1
+            ln -s $usrlibpath/libcrypto.so.0.9.8 $libpath/libcrypto.so.1.0.0 > /dev/null 2>&1
+        fi
+    else
+        echo $LINE
+        echo "ERROR: The libcryptox.x.x file could not be loaded from the repository."
+        echo $LINE
+        exit 1
+    fi
+fi
+
+echo "$LINE"
+echo "Pre-installation check completed successfully!"
+echo "Proceeding with installation..."
+echo "$LINE"
+
+exit 0

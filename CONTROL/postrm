@@ -1,0 +1,66 @@
+﻿#!/bin/sh
+
+# **************************************
+# Softcam Manager - Post Removal Script
+# **************************************
+
+echo "========================================"
+echo "Softcam Manager - Cleaning System"
+echo "========================================"
+
+PLUGIN_DIR="/usr/lib/enigma2/python/Plugins/Extensions/tvManager/"
+
+CONFIG_FILES="
+/etc/clist.list
+/etc/startcam.sh
+/etc/CurrentBhCamName
+/etc/autocam.txt
+/etc/autocam2.txt
+/tmp/softcam_backups
+"
+
+echo "Removing plugin directory..."
+if [ -d "$PLUGIN_DIR" ]; then
+    rm -rf "$PLUGIN_DIR" > /dev/null 2>&1
+    echo "✓ Plugin directory removed"
+else
+    echo "⚠ Plugin directory not found"
+fi
+
+echo "Cleaning configuration files..."
+for file in $CONFIG_FILES; do
+    if [ -e "$file" ]; then
+        rm -rf "$file" > /dev/null 2>&1
+        echo "✓ Removed: $file"
+    fi
+done
+
+echo "Cleaning temporary files..."
+rm -f /tmp/*.ipk /tmp/*.deb /tmp/*.tar.gz /tmp/*.zip > /dev/null 2>&1
+echo "✓ Temporary files cleaned"
+
+if [ -f "/etc/init.d/dccamdOrig" ]; then
+    echo "Restoring original dccamd script..."
+    mv /etc/init.d/dccamdOrig /etc/init.d/dccamd > /dev/null 2>&1
+    echo "✓ Original dccamd restored"
+fi
+
+echo "Removing symbolic links..."
+for link in "/var/bin" "/var/keys" "/var/scce" "/var/script"; do
+    if [ -L "$link" ]; then
+        rm -f "$link" > /dev/null 2>&1
+        echo "✓ Removed link: $link"
+    fi
+done
+
+echo "========================================"
+echo "Softcam Manager - Cleanup Complete"
+echo "========================================"
+echo ""
+echo " IMPORTANT: Restart Enigma2 to complete cleanup"
+echo ""
+echo "****************************************"
+echo "* Please Restart Enigma2 Now!          *"
+echo "****************************************"
+
+exit 0
