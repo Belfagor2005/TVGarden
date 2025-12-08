@@ -1,9 +1,12 @@
 # TV Garden Plugin for Enigma2
 
+![](https://komarev.com/ghpvc/?username=Belfagor2005&label=Repository%20Views&color=blueviolet)
+[![Python package](https://github.com/Belfagor2005/TVGarden/actions/workflows/pylint.yml/badge.svg)](https://github.com/Belfagor2005/TVGarden/actions/workflows/pylint.yml)
 [![TV Garden](https://img.shields.io/badge/TVGarden-00aaff.svg)](https://github.com/Belfagor2005/tv-garden-channel-list)
 [![Enigma2](https://img.shields.io/badge/Enigma2-Plugin-ff6600.svg)](https://www.enigma2.net)
 [![Python](https://img.shields.io/badge/Python-3.x-blue.svg)](https://www.python.org)
-[![License](https://img.shields.io/badge/License-GPLv3-green.svg)](LICENSE)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![GitHub stars](https://img.shields.io/github/stars/Belfagor2005/TVGarden?style=social)](https://github.com/Belfagor2005/TVGarden/stargazers)
 
 **Professional IPTV Streaming Solution** for Enigma2 receivers with access to **50,000+ channels** from **150+ countries** and **29 categories**.
 
