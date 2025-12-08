@@ -8,10 +8,8 @@ TVGARDEN_DIR="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden"
 CONFIG_DIR="/etc/enigma2/tvgarden"
 CACHE_DIR="/tmp/tvgarden_cache"
 
-# 1. Rimuovi directory plugin se vuota
 echo "Cleaning up plugin directory..."
 if [ -d "$TVGARDEN_DIR" ]; then
-    # Controlla se la directory è vuota (potrebbe avere dati utente)
     if [ -z "$(ls -A "$TVGARDEN_DIR" 2>/dev/null)" ]; then
         rmdir "$TVGARDEN_DIR" 2>/dev/null || true
     else
@@ -20,7 +18,6 @@ if [ -d "$TVGARDEN_DIR" ]; then
     fi
 fi
 
-# 2. Pulisci cache (ma conserva per possibile reinstallazione)
 echo "Cleaning cache..."
 if [ -d "$CACHE_DIR" ]; then
     # Rimuovi solo file vecchi (>30 giorni) se si vuole conservare cache
@@ -33,7 +30,6 @@ if [ -d "$CACHE_DIR" ]; then
     echo "  (Remove manually if desired: 'rm -rf $CACHE_DIR')"
 fi
 
-# 3. Rimuovi link simbolici delle skin
 echo "Removing skin symlinks..."
 SKINS_DIR="/usr/share/enigma2"
 for skin_link in "$SKINS_DIR"/TVGarden_*; do
@@ -42,9 +38,8 @@ for skin_link in "$SKINS_DIR"/TVGarden_*; do
     fi
 done 2>/dev/null || true
 
-# 4. Opzione: mantieni configurazione utente
 echo ""
-echo "⚠️  User data and configuration preserved:"
+echo "⚠�?  User data and configuration preserved:"
 echo "   - Configuration: $CONFIG_DIR"
 echo "   - Favorites: $CONFIG_DIR/favorites/"
 echo "   - Cache: $CACHE_DIR"
@@ -54,16 +49,13 @@ echo "  rm -rf $CONFIG_DIR"
 echo "  rm -rf $CACHE_DIR"
 echo ""
 
-# 5. Aggiorna cache plugin Enigma2
 echo "Updating plugin cache..."
 if [ -f /usr/bin/enigma2.sh ]; then
-    # Forza ricaricamento plugin
     touch /usr/lib/enigma2/python/Plugins/__init__.py 2>/dev/null || true
 fi
 
-# 6. Suggerimento riavvio
 echo "For complete cleanup, restart Enigma2 GUI:"
-echo "  systemctl restart enigma2"
+echo "  reboot"
 echo ""
 echo "✅ TV Garden Plugin removal completed!"
 echo "   Some user data was preserved (see above)."

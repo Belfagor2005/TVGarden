@@ -14,7 +14,6 @@ echo "Setting correct permissions..."
 chmod -R 755 "$TVGARDEN_DIR"
 chown -R root:root "$TVGARDEN_DIR"
 
-# 2. Compila file .mo per le traduzioni (se presenti)
 if [ -d "$LOCALE_DIR" ]; then
     echo "Compiling language files..."
     for lang_dir in "$LOCALE_DIR"/*/; do
@@ -26,13 +25,11 @@ if [ -d "$LOCALE_DIR" ]; then
     done
 fi
 
-# 3. Crea directory cache
 echo "Creating cache directories..."
 mkdir -p "$CACHE_DIR"
 mkdir -p "/etc/enigma2/tvgarden/favorites"
-chmod 777 "$CACHE_DIR"  # Scrivilibie da tutti i processi
+chmod 777 "$CACHE_DIR"
 
-# 4. Crea link simbolici per le skin (se necessario)
 echo "Setting up skins..."
 SKINS_DIR="/usr/share/enigma2"
 if [ -d "$TVGARDEN_DIR/skins" ]; then
@@ -42,7 +39,6 @@ if [ -d "$TVGARDEN_DIR/skins" ]; then
     done
 fi
 
-# 5. Aggiorna la lista plugin di Enigma2
 echo "Updating plugin registry..."
 if [ -f /usr/lib/enigma2/python/Plugins/Extensions/TVGarden/plugin.py ]; then
     python3 -c "
@@ -56,7 +52,6 @@ if os.path.exists(plugin_path):
 " 2>/dev/null || true
 fi
 
-# 6. Ripristina configurazione backup (se disponibile)
 BACKUP_PATTERN="/tmp/tvgarden_backup_*"
 LATEST_BACKUP=$(ls -td $BACKUP_PATTERN 2>/dev/null | head -1)
 if [ -n "$LATEST_BACKUP" ] && [ -d "$LATEST_BACKUP" ]; then
@@ -65,20 +60,17 @@ if [ -n "$LATEST_BACKUP" ] && [ -d "$LATEST_BACKUP" ]; then
     rm -rf "$LATEST_BACKUP"
 fi
 
-# 7. Pulisce cache vecchia (opzionale)
 find "/tmp" -name "tvgarden_*" -type f -mtime +7 -delete 2>/dev/null || true
 
 echo ""
 echo "✅ TV Garden Plugin installed successfully!"
 echo "📺 Access it from: Main Menu → Plugins → TV Garden"
-echo "⚙️  Configuration: /etc/enigma2/tvgarden/config.json"
+echo "⚙�?  Configuration: /etc/enigma2/tvgarden/config.json"
 echo ""
 echo "To complete installation, restart Enigma2 GUI:"
-echo "  - Via telnet: 'systemctl restart enigma2'"
-echo "  - Or reboot your receiver"
+echo "  - reboot your receiver"
 echo ""
 
-# Suggerimento per riavvio
 if [ -f /usr/bin/enigma2.sh ]; then
     echo "NOTE: Some features may require a GUI restart."
 fi
