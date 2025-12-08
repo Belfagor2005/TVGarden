@@ -137,7 +137,7 @@ class TVGardenMain(Screen):
 
         self.config = PluginConfig()
         dynamic_skin = self.config.load_skin("TVGardenMain", self.skin)
-        self.skin = dynamic_skin        
+        self.skin = dynamic_skin
 
         Screen.__init__(self, session)
         self.session = session
@@ -225,8 +225,7 @@ class TVGardenMain(Screen):
             f"TV Garden v.{PLUGIN_VERSION} | Cache: {self.cache.get_size()} items"
         )
 
-    def show_about(self):
-        """Show about dialog with fixed spacing"""
+    def show_about_fallback(self):
         col1_width = 30
         features = [
             ("Browse by Country", "Countries: ~150"),
@@ -267,39 +266,14 @@ class TVGardenMain(Screen):
         about_text = "\n".join(about_lines)
         self.session.open(MessageBox, about_text, MessageBox.TYPE_INFO)
 
-    # def show_about(self):
-        # """Show about dialog with version and features"""
-        # about_text = _(
-            # "╔══════════════════════════════════════╗\n"
-            # "  TV GARDEN PLUGIN v%s\n"
-            # "  Enigma2 IPTV Streaming Solution\n"
-            # "╚══════════════════════════════════════╝\n\n"
-            # "📡 **FEATURES**\n"
-            # "• 📁 Browse by Country (with flags)\n"
-            # "• 🗂️ Browse by Category (+29 categories)\n"
-            # "• ⭐ Favorites with Export/Import\n"
-            # "• 🔍 Fast Search across all channels\n"
-            # "• 🎬 Advanced Player with Zapping\n"
-            # "• ⚡ Smart Caching (TTL + gzip)\n"
-            # "• 🛡️ Filtered Streams (no DRM/crash)\n"
-            # "• 🎨 Multiple Skins (HD/FHD/WQHD)\n\n"
-            # "🎮 **PLAYER CONTROLS**\n"
-            # "• CHANNEL +/- : Navigate channels\n"
-            # "• OK : Channel info\n"
-            # "• EXIT : Close player\n\n"
-            # "📊 **STATISTICS**\n"
-            # "• Countries: ~150\n"
-            # "• Categories: 29\n"
-            # "• Channels: 50,000+\n"
-            # "• Cache: %d items\n\n"
-            # "🔗 **DATA SOURCE**\n"
-            # "TV Garden Project (Belfagor2005 fork)\n"
-            # "https://github.com/Belfagor2005/tv-garden-channel-list\n\n"
-            # "📈 **PLUGIN STATUS: FULLY OPERATIONAL**\n"
-            # "All core features tested and working"
-        # ) % (PLUGIN_VERSION, self.cache.get_size())
-
-        # self.session.open(MessageBox, about_text, MessageBox.TYPE_INFO)
+    def show_about(self):
+        """Show about screen"""
+        try:
+            from .browser.about import TVGardenAbout
+            self.session.open(TVGardenAbout)
+        except ImportError:
+            # Fallback to MessageBox
+            self.show_about_fallback()
 
     def exit(self):
         """Exit plugin"""

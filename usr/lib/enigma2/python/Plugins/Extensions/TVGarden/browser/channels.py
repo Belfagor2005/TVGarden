@@ -397,6 +397,7 @@ class ChannelsBrowser(BaseBrowser):
         else:
             self["logo"].hide()
             print("[ChannelsBrowser] No logo data, hiding", file=stderr)
+
     def play_channel(self):
         """Play the selected channel."""
         # 1. Get the correct index from the menu

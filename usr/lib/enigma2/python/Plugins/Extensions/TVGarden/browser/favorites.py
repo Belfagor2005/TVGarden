@@ -49,7 +49,7 @@ class FavoritesBrowser(BaseBrowser):
 
         self.config = PluginConfig()
         dynamic_skin = self.config.load_skin("FavoritesBrowser", self.skin)
-        self.skin = dynamic_skin   
+        self.skin = dynamic_skin
 
         BaseBrowser.__init__(self, session)
         self.session = session

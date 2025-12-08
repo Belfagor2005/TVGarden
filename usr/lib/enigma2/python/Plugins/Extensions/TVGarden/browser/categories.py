@@ -77,10 +77,10 @@ class CategoriesBrowser(BaseBrowser):
     """
 
     def __init__(self, session):
-        
+
         self.config = PluginConfig()
         dynamic_skin = self.config.load_skin("CategoriesBrowser", self.skin)
-        self.skin = dynamic_skin   
+        self.skin = dynamic_skin
 
         BaseBrowser.__init__(self, session)
         self.session = session
@@ -121,7 +121,7 @@ class CategoriesBrowser(BaseBrowser):
         for category in CATEGORIES:
             # Show name only - we'll get count when selected
             menu_items.append((category['name'], category['id']))
-        
+
         self["menu"].setList(menu_items)
         self["status"].setText(_("Select a category"))
 
@@ -131,19 +131,19 @@ class CategoriesBrowser(BaseBrowser):
         if selection:
             category_id = selection[1]
             category_name = selection[0]
-            
+
             print(f"[DEBUG CategoriesBrowser] Selected: {category_id} ({category_name})")
-            
+
             try:
                 # Load data
                 print(f"[DEBUG] Calling cache.get_category_channels('{category_id}')")
                 data = self.cache.get_category_channels(category_id)
                 print(f"[DEBUG] Data received, type: {type(data)}")
-                
+
                 # Full log for the first 500 characters
                 data_str = str(data)
                 print(f"[DEBUG] Data sample: {data_str[:300]}...")
-                
+
                 # Extract channels
                 channels = []
                 if isinstance(data, list):
@@ -161,9 +161,9 @@ class CategoriesBrowser(BaseBrowser):
                                 channels = data[key]
                                 print(f"[DEBUG] Found '{key}' key with {len(channels)} items")
                                 break
-                
+
                 print(f"[DEBUG] Total channels extracted: {len(channels)}")
-                
+
                 if len(channels) > 0:
                     print(f"[DEBUG] Opening ChannelsBrowser with {len(channels)} channels")
                     self.session.open(ChannelsBrowser,
@@ -172,7 +172,7 @@ class CategoriesBrowser(BaseBrowser):
                 else:
                     self["status"].setText(_("No channels in this category"))
                     print("[DEBUG] WARNING: Empty channel list!")
-                    
+
             except Exception as e:
                 self["status"].setText(_("Error loading category"))
                 print(f"[DEBUG] ERROR: {type(e).__name__}: {e}")

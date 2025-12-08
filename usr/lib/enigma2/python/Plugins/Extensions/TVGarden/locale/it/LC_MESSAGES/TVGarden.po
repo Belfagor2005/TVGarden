@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TVGarden\n"
-"POT-Creation-Date: 2025-12-08 19:27+0100\n"
+"POT-Creation-Date: 2025-12-08 20:09+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: lululla [ekekaz@gmail.com]\n"
@@ -18,6 +18,22 @@ msgstr ""
 "X-Poedit-SearchPath-2: browser\n"
 "X-Poedit-SearchPath-3: player\n"
 "X-Poedit-SearchPath-4: utils\n"
+
+#: browser/about.py:44
+msgid "TV Garden Plugin"
+msgstr ""
+
+#: browser/about.py:47
+msgid "Close"
+msgstr ""
+
+#: browser/about.py:60
+msgid "About TV Garden"
+msgstr "Informazioni sul plugin TV Garden"
+
+#: browser/about.py:98
+msgid "Error loading information"
+msgstr "Errore durante il caricamento delle Informazioni"
 
 #: browser/categories.py:27
 msgid "Animation"
@@ -139,14 +155,12 @@ msgstr "Meteo"
 msgid "Loading categories..."
 msgstr "Caricamento categorie in corso..."
 
-#: browser/categories.py:94 browser/channels.py:106
-#: ⁨browser/countries - Copia.py⁩:73 browser/countries.py:73
+#: browser/categories.py:94 browser/channels.py:106 browser/countries.py:73
 #: browser/favorites.py:62 browser/search.py:71 utils/settings.py:57
 msgid "Back"
 msgstr "Torna"
 
-#: browser/categories.py:95 ⁨browser/countries - Copia.py⁩:74
-#: browser/countries.py:74 plugin.py:162
+#: browser/categories.py:95 browser/countries.py:74 plugin.py:162
 msgid "Select"
 msgstr "Seleziona"
 
@@ -170,8 +184,7 @@ msgstr "Aggiornamento della cache..."
 msgid "Cache cleared"
 msgstr "Cache cancellata"
 
-#: browser/categories.py:189 ⁨browser/countries - Copia.py⁩:297
-#: browser/countries.py:326 plugin.py:217
+#: browser/categories.py:189 browser/countries.py:326 plugin.py:217
 msgid "Refresh failed"
 msgstr "Aggiornamento fallito"
 
@@ -220,76 +233,76 @@ msgstr "(limitato al primo {limit})"
 msgid "Error loading channels"
 msgstr "Errore durante il caricamento dei canali"
 
-#: browser/channels.py:425 browser/search.py:394
+#: browser/channels.py:426 browser/search.py:394
 msgid "No stream URL"
 msgstr "Nessun URL di streaming"
 
-#: browser/channels.py:456 browser/favorites.py:186 browser/search.py:417
+#: browser/channels.py:457 browser/favorites.py:186 browser/search.py:417
 msgid "Removed from favorites"
 msgstr "Rimosso dai preferiti"
 
-#: browser/channels.py:459 browser/search.py:420
+#: browser/channels.py:460 browser/search.py:420
 msgid "Added to favorites"
 msgstr "Aggiunto ai Preferiti"
 
-#: browser/channels.py:471
+#: browser/channels.py:472
 #, python-format
 msgid "Stream: %s"
 msgstr "Flusso: %s"
 
-#: browser/channels.py:478
+#: browser/channels.py:479
 msgid "Play Channel"
 msgstr "Riproduci canale"
 
-#: browser/channels.py:479
+#: browser/channels.py:480
 msgid "Add to Favorites"
 msgstr "Aggiungi ai Preferiti"
 
-#: browser/channels.py:480
+#: browser/channels.py:481
 msgid "Channel Information"
 msgstr "Informazioni sul canale"
 
-#: browser/channels.py:481
+#: browser/channels.py:482
 msgid "Share Channel"
 msgstr "Condividi canale"
 
-#: browser/channels.py:482
+#: browser/channels.py:483
 msgid "Report Issue"
 msgstr "Segnala un problema"
 
-#: browser/channels.py:485
+#: browser/channels.py:486
 msgid "Channel Menu"
 msgstr "Menu Canale"
 
-#: ⁨browser/countries - Copia.py⁩:71 browser/countries.py:71
+#: browser/countries.py:71
 msgid "Loading countries..."
 msgstr "Caricamento dei paesi in corso..."
 
-#: ⁨browser/countries - Copia.py⁩:75 browser/countries.py:75 plugin.py:163
+#: browser/countries.py:75 plugin.py:163
 msgid "Refresh"
 msgstr "Aggiorna"
 
-#: ⁨browser/countries - Copia.py⁩:162 browser/countries.py:162
+#: browser/countries.py:162
 msgid "Select a country"
 msgstr "Seleziona un paese"
 
-#: ⁨browser/countries - Copia.py⁩:168 browser/countries.py:168
+#: browser/countries.py:168
 msgid "No countries with channels found"
 msgstr "Nessun paese con canali trovati"
 
-#: ⁨browser/countries - Copia.py⁩:171 browser/countries.py:171
+#: browser/countries.py:171
 msgid "Error loading countries"
 msgstr "Errore durante il caricamento dei Paesi"
 
-#: ⁨browser/countries - Copia.py⁩:273 browser/countries.py:302
+#: browser/countries.py:302
 msgid "No country selected"
 msgstr "Nessun paese selezionato"
 
-#: ⁨browser/countries - Copia.py⁩:291 browser/countries.py:320
+#: browser/countries.py:320
 msgid "Refreshing..."
 msgstr "Aggiornamento..."
 
-#: ⁨browser/countries - Copia.py⁩:295 browser/countries.py:324
+#: browser/countries.py:324
 msgid "Countries refreshed"
 msgstr "Paesi aggiornati"
 
@@ -454,11 +467,11 @@ msgstr "La cache e i metadati sono stati aggiornati."
 msgid "Failed to refresh data. Check internet connection."
 msgstr "Impossibile aggiornare i dati. Controllare la connessione Internet."
 
-#: plugin.py:318
+#: plugin.py:296
 msgid "TV Garden"
 msgstr ""
 
-#: plugin.py:325
+#: plugin.py:303
 msgid "Access free IPTV channels from around the world"
 msgstr "Accedi gratuitamente ai canali IPTV da tutto il mondo"
 

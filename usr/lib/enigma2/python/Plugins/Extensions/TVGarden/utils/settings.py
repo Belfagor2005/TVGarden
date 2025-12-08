@@ -206,22 +206,22 @@ class TVGardenSettings(ConfigListScreen, Screen):
             _("Max Favorites"): "max_favorites",
             _("User Agent"): "user_agent",
         }
-        
+
         # Save each config entry
         for entry in self["config"].list:
             display_name = entry[0]
             config_item = entry[1]
-            
+
             # Get the config key from display name
             config_key = name_to_key.get(display_name)
             if not config_key:
                 print(f"[SETTINGS WARNING] No key found for: '{display_name}'")
                 print(f"[SETTINGS DEBUG] Available keys: {list(name_to_key.keys())}")
                 continue
-            
+
             value = config_item.value
             print(f"[SETTINGS DEBUG] Saving: {config_key} = {value} (type: {type(value)})")
-            
+
             # Handle special cases
             if config_key == "cache_ttl":
                 # Convert hours to seconds
@@ -238,17 +238,17 @@ class TVGardenSettings(ConfigListScreen, Screen):
             else:
                 # Standard save
                 self.config.set(config_key, value)
-        
+
         # Force save to disk
         if self.config.save_config():
             print("[SETTINGS DEBUG] Config saved successfully to disk")
         else:
             print("[SETTINGS ERROR] Failed to save config to disk!")
-        
+
         # Verify
         saved_max = self.config.get("max_channels", 500)
         print(f"[SETTINGS DEBUG] VERIFIED - max_channels in config: {saved_max}")
-        
+
         try:
             import json
             config_file = "/etc/enigma2/tvgarden/config.json"
@@ -258,7 +258,7 @@ class TVGardenSettings(ConfigListScreen, Screen):
                 print(f"[SETTINGS DEBUG] File content - max_channels: {file_content.get('max_channels', 'NOT FOUND')}")
         except Exception as e:
             print(f"[SETTINGS DEBUG] Could not read config file: {e}")
-        
+
         self.close(True)
 
     def cancel(self):
