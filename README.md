@@ -10,8 +10,8 @@
 
 **Professional IPTV Streaming Solution** for Enigma2 receivers with access to **50,000+ channels** from **150+ countries** and **29 categories**.
 ---
-<img src="https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/screen/screen1.png">
-<img src="https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/screen/screen2.png">
+<img src="[https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/screen/screen1.png](https://raw.githubusercontent.com/Belfagor2005/TVGarden/refs/heads/main/screen/screen1.png)">
+<img src="[https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/screen/screen2.png](https://raw.githubusercontent.com/Belfagor2005/TVGarden/refs/heads/main/screen/screen1.png)">
 <img src="https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/screen/screen3.png">
 <img src="https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/screen/screen4.png">
 <img src="https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/screen/screen5.png">
