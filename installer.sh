@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # TV Garden Installer for Enigma2
-# Usage: wget -q --no-check-certificate "https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/installer.sh" -O - | /bin/sh
+# wget -q --no-check-certificate "https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/installer.sh" -O - | /bin/sh
 
 version='1.0'
-changelog='\nInit Project'
+changelog='Init Project'
 
 TMPPATH=/tmp/TVGarden-install
 FILEPATH=/tmp/TVGarden-main.tar.gz
@@ -122,19 +122,47 @@ fi
 echo "Installing plugin files..."
 mkdir -p "$PLUGINPATH"
 
-if [ -d "$TMPPATH/TVGarden-main/usr/lib/enigma2/python/Plugins/Extensions/TVGarden" ]; then
-    cp -r "$TMPPATH/TVGarden-main/usr/lib/enigma2/python/Plugins/Extensions/TVGarden"/* "$PLUGINPATH/" 2>/dev/null
-    echo "Copied from standard plugin directory"
-elif [ -d "$TMPPATH/TVGarden-main/usr/lib64/enigma2/python/Plugins/Extensions/TVGarden" ]; then
-    cp -r "$TMPPATH/TVGarden-main/usr/lib64/enigma2/python/Plugins/Extensions/TVGarden"/* "$PLUGINPATH/" 2>/dev/null
-    echo "Copied from lib64 plugin directory"
-elif [ -d "$TMPPATH/TVGarden-main/usr" ]; then
-    cp -r "$TMPPATH/TVGarden-main/usr"/* /usr/ 2>/dev/null
-    echo "Copied entire usr structure"
+# TROVA E COPIA IL CONTENUTO CORRETTO - METODO ROBUSTO
+SOURCE_DIR=""
+
+# Cerca il contenuto del plugin in vari percorsi possibili
+for search_path in \
+    "$TMPPATH/TVGarden-main/TVGarden" \
+    "$TMPPATH/TVGarden-main" \
+    "$TMPPATH/TVGarden-main/usr/lib/enigma2/python/Plugins/Extensions/TVGarden" \
+    "$TMPPATH/TVGarden-main/usr/lib64/enigma2/python/Plugins/Extensions/TVGarden"
+do
+    if [ -d "$search_path" ] && [ -f "$search_path/plugin.py" ]; then
+        SOURCE_DIR="$search_path"
+        echo "Found plugin source at: $SOURCE_DIR"
+        break
+    fi
+done
+
+if [ -n "$SOURCE_DIR" ]; then
+    # Copia tutto il contenuto della directory trovata
+    echo "Copying plugin files from $SOURCE_DIR to $PLUGINPATH"
+    cp -r "$SOURCE_DIR"/* "$PLUGINPATH/" 2>/dev/null
+    
+    # Verifica che i file critici siano stati copiati
+    if [ $? -eq 0 ] && [ -f "$PLUGINPATH/plugin.py" ]; then
+        echo "Successfully copied plugin files"
+        
+        # Imposta i permessi corretti
+        chmod -R 755 "$PLUGINPATH"
+        find "$PLUGINPATH" -name "*.py" -exec chmod 644 {} \;
+        find "$PLUGINPATH" -name "*.sh" -exec chmod 755 {} \;
+    else
+        echo "Error: Failed to copy plugin files!"
+        echo "Attempting fallback method..."
+        
+        # Fallback: estrai direttamente nella destinazione
+        tar -xzf "$FILEPATH" --strip-components=1 -C "$PLUGINPATH" --wildcards "*TVGarden/*" 2>/dev/null
+    fi
 else
-    echo "Could not find plugin files in extracted archive"
-    echo "Available directories in tmp:"
-    find "$TMPPATH" -type d | head -10
+    echo "Could not find plugin files in extracted archive!"
+    echo "Available directories:"
+    find "$TMPPATH" -type f -name "*.py" | head -10
     cleanup
     exit 1
 fi
@@ -142,12 +170,15 @@ fi
 sync
 
 echo "Verifying installation..."
-if [ -d "$PLUGINPATH" ] && [ -n "$(ls -A "$PLUGINPATH" 2>/dev/null)" ]; then
-    echo "Plugin directory found and not empty: $PLUGINPATH"
-    echo "Contents:"
-    ls -la "$PLUGINPATH/" | head -10
+if [ -f "$PLUGINPATH/plugin.py" ] && [ -f "$PLUGINPATH/__init__.py" ]; then
+    echo "Plugin successfully installed: $PLUGINPATH"
+    echo "Main files:"
+    ls -la "$PLUGINPATH/plugin.py" "$PLUGINPATH/__init__.py" 2>/dev/null
 else
-    echo "Plugin installation failed or directory is empty!"
+    echo "ERROR: Plugin installation failed!"
+    echo "Missing critical files in: $PLUGINPATH"
+    echo "Directory contents:"
+    ls -la "$PLUGINPATH/" 2>/dev/null
     cleanup
     exit 1
 fi
@@ -177,6 +208,7 @@ PYTHON: $python_vers
 IMAGE NAME: ${distro_value:-Unknown}
 IMAGE VERSION: ${distro_version:-Unknown}
 PLUGIN VERSION: $version
+PLUGIN PATH: $PLUGINPATH
 EOF
 
 echo "Restarting enigma2 in 5 seconds..."
