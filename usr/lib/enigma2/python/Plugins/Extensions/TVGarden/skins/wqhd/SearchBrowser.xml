@@ -1,0 +1,17 @@
+<screen name="SearchBrowser" position="center,center" size="1707,960" title="TV Garden" backgroundColor="#1a1a2e" flags="wfNoBorder">
+	<ePixmap pixmap="skin_default/buttons/red.png" position="44,867" size="187,54" alphatest="blend" />
+	<ePixmap pixmap="skin_default/buttons/green.png" position="232,867" size="187,54" alphatest="blend" />
+	<ePixmap pixmap="skin_default/buttons/yellow.png" position="420,867" size="187,54" alphatest="blend" />
+	<ePixmap name="" position="0,0" size="1707,960" alphatest="blend" zPosition="-1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/images/wqhd/background.png" scale="1" />
+	<ePixmap name="" position="1386,708" size="267,107" alphatest="blend" zPosition="1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/logo.png" scale="1" transparent="1" />
+	<widget source="key_red" render="Label" position="44,866" zPosition="1" size="187,54" font="Regular;27" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" />
+	<widget source="key_green" render="Label" position="232,867" zPosition="1" size="187,54" font="Regular;27" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" />
+	<widget source="key_yellow" render="Label" position="420,867" zPosition="1" size="187,54" font="Regular;27" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" />
+	<widget name="menu" position="38,155" size="907,632" scrollbarMode="showOnDemand" backgroundColor="#16213e" />
+	<widget name="status" position="804,858" size="864,67" font="Regular; 30" halign="center" foregroundColor="#3333ff" transparent="1" />
+	<widget name="search_label" position="38,30" size="600,90" font="Regular;28" halign="left" valign="center" foregroundColor="#ffffff" />
+	<widget name="search_text" position="644,30" size="1035,90" font="Regular;32" halign="left" valign="center" backgroundColor="#2d3047" foregroundColor="#ffffff" />
+	<eLabel backgroundColor="#001a2336" cornerRadius="30" position="7,852" size="1694,80" zPosition="-80" />
+	<eLabel name="" position="32,135" size="926,670" zPosition="-1" cornerRadius="18" backgroundColor="#00171a1c" foregroundColor="#00171a1c" />
+	<widget source="session.VideoPicture" render="Pig" position="986,187" zPosition="19" size="694,411" backgroundColor="transparent" transparent="0" cornerRadius="14" />
+</screen>

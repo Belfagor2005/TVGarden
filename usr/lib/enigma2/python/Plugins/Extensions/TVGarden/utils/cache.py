@@ -1,0 +1,263 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+TV Garden Plugin - Cache Module
+Smart caching with TTL + gzip
+Based on TV Garden Project
+"""
+
+import time
+import hashlib
+import gzip
+from sys import stderr
+from os.path import join, exists, getmtime
+from os import listdir, remove, makedirs
+from json import load, loads, dump
+from urllib.request import urlopen, Request
+
+
+try:
+    from ..helpers import (
+        get_metadata_url,
+        get_country_url,
+        get_category_url,
+        get_categories_url,
+        log
+    )
+except ImportError as e:
+    print('Error import helpers:', str(e))
+
+    def log(msg, level="INFO"):
+        print(f"[{level}] TVGarden: {msg}")
+
+    def get_metadata_url():
+        return "https://raw.githubusercontent.com/Belfagor2005/tv-garden-channel-list/main/channels/raw/countries_metadata.json"
+
+    def get_country_url(code):
+        return f"https://raw.githubusercontent.com/Belfagor2005/tv-garden-channel-list/main/channels/raw/countries/{code.lower()}.json"
+
+    def get_category_url(cat_id):
+        return f"https://raw.githubusercontent.com/Belfagor2005/tv-garden-channel-list/main/channels/raw/categories/{cat_id}.json"
+
+    def get_categories_url():
+        return "https://api.github.com/repos/Belfagor2005/tv-garden-channel-list/contents/channels/raw/categories"
+
+
+class CacheManager:
+    """Smart cache manager with TTL support"""
+
+    def __init__(self):
+        self.cache_dir = "/tmp/tvgarden_cache"
+
+        if not exists(self.cache_dir):
+            makedirs(self.cache_dir)
+        print(f"[CacheManager] Initialized at {self.cache_dir}", file=stderr)
+
+    def _get_cache_key(self, url):
+        """Generate cache key from URL"""
+        return hashlib.md5(url.encode()).hexdigest()
+
+    def _get_cache_path(self, key):
+        """Get cache file path"""
+        return join(self.cache_dir, f"{key}.json.gz")
+
+    def _is_cache_valid(self, cache_path, ttl=3600):
+        """Check if cache is still valid"""
+        if not exists(cache_path):
+            return False
+
+        file_age = time.time() - getmtime(cache_path)
+        return file_age < ttl
+
+    def _get_cached(self, cache_key):
+        """Get data from cache - nuovo metodo mancante"""
+        cache_path = self._get_cache_path(cache_key)
+        if exists(cache_path):
+            try:
+                with gzip.open(cache_path, 'rt', encoding='utf-8') as f:
+                    return load(f)
+            except Exception as e:
+                print(f"[CACHE] Error reading {cache_key}: {e}", file=stderr)
+        return None
+
+    def _set_cached(self, cache_key, data):
+        """Save data to cache - nuovo metodo mancante"""
+        cache_path = self._get_cache_path(cache_key)
+        try:
+            with gzip.open(cache_path, 'wt', encoding='utf-8') as f:
+                dump(data, f)
+            return True
+        except Exception as e:
+            print(f"[CACHE] Error saving {cache_key}: {e}", file=stderr)
+            return False
+
+    def _fetch_url(self, url):
+        """Fetch URL - nuovo metodo mancante"""
+        try:
+            headers = {'User-Agent': 'TVGarden-Enigma2-Plugin/1.0'}
+            req = Request(url, headers=headers)
+
+            with urlopen(req, timeout=15) as response:
+                data = response.read()
+
+                try:
+                    return loads(data.decode('utf-8'))
+                except:
+                    # Try gzip decompression
+                    try:
+                        return loads(gzip.decompress(data).decode('utf-8'))
+                    except:
+                        raise ValueError("Failed to decode response")
+        except Exception as e:
+            print(f"[CACHE] Error fetching {url}: {e}", file=stderr)
+            raise
+
+    def fetch_url(self, url, force_refresh=False, ttl=3600):
+        """Fetch URL with caching support (metodo vecchio ma usato da get_country_channels)"""
+        cache_key = self._get_cache_key(url)
+        cache_path = self._get_cache_path(cache_key)
+
+        if not force_refresh and self._is_cache_valid(cache_path, ttl):
+            try:
+                with gzip.open(cache_path, 'rt', encoding='utf-8') as f:
+                    return load(f)
+            except:
+                pass
+
+        try:
+            result = self._fetch_url(url)
+            # Cache the result
+            self._set_cached(cache_key, result)
+            return result
+        except Exception as e:
+            print(f"[CACHE] Error in fetch_url: {e}", file=stderr)
+            raise
+
+    def _get_default_categories(self):
+        """Default categories if GitHub API fails"""
+        return [
+            {'id': 'all-channels', 'name': 'All Channels'},
+            {'id': 'animation', 'name': 'Animation'},
+            {'id': 'general', 'name': 'General'},
+            {'id': 'news', 'name': 'News'},
+            {'id': 'entertainment', 'name': 'Entertainment'},
+            {'id': 'music', 'name': 'Music'},
+            {'id': 'sports', 'name': 'Sports'},
+            {'id': 'movies', 'name': 'Movies'},
+            {'id': 'kids', 'name': 'Kids'},
+            {'id': 'documentary', 'name': 'Documentary'},
+        ]
+
+    def get_available_categories(self):
+        """Get list of available categories from GitHub directory"""
+        categories_url = get_categories_url()
+        try:
+            # Use cache if it already exists
+            cache_key = "available_categories"
+            if cache_key in self.cache_data:
+                return self.cache_data[cache_key]
+
+            # Download file list from GitHub directory
+            with urlopen(categories_url, timeout=10) as response:
+                data = load(response)
+
+            # Extract .json filenames
+            categories = []
+            for item in data:
+                if item['name'].endswith('.json'):
+                    category_id = item['name'].replace('.json', '')
+                    name = category_id.replace('-', ' ').title()
+                    categories.append({'id': category_id, 'name': name})
+
+            # Save to cache
+            self.cache_data[cache_key] = categories
+            self._save_cache()
+
+            print(f"[CacheManager] Found {len(categories)} categories from GitHub")
+            return categories
+
+        except Exception as e:
+            print(f"[CacheManager] Error getting categories: {e}")
+            # Fallback to hardcoded list
+            return self._get_default_categories()
+
+    def get_category_channels(self, category_id, force_refresh=False):
+        """Get channels for a specific category, handling multiple JSON formats."""
+        cache_key = f"cat_{category_id}"
+        channels = self._get_cached(cache_key)
+
+        if channels is not None and not force_refresh:
+            return channels
+
+        try:
+            url = get_category_url(category_id)
+            print(f"[CACHE DEBUG] Fetching category {category_id} from {url}", file=stderr)
+            data = self._fetch_url(url)
+            print(f"[CACHE DEBUG] Raw data type for {category_id}: {type(data)}", file=stderr)
+            # Handle both possible formats
+            if isinstance(data, list):
+                # Format: Direct list of channels
+                channels = data
+                print(f"[CACHE DEBUG] Data is list with {len(channels)} items", file=stderr)
+            elif isinstance(data, dict):
+                # Format: Object with a key containing the list
+                print(f"[CACHE DEBUG] Data is dict with keys: {list(data.keys())}", file=stderr)
+                for key in ['channels', 'items', 'streams', 'list']:
+                    if key in data and isinstance(data[key], list):
+                        channels = data[key]
+                        print(f"[CACHE DEBUG] Found '{key}' key with {len(channels)} items", file=stderr)
+                        break
+                else:
+                    channels = []
+                    print("[CACHE DEBUG] No known list key found", file=stderr)
+            else:
+                channels = []
+                print(f"[CACHE DEBUG] Unexpected format: {type(data)}", file=stderr)
+
+            print(f"[CACHE DEBUG] Extracted {len(channels)} channels for {category_id}", file=stderr)
+
+            if channels:
+                self._set_cached(cache_key, channels)
+            return channels
+
+        except Exception as e:
+            print(f"[CACHE ERROR] Failed to get category {category_id}: {e}", file=stderr)
+            import traceback
+            traceback.print_exc()
+
+        return []
+
+    def get_country_channels(self, country_code, force_refresh=False):
+        """Get channels for specific country"""
+        try:
+            url = get_country_url(country_code)
+            print(f"[CACHE DEBUG] Fetching country {country_code}", file=stderr)
+
+            result = self.fetch_url(url, force_refresh)
+            print(f"[CACHE DEBUG] Fetch successful, type: {type(result)}", file=stderr)
+
+            return result
+        except Exception as e:
+            print(f"[CACHE ERROR] ERROR fetching country {country_code}: {e}", file=stderr)
+            return []
+
+    def get_countries_metadata(self, force_refresh=False):
+        """Get countries metadata"""
+        url = get_metadata_url()
+        return self.fetch_url(url, force_refresh)
+
+    def clear_all(self):
+        """Clear all cache"""
+        for file in listdir(self.cache_dir):
+            if file.endswith('.json.gz'):
+                remove(join(self.cache_dir, file))
+        print("[CACHE] Cache cleared", file=stderr)
+        return True
+
+    def get_size(self):
+        """Get cache size in items"""
+        count = 0
+        for file in listdir(self.cache_dir):
+            if file.endswith('.json.gz'):
+                count += 1
+        return count
