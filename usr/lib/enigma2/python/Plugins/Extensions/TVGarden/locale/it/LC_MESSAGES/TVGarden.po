@@ -331,7 +331,7 @@ msgstr "Ricerca:"
 
 #: browser/search.py:70 browser/search.py:194
 msgid "Press GREEN for keyboard..."
-msgstr ""
+msgstr "Premi VERDE per la tastiera..."
 
 #: browser/search.py:72
 msgid "Keyboard"
@@ -344,7 +344,7 @@ msgstr "Pulisci"
 #: browser/search.py:134
 #, python-brace-format
 msgid "Press GREEN for keyboard... Ready - {} channels"
-msgstr ""
+msgstr "Premi VERDE per la tastiera... Pronto - {} canali"
 
 #: browser/search.py:137
 msgid "No channels loaded"
