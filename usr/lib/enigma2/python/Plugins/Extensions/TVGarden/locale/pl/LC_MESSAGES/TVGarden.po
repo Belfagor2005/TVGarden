@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TVGarden\n"
-"POT-Creation-Date: 2025-12-08 11:31+0100\n"
+"POT-Creation-Date: 2025-12-08 11:47+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: lululla [ekekaz@gmail.com]\n"
@@ -207,15 +207,15 @@ msgstr ""
 msgid "Error loading channels"
 msgstr ""
 
-#: browser/channels.py:404 browser/search.py:427
+#: browser/channels.py:404 browser/search.py:348
 msgid "No stream URL"
 msgstr ""
 
-#: browser/channels.py:435 browser/favorites.py:198 browser/search.py:450
+#: browser/channels.py:435 browser/favorites.py:198 browser/search.py:371
 msgid "Removed from favorites"
 msgstr ""
 
-#: browser/channels.py:438 browser/search.py:453
+#: browser/channels.py:438 browser/search.py:374
 msgid "Added to favorites"
 msgstr ""
 
@@ -313,7 +313,7 @@ msgstr ""
 msgid "No stream URL available"
 msgstr ""
 
-#: browser/favorites.py:183 browser/search.py:442
+#: browser/favorites.py:183 browser/search.py:363
 msgid "Error opening player"
 msgstr ""
 
@@ -343,7 +343,7 @@ msgstr ""
 
 #: browser/search.py:134
 #, python-brace-format
-msgid "Ready - {} channels"
+msgid "Press GREEN for keyboard... Ready - {} channels"
 msgstr ""
 
 #: browser/search.py:137
@@ -358,12 +358,12 @@ msgstr ""
 msgid "Searching..."
 msgstr ""
 
-#: browser/search.py:375
+#: browser/search.py:296
 #, python-brace-format
 msgid "Found {} channels"
 msgstr ""
 
-#: browser/search.py:379
+#: browser/search.py:300
 #, python-brace-format
 msgid "No channels found for: {}"
 msgstr ""

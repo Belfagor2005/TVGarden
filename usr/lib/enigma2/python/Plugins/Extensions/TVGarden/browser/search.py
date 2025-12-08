@@ -131,7 +131,7 @@ class SearchBrowser(BaseBrowser):
             # Final status
             total = len(self.all_channels)
             if total > 0:
-                self["status"].setText(_("Ready - {} channels").format(total))
+                self["status"].setText(_("Press GREEN for keyboard... Ready - {} channels").format(total))
                 print("[SearchSimple] ✓ TOTAL: %d channels ready" % total, file=stderr)
             else:
                 self["status"].setText(_("No channels loaded"))
@@ -229,85 +229,6 @@ class SearchBrowser(BaseBrowser):
             print(f"[SearchBrowser] Search error: {e}", file=stderr)
 
         self.display_search_results()
-
-    """
-    # def perform_search(self):
-        # query = self.search_query.lower()
-        # print(f"[SearchBrowser] Optimized search for: '{query}'", file=stderr)
-
-        # self.search_results = []
-        # self.menu_channels = []
-
-        # # STRATEGY 1: First look in the main file "all-channels.json" (FASTER)
-        # try:
-            # all_channels_data = self.cache.get_category_channels("all-channels")
-            # for channel in all_channels_data:
-                # if self.match_channel(channel, query):
-                    # self.search_results.append(channel)
-            # print(f"[SearchBrowser] Found {len(self.search_results)} results in 'all-channels.json'", file=stderr)
-
-        # except Exception as e:
-            # print(f"[SearchBrowser] Error with 'all-channels.json': {e}", file=stderr)
-            # # STRATEGY 2: Fallback - Search Category Files
-            # for category in CATEGORIES:
-                # try:
-                    # channels = self.cache.get_category_channels(category['id'])
-                    # for channel in channels:
-                        # if self.match_channel(channel, query):
-                            # self.search_results.append(channel)
-                # except Exception as e:
-                    # print('error on perform_search: ', str(e))
-                    # pass
-
-        # self.display_search_results()
-
-    # def perform_search(self):
-        # query = self.search_query.lower().strip()
-
-        # if not query or len(query) < 2:
-            # self["status"].setText(_("Enter at least 2 characters"))
-            # return
-
-        # print(f"[SearchSimple] Searching for: '{query}'", file=stderr)
-
-        # self.filtered_channels = []
-        # self.menu_channels = []
-        # valid_count = 0
-
-        # for channel in self.all_channels:
-            # # Cerca nel nome
-            # name = channel.get('name', '').lower()
-            # if query in name:
-                # # Filtra e valida
-                # stream_url = self.extract_stream_url(channel)
-                # if stream_url and is_valid_stream_url(stream_url):
-                    # channel_data = self.create_channel_data(channel, stream_url)
-                    # self.filtered_channels.append(channel)
-                    # self.menu_channels.append(channel_data)
-                    # valid_count += 1
-
-        # # Mostra risultati
-        # menu_items = []
-        # for idx, channel_data in enumerate(self.menu_channels):
-            # name = channel_data['name']
-            # extra = []
-            # if channel_data.get('category'):
-                # extra.append(channel_data['category'])
-            # if channel_data.get('country'):
-                # extra.append(channel_data['country'])
-
-            # display = name
-            # if extra:
-                # display += f" [{', '.join(extra)}]"
-            # menu_items.append((display, idx))
-
-        # self["menu"].setList(menu_items)
-
-        # if menu_items:
-            # self["status"].setText(_("Found {} channels").format(valid_count))
-        # else:
-            # self["status"].setText(_("No channels found for: {}").format(query))
-    """
 
     def display_search_results(self):
         """Display search results in menu"""
