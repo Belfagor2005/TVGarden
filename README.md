@@ -69,14 +69,14 @@
 
 ### Method 1: IPK Package (Recommended)
 ```bash
-# Download 
-wget https://github.com/Belfagor2005/TVGarden/
+# Install from Telnet Console
+wget -q --no-check-certificate "https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/installer.sh" -O - | /bin/sh
 
 # Install via opkg
 opkg install enigma2-plugin-extensions-tvgarden
 
 # Restart Enigma2
-systemctl restart enigma2
+reboot
 ```
 
 ### Method 3: Plugin Manager
