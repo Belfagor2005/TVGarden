@@ -44,6 +44,7 @@ class PluginConfig:
 
             # Browser settings
             "items_per_page": 20,
+            "max_channels": 500,
             "sort_by": "name",
             "default_view": "countries",
 
@@ -230,14 +231,14 @@ class PluginConfig:
     def get_skin_resolution(self):
         """Get skin resolution name (hd, fhd, wqhd)"""
         skin_setting = self.get('skin', 'auto')
-        
+
         if skin_setting == 'auto':
             try:
                 from enigma import getDesktop
                 desktop = getDesktop(0)
                 width = desktop.size().width()
                 height = desktop.size().height()
-                
+
                 if width >= 2560 or height >= 1440:
                     return "wqhd"
                 elif width >= 1920 or height >= 1080:
@@ -248,7 +249,7 @@ class PluginConfig:
                     return "sd"
             except:
                 return 'hd'
-        
+
         return skin_setting
 
     def load_skin(self, screen_name, default_skin):
@@ -261,9 +262,9 @@ class PluginConfig:
             Skin XML string
         """
         resolution = self.get_skin_resolution()
-        
+
         skin_file = join(PLUGIN_PATH, f"skins/{resolution}/{screen_name}.xml")
-        
+
         if fileExists(skin_file):
             try:
                 with open(skin_file, 'r', encoding='utf-8') as f:
@@ -272,7 +273,7 @@ class PluginConfig:
                 return skin_content
             except Exception as e:
                 print(f"[TVGarden] Error loading skin: {e}")
-        
+
         # Fallback to Class Skin
         print(f"[TVGarden] Using class skin for {screen_name}")
         return default_skin

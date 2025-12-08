@@ -17,7 +17,7 @@ from Screens.MessageBox import MessageBox
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 
 from .base import BaseBrowser
-from ..utils.config import PluginConfig
+from ..utils.config import PluginConfig, get_config
 from ..player.iptv_player import TVGardenPlayer
 from ..utils.cache import CacheManager
 from ..utils.favorites import FavoritesManager
@@ -49,10 +49,10 @@ class SearchBrowser(BaseBrowser):
     """
 
     def __init__(self, session):
-        
+
         self.config = PluginConfig()
         dynamic_skin = self.config.load_skin("FavoritesBrowser", self.skin)
-        self.skin = dynamic_skin   
+        self.skin = dynamic_skin
 
         BaseBrowser.__init__(self, session)
         self.session = session
@@ -95,28 +95,28 @@ class SearchBrowser(BaseBrowser):
         """Load all channels using dynamic categories"""
         print("[SearchSimple] Loading channels dynamically...", file=stderr)
         self.all_channels = []
-        
+
         try:
             # 1. FIRST try using all-channels.json
             print("[SearchSimple] Trying all-channels.json...", file=stderr)
             all_channels_data = self.cache.get_category_channels("all-channels")
-            
+
             if all_channels_data:
                 self.all_channels = all_channels_data
                 print("[SearchSimple] ✓ Loaded %d from all-channels.json" % len(self.all_channels), file=stderr)
             else:
                 # 2. FALLBACK: use dynamic categories
                 print("[SearchSimple] Using dynamic categories...", file=stderr)
-                
+
                 # Get available categories
                 categories = self.cache.get_available_categories()
                 print("[SearchSimple] Found %d available categories" % len(categories), file=stderr)
-                
+
                 for category in categories:
                     cat_id = category['id']
                     if cat_id == 'all-channels':  # Already attempted
                         continue
-                        
+
                     try:
                         channels = self.cache.get_category_channels(cat_id)
                         if channels:
@@ -127,7 +127,7 @@ class SearchBrowser(BaseBrowser):
                     except Exception as e:
                         print("[SearchSimple]   Skipped %s: %s" % (cat_id, str(e)[:50]), file=stderr)
                         continue
-            
+
             # Final status
             total = len(self.all_channels)
             if total > 0:
@@ -136,36 +136,10 @@ class SearchBrowser(BaseBrowser):
             else:
                 self["status"].setText(_("No channels loaded"))
                 print("[SearchSimple] ✗ No channels loaded", file=stderr)
-                
+
         except Exception as e:
             print("[SearchSimple] ERROR: %s" % e, file=stderr)
             self["status"].setText(_("Error loading channels"))
-
-    # def load_all_channels(self):
-        # """Load all channels once for fast searching"""
-        # print("[SearchSimple] Loading all channels...", file=stderr)
-        # self.all_channels = []
-
-        # try:
-            # # Carica da tutte le categorie
-            # for category in CATEGORIES:
-                # category_id = category['id']
-                # try:
-                    # channels = self.cache.get_category_channels(category_id)
-                    # for channel in channels:
-                        # # Aggiungi info categoria
-                        # channel_copy = channel.copy()
-                        # channel_copy['category'] = category['name']
-                        # self.all_channels.append(channel_copy)
-                # except:
-                    # pass
-
-            # print(f"[SearchSimple] Loaded {len(self.all_channels)} channels", file=stderr)
-            # self["status"].setText(_("Ready - Press GREEN to search"))
-
-        # except Exception as e:
-            # print(f"[SearchSimple] Error loading channels: {e}", file=stderr)
-            # self["status"].setText(_("Error loading channels"))
 
     def open_keyboard(self):
         """Open virtual keyboard"""
@@ -234,30 +208,77 @@ class SearchBrowser(BaseBrowser):
         """Display search results in menu"""
         print(f"[SearchBrowser] Found {len(self.search_results)} results", file=stderr)
 
+        # Get configurable limit
+        config = get_config()
+        max_channels = config.get("max_channels", 500)
+
+        print(f"[SearchBrowser] Using max_channels limit: {max_channels}", file=stderr)
+
         menu_items = []
         self.menu_channels = []
         valid_count = 0
+        youtube_count = 0
+        problematic_count = 0
+        skipped_by_limit = 0
 
         for idx, channel in enumerate(self.search_results):
-            if idx >= 100:  # Performance limit
+            # Apply configurable limit (0 = all channels)
+            if max_channels > 0 and idx >= max_channels:
+                print(f"[SearchBrowser] Stopped at {idx} results (limit: {max_channels})", file=stderr)
+                skipped_by_limit = len(self.search_results) - idx
                 break
 
             name = channel.get('name', f'Result {idx + 1}')
             stream_url = None
+            found_in = None
+            is_youtube = False
 
-            # Extract URL
-            if 'iptv_urls' in channel and channel['iptv_urls']:
+            # 1. Check iptv_urls
+            if 'iptv_urls' in channel and isinstance(channel['iptv_urls'], list):
                 for url in channel['iptv_urls']:
-                    if url and url.strip():
+                    if isinstance(url, str) and url.strip():
                         stream_url = url.strip()
+                        found_in = "iptv_urls"
                         break
 
-            # Skip if no valid URL
+            # 2. Check youtube_urls (skip)
+            if not stream_url and 'youtube_urls' in channel and isinstance(channel['youtube_urls'], list):
+                for url in channel['youtube_urls']:
+                    if isinstance(url, str) and url.strip():
+                        stream_url = url.strip()
+                        found_in = "youtube_urls"
+                        is_youtube = True
+                        break
+
+            # 3. Skip YouTube
+            if is_youtube:
+                youtube_count += 1
+                continue
+
+            # 4. Basic URL validation
             if not stream_url:
                 continue
 
-            # Validate URL
+            # 5. Advanced validation
             if not is_valid_stream_url(stream_url):
+                continue
+
+            # 6. Skip problematic patterns (same as channels.py)
+            stream_lower = stream_url.lower()
+            problematic_patterns = [
+                "moveonjoy.com", ".mpd", "/dash/", "drm", "widevine",
+                "playready", "fairplay", "keydelivery", "license.",
+                "encryption", "akamaihd.net", "level3.net"
+            ]
+
+            is_problematic = False
+            for pattern in problematic_patterns:
+                if pattern in stream_lower:
+                    problematic_count += 1
+                    is_problematic = True
+                    break
+
+            if is_problematic:
                 continue
 
             # Create display name
@@ -282,7 +303,8 @@ class SearchBrowser(BaseBrowser):
                 'group': channel.get('group', ''),
                 'language': channel.get('language', ''),
                 'country': channel.get('country', ''),
-                'is_youtube': False
+                'is_youtube': False,
+                'found_in': found_in
             }
 
             menu_items.append((display_name, idx))
@@ -292,12 +314,36 @@ class SearchBrowser(BaseBrowser):
         # Update UI
         self["menu"].setList(menu_items)
 
+        # Build status message
+        if max_channels > 0 and len(self.search_results) > max_channels:
+            status_text = _("Showing {shown} of {total} results").format(
+                shown=min(max_channels, valid_count),
+                total=len(self.search_results)
+            )
+        else:
+            status_text = _("Found {} channels").format(valid_count)
+
+        if youtube_count > 0:
+            status_text += " " + _("(skipped {count} YouTube)").format(count=youtube_count)
+
+        if problematic_count > 0:
+            status_text += " " + _("(filtered {count} problematic)").format(count=problematic_count)
+
+        if skipped_by_limit > 0:
+            status_text += " " + _("(limited to first {limit})").format(limit=max_channels)
+
+        self["status"].setText(status_text)
+
         if menu_items:
-            self["status"].setText(_("Found {} channels").format(valid_count))
             if self.menu_channels:
                 self.current_channel = self.menu_channels[0]
         else:
             self["status"].setText(_("No channels found for: {}").format(self.search_query))
+
+        print(f"[SearchBrowser] Final: {valid_count} playable, "
+              f"{youtube_count} YouTube skipped, "
+              f"{problematic_count} problematic filtered, "
+              f"{skipped_by_limit} limited by config", file=stderr)
 
     def extract_stream_url(self, channel):
         """Extract stream URL from channel"""

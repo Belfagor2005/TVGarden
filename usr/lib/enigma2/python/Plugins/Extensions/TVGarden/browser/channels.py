@@ -42,7 +42,7 @@ except ImportError as e:
 
 
 from .base import BaseBrowser
-from ..utils.config import PluginConfig
+from ..utils.config import PluginConfig, get_config
 from ..utils.cache import CacheManager
 from ..utils.favorites import FavoritesManager
 from ..player.iptv_player import TVGardenPlayer
@@ -73,11 +73,11 @@ class ChannelsBrowser(BaseBrowser):
 
     def __init__(self, session, country_code=None, country_name=None,
                  category_id=None, category_name=None):
-        
+
         self.config = PluginConfig()
         dynamic_skin = self.config.load_skin("ChannelsBrowser", self.skin)
-        self.skin = dynamic_skin   
-        
+        self.skin = dynamic_skin
+
         BaseBrowser.__init__(self, session)
         self.session = session
         self.cache = CacheManager()
@@ -136,6 +136,9 @@ class ChannelsBrowser(BaseBrowser):
     def load_channels(self):
         """Load channels for current context (country or category)"""
         try:
+            config = get_config()
+            max_channels = config.get("max_channels", 500)
+
             channels = []
             if self.country_code:
                 print(f"[CHANNELS DEBUG] Loading country channels: {self.country_code}", file=stderr)
@@ -148,6 +151,7 @@ class ChannelsBrowser(BaseBrowser):
                 return
 
             print(f"[CHANNELS DEBUG] Total channels received: {len(channels)}", file=stderr)
+            print(f"[CHANNELS DEBUG] Max channels limit: {max_channels} (0=all)", file=stderr)
 
             # Save the ORIGINAL channels
             self.channels = channels
@@ -159,13 +163,16 @@ class ChannelsBrowser(BaseBrowser):
             youtube_count = 0
             valid_count = 0
             problematic_count = 0
+            skipped_count = 0
 
             for idx, channel in enumerate(channels):
-                if idx >= 100:
+                # Apply configurable limit (0 = all channels)
+                if max_channels > 0 and idx >= max_channels:
                     print(
-                        f"[CHANNELS DEBUG] Stopped at {idx} channels",
+                        f"[CHANNELS DEBUG] Stopped at {idx} channels (limit: {max_channels})",
                         file=stderr
                     )
+                    skipped_count = len(channels) - idx
                     break
 
                 name = channel.get("name", f"Channel {idx + 1}")
@@ -308,17 +315,31 @@ class ChannelsBrowser(BaseBrowser):
                     print(f"[CHANNELS DEBUG] First channel: {self.current_channel['name']}", file=stderr)
                     self.update_channel_selection(0)
 
-            status_text = _("Found {count} playable channels").format(count=valid_count)
-            
+            # Build status message
+            if max_channels > 0 and len(channels) > max_channels:
+                status_text = _("Showing {shown} of {total} channels").format(
+                    shown=min(max_channels, valid_count),
+                    total=valid_count + youtube_count + problematic_count
+                )
+            else:
+                status_text = _("Found {count} playable channels").format(count=valid_count)
+
             if youtube_count > 0:
                 status_text += " " + _("(skipped {count} YouTube)").format(count=youtube_count)
-            
+
             if problematic_count > 0:
                 status_text += " " + _("(filtered {count} problematic)").format(count=problematic_count)
-            
+
+            if skipped_count > 0 and max_channels > 0:
+                status_text += " " + _("(limited to first {limit})").format(limit=max_channels)
+
             self["status"].setText(status_text)
-            
-            print(f"[CHANNELS FINAL] Playable: {valid_count}, Skipped YouTube: {youtube_count}, Filtered problematic: {problematic_count}", file=stderr)
+
+            print(f"[CHANNELS FINAL] Playable: {valid_count}, "
+                  f"Skipped YouTube: {youtube_count}, "
+                  f"Filtered problematic: {problematic_count}, "
+                  f"Config limit: {max_channels}, "
+                  f"Skipped by limit: {skipped_count}", file=stderr)
 
         except Exception as e:
             print(f"[CHANNELS ERROR] load_channels failed: {e}", file=stderr)

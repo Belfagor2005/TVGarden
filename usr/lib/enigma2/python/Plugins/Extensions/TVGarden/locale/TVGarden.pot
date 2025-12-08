@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TVGarden\n"
-"POT-Creation-Date: 2025-12-08 11:45+0100\n"
+"POT-Creation-Date: 2025-12-08 19:26+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: lululla [ekekaz@gmail.com]\n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "Animation"
 msgstr ""
 
-#: browser/categories.py:28 utils/settings.py:78 utils/settings.py:117
+#: browser/categories.py:28 utils/settings.py:79 utils/settings.py:118
 msgid "Auto"
 msgstr ""
 
@@ -139,12 +139,14 @@ msgstr ""
 msgid "Loading categories..."
 msgstr ""
 
-#: browser/categories.py:94 browser/channels.py:106 browser/countries.py:70
-#: browser/favorites.py:69 browser/search.py:71 utils/settings.py:56
+#: browser/categories.py:94 browser/channels.py:106
+#: ⁨browser/countries - Copia.py⁩:73 browser/countries.py:73
+#: browser/favorites.py:62 browser/search.py:71 utils/settings.py:57
 msgid "Back"
 msgstr ""
 
-#: browser/categories.py:95 browser/countries.py:71 plugin.py:162
+#: browser/categories.py:95 ⁨browser/countries - Copia.py⁩:74
+#: browser/countries.py:74 plugin.py:162
 msgid "Select"
 msgstr ""
 
@@ -168,7 +170,8 @@ msgstr ""
 msgid "Cache cleared"
 msgstr ""
 
-#: browser/categories.py:189 browser/countries.py:146 plugin.py:217
+#: browser/categories.py:189 ⁨browser/countries - Copia.py⁩:297
+#: browser/countries.py:326 plugin.py:217
 msgid "Refresh failed"
 msgstr ""
 
@@ -176,7 +179,7 @@ msgstr ""
 msgid "Loading channels..."
 msgstr ""
 
-#: browser/channels.py:107 browser/favorites.py:70
+#: browser/channels.py:107 browser/favorites.py:63
 msgid "Play"
 msgstr ""
 
@@ -188,140 +191,150 @@ msgstr ""
 msgid "Info"
 msgstr ""
 
-#: browser/channels.py:311
+#: browser/channels.py:320
+#, python-brace-format
+msgid "Showing {shown} of {total} channels"
+msgstr ""
+
+#: browser/channels.py:325
 #, python-brace-format
 msgid "Found {count} playable channels"
 msgstr ""
 
-#: browser/channels.py:314
+#: browser/channels.py:328 browser/search.py:327
 #, python-brace-format
 msgid "(skipped {count} YouTube)"
 msgstr ""
 
-#: browser/channels.py:317
+#: browser/channels.py:331 browser/search.py:330
 #, python-brace-format
 msgid "(filtered {count} problematic)"
 msgstr ""
 
-#: browser/channels.py:327 browser/search.py:142
+#: browser/channels.py:334 browser/search.py:333
+#, python-brace-format
+msgid "(limited to first {limit})"
+msgstr ""
+
+#: browser/channels.py:348 browser/search.py:142
 msgid "Error loading channels"
 msgstr ""
 
-#: browser/channels.py:404 browser/search.py:348
+#: browser/channels.py:425 browser/search.py:394
 msgid "No stream URL"
 msgstr ""
 
-#: browser/channels.py:435 browser/favorites.py:198 browser/search.py:371
+#: browser/channels.py:456 browser/favorites.py:186 browser/search.py:417
 msgid "Removed from favorites"
 msgstr ""
 
-#: browser/channels.py:438 browser/search.py:374
+#: browser/channels.py:459 browser/search.py:420
 msgid "Added to favorites"
 msgstr ""
 
-#: browser/channels.py:450
+#: browser/channels.py:471
 #, python-format
 msgid "Stream: %s"
 msgstr ""
 
-#: browser/channels.py:457
+#: browser/channels.py:478
 msgid "Play Channel"
 msgstr ""
 
-#: browser/channels.py:458
+#: browser/channels.py:479
 msgid "Add to Favorites"
 msgstr ""
 
-#: browser/channels.py:459
+#: browser/channels.py:480
 msgid "Channel Information"
 msgstr ""
 
-#: browser/channels.py:460
+#: browser/channels.py:481
 msgid "Share Channel"
 msgstr ""
 
-#: browser/channels.py:461
+#: browser/channels.py:482
 msgid "Report Issue"
 msgstr ""
 
-#: browser/channels.py:464
+#: browser/channels.py:485
 msgid "Channel Menu"
 msgstr ""
 
-#: browser/countries.py:68
+#: ⁨browser/countries - Copia.py⁩:71 browser/countries.py:71
 msgid "Loading countries..."
 msgstr ""
 
-#: browser/countries.py:72 plugin.py:163
+#: ⁨browser/countries - Copia.py⁩:75 browser/countries.py:75 plugin.py:163
 msgid "Refresh"
 msgstr ""
 
-#: browser/countries.py:125
+#: ⁨browser/countries - Copia.py⁩:162 browser/countries.py:162
 msgid "Select a country"
 msgstr ""
 
-#: browser/countries.py:128
+#: ⁨browser/countries - Copia.py⁩:168 browser/countries.py:168
 msgid "No countries with channels found"
 msgstr ""
 
-#: browser/countries.py:131
+#: ⁨browser/countries - Copia.py⁩:171 browser/countries.py:171
 msgid "Error loading countries"
 msgstr ""
 
-#: browser/countries.py:138
+#: ⁨browser/countries - Copia.py⁩:273 browser/countries.py:302
+msgid "No country selected"
+msgstr ""
+
+#: ⁨browser/countries - Copia.py⁩:291 browser/countries.py:320
 msgid "Refreshing..."
 msgstr ""
 
-#: browser/countries.py:144
+#: ⁨browser/countries - Copia.py⁩:295 browser/countries.py:324
 msgid "Countries refreshed"
-msgstr ""
-
-#: browser/countries.py:208
-msgid "No country selected"
 msgstr ""
 
 #: browser/favorites.py:61
 msgid "Loading favorites..."
 msgstr ""
 
-#: browser/favorites.py:71
+#: browser/favorites.py:64
 msgid "Remove"
 msgstr ""
 
-#: browser/favorites.py:72
+#: browser/favorites.py:65
 msgid "Clear All"
 msgstr ""
 
-#: browser/favorites.py:135
+#: browser/favorites.py:128
 #, python-format
 msgid "%d favorite channels"
 msgstr ""
 
-#: browser/favorites.py:140
+#: browser/favorites.py:133
 msgid "No favorite channels"
 msgstr ""
 
-#: browser/favorites.py:145
+#: browser/favorites.py:138
 msgid "Error loading favorites"
 msgstr ""
 
-#: browser/favorites.py:159
+#: browser/favorites.py:152
 msgid "No channel selected"
 msgstr ""
 
-#: browser/favorites.py:164
+#: browser/favorites.py:157
 msgid "No stream URL available"
 msgstr ""
 
-#: browser/favorites.py:183 browser/search.py:363
+#: browser/favorites.py:176 browser/search.py:409
 msgid "Error opening player"
 msgstr ""
 
-#: browser/favorites.py:208
+#: browser/favorites.py:195
 msgid "All favorites cleared"
 msgstr ""
 
-#: browser/favorites.py:213
+#: browser/favorites.py:200
 msgid "Error clearing favorites"
 msgstr ""
 
@@ -329,7 +342,7 @@ msgstr ""
 msgid "Search:"
 msgstr ""
 
-#: browser/search.py:70 browser/search.py:194
+#: browser/search.py:70 browser/search.py:168
 msgid "Press GREEN for keyboard..."
 msgstr ""
 
@@ -350,20 +363,25 @@ msgstr ""
 msgid "No channels loaded"
 msgstr ""
 
-#: browser/search.py:175
+#: browser/search.py:149
 msgid "Search Channels"
 msgstr ""
 
-#: browser/search.py:184
+#: browser/search.py:158
 msgid "Searching..."
 msgstr ""
 
-#: browser/search.py:296
+#: browser/search.py:319
+#, python-brace-format
+msgid "Showing {shown} of {total} results"
+msgstr ""
+
+#: browser/search.py:324
 #, python-brace-format
 msgid "Found {} channels"
 msgstr ""
 
-#: browser/search.py:300
+#: browser/search.py:341
 #, python-brace-format
 msgid "No channels found for: {}"
 msgstr ""
@@ -384,7 +402,7 @@ msgstr ""
 msgid "Browse channels by category"
 msgstr ""
 
-#: plugin.py:150 utils/settings.py:148
+#: plugin.py:150 utils/settings.py:165
 msgid "Favorites"
 msgstr ""
 
@@ -444,94 +462,118 @@ msgstr ""
 msgid "Access free IPTV channels from around the world"
 msgstr ""
 
-#: utils/settings.py:54
+#: utils/settings.py:55
 msgid "TV Garden Settings"
 msgstr ""
 
-#: utils/settings.py:57
+#: utils/settings.py:58
 msgid "Save"
 msgstr ""
 
-#: utils/settings.py:58
+#: utils/settings.py:59
 msgid "Set options"
 msgstr ""
 
-#: utils/settings.py:74
+#: utils/settings.py:75 utils/settings.py:194
 msgid "Player"
 msgstr ""
 
-#: utils/settings.py:79
+#: utils/settings.py:80
 msgid "ExtePlayer3"
 msgstr ""
 
-#: utils/settings.py:80
+#: utils/settings.py:81
 msgid "GStreamer"
 msgstr ""
 
-#: utils/settings.py:86
+#: utils/settings.py:87 utils/settings.py:195
 msgid "Volume"
 msgstr ""
 
-#: utils/settings.py:91
+#: utils/settings.py:92 utils/settings.py:196
 msgid "Timeout (seconds)"
 msgstr ""
 
-#: utils/settings.py:96
+#: utils/settings.py:97 utils/settings.py:197
 msgid "Retries"
 msgstr ""
 
-#: utils/settings.py:102
+#: utils/settings.py:103 utils/settings.py:198
 msgid "Cache TTL (hours)"
 msgstr ""
 
-#: utils/settings.py:107
+#: utils/settings.py:108 utils/settings.py:199
 msgid "Cache Size"
 msgstr ""
 
-#: utils/settings.py:113
+#: utils/settings.py:114 utils/settings.py:200
 msgid "Skin"
 msgstr ""
 
-#: utils/settings.py:118
+#: utils/settings.py:119
 msgid "HD"
 msgstr ""
 
-#: utils/settings.py:119
+#: utils/settings.py:120
 msgid "FHD"
 msgstr ""
 
-#: utils/settings.py:120
+#: utils/settings.py:121
 msgid "WQHD"
 msgstr ""
 
-#: utils/settings.py:126
+#: utils/settings.py:127 utils/settings.py:201
 msgid "Show Flags"
 msgstr ""
 
-#: utils/settings.py:131
+#: utils/settings.py:132 utils/settings.py:202
 msgid "Show Logos"
 msgstr ""
 
-#: utils/settings.py:137
+#: utils/settings.py:138 utils/settings.py:203
 msgid "Items per page"
 msgstr ""
 
-#: utils/settings.py:142
+#: utils/settings.py:144 utils/settings.py:204
+msgid "Max channels per country"
+msgstr ""
+
+#: utils/settings.py:148
+msgid "100 channels"
+msgstr ""
+
+#: utils/settings.py:149
+msgid "250 channels"
+msgstr ""
+
+#: utils/settings.py:150
+msgid "500 channels"
+msgstr ""
+
+#: utils/settings.py:151
+msgid "1000 channels"
+msgstr ""
+
+#: utils/settings.py:152
+msgid "All channels"
+msgstr ""
+
+#: utils/settings.py:159 utils/settings.py:205
 msgid "Default View"
 msgstr ""
 
-#: utils/settings.py:146
+#: utils/settings.py:163
 msgid "Countries"
 msgstr ""
 
-#: utils/settings.py:147
+#: utils/settings.py:164
 msgid "Categories"
 msgstr ""
 
-#: utils/settings.py:155
+#: utils/settings.py:172 utils/settings.py:206
 msgid "Max Favorites"
 msgstr ""
 
-#: utils/settings.py:161
+#: utils/settings.py:178 utils/settings.py:207
 msgid "User Agent"
 msgstr ""

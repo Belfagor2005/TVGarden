@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TVGarden\n"
-"POT-Creation-Date: 2025-12-08 10:23+0100\n"
+"POT-Creation-Date: 2025-12-08 19:30+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: giorbak\n"
@@ -11,516 +11,575 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.8\n"
-"X-Poedit-Basepath: ..\n"
+"X-Poedit-Basepath: ../../..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: helpers.py\n"
-"X-Poedit-SearchPath-1: plugin.py\n"
-"X-Poedit-SearchPath-2: browser\n"
-"X-Poedit-SearchPath-3: player\n"
-"X-Poedit-SearchPath-4: utils\n"
+"X-Poedit-SearchPath-0: browser\n"
+"X-Poedit-SearchPath-1: utils\n"
+"X-Poedit-SearchPath-2: helpers.py\n"
+"X-Poedit-SearchPath-3: plugin.py\n"
 
-#: browser/categories.py:26
+#: browser/categories.py:27
 msgid "Animation"
 msgstr "Κινούμενα σχέδια"
 
-#: browser/categories.py:27 utils/settings.py:69 utils/settings.py:108
+#: browser/categories.py:28 utils/settings.py:79 utils/settings.py:118
 msgid "Auto"
 msgstr "Αυτόματο"
 
-#: browser/categories.py:28
+#: browser/categories.py:29
 msgid "Business"
 msgstr "Επιχειρήσεις"
 
-#: browser/categories.py:29
+#: browser/categories.py:30
 msgid "Classic"
 msgstr "Κλασικό"
 
-#: browser/categories.py:30
+#: browser/categories.py:31
 msgid "Comedy"
 msgstr "Κωμωδία"
 
-#: browser/categories.py:31
+#: browser/categories.py:32
 msgid "Cooking"
 msgstr "Μαγειρική"
 
-#: browser/categories.py:32
+#: browser/categories.py:33
 msgid "Culture"
 msgstr "Κουλτούρα"
 
-#: browser/categories.py:33
+#: browser/categories.py:34
 msgid "Documentary"
 msgstr "Ντοκιμαντέρ"
 
-#: browser/categories.py:34
+#: browser/categories.py:35
 msgid "Education"
 msgstr "Εκπαίδευση"
 
-#: browser/categories.py:35
+#: browser/categories.py:36
 msgid "Entertainment"
 msgstr "Ψυχαγωγία"
 
-#: browser/categories.py:36
+#: browser/categories.py:37
 msgid "Family"
 msgstr "Οικογένεια"
 
-#: browser/categories.py:37
+#: browser/categories.py:38
 msgid "General"
 msgstr "Γενικά"
 
-#: browser/categories.py:38
+#: browser/categories.py:39
 msgid "History"
 msgstr "Ιστορία"
 
-#: browser/categories.py:39
+#: browser/categories.py:40
 msgid "Hobby"
 msgstr "Χόμπι"
 
-#: browser/categories.py:40
+#: browser/categories.py:41
 msgid "Kids"
 msgstr "Παιδιά"
 
-#: browser/categories.py:41
+#: browser/categories.py:42
 msgid "Legislative"
 msgstr "Νομοθεσία"
 
-#: browser/categories.py:42
+#: browser/categories.py:43
 msgid "Lifestyle"
 msgstr "Τρόπος ζωής"
 
-#: browser/categories.py:43
+#: browser/categories.py:44
 msgid "Local"
 msgstr "Τοπικά"
 
-#: browser/categories.py:44
+#: browser/categories.py:45
 msgid "Movies"
 msgstr "Ταινίες"
 
-#: browser/categories.py:45
+#: browser/categories.py:46
 msgid "Music"
 msgstr "Μουσική"
 
-#: browser/categories.py:46
+#: browser/categories.py:47
 msgid "News"
 msgstr "Ειδήσεις"
 
-#: browser/categories.py:47
+#: browser/categories.py:48
 msgid "Politics"
 msgstr "Πολιτική"
 
-#: browser/categories.py:48
+#: browser/categories.py:49
 msgid "Religious"
 msgstr "Θρησκευτικά"
 
-#: browser/categories.py:49
+#: browser/categories.py:50
 msgid "Series"
 msgstr "Σειρές"
 
-#: browser/categories.py:50
+#: browser/categories.py:51
 msgid "Science"
 msgstr "Επιστήμη"
 
-#: browser/categories.py:51
+#: browser/categories.py:52
 msgid "Shop"
 msgstr "Αγορές"
 
-#: browser/categories.py:52
+#: browser/categories.py:53
 msgid "Sports"
 msgstr "Αθλητικά"
 
-#: browser/categories.py:53
+#: browser/categories.py:54
 msgid "Travel"
 msgstr "Ταξίδια"
 
-#: browser/categories.py:54
+#: browser/categories.py:55
 msgid "Weather"
 msgstr "Καιρός"
 
-#: browser/categories.py:87
+#: browser/categories.py:92
 msgid "Loading categories..."
 msgstr "Φόρτωση κατηγοριών..."
 
-#: browser/categories.py:90 browser/channels.py:101 browser/countries.py:69
-#: browser/favorites.py:67 browser/search.py:67 utils/settings.py:47
+#: browser/categories.py:94 browser/channels.py:106
+#: ⁨browser/countries - Copia.py⁩:73 browser/countries.py:73
+#: browser/favorites.py:62 browser/search.py:71 utils/settings.py:57
 msgid "Back"
 msgstr "Πίσω"
 
-#: browser/categories.py:91 browser/countries.py:70 plugin.py:165
+#: browser/categories.py:95 ⁨browser/countries - Copia.py⁩:74
+#: browser/countries.py:74 plugin.py:162
 msgid "Select"
 msgstr "Επιλογή"
 
-#: browser/categories.py:123
+#: browser/categories.py:126
 msgid "Select a category"
 msgstr "Επιλέξτε κατηγορία"
 
-#: browser/categories.py:170
+#: browser/categories.py:173
 msgid "No channels in this category"
 msgstr "Δεν υπάρχουν κανάλια σε αυτή την κατηγορία"
 
-#: browser/categories.py:174
+#: browser/categories.py:177
 msgid "Error loading category"
 msgstr "Σφάλμα φόρτωσης κατηγορίας"
 
-#: browser/categories.py:181
+#: browser/categories.py:184
 msgid "Refreshing cache..."
 msgstr "Ανανέωση προσωρινής μνήμης..."
 
-#: browser/categories.py:184
+#: browser/categories.py:187
 msgid "Cache cleared"
 msgstr "Η προσωρινή μνήμη εκκαθαρίστηκε"
 
-#: browser/categories.py:186 browser/countries.py:146 plugin.py:220
+#: browser/categories.py:189 ⁨browser/countries - Copia.py⁩:297
+#: browser/countries.py:326 plugin.py:217
 msgid "Refresh failed"
 msgstr "Αποτυχία ανανέωσης"
 
-#: browser/channels.py:98
+#: browser/channels.py:103
 msgid "Loading channels..."
 msgstr "Φόρτωση καναλιών..."
 
-#: browser/channels.py:102 browser/favorites.py:68
+#: browser/channels.py:107 browser/favorites.py:63
 msgid "Play"
 msgstr "Αναπαραγωγή"
 
-#: browser/channels.py:103 browser/search.py:69
+#: browser/channels.py:108 browser/search.py:73
 msgid "Favorite"
 msgstr "Αγαπημένα"
 
-#: browser/channels.py:104
+#: browser/channels.py:109
 msgid "Info"
 msgstr "Πληροφορίες"
 
-#: browser/channels.py:396 browser/search.py:423
+#: browser/channels.py:320
+#, python-brace-format
+msgid "Showing {shown} of {total} channels"
+msgstr "Εμφάνιση {shown} από {total} κανάλια"
+
+#: browser/channels.py:325
+#, python-brace-format
+msgid "Found {count} playable channels"
+msgstr "Βρέθηκαν {count} κανάλια με δυνατότητα αναπαραγωγής"
+
+#: browser/channels.py:328 browser/search.py:327
+#, python-brace-format
+msgid "(skipped {count} YouTube)"
+msgstr "(παραλείφθηκε {count} YouTube)"
+
+#: browser/channels.py:331 browser/search.py:330
+#, python-brace-format
+msgid "(filtered {count} problematic)"
+msgstr "(φιλτραρισμένο {count} προβληματικό)"
+
+#: browser/channels.py:334 browser/search.py:333
+#, python-brace-format
+msgid "(limited to first {limit})"
+msgstr "(περιορίζεται στο πρώτο {limit})"
+
+#: browser/channels.py:348 browser/search.py:142
+msgid "Error loading channels"
+msgstr "Σφάλμα φόρτωσης καναλιών"
+
+#: browser/channels.py:425 browser/search.py:394
 msgid "No stream URL"
 msgstr "Δεν υπάρχει URL ροής"
 
-#: browser/channels.py:427 browser/favorites.py:195 browser/search.py:446
+#: browser/channels.py:456 browser/favorites.py:186 browser/search.py:417
 msgid "Removed from favorites"
 msgstr "Αφαιρέθηκε από τα αγαπημένα"
 
-#: browser/channels.py:430 browser/search.py:449
+#: browser/channels.py:459 browser/search.py:420
 msgid "Added to favorites"
 msgstr "Προστέθηκε στα αγαπημένα"
 
-#: browser/channels.py:442
+#: browser/channels.py:471
 #, python-format
 msgid "Stream: %s"
 msgstr "Ροή: %s"
 
-#: browser/channels.py:449
+#: browser/channels.py:478
 msgid "Play Channel"
 msgstr "Αναπαραγωγή καναλιού"
 
-#: browser/channels.py:450
+#: browser/channels.py:479
 msgid "Add to Favorites"
 msgstr "Προσθήκη στα αγαπημένα"
 
-#: browser/channels.py:451
+#: browser/channels.py:480
 msgid "Channel Information"
 msgstr "Πληροφορίες καναλιού"
 
-#: browser/channels.py:452
+#: browser/channels.py:481
 msgid "Share Channel"
 msgstr "Κοινή χρήση καναλιού"
 
-#: browser/channels.py:453
+#: browser/channels.py:482
 msgid "Report Issue"
 msgstr "Αναφορά προβλήματος"
 
-#: browser/channels.py:456
+#: browser/channels.py:485
 msgid "Channel Menu"
 msgstr "Μενού καναλιών"
 
-#: browser/countries.py:66
+#: ⁨browser/countries - Copia.py⁩:71 browser/countries.py:71
 msgid "Loading countries..."
 msgstr "Φόρτωση χωρών..."
 
-#: browser/countries.py:71 plugin.py:166
+#: ⁨browser/countries - Copia.py⁩:75 browser/countries.py:75 plugin.py:163
 msgid "Refresh"
 msgstr "Ανανέωση"
 
-#: browser/countries.py:125
+#: ⁨browser/countries - Copia.py⁩:162 browser/countries.py:162
 msgid "Select a country"
 msgstr "Επιλέξτε χώρα"
 
-#: browser/countries.py:128
+#: ⁨browser/countries - Copia.py⁩:168 browser/countries.py:168
 msgid "No countries with channels found"
 msgstr "Δεν βρέθηκαν χώρες με κανάλια"
 
-#: browser/countries.py:131
+#: ⁨browser/countries - Copia.py⁩:171 browser/countries.py:171
 msgid "Error loading countries"
 msgstr "Σφάλμα φόρτωσης χωρών"
 
-#: browser/countries.py:138
-msgid "Refreshing..."
-msgstr "Ανανέωση..."
-
-#: browser/countries.py:144
-msgid "Countries refreshed"
-msgstr "Οι χώρες ανανεώθηκαν"
-
-#: browser/countries.py:208
+#: ⁨browser/countries - Copia.py⁩:273 browser/countries.py:302
 msgid "No country selected"
 msgstr "Δεν επιλέχθηκε χώρα"
 
-#: browser/favorites.py:64
+#: ⁨browser/countries - Copia.py⁩:291 browser/countries.py:320
+msgid "Refreshing..."
+msgstr "Ανανέωση..."
+
+#: ⁨browser/countries - Copia.py⁩:295 browser/countries.py:324
+msgid "Countries refreshed"
+msgstr "Οι χώρες ανανεώθηκαν"
+
+#: browser/favorites.py:61
 msgid "Loading favorites..."
 msgstr "Φόρτωση αγαπημένων..."
 
-#: browser/favorites.py:69
+#: browser/favorites.py:64
 msgid "Remove"
 msgstr "Αφαίρεση"
 
-#: browser/favorites.py:70
+#: browser/favorites.py:65
 msgid "Clear All"
 msgstr "Εκκαθάριση όλων"
 
-#: browser/favorites.py:138
+#: browser/favorites.py:128
 #, python-format
 msgid "%d favorite channels"
 msgstr "%d αγαπημένα κανάλια"
 
-#: browser/favorites.py:143
+#: browser/favorites.py:133
 msgid "No favorite channels"
 msgstr "Δεν υπάρχουν αγαπημένα κανάλια"
 
-#: browser/favorites.py:148
+#: browser/favorites.py:138
 msgid "Error loading favorites"
 msgstr "Σφάλμα φόρτωσης αγαπημένων"
 
-#: browser/favorites.py:162 browser/favorites.py:201
+#: browser/favorites.py:152
 msgid "No channel selected"
 msgstr "Δεν επιλέχθηκε κανάλι"
 
-#: browser/favorites.py:167
+#: browser/favorites.py:157
 msgid "No stream URL available"
 msgstr "Δεν υπάρχει διαθέσιμο URL ροής"
 
-#: browser/favorites.py:186 browser/search.py:438
+#: browser/favorites.py:176 browser/search.py:409
 msgid "Error opening player"
 msgstr "Σφάλμα ανοίγματος προγράμματος αναπαραγωγής"
 
-#: browser/favorites.py:199
-msgid "Error removing favorite"
-msgstr "Σφάλμα αφαίρεσης αγαπημένου"
-
-#: browser/favorites.py:206
+#: browser/favorites.py:195
 msgid "All favorites cleared"
 msgstr "Όλα τα αγαπημένα εκκαθαρίστηκαν"
 
-#: browser/favorites.py:211
+#: browser/favorites.py:200
 msgid "Error clearing favorites"
 msgstr "Σφάλμα εκκαθάρισης αγαπημένων"
 
-#: browser/search.py:62
+#: browser/search.py:67
 msgid "Search:"
 msgstr "Αναζήτηση:"
 
-#: browser/search.py:65 browser/search.py:190
+#: browser/search.py:70 browser/search.py:168
 msgid "Press GREEN for keyboard..."
 msgstr "Πατήστε το ΠΡΑΣΙΝΟ για πληκτρολόγιο..."
 
-#: browser/search.py:68
+#: browser/search.py:72
 msgid "Keyboard"
 msgstr "Πληκτρολόγιο"
 
-#: browser/search.py:70
+#: browser/search.py:74
 msgid "Clear"
 msgstr "Εκκαθάριση"
 
-#: browser/search.py:130
+#: browser/search.py:134
 #, python-brace-format
-msgid "Ready - {} channels"
-msgstr "Έτοιμο - {} κανάλια"
+msgid "Press GREEN for keyboard... Ready - {} channels"
+msgstr "Πατήστε ΠΡΑΣΙΝΟ για πληκτρολόγιο... Έτοιμο - {} κανάλια"
 
-#: browser/search.py:133
+#: browser/search.py:137
 msgid "No channels loaded"
 msgstr "Δεν φορτώθηκαν κανάλια"
 
-#: browser/search.py:138
-msgid "Error loading channels"
-msgstr "Σφάλμα φόρτωσης καναλιών"
-
-#: browser/search.py:171
+#: browser/search.py:149
 msgid "Search Channels"
 msgstr "Αναζήτηση καναλιών"
 
-#: browser/search.py:180
+#: browser/search.py:158
 msgid "Searching..."
 msgstr "Αναζήτηση..."
 
-#: browser/search.py:371
+#: browser/search.py:319
+#, python-brace-format
+msgid "Showing {shown} of {total} results"
+msgstr "Εμφάνιση {shown} από {total} αποτελεσμάτων"
+
+#: browser/search.py:324
 #, python-brace-format
 msgid "Found {} channels"
 msgstr "Βρέθηκαν {} κανάλια"
 
-#: browser/search.py:375
+#: browser/search.py:341
 #, python-brace-format
 msgid "No channels found for: {}"
 msgstr "Δεν βρέθηκαν κανάλια για: {}"
 
-#: plugin.py:151
+#: plugin.py:148
 msgid "Browse by Country"
 msgstr "Περιήγηση ανά χώρα"
 
-#: plugin.py:151
+#: plugin.py:148
 msgid "Browse channels by country"
 msgstr "Περιήγηση καναλιών ανά χώρα"
 
-#: plugin.py:152
+#: plugin.py:149
 msgid "Browse by Category"
 msgstr "Περιήγηση ανά κατηγορία"
 
-#: plugin.py:152
+#: plugin.py:149
 msgid "Browse channels by category"
 msgstr "Περιήγηση καναλιών ανά κατηγορία"
 
-#: plugin.py:153 utils/settings.py:139
+#: plugin.py:150 utils/settings.py:165
 msgid "Favorites"
 msgstr "Αγαπημένα"
 
-#: plugin.py:153
+#: plugin.py:150
 msgid "Your favorite channels"
 msgstr "Τα αγαπημένα σας κανάλια"
 
-#: plugin.py:154
+#: plugin.py:151
 msgid "Search"
 msgstr "Αναζήτηση"
 
-#: plugin.py:154
+#: plugin.py:151
 msgid "Search channels by name"
 msgstr "Αναζήτηση καναλιών βάσει ονόματος"
 
-#: plugin.py:155 plugin.py:167
+#: plugin.py:152 plugin.py:164
 msgid "Settings"
 msgstr "Ρυθμίσεις"
 
-#: plugin.py:155
+#: plugin.py:152
 msgid "Plugin settings and configuration"
 msgstr "Ρυθμίσεις και παραμετροποίηση του πρόσθετου"
 
-#: plugin.py:156
+#: plugin.py:153
 msgid "About"
 msgstr "Σχετικά"
 
-#: plugin.py:156
+#: plugin.py:153
 msgid "About TV Garden plugin"
 msgstr "Σχετικά με το πρόσθετο TV Garden"
 
-#: plugin.py:164
+#: plugin.py:161
 msgid "Exit"
 msgstr "Έξοδος"
 
-#: plugin.py:211
+#: plugin.py:208
 msgid "Refreshing data..."
 msgstr "Ανανέωση δεδομένων..."
 
-#: plugin.py:215
+#: plugin.py:212
 msgid "Data refreshed successfully"
 msgstr "Τα δεδομένα ανανεώθηκαν επιτυχώς"
 
-#: plugin.py:217
+#: plugin.py:214
 msgid "Cache and metadata have been refreshed."
 msgstr "Η προσωρινή μνήμη και τα μεταδεδομένα ανανεώθηκαν."
 
-#: plugin.py:222
+#: plugin.py:219
 msgid "Failed to refresh data. Check internet connection."
 msgstr "Αποτυχία ανανέωσης δεδομένων. Ελέγξτε τη σύνδεση στο διαδίκτυο."
 
-#: plugin.py:321
+#: plugin.py:318
 msgid "TV Garden"
 msgstr "TV Garden"
 
-#: plugin.py:328
+#: plugin.py:325
 msgid "Access free IPTV channels from around the world"
 msgstr "Πρόσβαση σε δωρεάν IPTV κανάλια από όλο τον κόσμο"
 
-#: utils/settings.py:42
+#: utils/settings.py:55
 msgid "TV Garden Settings"
 msgstr "Ρυθμίσεις TV Garden"
 
-#: utils/settings.py:48
+#: utils/settings.py:58
 msgid "Save"
 msgstr "Αποθήκευση"
 
-#: utils/settings.py:49
+#: utils/settings.py:59
 msgid "Set options"
 msgstr "Ορίστε τις επιλογές"
 
-#: utils/settings.py:65
+#: utils/settings.py:75 utils/settings.py:194
 msgid "Player"
 msgstr "Πρόγραμμα αναπαραγωγής"
 
-#: utils/settings.py:70
+#: utils/settings.py:80
 msgid "ExtePlayer3"
 msgstr "ExtePlayer3"
 
-#: utils/settings.py:71
+#: utils/settings.py:81
 msgid "GStreamer"
 msgstr "GStreamer"
 
-#: utils/settings.py:77
+#: utils/settings.py:87 utils/settings.py:195
 msgid "Volume"
 msgstr "Ένταση"
 
-#: utils/settings.py:82
+#: utils/settings.py:92 utils/settings.py:196
 msgid "Timeout (seconds)"
 msgstr "Χρόνος αναμονής (δευτερόλεπτα)"
 
-#: utils/settings.py:87
+#: utils/settings.py:97 utils/settings.py:197
 msgid "Retries"
 msgstr "Επαναλήψεις"
 
-#: utils/settings.py:93
+#: utils/settings.py:103 utils/settings.py:198
 msgid "Cache TTL (hours)"
 msgstr "Διάρκεια προσωρινής μνήμης (ώρες)"
 
-#: utils/settings.py:98
+#: utils/settings.py:108 utils/settings.py:199
 msgid "Cache Size"
 msgstr "Μέγεθος προσωρινής μνήμης"
 
-#: utils/settings.py:104
+#: utils/settings.py:114 utils/settings.py:200
 msgid "Skin"
 msgstr "Θέμα"
 
-#: utils/settings.py:109
+#: utils/settings.py:119
 msgid "HD"
 msgstr "HD"
 
-#: utils/settings.py:110
+#: utils/settings.py:120
 msgid "FHD"
 msgstr "FHD"
 
-#: utils/settings.py:111
+#: utils/settings.py:121
 msgid "WQHD"
 msgstr "WQHD"
 
-#: utils/settings.py:117
+#: utils/settings.py:127 utils/settings.py:201
 msgid "Show Flags"
 msgstr "Εμφάνιση σημαιών"
 
-#: utils/settings.py:122
+#: utils/settings.py:132 utils/settings.py:202
 msgid "Show Logos"
 msgstr "Εμφάνιση λογότυπων"
 
-#: utils/settings.py:128
+#: utils/settings.py:138 utils/settings.py:203
 msgid "Items per page"
 msgstr "Στοιχεία ανά σελίδα"
 
-#: utils/settings.py:133
+#: utils/settings.py:144 utils/settings.py:204
+msgid "Max channels per country"
+msgstr "Μέγιστος αριθμός καναλιών ανά χώρα"
+
+#: utils/settings.py:148
+msgid "100 channels"
+msgstr "100 κανάλια"
+
+#: utils/settings.py:149
+msgid "250 channels"
+msgstr "250 κανάλια"
+
+#: utils/settings.py:150
+msgid "500 channels"
+msgstr "500 κανάλια"
+
+#: utils/settings.py:151
+msgid "1000 channels"
+msgstr "1000 κανάλια"
+
+#: utils/settings.py:152
+msgid "All channels"
+msgstr "Όλα τα κανάλια"
+
+#: utils/settings.py:159 utils/settings.py:205
 msgid "Default View"
 msgstr "Προεπιλεγμένη προβολή"
 
-#: utils/settings.py:137
+#: utils/settings.py:163
 msgid "Countries"
 msgstr "Χώρες"
 
-#: utils/settings.py:138
+#: utils/settings.py:164
 msgid "Categories"
 msgstr "Κατηγορίες"
 
-#: utils/settings.py:146
+#: utils/settings.py:172 utils/settings.py:206
 msgid "Max Favorites"
 msgstr "Μέγιστα αγαπημένα"
 
-#: utils/settings.py:152
+#: utils/settings.py:178 utils/settings.py:207
 msgid "User Agent"
 msgstr "Παράγοντας χρήστη"
+
+#~ msgid "Error removing favorite"
+#~ msgstr "Σφάλμα αφαίρεσης αγαπημένου"
+
+#, python-brace-format
+#~ msgid "Ready - {} channels"
+#~ msgstr "Έτοιμο - {} κανάλια"

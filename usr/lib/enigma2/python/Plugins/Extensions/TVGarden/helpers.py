@@ -19,11 +19,11 @@ from . import PLUGIN_NAME, PLUGIN_PATH  # , _, PLUGIN_VERSION, PLUGIN_ICON
 def load_skin_file(skin_name):
     """Load skin file for current resolution"""
     skin_file = join(SKIN_PATH, f"{skin_name}.xml")
-    
+
     # Fallback to HD if skin not found for current resolution
     if not fileExists(skin_file):
         skin_file = join(DEFAULT_SKIN_PATH, f"{skin_name}.xml")
-    
+
     # Read skin content
     if fileExists(skin_file):
         try:
@@ -31,7 +31,7 @@ def load_skin_file(skin_name):
                 return f.read()
         except:
             pass
-    
+
     return None
 
 
@@ -45,7 +45,7 @@ def get_screen_resolution():
 def get_resolution_type():
     """Get resolution type: hd, fhd, wqhd"""
     width = get_screen_resolution().width()
-    
+
     if width >= 2560:
         return 'wqhd'
     elif width >= 1920:
@@ -72,11 +72,11 @@ def get_skin_template(screen_name):
 </screen>
 """
     }
-    
+
     # Calculate dimensions based on resolution
     width = get_screen_resolution().width()
     height = get_screen_resolution().height()
-    
+
     if RESOLUTION_TYPE == 'wqhd':
         menu_width = width - 100
         menu_height = height - 200
@@ -95,7 +95,7 @@ def get_skin_template(screen_name):
         status_y = height - 50
         flag_x = width - 140
         flag_y = 80
-    
+
     template = templates.get(screen_name, '')
     return template.format(
         width=width,
@@ -230,16 +230,16 @@ def is_valid_stream_url(url):
     """Check if URL looks like a valid stream for Enigma2"""
     if not url or not isinstance(url, str):
         return False
-    
+
     url = url.strip()
-    
+
     valid_prefixes = ('http://', 'https://', 'rtmp://', 'rtsp://')
-    
+
     if not any(url.startswith(prefix) for prefix in valid_prefixes):
         return False
-    
+
     supported_patterns = ('.m3u8', '.mp4', '.ts', '.avi', '.mkv', '.flv', 'mpegts')
-    
+
     url_lower = url.lower()
     for pattern in supported_patterns:
         if pattern in url_lower:
@@ -247,28 +247,64 @@ def is_valid_stream_url(url):
 
     if url.startswith(('http://', 'https://')):
         return True
-    
+
     return False
 
 
 # ============ DEFAULT CONFIG ============
 DEFAULT_CONFIG = {
-    "skin": "default",
-    "player": "exteplayer3",
-    "cache_ttl": 3600,
-    "max_channels_page": 50,
-    "show_flags": True,
-    "show_icons": True,
-    "auto_update": True,
-    "parental_lock": False,
-    "parental_pin": "0000",
-    "volume": 80,
-    "timeout": 10,
-    "retries": 3,
-    "favorite_countries": [],
-    "favorite_categories": [],
+    # Player settings
+    "player": "exteplayer3",      # "auto", "exteplayer3", "gstplayer"
+    "timeout": 10,                # Connection timeout in seconds
+    "retries": 3,                 # Connection retry attempts
+    "volume": 80,                 # Default volume 0-100
+
+    # Display settings
+    "skin": "auto",               # "auto", "hd", "fhd", "wqhd"
+    "show_flags": True,           # Show country flags
+    "show_logos": True,           # Show channel logos (not "show_icons")
+    "show_info": True,            # Show channel info
+
+    # Browser settings
+    "items_per_page": 20,         # Items per browser page
+    "max_channels": 500,          # Max channels per country (0=all)
+    "sort_by": "name",            # Sort channels by
+    "default_view": "countries",  # "countries", "categories", "favorites"
+
+    # Cache settings
+    "cache_enabled": True,        # Enable caching
+    "cache_ttl": 3600,            # Cache time-to-live in seconds
+    "cache_size": 100,            # Maximum cache items
+    "auto_refresh": True,         # Automatic cache refresh
+
+    # Parental control
+    "parental_lock": False,       # Enable parental control
+    "parental_pin": "0000",       # 4-digit PIN
+    "blocked_categories": [],     # List of blocked categories
+
+    # Favorites
+    "max_favorites": 100,         # Maximum favorites allowed
+    "auto_add_favorite": False,   # Automatically add watched to favorites
+
+    # Network
+    "user_agent": "TVGarden-Enigma2/1.0",
+    "use_proxy": False,
+    "proxy_url": "",
+
+    # Updates
+    "auto_update": True,          # Automatic updates
+    "update_channel": "stable",   # "stable", "beta", "dev"
+
+    # Last session
     "last_country": None,
-    "last_category": None
+    "last_category": None,
+    "last_channel": None,
+    "last_volume": 80,
+
+    # Statistics
+    "stats_enabled": True,
+    "watch_time": 0,              # Total watch time in seconds
+    "channels_watched": 0,        # Number of channels watched
 }
 
 

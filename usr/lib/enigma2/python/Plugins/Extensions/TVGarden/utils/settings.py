@@ -6,6 +6,7 @@ Plugin configuration interface
 Based on TV Garden Project
 """
 
+from os.path import exists
 from Screens.Screen import Screen
 from Components.ActionMap import ActionMap
 from Components.Label import Label
@@ -42,12 +43,12 @@ class TVGardenSettings(ConfigListScreen, Screen):
     """
 
     def __init__(self, session):
-        
+
         self.config = get_config()
-        
+
         dynamic_skin = self.config.load_skin("TVGardenSettings", self.skin)
         self.skin = dynamic_skin
-        
+
         Screen.__init__(self, session)
         ConfigListScreen.__init__(self, [], session=session)
 
@@ -64,11 +65,11 @@ class TVGardenSettings(ConfigListScreen, Screen):
                 "ok": self.save,
             }, -2
         )
-    
+
     def setupConfig(self):
         """Setup configuration entries"""
         self.config_entries = []
-        
+
         # Player settings
         self.config_entries.append([
             _("Player"), "player",
@@ -81,33 +82,33 @@ class TVGardenSettings(ConfigListScreen, Screen):
                 ]
             )
         ])
-        
+
         self.config_entries.append([
             _("Volume"), "volume",
             ConfigInteger(default=self.config.get("volume", 80), limits=(0, 100))
         ])
-        
+
         self.config_entries.append([
             _("Timeout (seconds)"), "timeout",
             ConfigInteger(default=self.config.get("timeout", 10), limits=(5, 60))
         ])
-        
+
         self.config_entries.append([
             _("Retries"), "retries",
             ConfigInteger(default=self.config.get("retries", 3), limits=(1, 10))
         ])
-        
+
         # Cache settings
         self.config_entries.append([
             _("Cache TTL (hours)"), "cache_ttl",
             ConfigInteger(default=self.config.get("cache_ttl", 3600) // 3600, limits=(1, 24))
         ])
-        
+
         self.config_entries.append([
             _("Cache Size"), "cache_size",
             ConfigInteger(default=self.config.get("cache_size", 100), limits=(10, 1000))
         ])
-        
+
         # Display settings
         self.config_entries.append([
             _("Skin"), "skin",
@@ -121,23 +122,39 @@ class TVGardenSettings(ConfigListScreen, Screen):
                 ]
             )
         ])
-        
+
         self.config_entries.append([
             _("Show Flags"), "show_flags",
             ConfigYesNo(default=self.config.get("show_flags", True))
         ])
-        
+
         self.config_entries.append([
             _("Show Logos"), "show_logos",
             ConfigYesNo(default=self.config.get("show_logos", True))
         ])
-        
+
         # Browser settings
         self.config_entries.append([
             _("Items per page"), "items_per_page",
             ConfigInteger(default=self.config.get("items_per_page", 20), limits=(10, 100))
         ])
-        
+
+        # Max channels settings (all_channels)
+        self.config_entries.append([
+            _("Max channels per country"), "max_channels",
+            ConfigSelection(
+                default=self.config.get("max_channels", 500),
+                choices=[
+                    (100, _("100 channels")),
+                    (250, _("250 channels")),
+                    (500, _("500 channels")),
+                    (1000, _("1000 channels")),
+                    (0, _("All channels"))
+                ]
+            )
+        ])
+
+        # default view
         self.config_entries.append([
             _("Default View"), "default_view",
             ConfigSelection(
@@ -149,46 +166,101 @@ class TVGardenSettings(ConfigListScreen, Screen):
                 ]
             )
         ])
-        
+
         # Favorites
         self.config_entries.append([
             _("Max Favorites"), "max_favorites",
             ConfigInteger(default=self.config.get("max_favorites", 100), limits=(10, 500))
         ])
-        
+
         # Network
         self.config_entries.append([
             _("User Agent"), "user_agent",
             ConfigText(default=self.config.get("user_agent", "TVGarden-Enigma2/1.0"), fixed_size=False)
         ])
-        
+
         # Creazione della lista
         self.list = []
         for entry in self.config_entries:
             name = entry[0]
             config_item = entry[2]
             self.list.append(getConfigListEntry(name, config_item))
-        
+
         self["config"].setList(self.list)
-    
+
     def save(self):
-        """Save configuration"""
+        print("[SETTINGS DEBUG] Starting save...")
+        name_to_key = {
+            _("Player"): "player",
+            _("Volume"): "volume",
+            _("Timeout (seconds)"): "timeout",
+            _("Retries"): "retries",
+            _("Cache TTL (hours)"): "cache_ttl",
+            _("Cache Size"): "cache_size",
+            _("Skin"): "skin",
+            _("Show Flags"): "show_flags",
+            _("Show Logos"): "show_logos",
+            _("Items per page"): "items_per_page",
+            _("Max channels per country"): "max_channels",
+            _("Default View"): "default_view",
+            _("Max Favorites"): "max_favorites",
+            _("User Agent"): "user_agent",
+        }
+        
+        # Save each config entry
         for entry in self["config"].list:
-            key_name = entry[0].lower().replace(" ", "_")
+            display_name = entry[0]
+            config_item = entry[1]
             
-            if entry[1].__class__.__name__ == "ConfigYesNo":
-                self.config.set(key_name, entry[1].value)
-            elif entry[1].__class__.__name__ == "ConfigSelection":
-                self.config.set(key_name, entry[1].value)
-            elif entry[1].__class__.__name__ == "ConfigNumber":
-                # Special handling for cache TTL
-                if "ttl" in key_name:
-                    self.config.set("cache_ttl", entry[1].value * 3600)
-                else:
-                    self.config.set(key_name, entry[1].value)
+            # Get the config key from display name
+            config_key = name_to_key.get(display_name)
+            if not config_key:
+                print(f"[SETTINGS WARNING] No key found for: '{display_name}'")
+                print(f"[SETTINGS DEBUG] Available keys: {list(name_to_key.keys())}")
+                continue
+            
+            value = config_item.value
+            print(f"[SETTINGS DEBUG] Saving: {config_key} = {value} (type: {type(value)})")
+            
+            # Handle special cases
+            if config_key == "cache_ttl":
+                # Convert hours to seconds
+                self.config.set("cache_ttl", int(value) * 3600)
+            elif config_key == "max_channels":
+                # Ensure it's an integer
+                try:
+                    int_value = int(value)
+                    self.config.set("max_channels", int_value)
+                    print(f"[SETTINGS DEBUG] Saved max_channels as: {int_value}")
+                except Exception as e:
+                    print(f"[SETTINGS ERROR] Could not convert max_channels '{value}': {e}")
+                    self.config.set("max_channels", 500)  # Default fallback
+            else:
+                # Standard save
+                self.config.set(config_key, value)
+        
+        # Force save to disk
+        if self.config.save_config():
+            print("[SETTINGS DEBUG] Config saved successfully to disk")
+        else:
+            print("[SETTINGS ERROR] Failed to save config to disk!")
+        
+        # Verify
+        saved_max = self.config.get("max_channels", 500)
+        print(f"[SETTINGS DEBUG] VERIFIED - max_channels in config: {saved_max}")
+        
+        try:
+            import json
+            config_file = "/etc/enigma2/tvgarden/config.json"
+            if exists(config_file):
+                with open(config_file, 'r') as f:
+                    file_content = json.load(f)
+                print(f"[SETTINGS DEBUG] File content - max_channels: {file_content.get('max_channels', 'NOT FOUND')}")
+        except Exception as e:
+            print(f"[SETTINGS DEBUG] Could not read config file: {e}")
         
         self.close(True)
-    
+
     def cancel(self):
         """Cancel without saving"""
         self.close(False)

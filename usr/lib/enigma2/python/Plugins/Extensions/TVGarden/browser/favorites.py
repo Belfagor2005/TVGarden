@@ -59,13 +59,6 @@ class FavoritesBrowser(BaseBrowser):
         self.current_channel = None
         self["menu"] = MenuList([])
         self["status"] = Label(_("Loading favorites..."))
-
-        # from Components.Sources.StaticText import StaticText
-        # self["key_red"] = StaticText(_("Back"))
-        # self["key_green"] = StaticText(_("Play"))
-        # self["key_yellow"] = StaticText(_("Remove"))
-        # self["key_blue"] = StaticText(_("Clear All"))
-
         self["key_red"] = Label(_("Back"))
         self["key_green"] = Label(_("Play"))
         self["key_yellow"] = Label(_("Remove"))
@@ -185,18 +178,12 @@ class FavoritesBrowser(BaseBrowser):
 
     def remove_favorite(self):
         """Remove the selected channel from favorites."""
-        channel, index = self.get_current_channel()  # Renamed variable
+        channel, index = self.get_current_channel()
 
         if channel:
             if self.fav_manager.remove(channel):
-                # DEBUG: check the type of index
                 print("[DEBUG] Type of index in remove_favorite: %s" % type(index))
-                # # Set status message
-                # self["status"].setText("Removed from favorites")
-
-                # # If using gettext:
                 self["status"].setText(_("Removed from favorites"))
-
             else:
                 self["status"].setText("Error removing favorite")
         else:
