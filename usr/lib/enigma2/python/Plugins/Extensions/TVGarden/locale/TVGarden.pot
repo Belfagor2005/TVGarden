@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TVGarden\n"
-"POT-Creation-Date: 2025-12-08 20:08+0100\n"
+"POT-Creation-Date: 2025-12-08 21:56+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: lululla [ekekaz@gmail.com]\n"
@@ -467,11 +467,11 @@ msgstr ""
 msgid "Failed to refresh data. Check internet connection."
 msgstr ""
 
-#: plugin.py:296
+#: plugin.py:292
 msgid "TV Garden"
 msgstr ""
 
-#: plugin.py:303
+#: plugin.py:299
 msgid "Access free IPTV channels from around the world"
 msgstr ""
 
