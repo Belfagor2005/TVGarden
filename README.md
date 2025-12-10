@@ -408,7 +408,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 ### Core Development
 - **Original Concept**: Lululla (TV Garden Project)
 - **Data Source**: [Belfagor2005](https://github.com/Belfagor2005/tv-garden-channel-list)
-- **Plugin Development**: Your Name/Team
+- **Plugin Development**: Corvoboys.org / Linuxsat-Support.org
 - **Testing Community**: Enigma2 users worldwide
 
 ### Technologies Used
