@@ -11,11 +11,11 @@ from Components.MenuList import MenuList
 from Components.Label import Label
 from Components.Pixmap import Pixmap
 from enigma import eTimer
-from sys import stderr
 
 from .base import BaseBrowser
-from ..utils.config import PluginConfig
 from .channels import ChannelsBrowser
+from ..helpers import log
+from ..utils.config import PluginConfig
 from ..utils.cache import CacheManager
 from .. import _
 
@@ -102,8 +102,8 @@ class CategoriesBrowser(BaseBrowser):
             "down": self.down,
         }, -2)
 
-        print("[CATEGORIES DEBUG] ActionMap configured", file=stderr)
-        print(f"[CATEGORIES DEBUG] self['actions']: {self['actions']}", file=stderr)
+        log.debug("ActionMap configured", module="Categories")
+        log.debug("self['actions']: %s" % self['actions'], module="Categories")
         self.test_key_press = False
         self.timer = eTimer()
         self.timer.callback.append(self.testOK)
@@ -112,7 +112,7 @@ class CategoriesBrowser(BaseBrowser):
 
     def testOK(self):
         """Test method called by timer"""
-        print("[CATEGORIES DEBUG] testOK() called!", file=stderr)
+        log.debug("testOK() called!", module="Categories")
         self.select_category()
 
     def load_categories(self):
@@ -132,50 +132,50 @@ class CategoriesBrowser(BaseBrowser):
             category_id = selection[1]
             category_name = selection[0]
 
-            print(f"[DEBUG CategoriesBrowser] Selected: {category_id} ({category_name})")
+            log.debug("Selected: %s (%s)" % (category_id, category_name), module="Categories")
 
             try:
                 # Load data
-                print(f"[DEBUG] Calling cache.get_category_channels('{category_id}')")
+                log.debug("Calling cache.get_category_channels('%s')" % category_id, module="Categories")
                 data = self.cache.get_category_channels(category_id)
-                print(f"[DEBUG] Data received, type: {type(data)}")
+                log.debug("Data received, type: %s" % type(data), module="Categories")
 
                 # Full log for the first 500 characters
                 data_str = str(data)
-                print(f"[DEBUG] Data sample: {data_str[:300]}...")
+                log.debug("Data sample: %s..." % data_str[:300], module="Categories")
 
                 # Extract channels
                 channels = []
                 if isinstance(data, list):
                     channels = data
-                    print(f"[DEBUG] Data is list with {len(channels)} items")
+                    log.debug("Data is list with %d items" % len(channels), module="Categories")
                 elif isinstance(data, dict):
-                    print(f"[DEBUG] Data is dict with keys: {list(data.keys())}")
+                    log.debug("Data is dict with keys: %s" % list(data.keys()), module="Categories")
                     if 'channels' in data:
                         channels = data['channels']
-                        print(f"[DEBUG] Found 'channels' key with {len(channels)} items")
+                        log.debug("Found 'channels' key with %d items" % len(channels), module="Categories")
                     else:
                         # Search for other keys
                         for key in ['items', 'streams', 'list']:
                             if key in data:
                                 channels = data[key]
-                                print(f"[DEBUG] Found '{key}' key with {len(channels)} items")
+                                log.debug("Found '%s' key with %d items" % (key, len(channels)), module="Categories")
                                 break
 
-                print(f"[DEBUG] Total channels extracted: {len(channels)}")
+                log.debug("Total channels extracted: %d" % len(channels), module="Categories")
 
                 if len(channels) > 0:
-                    print(f"[DEBUG] Opening ChannelsBrowser with {len(channels)} channels")
+                    log.debug("Opening ChannelsBrowser with %d channels" % len(channels), module="Categories")
                     self.session.open(ChannelsBrowser,
                                       category_id=category_id,
-                                      category_name=f"{category_name} ({len(channels)} channels)")
+                                      category_name="%s (%d channels)" % (category_name, len(channels)))
                 else:
                     self["status"].setText(_("No channels in this category"))
-                    print("[DEBUG] WARNING: Empty channel list!")
+                    log.warning("Empty channel list!", module="Categories")
 
             except Exception as e:
                 self["status"].setText(_("Error loading category"))
-                print(f"[DEBUG] ERROR: {type(e).__name__}: {e}")
+                log.error("ERROR: %s: %s" % (type(e).__name__, e), module="Categories")
                 import traceback
                 traceback.print_exc()
 

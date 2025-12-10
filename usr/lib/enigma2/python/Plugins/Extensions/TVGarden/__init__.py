@@ -13,7 +13,7 @@ import gettext
 import sys
 
 PLUGIN_NAME = "TVGarden"
-PLUGIN_VERSION = "1.0"
+PLUGIN_VERSION = "1.1"
 PLUGIN_PATH = resolveFilename(SCOPE_PLUGINS, f"Extensions/{PLUGIN_NAME}")
 PLUGIN_ICON = resolveFilename(SCOPE_PLUGINS, "Extensions/TVGarden/icons/plugin.png")
 

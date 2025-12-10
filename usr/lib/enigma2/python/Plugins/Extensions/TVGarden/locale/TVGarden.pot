@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TVGarden\n"
-"POT-Creation-Date: 2025-12-10 11:45+0100\n"
+"POT-Creation-Date: 2025-12-10 19:16+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: lululla [ekekaz@gmail.com]\n"
@@ -19,19 +19,19 @@ msgstr ""
 "X-Poedit-SearchPath-3: player\n"
 "X-Poedit-SearchPath-4: utils\n"
 
-#: browser/about.py:44
+#: browser/about.py:45
 msgid "TV Garden Plugin"
 msgstr ""
 
-#: browser/about.py:47
+#: browser/about.py:48 utils/settings.py:53
 msgid "Close"
 msgstr ""
 
-#: browser/about.py:60
+#: browser/about.py:63
 msgid "About TV Garden"
 msgstr ""
 
-#: browser/about.py:98
+#: browser/about.py:101
 msgid "Error loading information"
 msgstr ""
 
@@ -39,7 +39,7 @@ msgstr ""
 msgid "Animation"
 msgstr ""
 
-#: browser/categories.py:28 utils/settings.py:79 utils/settings.py:118
+#: browser/categories.py:28 utils/settings.py:161 utils/settings.py:200
 msgid "Auto"
 msgstr ""
 
@@ -156,11 +156,11 @@ msgid "Loading categories..."
 msgstr ""
 
 #: browser/categories.py:94 browser/channels.py:106 browser/countries.py:73
-#: browser/favorites.py:62 browser/search.py:71 utils/settings.py:57
+#: browser/favorites.py:63 browser/search.py:70 utils/settings.py:117
 msgid "Back"
 msgstr ""
 
-#: browser/categories.py:95 browser/countries.py:74 plugin.py:162
+#: browser/categories.py:95 browser/countries.py:74 plugin.py:153
 msgid "Select"
 msgstr ""
 
@@ -184,7 +184,7 @@ msgstr ""
 msgid "Cache cleared"
 msgstr ""
 
-#: browser/categories.py:189 browser/countries.py:326 plugin.py:217
+#: browser/categories.py:189 browser/countries.py:326 plugin.py:208
 msgid "Refresh failed"
 msgstr ""
 
@@ -192,11 +192,11 @@ msgstr ""
 msgid "Loading channels..."
 msgstr ""
 
-#: browser/channels.py:107 browser/favorites.py:63
+#: browser/channels.py:107 browser/favorites.py:64
 msgid "Play"
 msgstr ""
 
-#: browser/channels.py:108 browser/search.py:73
+#: browser/channels.py:108 browser/search.py:72
 msgid "Favorite"
 msgstr ""
 
@@ -204,73 +204,74 @@ msgstr ""
 msgid "Info"
 msgstr ""
 
-#: browser/channels.py:320
+#: browser/channels.py:302
 #, python-brace-format
 msgid "Showing {shown} of {total} channels"
 msgstr ""
 
-#: browser/channels.py:325
+#: browser/channels.py:307
 #, python-brace-format
 msgid "Found {count} playable channels"
 msgstr ""
 
-#: browser/channels.py:328 browser/search.py:327
+#: browser/channels.py:310 browser/search.py:329
 #, python-brace-format
 msgid "(skipped {count} YouTube)"
 msgstr ""
 
-#: browser/channels.py:331 browser/search.py:330
+#: browser/channels.py:313 browser/search.py:332
 #, python-brace-format
 msgid "(filtered {count} problematic)"
 msgstr ""
 
-#: browser/channels.py:334 browser/search.py:333
+#: browser/channels.py:316 browser/search.py:335
 #, python-brace-format
 msgid "(limited to first {limit})"
 msgstr ""
 
-#: browser/channels.py:348 browser/search.py:142
+#: browser/channels.py:328 browser/search.py:141
 msgid "Error loading channels"
 msgstr ""
 
-#: browser/channels.py:426 browser/search.py:394
+#: browser/channels.py:396 browser/search.py:393 utils/favorites.py:380
 msgid "No stream URL"
 msgstr ""
 
-#: browser/channels.py:457 browser/favorites.py:186 browser/search.py:417
-msgid "Removed from favorites"
+#: browser/channels.py:423 browser/favorites.py:234
+msgid "Unknown"
 msgstr ""
 
-#: browser/channels.py:460 browser/search.py:420
-msgid "Added to favorites"
+#: browser/channels.py:429 browser/favorites.py:239
+#, python-brace-format
+msgid "Remove '{}' from favorites?"
 msgstr ""
 
-#: browser/channels.py:472
+#: browser/channels.py:462
 #, python-format
 msgid "Stream: %s"
 msgstr ""
 
-#: browser/channels.py:479
+#: browser/channels.py:469
 msgid "Play Channel"
 msgstr ""
 
-#: browser/channels.py:480
+#: browser/channels.py:470
 msgid "Add to Favorites"
 msgstr ""
 
-#: browser/channels.py:481
+#: browser/channels.py:471 browser/favorites.py:359
 msgid "Channel Information"
 msgstr ""
 
-#: browser/channels.py:482
+#: browser/channels.py:472
 msgid "Share Channel"
 msgstr ""
 
-#: browser/channels.py:483
+#: browser/channels.py:473
 msgid "Report Issue"
 msgstr ""
 
-#: browser/channels.py:486
+#: browser/channels.py:476
 msgid "Channel Menu"
 msgstr ""
 
@@ -278,7 +279,7 @@ msgstr ""
 msgid "Loading countries..."
 msgstr ""
 
-#: browser/countries.py:75 plugin.py:163
+#: browser/countries.py:75 plugin.py:154
 msgid "Refresh"
 msgstr ""
 
@@ -306,164 +307,216 @@ msgstr ""
 msgid "Countries refreshed"
 msgstr ""
 
-#: browser/favorites.py:61
+#: browser/favorites.py:62
 msgid "Loading favorites..."
 msgstr ""
 
-#: browser/favorites.py:64
-msgid "Remove"
-msgstr ""
-
 #: browser/favorites.py:65
-msgid "Clear All"
+msgid "Options"
 msgstr ""
 
-#: browser/favorites.py:128
+#: browser/favorites.py:66
+msgid "Export"
+msgstr ""
+
+#: browser/favorites.py:129
 #, python-format
 msgid "%d favorite channels"
 msgstr ""
 
-#: browser/favorites.py:133
+#: browser/favorites.py:134
 msgid "No favorite channels"
 msgstr ""
 
-#: browser/favorites.py:138
+#: browser/favorites.py:139
 msgid "Error loading favorites"
 msgstr ""
 
-#: browser/favorites.py:152
+#: browser/favorites.py:145 browser/favorites.py:273
 msgid "No channel selected"
 msgstr ""
 
-#: browser/favorites.py:157
+#: browser/favorites.py:149
+msgid "View Channel Info"
+msgstr ""
+
+#: browser/favorites.py:150
+msgid "Remove from Favorites"
+msgstr ""
+
+#: browser/favorites.py:151
+msgid "Clear All Favorites"
+msgstr ""
+
+#: browser/favorites.py:152
+msgid "Export to Enigma2 Bouquet"
+msgstr ""
+
+#: browser/favorites.py:153
+msgid "Remove Bouquet from Enigma2"
+msgstr ""
+
+#: browser/favorites.py:159
+#, python-brace-format
+msgid "Options for: {}"
+msgstr ""
+
+#: browser/favorites.py:181
+#, python-brace-format
+msgid "Export '{}' to Enigma2 bouquet?"
+msgstr ""
+
+#: browser/favorites.py:189
+msgid "Remove TV Garden bouquet from Enigma2?"
+msgstr ""
+
+#: browser/favorites.py:197
+msgid "Clear ALL favorites?"
+msgstr ""
+
+#: browser/favorites.py:252
+#, python-brace-format
+msgid "{} favorites"
+msgstr ""
+
+#: browser/favorites.py:278
 msgid "No stream URL available"
 msgstr ""
 
-#: browser/favorites.py:176 browser/search.py:409
+#: browser/favorites.py:297 browser/search.py:408
 msgid "Error opening player"
 msgstr ""
 
-#: browser/favorites.py:195
-msgid "All favorites cleared"
+#: browser/favorites.py:305
+msgid "No favorites to export"
 msgstr ""
 
-#: browser/favorites.py:200
-msgid "Error clearing favorites"
+#: browser/favorites.py:314
+#, python-brace-format
+msgid "Export ALL {} favorites to Enigma2 bouquet?"
 msgstr ""
 
-#: browser/search.py:67
+#: browser/search.py:66
 msgid "Search:"
 msgstr ""
 
-#: browser/search.py:70 browser/search.py:168
+#: browser/search.py:69 browser/search.py:167
 msgid "Press GREEN for keyboard..."
 msgstr ""
 
-#: browser/search.py:72
+#: browser/search.py:71
 msgid "Keyboard"
 msgstr ""
 
-#: browser/search.py:74
+#: browser/search.py:73
 msgid "Clear"
 msgstr ""
 
-#: browser/search.py:134
+#: browser/search.py:133
 #, python-brace-format
 msgid "Press GREEN for keyboard... Ready - {} channels"
 msgstr ""
 
-#: browser/search.py:137
+#: browser/search.py:136
 msgid "No channels loaded"
 msgstr ""
 
-#: browser/search.py:149
+#: browser/search.py:148
 msgid "Search Channels"
 msgstr ""
 
-#: browser/search.py:158
+#: browser/search.py:157
 msgid "Searching..."
 msgstr ""
 
-#: browser/search.py:319
+#: browser/search.py:321
 #, python-brace-format
 msgid "Showing {shown} of {total} results"
 msgstr ""
 
-#: browser/search.py:324
+#: browser/search.py:326
 #, python-brace-format
 msgid "Found {} channels"
 msgstr ""
 
-#: browser/search.py:341
+#: browser/search.py:343
 #, python-brace-format
 msgid "No channels found for: {}"
 msgstr ""
 
-#: plugin.py:148
+#: browser/search.py:416
+msgid "Removed from favorites"
+msgstr ""
+
+#: browser/search.py:419
+msgid "Added to favorites"
+msgstr ""
+
+#: plugin.py:139
 msgid "Browse by Country"
 msgstr ""
 
-#: plugin.py:148
+#: plugin.py:139
 msgid "Browse channels by country"
 msgstr ""
 
-#: plugin.py:149
+#: plugin.py:140
 msgid "Browse by Category"
 msgstr ""
 
-#: plugin.py:149
+#: plugin.py:140
 msgid "Browse channels by category"
 msgstr ""
 
-#: plugin.py:150 utils/settings.py:165
+#: plugin.py:141 utils/settings.py:247
 msgid "Favorites"
 msgstr ""
 
-#: plugin.py:150
+#: plugin.py:141
 msgid "Your favorite channels"
 msgstr ""
 
-#: plugin.py:151
+#: plugin.py:142
 msgid "Search"
 msgstr ""
 
-#: plugin.py:151
+#: plugin.py:142
 msgid "Search channels by name"
 msgstr ""
 
-#: plugin.py:152 plugin.py:164
+#: plugin.py:143 plugin.py:155
 msgid "Settings"
 msgstr ""
 
-#: plugin.py:152
+#: plugin.py:143
 msgid "Plugin settings and configuration"
 msgstr ""
 
-#: plugin.py:153
+#: plugin.py:144
 msgid "About"
 msgstr ""
 
-#: plugin.py:153
+#: plugin.py:144
 msgid "About TV Garden plugin"
 msgstr ""
 
-#: plugin.py:161
+#: plugin.py:152
 msgid "Exit"
 msgstr ""
 
-#: plugin.py:208
+#: plugin.py:199
 msgid "Refreshing data..."
 msgstr ""
 
-#: plugin.py:212
+#: plugin.py:203
 msgid "Data refreshed successfully"
 msgstr ""
 
-#: plugin.py:214
+#: plugin.py:205
 msgid "Cache and metadata have been refreshed."
 msgstr ""
 
-#: plugin.py:219
+#: plugin.py:210
 msgid "Failed to refresh data. Check internet connection."
 msgstr ""
 
@@ -471,122 +524,257 @@ msgstr ""
 msgid "TV Garden"
 msgstr ""
 
-#: plugin.py:299
+#: plugin.py:307
 msgid "Access free IPTV channels from around the world"
 msgstr ""
 
-#: utils/settings.py:55
+#: utils/favorites.py:74
+msgid "Already in favorites"
+msgstr ""
+
+#: utils/favorites.py:86
+#, python-brace-format
+msgid "Added to favorites: {}"
+msgstr ""
+
+#: utils/favorites.py:89 utils/favorites.py:104
+msgid "Error saving favorites"
+msgstr ""
+
+#: utils/favorites.py:101
+#, python-brace-format
+msgid "Removed from favorites: {}"
+msgstr ""
+
+#: utils/favorites.py:106
+msgid "Channel not found in favorites"
+msgstr ""
+
+#: utils/favorites.py:190
+msgid "No channels to export"
+msgstr ""
+
+#: utils/favorites.py:220
+msgid "No valid stream URLs found"
+msgstr ""
+
+#: utils/favorites.py:404
+msgid "Channel added to bouquet"
+msgstr ""
+
+#: utils/favorites.py:416
+#, python-brace-format
+msgid "Cleared {} favorites"
+msgstr ""
+
+#: utils/favorites.py:419
+msgid "Error clearing favorites"
+msgstr ""
+
+#: utils/settings.py:48
+msgid "Log file is empty or not found"
+msgstr ""
+
+#: utils/settings.py:51
+msgid "TV Garden Logs"
+msgstr ""
+
+#: utils/settings.py:115
 msgid "TV Garden Settings"
 msgstr ""
 
-#: utils/settings.py:58
+#: utils/settings.py:118
 msgid "Save"
 msgstr ""
 
-#: utils/settings.py:59
+#: utils/settings.py:119
 msgid "Set options"
 msgstr ""
 
-#: utils/settings.py:75 utils/settings.py:194
+#: utils/settings.py:140 utils/settings.py:308 utils/settings.py:391
+#: utils/settings.py:418 utils/settings.py:447
+msgid "View Log File"
+msgstr ""
+
+#: utils/settings.py:144 utils/settings.py:316 utils/settings.py:391
+#: utils/settings.py:419 utils/settings.py:447
+msgid "Clear Log Files Now"
+msgstr ""
+
+#: utils/settings.py:157 utils/settings.py:400
 msgid "Player"
 msgstr ""
 
-#: utils/settings.py:80
+#: utils/settings.py:162
 msgid "ExtePlayer3"
 msgstr ""
 
-#: utils/settings.py:81
+#: utils/settings.py:163
 msgid "GStreamer"
 msgstr ""
 
-#: utils/settings.py:87 utils/settings.py:195
+#: utils/settings.py:169 utils/settings.py:401
 msgid "Volume"
 msgstr ""
 
-#: utils/settings.py:92 utils/settings.py:196
+#: utils/settings.py:174 utils/settings.py:402
 msgid "Timeout (seconds)"
 msgstr ""
 
-#: utils/settings.py:97 utils/settings.py:197
+#: utils/settings.py:179 utils/settings.py:403
 msgid "Retries"
 msgstr ""
 
-#: utils/settings.py:103 utils/settings.py:198
+#: utils/settings.py:185 utils/settings.py:404
 msgid "Cache TTL (hours)"
 msgstr ""
 
-#: utils/settings.py:108 utils/settings.py:199
+#: utils/settings.py:190 utils/settings.py:405
 msgid "Cache Size"
 msgstr ""
 
-#: utils/settings.py:114 utils/settings.py:200
+#: utils/settings.py:196 utils/settings.py:406
 msgid "Skin"
 msgstr ""
 
-#: utils/settings.py:119
+#: utils/settings.py:201
 msgid "HD"
 msgstr ""
 
-#: utils/settings.py:120
+#: utils/settings.py:202
 msgid "FHD"
 msgstr ""
 
-#: utils/settings.py:121
+#: utils/settings.py:203
 msgid "WQHD"
 msgstr ""
 
-#: utils/settings.py:127 utils/settings.py:201
+#: utils/settings.py:209 utils/settings.py:407
 msgid "Show Flags"
 msgstr ""
 
-#: utils/settings.py:132 utils/settings.py:202
+#: utils/settings.py:214 utils/settings.py:408
 msgid "Show Logos"
 msgstr ""
 
-#: utils/settings.py:138 utils/settings.py:203
+#: utils/settings.py:220 utils/settings.py:409
 msgid "Items per page"
 msgstr ""
 
-#: utils/settings.py:144 utils/settings.py:204
+#: utils/settings.py:226 utils/settings.py:410
 msgid "Max channels per country"
 msgstr ""
 
-#: utils/settings.py:148
+#: utils/settings.py:230
 msgid "100 channels"
 msgstr ""
 
-#: utils/settings.py:149
+#: utils/settings.py:231
 msgid "250 channels"
 msgstr ""
 
-#: utils/settings.py:150
+#: utils/settings.py:232
 msgid "500 channels"
 msgstr ""
 
-#: utils/settings.py:151
+#: utils/settings.py:233
 msgid "1000 channels"
 msgstr ""
 
-#: utils/settings.py:152
+#: utils/settings.py:234
 msgid "All channels"
 msgstr ""
 
-#: utils/settings.py:159 utils/settings.py:205
+#: utils/settings.py:241 utils/settings.py:411
 msgid "Default View"
 msgstr ""
 
-#: utils/settings.py:163
+#: utils/settings.py:245
 msgid "Countries"
 msgstr ""
 
-#: utils/settings.py:164
+#: utils/settings.py:246
 msgid "Categories"
 msgstr ""
 
-#: utils/settings.py:172 utils/settings.py:206
+#: utils/settings.py:254 utils/settings.py:412
 msgid "Max Favorites"
 msgstr ""
 
-#: utils/settings.py:178 utils/settings.py:207
+#: utils/settings.py:260 utils/settings.py:413
 msgid "User Agent"
+msgstr ""
+
+#: utils/settings.py:266
+msgid "=== Logging Settings ==="
+msgstr ""
+
+#: utils/settings.py:271 utils/settings.py:414
+msgid "Log Level"
+msgstr ""
+
+#: utils/settings.py:275
+msgid "Debug (most verbose)"
+msgstr ""
+
+#: utils/settings.py:276
+msgid "Info (normal)"
+msgstr ""
+
+#: utils/settings.py:277
+msgid "Warning"
+msgstr ""
+
+#: utils/settings.py:278
+msgid "Error only"
+msgstr ""
+
+#: utils/settings.py:279
+msgid "Critical only"
+msgstr ""
+
+#: utils/settings.py:285 utils/settings.py:415
+msgid "Log to File"
+msgstr ""
+
+#: utils/settings.py:290 utils/settings.py:416
+msgid "Max Log Size (MB)"
+msgstr ""
+
+#: utils/settings.py:298 utils/settings.py:417
+msgid "Log Backup Files"
+msgstr ""
+
+#: utils/settings.py:303
+msgid "--- Log Maintenance ---"
+msgstr ""
+
+#: utils/settings.py:310
+msgid "Press OK to view logs"
+msgstr ""
+
+#: utils/settings.py:318
+msgid "Press OK to clear logs"
+msgstr ""
+
+#: utils/settings.py:342
+msgid "Are you sure you want to clear all log files?"
+msgstr ""
+
+#: utils/settings.py:346
+#, python-brace-format
+msgid "Error: {}"
+msgstr ""
+
+#: utils/settings.py:353
+msgid "Logs cleared"
+msgstr ""
+
+#: utils/settings.py:356
+msgid "Log files cleared successfully"
+msgstr ""
+
+#: utils/settings.py:363
+#, python-brace-format
+msgid "Error clearing logs: {}"
 msgstr ""

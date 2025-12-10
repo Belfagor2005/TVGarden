@@ -27,6 +27,7 @@ from Screens.InfoBarGenerics import (
 )
 
 # Local imports
+from ..helpers import log
 # from ..base import BaseBrowser
 # from ..channels import ChannelsBrowser
 # from ..utils.cache import CacheManager
@@ -151,11 +152,11 @@ class TVGardenPlayer(InfoBarBase, InfoBarSeek, InfoBarAudioSelection, InfoBarNot
         self.current_index = current_index
         self.itemscount = len(self.channel_list)
 
-        print(f"[TVGardenPlayer] INIT: Got {self.itemscount} channels, starting at index {self.current_index}")
+        log.debug("INIT: Got %d channels, starting at index %d" % (self.itemscount, self.current_index), module="Player")
         if self.channel_list:
             current_ch = self.channel_list[self.current_index]
-            print(f"[TVGardenPlayer] Current channel: {current_ch.get('name')}")
-            print(f"[TVGardenPlayer] Current URL: {current_ch.get('stream_url') or current_ch.get('url')}")
+            log.debug("Current channel: %s" % current_ch.get('name'), module="Player")
+            log.debug("Current URL: %s" % (current_ch.get('stream_url') or current_ch.get('url')), module="Player")
 
         self.srefInit = self.session.nav.getCurrentlyPlayingServiceReference()
         self['actions'] = ActionMap(
@@ -189,23 +190,23 @@ class TVGardenPlayer(InfoBarBase, InfoBarSeek, InfoBarAudioSelection, InfoBarNot
     def start_stream(self):
         """Start playing the current channel with error handling"""
         if not self.channel_list:
-            print("[TVGardenPlayer] ERROR: No channel list!")
+            log.error("No channel list!", module="Player")
             return
-        
+
         current_channel = self.channel_list[self.current_index]
         stream_url = current_channel.get('stream_url') or current_channel.get('url')
         channel_name = current_channel.get('name', 'TV Garden')
-        
+
         if not stream_url:
-            print(f"[TVGardenPlayer] ERROR: No stream URL for channel {self.current_index}")
+            log.error("No stream URL for channel %d" % self.current_index, module="Player")
             return
-        
-        print(f"[TVGardenPlayer] Playing channel {self.current_index}: {channel_name}")
-        print(f"[TVGardenPlayer] URL: {stream_url[:80]}...")
-        
+
+        log.info("Playing channel %d: %s" % (self.current_index, channel_name), module="Player")
+        log.debug("URL: %s..." % stream_url[:80], module="Player")
+
         # Check if the URL may be problematic
         if self.is_problematic_stream(stream_url):
-            print("[TVGardenPlayer] WARNING: Stream might be problematic")
+            log.warning("Stream might be problematic", module="Player")
             self.show_stream_warning(channel_name)
 
         try:
@@ -220,7 +221,7 @@ class TVGardenPlayer(InfoBarBase, InfoBarSeek, InfoBarAudioSelection, InfoBarNot
                 + name_encoded
             )
 
-            print("[TVGardenPlayer] ServiceRef string: " + ref_str)
+            log.debug("ServiceRef string: " + ref_str, module="Player")
 
             sref = eServiceReference(ref_str)
             sref.setName(channel_name)
@@ -233,7 +234,7 @@ class TVGardenPlayer(InfoBarBase, InfoBarSeek, InfoBarAudioSelection, InfoBarNot
             self.start_stream_check_timer()
 
         except Exception as error:
-            print("[TVGardenPlayer] ERROR starting stream: " + str(error))
+            log.error("ERROR starting stream: " + str(error), module="Player")
             self.show_error_message("Cannot play: " + channel_name)
 
     def is_problematic_stream(self, url):
@@ -258,7 +259,6 @@ class TVGardenPlayer(InfoBarBase, InfoBarSeek, InfoBarAudioSelection, InfoBarNot
 
     def show_stream_warning(self, channel_name):
         """Show warning about potentially problematic stream"""
-        from Screens.MessageBox import MessageBox
         message = f"Warning: {channel_name}\n\nThis stream might use encryption or DRM that is not supported by your receiver.\n\nTry another channel."
         self.session.open(MessageBox, message, MessageBox.TYPE_WARNING)
 
@@ -276,12 +276,12 @@ class TVGardenPlayer(InfoBarBase, InfoBarSeek, InfoBarAudioSelection, InfoBarNot
                 info = service.info()
                 if info:
                     # If we can retrieve info, the stream is likely working
-                    print("[TVGardenPlayer] Stream appears to be playing correctly")
+                    log.info("Stream appears to be playing correctly", module="Player")
                     return
         except Exception:
             pass
-        
-        print("[TVGardenPlayer] WARNING: Stream might have failed to start")
+
+        log.warning("Stream might have failed to start", module="Player")
 
     def next_channel(self):
         """Switch to the next channel with audio fix"""
@@ -290,32 +290,32 @@ class TVGardenPlayer(InfoBarBase, InfoBarSeek, InfoBarAudioSelection, InfoBarNot
 
         # Calculate the new index
         new_index = (self.current_index + 1) % self.itemscount
-        print(f"[TVGardenPlayer] Next channel: {self.current_index} -> {new_index}")
+        log.debug("Next channel: %d -> %d" % (self.current_index, new_index), module="Player")
 
         # Get new channel info
         new_channel = self.channel_list[new_index]
         stream_url = new_channel.get('stream_url') or new_channel.get('url')
         channel_name = new_channel.get('name', 'TV Garden')
-        
+
         if not stream_url:
-            print(f"[TVGardenPlayer] ERROR: No stream URL for channel {new_index}")
+            log.error("No stream URL for channel %d" % new_index, module="Player")
             return
-        
+
         # Create new service reference
         url_encoded = stream_url.replace(":", "%3a")
         name_encoded = channel_name.replace(":", "%3a")
-        ref_str = f"4097:0:1:0:0:0:0:0:0:0:{url_encoded}:{name_encoded}"
-        
-        print(f"[TVGardenPlayer] Switching to: {channel_name}")
-        
+        ref_str = "4097:0:1:0:0:0:0:0:0:0:%s:%s" % (url_encoded, name_encoded)
+
+        log.info("Switching to: %s" % channel_name, module="Player")
+
         # Play new service
         sref = eServiceReference(ref_str)
         sref.setName(channel_name)
         self.session.nav.playService(sref)
-        
+
         # Update current index
         self.current_index = new_index
-        
+
         # Reset audio tracks after 1 second
         self.audio_reset_timer = eTimer()
         self.audio_reset_timer.callback.append(self.reset_audio_tracks)
@@ -328,32 +328,32 @@ class TVGardenPlayer(InfoBarBase, InfoBarSeek, InfoBarAudioSelection, InfoBarNot
 
         # Calculate new index
         new_index = (self.current_index - 1) % self.itemscount
-        print(f"[TVGardenPlayer] Previous channel: {self.current_index} -> {new_index}")
+        log.debug("Previous channel: %d -> %d" % (self.current_index, new_index), module="Player")
 
         # Get new channel info
         new_channel = self.channel_list[new_index]
         stream_url = new_channel.get('stream_url') or new_channel.get('url')
         channel_name = new_channel.get('name', 'TV Garden')
-        
+
         if not stream_url:
-            print(f"[TVGardenPlayer] ERROR: No stream URL for channel {new_index}")
+            log.error("No stream URL for channel %d" % new_index, module="Player")
             return
-        
+
         # Create new service reference
         url_encoded = stream_url.replace(":", "%3a")
         name_encoded = channel_name.replace(":", "%3a")
-        ref_str = f"4097:0:1:0:0:0:0:0:0:0:{url_encoded}:{name_encoded}"
-        
-        print(f"[TVGardenPlayer] Switching to: {channel_name}")
-        
+        ref_str = "4097:0:1:0:0:0:0:0:0:0:%s:%s" % (url_encoded, name_encoded)
+
+        log.info("Switching to: %s" % channel_name, module="Player")
+
         # Play new service
         sref = eServiceReference(ref_str)
         sref.setName(channel_name)
         self.session.nav.playService(sref)
-        
+
         # Update current index
         self.current_index = new_index
-        
+
         # Reset audio tracks after 1 second
         self.audio_reset_timer = eTimer()
         self.audio_reset_timer.callback.append(self.reset_audio_tracks)
@@ -361,8 +361,8 @@ class TVGardenPlayer(InfoBarBase, InfoBarSeek, InfoBarAudioSelection, InfoBarNot
 
     def reset_audio_tracks(self):
         """Reset audio tracks when changing channels"""
-        print("[TVGardenPlayer] Resetting audio tracks...")
-        
+        log.debug("Resetting audio tracks...", module="Player")
+
         try:
             service = self.session.nav.getCurrentService()
             if service:
@@ -371,28 +371,28 @@ class TVGardenPlayer(InfoBarBase, InfoBarSeek, InfoBarAudioSelection, InfoBarNot
                     # Get current track info
                     current_track = audio.getCurrentTrack()
                     num_tracks = audio.getNumberOfTracks()
-                    
-                    print(f"[TVGardenPlayer] Audio tracks: {num_tracks}, current: {current_track}")
-                    
+
+                    log.debug("Audio tracks: %d, current: %d" % (num_tracks, current_track), module="Player")
+
                     if num_tracks > 0:
                         # Force reset to track 0
                         audio.selectTrack(0)
-                        
+
                         # Get track info for debugging
                         track_info = audio.getTrackInfo(0)
                         if track_info:
                             description = track_info.getDescription()
                             language = track_info.getLanguage()
-                            print(f"[TVGardenPlayer] Selected track 0: {description} ({language})")
-                        
+                            log.debug("Selected track 0: %s (%s)" % (description, language), module="Player")
+
                         # Force update audio settings
                         # self.audioSelection()
-                        
-                        print("[TVGardenPlayer] Audio tracks reset successfully")
+
+                        log.debug("Audio tracks reset successfully", module="Player")
                     else:
-                        print("[TVGardenPlayer] No audio tracks available")
+                        log.debug("No audio tracks available", module="Player")
         except Exception as e:
-            print(f"[TVGardenPlayer] Error resetting audio: {e}")
+            log.error("Error resetting audio: %s" % e, module="Player")
 
     def show_channel_info(self):
         """Display information for the current channel."""

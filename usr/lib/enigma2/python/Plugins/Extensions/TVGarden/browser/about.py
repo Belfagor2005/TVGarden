@@ -12,6 +12,7 @@ from Components.Label import Label
 from enigma import eTimer
 
 from .. import PLUGIN_VERSION, _
+from ..helpers import log
 from ..utils.config import PluginConfig
 from ..utils.cache import CacheManager
 
@@ -45,8 +46,10 @@ class TVGardenAbout(Screen):
         self["scrolltext"] = ScrollLabel()
         self["version"] = Label("")
         self["key_red"] = Label(_("Close"))
-        self["actions"] = ActionMap(["TVGardenActions", "DirectionActions", "ColorActions"], {
+        self["actions"] = ActionMap(["TVGardenActions", "DirectionActions", "ColorActions", "OkCancelActions"], {
             "cancel": self.close,
+            "exit": self.close,
+            "back": self.close,
             "red": self.close,
             "ok": self.close,
             "up": self.pageUp,
@@ -94,7 +97,7 @@ class TVGardenAbout(Screen):
             self.scroll_timer.start(3000, False)
 
         except Exception as e:
-            print(f"[About] Error loading content: {e}")
+            log.error("Error loading content: %s" % e, module="About")
             self["scrolltext"].setText(_("Error loading information"))
 
     def generate_about_text(self, countries_count="150+", cache_info="Active"):
@@ -115,7 +118,7 @@ STATUS: ● FULLY OPERATIONAL
 • Real-time Search with Virtual Keyboard
 • Smart Caching System: {cache_info}
 • Auto-Skin Detection (HD/FHD/WQHD)
-• Favorites Management
+• Favorites Management with Bouquet Export
 • Parental Control with PIN
 • DRM/Problematic Stream Filtering
 • Configurable Channel Limits
@@ -124,9 +127,16 @@ STATUS: ● FULLY OPERATIONAL
 [ BROWSER ]
   OK / GREEN      ► Play Selected Channel
   EXIT / RED      ◄ Back / Exit
-  YELLOW          ★ Toggle Favorite
-  BLUE            🗑 Clear Search/Favorites
+  YELLOW          ⚙ Context Menu (Remove/Export)
+  BLUE            📤 Export Favorites to Bouquet
   MENU            ⚙ Context Menu
+
+[ FAVORITES BROWSER ]
+  OK / GREEN      ► Play Selected Channel
+  EXIT / RED      ◄ Back / Exit
+  YELLOW          ⚙ Options (Remove/Info/Export)
+  BLUE            📤 Export ALL to Enigma2 Bouquet
+  ↑↓←→            ↕ Navigate Channels
 
 [ PLAYER ]
   CHANNEL +/-     ↕ Zap Between Channels
@@ -134,6 +144,15 @@ STATUS: ● FULLY OPERATIONAL
   RED             ★ Toggle Favorite
   GREEN           📋 Show Channel List
   EXIT            ✖ Close Player
+
+━━━━━━━━━━━━━━ BOUQUET EXPORT ━━━━━━━━━━━━━━━
+• Export favorites to Enigma2 native bouquet
+• Automatic bouquet.tv integration
+• Supports single & bulk channel export
+• Creates: userbouquet.tvgarden_TVGarden_Favorites.tv
+• Tag-based identification (tvgarden)
+• Easy removal via Options menu
+• Requires Enigma2 restart after export
 
 ━━━━━━━━━━━━━━ SEARCH FEATURES ━━━━━━━━━━━━━━━
 • Instant Results While Typing
@@ -150,6 +169,7 @@ STATUS: ● FULLY OPERATIONAL
 • Connection Retry with Timeout
 • Automatic Cache Management
 • Skin System with Resolution Detection
+• Bouquet Integration with Enigma2 EPG
 
 ━━━━━━━━━━━━━━ DATA SOURCE ━━━━━━━━━━━━━━━━━━
 TV Garden Channel List Project
@@ -159,9 +179,16 @@ Maintained by Belfagor2005
 • Original Concept: Lululla
 • Data Source: Belfagor2005
 • Plugin Development: TV Garden Team
+• Bouquet Export Feature: Community Request
 • Testing Community: Enigma2 Users Worldwide
 
 ━━━━━━━━━━━━━━━━ NOTES ━━━━━━━━━━━━━━━━━━━━━━
+BOUQUET EXPORT TIPS:
+1. Export favorites from Favorites Browser (BLUE)
+2. Single channel export via Options (YELLOW)
+3. Restart Enigma2 to see bouquet in channel list
+4. Bouquet file: /etc/enigma2/userbouquet.tvgarden_*.tv
+
 For support, bug reports or feature requests,
 please visit the GitHub repository.
 

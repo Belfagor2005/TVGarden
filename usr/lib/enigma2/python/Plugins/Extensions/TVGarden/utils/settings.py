@@ -7,7 +7,9 @@ Based on TV Garden Project
 """
 
 from os.path import exists
+from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
+from Screens.TextBox import TextBox
 from Components.ActionMap import ActionMap
 from Components.Label import Label
 from Components.ConfigList import ConfigListScreen
@@ -16,11 +18,69 @@ from Components.config import (
     ConfigSelection,
     ConfigYesNo,
     ConfigText,
+    ConfigNothing,
+    # ConfigAction,
     getConfigListEntry
 )
-
 from .. import _
 from .config import get_config
+from ..helpers import log
+
+
+class LogViewerScreen(TextBox):
+    skin = """
+        <screen name="LogViewerScreen" position="center,center" size="1280,720" title="TV Garden Logs" backgroundColor="#1a1a2e" flags="wfNoBorder">
+            <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/redbutton.png" position="32,688" size="140,6" alphatest="blend" zPosition="1" transparent="1" />
+            <ePixmap name="" position="0,0" size="1280,720" alphatest="blend" zPosition="-1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/images/hd/background.png" scale="1" />
+            <ePixmap name="" position="1041,628" size="200,80" alphatest="blend" zPosition="1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/logo.png" scale="1" transparent="1" />
+            <widget source="key_red" render="Label" position="33,649" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" transparent="1" />
+            <widget name="text" position="28,45" size="1220,570" font="Console;24" itemHeight="50" backgroundColor="#16213e" transparent="0" />
+            <eLabel backgroundColor="#001a2336" cornerRadius="30" position="5,639" size="1270,60" zPosition="-80" />
+            <eLabel name="" position="19,36" size="1235,585" zPosition="-1" cornerRadius="18" backgroundColor="#00171a1c" foregroundColor="#00171a1c" />
+        </screen>
+    """
+
+    def __init__(self, session, max_lines=100):
+        # Get log contents
+        log_contents = log.get_log_contents(max_lines=max_lines)
+
+        if not log_contents or "Log file not found" in log_contents:
+            log_contents = _("Log file is empty or not found")
+
+        # Initialize TextBox with log contents
+        TextBox.__init__(self, session, text=log_contents, title=_("TV Garden Logs"))
+
+        self["key_red"] = Label(_("Close"))
+        self["actions"] = ActionMap(
+            [
+                "SetupActions",
+                "ColorActions",
+                "DirectionActions"
+            ],
+            {
+                "cancel": self.close,
+                "red": self.close,
+                "ok": self.close,
+                "up": self.pageUp,
+                "down": self.pageDown,
+                "left": self.pageUp,
+                "right": self.pageDown,
+                "pageUp": self.pageUp,
+                "pageDown": self.pageDown,
+            }, -2
+        )
+
+    def pageUp(self):
+        """Scroll up"""
+        self["text"].pageUp()
+
+    def pageDown(self):
+        """Scroll down"""
+        self["text"].pageDown()
+
+    def close(self):
+        """Close the log viewer"""
+        TextBox.close(self)
 
 
 class TVGardenSettings(ConfigListScreen, Screen):
@@ -62,9 +122,31 @@ class TVGardenSettings(ConfigListScreen, Screen):
             {
                 "cancel": self.cancel,
                 "save": self.save,
-                "ok": self.save,
+                "ok": self.handle_ok,
             }, -2
         )
+
+    def handle_ok(self):
+        """Handle OK button based on current selection"""
+        current = self["config"].getCurrent()
+        if not current:
+            return
+
+        display_name = current[0]
+        config_item = current[1]
+
+        log.debug("OK pressed on: %s" % display_name, module="Settings")
+
+        if display_name == _("View Log File"):
+            self._execute_view_logs()
+            self._reset_action_selections()
+            return
+        elif display_name == _("Clear Log Files Now"):
+            self.clear_logs()
+            self._reset_action_selections()
+            return
+        elif isinstance(config_item, ConfigNothing):
+            return
 
     def setupConfig(self):
         """Setup configuration entries"""
@@ -179,17 +261,141 @@ class TVGardenSettings(ConfigListScreen, Screen):
             ConfigText(default=self.config.get("user_agent", "TVGarden-Enigma2/1.0"), fixed_size=False)
         ])
 
-        # Creazione della lista
+        # ============ LOGGING SETTINGS ============
+        self.config_entries.append(getConfigListEntry(
+            _("=== Logging Settings ==="),
+            ConfigNothing()
+        ))
+
+        self.config_entries.append([
+            _("Log Level"), "log_level",
+            ConfigSelection(
+                default=self.config.get("log_level", "INFO"),
+                choices=[
+                    ("DEBUG", _("Debug (most verbose)")),
+                    ("INFO", _("Info (normal)")),
+                    ("WARNING", _("Warning")),
+                    ("ERROR", _("Error only")),
+                    ("CRITICAL", _("Critical only"))
+                ]
+            )
+        ])
+
+        self.config_entries.append([
+            _("Log to File"), "log_to_file",
+            ConfigYesNo(default=self.config.get("log_to_file", True))
+        ])
+
+        self.config_entries.append([
+            _("Max Log Size (MB)"), "log_max_size",
+            ConfigInteger(
+                default=self.config.get("log_max_size", 1048576) // 1048576,  # bytes to MB
+                limits=(1, 10)
+            )
+        ])
+
+        self.config_entries.append([
+            _("Log Backup Files"), "log_backup_count",
+            ConfigInteger(default=self.config.get("log_backup_count", 3), limits=(1, 10))
+        ])
+
+        self.config_entries.append(getConfigListEntry(
+            _("--- Log Maintenance ---"),
+            ConfigNothing()
+        ))
+
+        self.config_entries.append([
+            _("View Log File"), "view_log_action",
+            ConfigSelection(
+                choices=[("open", _("Press OK to view logs"))],
+                default="open"
+            )
+        ])
+
+        self.config_entries.append([
+            _("Clear Log Files Now"), "clear_logs_action",
+            ConfigSelection(
+                choices=[("clear", _("Press OK to clear logs"))],
+                default="clear"
+            )
+        ])
+
+        # ============ CONFIGURATION LIST CREATION ============
         self.list = []
         for entry in self.config_entries:
             name = entry[0]
-            config_item = entry[2]
+            # FIX: Takes the last element instead of the third (entry[2])
+            # Because some entries have different structure:
+            # - Normal configs: [name, key, config_item] -> 3 elements
+            # - ConfigNothing/ConfigAction: getConfigListEntry(name, config_item) -> 2 elements
+            config_item = entry[-1]  # Always takes the last element
             self.list.append(getConfigListEntry(name, config_item))
 
         self["config"].setList(self.list)
 
+    def clear_logs(self):
+        """Clear log files"""
+        try:
+            self.session.openWithCallback(
+                self._clear_logs_callback,
+                MessageBox,
+                _("Are you sure you want to clear all log files?"),
+                MessageBox.TYPE_YESNO
+            )
+        except Exception as e:
+            self["status"].setText(_("Error: {}").format(str(e)))
+
+    def _clear_logs_callback(self, result):
+        """Callback dopo clear logs"""
+        if result:
+            try:
+                log.clear_logs()
+                self["status"].setText(_("Logs cleared"))
+                self.session.open(
+                    MessageBox,
+                    _("Log files cleared successfully"),
+                    MessageBox.TYPE_INFO,
+                    timeout=3
+                )
+            except Exception as e:
+                self.session.open(
+                    MessageBox,
+                    _("Error clearing logs: {}").format(str(e)),
+                    MessageBox.TYPE_ERROR
+                )
+
+    def _execute_view_logs(self):
+        """Execute view logs directly"""
+        try:
+            self.session.open(LogViewerScreen)
+        except Exception as e:
+            log.error("Error opening log viewer: %s" % e, module="Settings")
+
+    def apply_logging_settings(self):
+        """Apply logging settings immediately"""
+        try:
+            log_level = self.config.get("log_level", "INFO")
+            log.set_level(log_level)
+            log_to_file = self.config.get("log_to_file", True)
+            log.enable_file_logging(log_to_file)
+            log.info(f"Logging settings applied: level={log_level}, file={log_to_file}", "Settings")
+        except Exception as e:
+            log.error("Failed to apply logging settings: %s" % e, module="Settings")
+
+    def _reset_action_selections(self):
+        """Reset action selections to default"""
+        for i, entry in enumerate(self["config"].list):
+            display_name = entry[0]
+            config_item = entry[1]
+
+            if display_name in [_("View Log File"), _("Clear Log Files Now")]:
+                if hasattr(config_item, 'value'):
+                    config_item.value = config_item.choices[0][0] if config_item.choices else ""
+
+        self["config"].invalidateCurrent()
+
     def save(self):
-        print("[SETTINGS DEBUG] Starting save...")
+        log.debug("Starting save...", module="Settings")
         name_to_key = {
             _("Player"): "player",
             _("Volume"): "volume",
@@ -205,49 +411,93 @@ class TVGardenSettings(ConfigListScreen, Screen):
             _("Default View"): "default_view",
             _("Max Favorites"): "max_favorites",
             _("User Agent"): "user_agent",
+            _("Log Level"): "log_level",
+            _("Log to File"): "log_to_file",
+            _("Max Log Size (MB)"): "log_max_size",
+            _("Log Backup Files"): "log_backup_count",
+            _("View Log File"): "view_log_action",
+            _("Clear Log Files Now"): "clear_logs_action",
         }
 
-        # Save each config entry
+        # STEP 1: Check if we're handling an action
+        current = self["config"].getCurrent()
+        if current:
+            display_name = current[0]
+            config_key = name_to_key.get(display_name)
+
+            if config_key == "view_log_action":
+                self._execute_view_logs()
+                self._reset_action_selections()
+                return
+            elif config_key == "clear_logs_action":
+                self.clear_logs()
+                self._reset_action_selections()
+                return
+
+        # STEP 2: Normal save (only if not an action)
         for entry in self["config"].list:
             display_name = entry[0]
             config_item = entry[1]
 
-            # Get the config key from display name
+            # Skip separators and actions
+            if isinstance(config_item, ConfigNothing):
+                continue
+
+            # Skip our fake action items (they shouldn't be saved)
+            if display_name in [_("View Log File"), _("Clear Log Files Now")]:
+                continue
+
             config_key = name_to_key.get(display_name)
             if not config_key:
-                print(f"[SETTINGS WARNING] No key found for: '{display_name}'")
-                print(f"[SETTINGS DEBUG] Available keys: {list(name_to_key.keys())}")
+                log.warning("No key found for: '%s'" % display_name, module="Settings")
                 continue
 
             value = config_item.value
-            print(f"[SETTINGS DEBUG] Saving: {config_key} = {value} (type: {type(value)})")
+            log.debug("Saving: %s = %s (type: %s)" % (config_key, value, type(value)), module="Settings")
 
-            # Handle special cases
-            if config_key == "cache_ttl":
-                # Convert hours to seconds
+            if config_key == "log_max_size":
+                log.debug("log_max_size raw value: %s (type: %s)" % (value, type(value)), module="Settings")
+
+                try:
+                    mb_value = int(value)
+
+                    # Limit to a reasonable value (e.g. max 100MB)
+                    if mb_value < 1:
+                        mb_value = 1
+                    elif mb_value > 100:
+                        mb_value = 100
+
+                    bytes_value = mb_value * 1048576  # 1MB = 1,048,576 bytes
+                    log.debug("Converting %d MB to %d bytes" % (mb_value, bytes_value), module="Settings")
+
+                    self.config.set("log_max_size", bytes_value)
+                except Exception as e:
+                    log.error("Error converting log_max_size '%s': %s" % (value, e), module="Settings")
+                    self.config.set("log_max_size", 1048576)  # Default 1MB
+            elif config_key == "cache_ttl":
                 self.config.set("cache_ttl", int(value) * 3600)
             elif config_key == "max_channels":
-                # Ensure it's an integer
                 try:
                     int_value = int(value)
                     self.config.set("max_channels", int_value)
-                    print(f"[SETTINGS DEBUG] Saved max_channels as: {int_value}")
+                    log.debug("Saved max_channels as: %d" % int_value, module="Settings")
                 except Exception as e:
-                    print(f"[SETTINGS ERROR] Could not convert max_channels '{value}': {e}")
-                    self.config.set("max_channels", 500)  # Default fallback
+                    log.error("Could not convert max_channels '%s': %s" % (value, e), module="Settings")
+                    self.config.set("max_channels", 500)
             else:
-                # Standard save
                 self.config.set(config_key, value)
 
-        # Force save to disk
-        if self.config.save_config():
-            print("[SETTINGS DEBUG] Config saved successfully to disk")
-        else:
-            print("[SETTINGS ERROR] Failed to save config to disk!")
+        # STEP 3: Apply and save
+        self.apply_logging_settings()
 
-        # Verify
+        if self.config.save_config():
+            log.info("Config saved successfully to disk", module="Settings")
+        else:
+            log.error("Failed to save config to disk!", module="Settings")
+
+        # STEP 4: Verify and close
         saved_max = self.config.get("max_channels", 500)
-        print(f"[SETTINGS DEBUG] VERIFIED - max_channels in config: {saved_max}")
+        log.debug("VERIFIED - max_channels in config: %d" % saved_max, module="Settings")
 
         try:
             import json
@@ -255,9 +505,9 @@ class TVGardenSettings(ConfigListScreen, Screen):
             if exists(config_file):
                 with open(config_file, 'r') as f:
                     file_content = json.load(f)
-                print(f"[SETTINGS DEBUG] File content - max_channels: {file_content.get('max_channels', 'NOT FOUND')}")
+                log.debug("File content - max_channels: %s" % file_content.get('max_channels', 'NOT FOUND'), module="Settings")
         except Exception as e:
-            print(f"[SETTINGS DEBUG] Could not read config file: {e}")
+            log.error("Could not read config file: %s" % e, module="Settings")
 
         self.close(True)
 

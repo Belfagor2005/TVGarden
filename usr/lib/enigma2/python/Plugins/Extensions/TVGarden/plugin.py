@@ -5,7 +5,7 @@
 ###########################################################
 #                                                         #
 #  TV Garden Plugin for Enigma2                           #
-#  Version: 1.0                                           #
+#  Version: 1.1                                           #
 #  Created by Enigma2 Developer Lulualla                  #
 #  Based on TV Garden Project by Lululla                  #
 #  Data Source: Belfagor2005 fork                         #
@@ -64,7 +64,7 @@ from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
 
 from . import _, PLUGIN_VERSION, PLUGIN_ICON  # , PLUGIN_NAME, PLUGIN_PATH
-from .helpers import init_log, log
+from .helpers import log, simple_log
 from .browser.countries import CountriesBrowser
 from .browser.categories import CategoriesBrowser
 from .browser.favorites import FavoritesBrowser
@@ -72,22 +72,13 @@ from .browser.search import SearchBrowser
 from .utils.cache import CacheManager
 from .utils.config import PluginConfig
 
-
 # Add plugin path to sys.path for imports
 plugin_path = dirname(__file__)
 if plugin_path not in path:
     path.insert(0, plugin_path)
 
 
-def helpers_log(msg, level="INFO"):
-    print(f"[TVGarden {level}] {msg}")
-
-
-try:
-    init_log()
-except Exception as e:
-    helpers_log(f"init_log: {e}", "ERROR")
-
+simple_log("START PLUGIN TVGARDEN BY LULULLA - TEST")
 
 MODULES_LOADED = False
 MODULES_LOADED = all([
@@ -100,14 +91,14 @@ MODULES_LOADED = all([
 
 
 if MODULES_LOADED:
-    log("✓ All modules loaded successfully")
+    simple_log("✓ All modules loaded successfully")
 else:
-    log("✗ Some modules failed to load", "WARNING")
-    log(f"  CountriesBrowser: {CountriesBrowser is not None}")
-    log(f"  CategoriesBrowser: {CategoriesBrowser is not None}")
-    log(f"  FavoritesBrowser: {FavoritesBrowser is not None}")
-    log(f"  PluginConfig: {PluginConfig is not None}")
-    log(f"  CacheManager: {CacheManager is not None}")
+    simple_log("✗ Some modules failed to load", "WARNING")
+    simple_log(f"  CountriesBrowser: {CountriesBrowser is not None}")
+    simple_log(f"  CategoriesBrowser: {CategoriesBrowser is not None}")
+    simple_log(f"  FavoritesBrowser: {FavoritesBrowser is not None}")
+    simple_log(f"  PluginConfig: {PluginConfig is not None}")
+    simple_log(f"  CacheManager: {CacheManager is not None}")
 
 
 class TVGardenMain(Screen):
@@ -163,7 +154,7 @@ class TVGardenMain(Screen):
         self["key_yellow"] = Label(_("Refresh"))
         self["key_blue"] = Label(_("Settings"))
 
-        self["actions"] = ActionMap(["TVGardenActions", "ColorActions", "SetupActions"], {
+        self["actions"] = ActionMap(["TVGardenActions", "ColorActions", "SetupActions", "MenuActions"], {
             "cancel": self.exit,
             "ok": self.select_item,
             "red": self.exit,
@@ -231,6 +222,7 @@ class TVGardenMain(Screen):
             ("Browse by Country", "Countries: ~150"),
             ("Browse by Category", "Categories: 29+"),
             ("Favorites Management", "Channels: 50,000+"),
+            ("Bouquet Export", "Enigma2 Integration"),
             ("Search All Channels", "Cache: %d items" % self.cache.get_size())
         ]
 
@@ -250,17 +242,25 @@ class TVGardenMain(Screen):
             "• Smart Caching System",
             "• Filtered Streams",
             "• Multiple Skins Support",
+            "• Export to Enigma2 Bouquets",
             "",
-            "PLAYER CONTROLS",
-            "• CHANNEL +/- : Navigate channels",
-            "• OK : Show channel info",
-            "• EXIT : Close player",
+            "KEY CONTROLS",
+            "• FAVORITES: YELLOW=Options, BLUE=Export",
+            "• PLAYER: CH+/-=Navigate, OK=Info",
+            "• BROWSER: YELLOW=Favorite, BLUE=Clear",
+            "",
+            "BOUQUET EXPORT",
+            "• Export favorites to Enigma2 bouquet",
+            "• Single/Bulk channel export",
+            "• Auto bouquets.tv integration",
+            "• Restart Enigma2 required",
             "",
             "DATA SOURCE",
             "TV Garden Project (Belfagor2005 fork)",
             "https://github.com/Belfagor2005/tv-garden-channel-list",
             "",
-            "PLUGIN STATUS: FULLY OPERATIONAL"
+            "PLUGIN STATUS: FULLY OPERATIONAL",
+            "BOUQUET EXPORT: ACTIVE"
         ])
 
         about_text = "\n".join(about_lines)
@@ -296,6 +296,14 @@ def menu(menuid, **kwargs):
 def Plugins(**kwargs):
     """Plugin descriptor list"""
     from Plugins.Plugin import PluginDescriptor
+    from .utils.config import get_config
+    config = get_config()
+    log_level = config.get("log_level", "INFO")
+    log_to_file = config.get("log_to_file", True)
+    log.set_level(log_level)
+    log.enable_file_logging(log_to_file)
+    log.info("TV Garden Plugin started", "Main")
+
     description = _("Access free IPTV channels from around the world")
     plugin_descriptor = PluginDescriptor(
         name="TV Garden",

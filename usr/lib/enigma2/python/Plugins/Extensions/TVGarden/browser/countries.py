@@ -9,7 +9,6 @@ Based on TV Garden Project
 import tempfile
 from os import unlink
 from os.path import exists
-from sys import stderr
 from urllib.request import urlopen, Request
 
 from enigma import ePicLoad, eTimer
@@ -19,8 +18,9 @@ from Components.MenuList import MenuList
 from Components.Pixmap import Pixmap
 
 from .base import BaseBrowser
-from ..utils.config import PluginConfig
 from .channels import ChannelsBrowser
+from ..helpers import log
+from ..utils.config import PluginConfig
 from ..utils.cache import CacheManager
 from .. import _
 
@@ -95,7 +95,7 @@ class CountriesBrowser(BaseBrowser):
 
     def cleanup(self):
         """Cleanup resources on close"""
-        print("[CountriesBrowser] Cleaning up", file=stderr)
+        log.debug("Cleaning up", module="Countries")
 
         # Remove temp flag file
         if hasattr(self, 'current_flag_path') and self.current_flag_path:
@@ -135,7 +135,7 @@ class CountriesBrowser(BaseBrowser):
         """Load countries list from TV Garden repository"""
         try:
             metadata = self.cache.get_countries_metadata()
-            print(f"[CountriesBrowser] Metadata received: {len(metadata)} countries", file=stderr)
+            log.debug("Metadata received: %d countries" % len(metadata), module="Countries")
 
             self.countries = []
             for code, info in metadata.items():
@@ -169,7 +169,7 @@ class CountriesBrowser(BaseBrowser):
 
         except Exception as e:
             self["status"].setText(_("Error loading countries"))
-            print(f"[CountriesBrowser] Error: {e}", file=stderr)
+            log.error("Error: %s" % e, module="Countries")
             import traceback
             traceback.print_exc()
 
@@ -235,7 +235,7 @@ class CountriesBrowser(BaseBrowser):
                         widget_width = widget_size.width()
                         widget_height = widget_size.height()
 
-                        print(f"[CountriesBrowser] Widget size: {widget_width}x{widget_height} for {country_code}", file=stderr)
+                        log.debug("Widget size: %dx%d for %s" % (widget_width, widget_height, country_code), module="Countries")
 
                         # Use actual widget size or default
                         width = widget_width if widget_width > 0 else 80
@@ -244,7 +244,7 @@ class CountriesBrowser(BaseBrowser):
                     except:
                         # Fallback to default size
                         width, height = 80, 50
-                        print(f"[CountriesBrowser] Using default size for {country_code}", file=stderr)
+                        log.debug("Using default size for %s" % country_code, module="Countries")
 
                     # Load with ePicLoad - Use actual widget size
                     # Parameters: (width, height, scaletype, aspectratio, resize, alphablend, background_color)
@@ -266,19 +266,19 @@ class CountriesBrowser(BaseBrowser):
                         if ptr:
                             self["flag"].instance.setPixmap(ptr)
                             self["flag"].show()
-                            print(f"[CountriesBrowser] Flag displayed {width}x{height} for {country_code}", file=stderr)
+                            log.debug("Flag displayed %dx%d for %s" % (width, height, country_code), module="Countries")
                         else:
-                            print(f"[CountriesBrowser] No pixmap data for {country_code}", file=stderr)
+                            log.warning("No pixmap data for %s" % country_code, module="Countries")
                             self.load_default_flag()
                     else:
-                        print(f"[CountriesBrowser] Decode failed for {country_code}", file=stderr)
+                        log.warning("Decode failed for %s" % country_code, module="Countries")
                         self.load_default_flag()
                 else:
-                    print(f"[CountriesBrowser] HTTP {response.status} for {url}", file=stderr)
+                    log.warning("HTTP %d for %s" % (response.status, url), module="Countries")
                     self.load_default_flag()
 
         except Exception as e:
-            print(f"[CountriesBrowser] Error downloading flag {country_code}: {e}", file=stderr)
+            log.error("Error downloading flag %s: %s" % (country_code, e), module="Countries")
             self.load_default_flag()
 
     def load_default_flag(self):
@@ -294,7 +294,7 @@ class CountriesBrowser(BaseBrowser):
         # This is called when picload finishes async decode
         # We're using sync decode mainly, but keep this for compatibility
         if picInfo:
-            print(f"[CountriesBrowser] Async decode finished: {picInfo}", file=stderr)
+            log.debug("Async decode finished: %s" % picInfo, module="Countries")
 
     def select_country(self):
         """Select country and show channels"""
@@ -302,7 +302,7 @@ class CountriesBrowser(BaseBrowser):
             self["status"].setText(_("No country selected"))
             return
 
-        print(f"[CountriesBrowser] Opening channels for: {self.selected_country['code']}", file=stderr)
+        log.info("Opening channels for: %s" % self.selected_country['code'], module="Countries")
 
         # Cleanup before opening new screen
         if self.current_flag_path and exists(self.current_flag_path):
@@ -324,7 +324,7 @@ class CountriesBrowser(BaseBrowser):
             self["status"].setText(_("Countries refreshed"))
         except Exception as e:
             self["status"].setText(_("Refresh failed"))
-            print(f"[CountriesBrowser] Refresh error: {e}", file=stderr)
+            log.error("Refresh error: %s" % e, module="Countries")
 
     # Navigation methods - simplified
     def up(self):

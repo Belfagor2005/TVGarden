@@ -12,6 +12,7 @@ from sys import stderr
 from datetime import datetime
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS, fileExists
 from enigma import getDesktop
+
 from . import PLUGIN_NAME, PLUGIN_PATH  # , _, PLUGIN_VERSION, PLUGIN_ICON
 
 
@@ -287,7 +288,7 @@ DEFAULT_CONFIG = {
     "auto_add_favorite": False,   # Automatically add watched to favorites
 
     # Network
-    "user_agent": "TVGarden-Enigma2/1.0",
+    "user_agent": "TVGarden-Enigma2/1.1",
     "use_proxy": False,
     "proxy_url": "",
 
@@ -312,31 +313,159 @@ DEFAULT_CONFIG = {
 LOG_PATH_DIR = "/tmp/tvgarden_cache"
 LOG_PATH = join(LOG_PATH_DIR, "tvgarden.log")
 
+# Create log directory if not exists
 if not exists(LOG_PATH_DIR):
-    makedirs(LOG_PATH_DIR)
-print(f"[LOG_PATH] Initialized at {LOG_PATH}", file=stderr)
-
-
-def init_log():
-    """Delete old log on startup and create a new empty one."""
     try:
-        if exists(LOG_PATH):
-            remove(LOG_PATH)
-        # create an empty file
-        open(LOG_PATH, "w").close()
-    except Exception as e:
-        print("Error initialize log:", e)
-
-
-def log(message, level="INFO"):
-    """Simple logging function"""
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    log_line = f"[{timestamp}] [{level}] TVGarden: {message}\n"
-
-    try:
-        with open(LOG_PATH, "a") as f:
-            f.write(log_line)
+        makedirs(LOG_PATH_DIR, mode=0o755)
     except:
         pass
 
-    print(f"TVGarden: {message}")
+
+class TVGardenLog:
+    """Enhanced logging system for TV Garden"""
+    
+    # Log levels
+    DEBUG = "DEBUG"
+    INFO = "INFO"
+    WARNING = "WARNING"
+    ERROR = "ERROR"
+    CRITICAL = "CRITICAL"
+    
+    # Colors for console (optional)
+    COLORS = {
+        DEBUG: "\033[94m",      # Blue
+        INFO: "\033[92m",       # Green
+        WARNING: "\033[93m",    # Yellow
+        ERROR: "\033[91m",      # Red
+        CRITICAL: "\033[95m",   # Magenta
+        'END': "\033[0m"        # Reset
+    }
+    
+    # Configuration
+    _log_to_file = True
+    _log_to_console = True
+    _min_level = INFO
+    _log_file = None
+
+    def __call__(self, message, level="INFO", module=""):
+        """Allow calling instance like log("message")"""
+        self.log(message, level, module)
+
+    @classmethod
+    def setup(cls, config=None):
+        """Setup logging from config"""
+        if config:
+            log_level = config.get("log_level", "INFO").upper()
+            cls._min_level = log_level
+            cls._log_to_file = config.get("log_to_file", True)
+        
+        # Create initial log entry
+        cls.info("TV Garden logging system initialized", "System")
+    
+    @classmethod
+    def _should_log(cls, level):
+        """Check if message should be logged based on level"""
+        level_priority = [cls.DEBUG, cls.INFO, cls.WARNING, cls.ERROR, cls.CRITICAL]
+        return level_priority.index(level) >= level_priority.index(cls._min_level)
+    
+    @classmethod
+    def log(cls, message, level=INFO, module=""):
+        """Enhanced logging function"""
+        
+        # Filter by level
+        if not cls._should_log(level):
+            return
+        
+        # Timestamp with milliseconds
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
+        
+        # Format message
+        module_prefix = f"[{module}] " if module else ""
+        full_message = f"[{timestamp}] [{level}] {module_prefix}{message}"
+        
+        # Console output (with colors if supported)
+        if cls._log_to_console:
+            color = cls.COLORS.get(level, "")
+            reset = cls.COLORS.get('END', '')
+            print(f"{color}{full_message}{reset}", file=stderr)
+        
+        # File output
+        if cls._log_to_file:
+            try:
+                with open(LOG_PATH, "a", encoding="utf-8") as f:
+                    f.write(full_message + "\n")
+            except Exception as e:
+                # Fallback to stderr if file logging fails
+                print(f"Log file error: {e}", file=stderr)
+    
+    # Shortcut methods (the ones you'll use most)
+    @classmethod
+    def debug(cls, message, module=""):
+        cls.log(message, cls.DEBUG, module)
+    
+    @classmethod
+    def info(cls, message, module=""):
+        cls.log(message, cls.INFO, module)
+    
+    @classmethod
+    def warning(cls, message, module=""):
+        cls.log(message, cls.WARNING, module)
+    
+    @classmethod
+    def error(cls, message, module=""):
+        cls.log(message, cls.ERROR, module)
+    
+    @classmethod
+    def critical(cls, message, module=""):
+        cls.log(message, cls.CRITICAL, module)
+    
+    # Utility methods
+    @classmethod
+    def set_level(cls, level):
+        """Set minimum log level"""
+        valid_levels = [cls.DEBUG, cls.INFO, cls.WARNING, cls.ERROR, cls.CRITICAL]
+        if level in valid_levels:
+            cls._min_level = level
+            cls.info(f"Log level changed to {level}", "System")
+    
+    @classmethod
+    def enable_file_logging(cls, enable=True):
+        """Enable/disable file logging"""
+        cls._log_to_file = enable
+    
+    @classmethod
+    def get_log_path(cls):
+        """Get log file path"""
+        return LOG_PATH
+    
+    @classmethod
+    def clear_logs(cls):
+        """Clear log file"""
+        try:
+            if exists(LOG_PATH):
+                remove(LOG_PATH)
+                cls.info("Log file cleared", "System")
+        except Exception as e:
+            cls.error(f"Failed to clear log: {e}", "System")
+    
+    @classmethod
+    def get_log_contents(cls, max_lines=100):
+        """Get last N lines from log file"""
+        try:
+            if exists(LOG_PATH):
+                with open(LOG_PATH, "r", encoding="utf-8") as f:
+                    lines = f.readlines()
+                return "".join(lines[-max_lines:])
+            return "Log file not found"
+        except Exception as e:
+            return f"Error reading log: {e}"
+
+
+# Create global instance
+log = TVGardenLog()
+
+
+# Legacy function for backward compatibility
+def simple_log(message, level="INFO"):
+    """Backward compatible simple logging function"""
+    log.log(message, level, "Legacy")

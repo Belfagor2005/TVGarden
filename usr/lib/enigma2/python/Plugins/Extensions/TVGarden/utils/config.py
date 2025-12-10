@@ -11,7 +11,7 @@ from os import makedirs, chmod
 from json import load, dump
 from Tools.Directories import fileExists
 import shutil
-
+from ..helpers import log
 from .. import PLUGIN_PATH
 
 
@@ -82,6 +82,13 @@ class PluginConfig:
             "stats_enabled": True,
             "watch_time": 0,
             "channels_watched": 0,
+
+            # Logging settings
+            "log_level": "INFO",        # DEBUG, INFO, WARNING, ERROR, CRITICAL
+            "log_to_file": True,
+            "log_max_size": 1048576,  # 1MB in bytes
+            "log_backup_count": 3,      # Keep 3 backup files
+
         }
 
         # Load or create config
@@ -103,7 +110,7 @@ class PluginConfig:
 
                 return config
             except Exception as e:
-                print(f"[TVGarden] Error loading config: {e}")
+                log.error("Error loading config: %s" % e, module="Config")
                 return self.restore_backup()
 
         # Create new config with defaults
@@ -125,7 +132,7 @@ class PluginConfig:
 
             return True
         except Exception as e:
-            print(f"[TVGarden] Error saving config: {e}")
+            log.error(f"Error loading config: {e}", module="Config")
             return False
 
     def validate_config(self, config):
@@ -269,13 +276,13 @@ class PluginConfig:
             try:
                 with open(skin_file, 'r', encoding='utf-8') as f:
                     skin_content = f.read()
-                print(f"[TVGarden] Loaded skin from: {skin_file}")
+                log.info(f"Loaded skin from: {skin_file}", module="Config")
                 return skin_content
             except Exception as e:
-                print(f"[TVGarden] Error loading skin: {e}")
+                log.error(f"Error loading skin: {e}", module="Config")
 
         # Fallback to Class Skin
-        print(f"[TVGarden] Using class skin for {screen_name}")
+        log.warning(f"Using class skin for {screen_name}", module="Config")
         return default_skin
 
     def get_skin_path(self):

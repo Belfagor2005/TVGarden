@@ -6,19 +6,20 @@ Browse and manage favorite channels
 Based on TV Garden Project
 """
 
-from sys import stderr
 from Components.ActionMap import ActionMap
 from Components.MenuList import MenuList
 from Components.Label import Label
 from enigma import eServiceReference
 from Screens.MessageBox import MessageBox
+from Screens.ChoiceBox import ChoiceBox
+from Screens.TextBox import TextBox
 
 from .base import BaseBrowser
 from ..utils.config import PluginConfig
 from ..player.iptv_player import TVGardenPlayer
 from ..utils.favorites import FavoritesManager
 from ..utils.cache import CacheManager
-from ..helpers import is_valid_stream_url
+from ..helpers import is_valid_stream_url, log
 from .. import _
 
 
@@ -61,15 +62,15 @@ class FavoritesBrowser(BaseBrowser):
         self["status"] = Label(_("Loading favorites..."))
         self["key_red"] = Label(_("Back"))
         self["key_green"] = Label(_("Play"))
-        self["key_yellow"] = Label(_("Remove"))
-        self["key_blue"] = Label(_("Clear All"))
+        self["key_yellow"] = Label(_("Options"))
+        self["key_blue"] = Label(_("Export"))
         self["actions"] = ActionMap(["TVGardenActions", "OkCancelActions", "ColorActions", "DirectionActions"], {
             "cancel": self.exit,
             "ok": self.play_channel,
             "red": self.exit,
             "green": self.play_channel,
-            "yellow": self.remove_favorite,
-            "blue": self.clear_all,
+            "yellow": self.options_favorite,
+            "blue": self.export_bouquet,
             "up": self.up,
             "down": self.down,
             "left": self.left,
@@ -81,7 +82,7 @@ class FavoritesBrowser(BaseBrowser):
         """Load favorites from file"""
         try:
             favorites = self.fav_manager.get_all()
-            print(f"[FavoritesBrowser] Loaded {len(favorites)} favorites", file=stderr)
+            log.info("Loaded %d favorites" % len(favorites), module="Favorites")
 
             menu_items = []
             self.menu_channels = []
@@ -134,8 +135,128 @@ class FavoritesBrowser(BaseBrowser):
                 self.current_channel = None
 
         except Exception as e:
-            print(f"[FavoritesBrowser] Error loading favorites: {e}", file=stderr)
+            log.error("Error loading favorites: %s" % e, module="Favorites")
             self["status"].setText(_("Error loading favorites"))
+
+    def options_favorite(self):
+        """Options menu for yellow button"""
+        channel, index = self.get_current_channel()
+        if not channel:
+            self["status"].setText(_("No channel selected"))
+            return
+
+        options = [
+            (_("View Channel Info"), "info"),
+            (_("Remove from Favorites"), "remove"),
+            (_("Clear All Favorites"), "clear_all"),
+            (_("Export to Enigma2 Bouquet"), "export_single"),
+            (_("Remove Bouquet from Enigma2"), "remove_bouquet"),
+        ]
+
+        self.session.openWithCallback(
+            self._handle_yellow_option,
+            ChoiceBox,
+            title=_("Options for: {}").format(channel.get('name')),
+            list=options
+        )
+
+    def _handle_yellow_option(self, result):
+        """Handle yellow menu option with MessageBox"""
+        if result is None:
+            return
+
+        channel, index = self.get_current_channel()
+        if not channel:
+            return
+
+        option_id = result[1]
+
+        if option_id == "remove":
+            self._remove_current_favorite()
+
+        elif option_id == "export_single":
+            self.session.openWithCallback(
+                lambda r: self._export_single_confirmation(r, channel),
+                MessageBox,
+                _("Export '{}' to Enigma2 bouquet?").format(channel.get('name', '')),
+                MessageBox.TYPE_YESNO
+            )
+
+        elif option_id == "remove_bouquet":
+            self.session.openWithCallback(
+                lambda r: self._remove_bouquet_confirmation(r),
+                MessageBox,
+                _("Remove TV Garden bouquet from Enigma2?"),
+                MessageBox.TYPE_YESNO
+            )
+
+        elif option_id == "clear_all":
+            self.session.openWithCallback(
+                lambda r: self._clear_all_confirmation(r),
+                MessageBox,
+                _("Clear ALL favorites?"),
+                MessageBox.TYPE_YESNO
+            )
+
+        elif option_id == "info":
+            self._show_channel_info(channel)
+
+    def _export_single_confirmation(self, result, channel):
+        """Export single after confirmation"""
+        if result:
+            success, message = self.fav_manager.export_single_channel(channel)
+            self.session.open(
+                MessageBox,
+                message,
+                MessageBox.TYPE_INFO if success else MessageBox.TYPE_ERROR,
+                timeout=3
+            )
+            self["status"].setText(message)
+
+    def _remove_bouquet_confirmation(self, result):
+        """Remove bouquet after confirmation"""
+        if result:
+            success, message = self.fav_manager.remove_bouquet()
+            self.session.open(
+                MessageBox,
+                message,
+                MessageBox.TYPE_INFO if success else MessageBox.TYPE_ERROR,
+                timeout=3
+            )
+            self["status"].setText(message)
+
+    def _remove_current_favorite(self):
+        """Remove favorite with MessageBox"""
+        channel, index = self.get_current_channel()
+        if not channel:
+            return
+
+        channel_name = channel.get('name', _('Unknown'))
+
+        self.session.openWithCallback(
+            lambda r: self._execute_removal(r, channel),
+            MessageBox,
+            _("Remove '{}' from favorites?").format(channel_name),
+            MessageBox.TYPE_YESNO
+        )
+
+    def _execute_removal(self, result, channel):
+        """Execute removal after confirmation"""
+        if not result:
+            return
+
+        success, message = self.fav_manager.remove(channel)
+
+        if success:
+            self.load_favorites()
+            self["status"].setText(_("{} favorites").format(len(self.menu_channels)))
+
+        self.session.open(
+            MessageBox,
+            message,
+            MessageBox.TYPE_INFO if success else MessageBox.TYPE_ERROR,
+            timeout=3
+        )
 
     def get_current_channel(self):
         """Get currently selected channel"""
@@ -167,37 +288,103 @@ class FavoritesBrowser(BaseBrowser):
             service_ref.setName(channel['name'])
 
             # Open player with favorites list
-            print(f"[FavoritesBrowser] Playing: {channel['name']}", file=stderr)
+            log.info("Playing: %s" % channel['name'], module="Favorites")
             self.session.open(TVGardenPlayer, service_ref, self.menu_channels, channel_idx)
 
         except Exception as e:
-            print(f"[FavoritesBrowser] Player error: {e}", file=stderr)
+            log.error("Player error: %s" % e, module="Favorites")
             self.session.open(MessageBox,
                               _("Error opening player"),
                               MessageBox.TYPE_ERROR)
 
-    def remove_favorite(self):
-        """Remove the selected channel from favorites."""
-        channel, index = self.get_current_channel()
+    def export_bouquet(self):
+        """Export all favorites to Enigma2 bouquet - with MessageBox"""
+        if not self.menu_channels:
+            self.session.open(
+                MessageBox,
+                _("No favorites to export"),
+                MessageBox.TYPE_INFO,
+                timeout=3
+            )
+            return
 
-        if channel:
-            if self.fav_manager.remove(channel):
-                print("[DEBUG] Type of index in remove_favorite: %s" % type(index))
-                self["status"].setText(_("Removed from favorites"))
-            else:
-                self["status"].setText("Error removing favorite")
-        else:
-            self["status"].setText("No channel selected")
+        self.session.openWithCallback(
+            self._export_all_confirmation,
+            MessageBox,
+            _("Export ALL {} favorites to Enigma2 bouquet?").format(len(self.menu_channels)),
+            MessageBox.TYPE_YESNO
+        )
 
-    def clear_all(self):
-        """Clear all favorites"""
-        if self.fav_manager.clear_all():
-            self["status"].setText(_("All favorites cleared"))
-            self["menu"].setList([])
-            self.menu_channels = []
-            self.current_channel = None
+    def _export_all_confirmation(self, result):
+        """Handle export confirmation"""
+        if result:
+            success, message = self.fav_manager.export_to_bouquet(self.menu_channels)
+            self["status"].setText(message)
+            self.session.open(
+                MessageBox,
+                message,
+                MessageBox.TYPE_INFO if success else MessageBox.TYPE_ERROR,
+                timeout=4
+            )
+
+    def _show_channel_info(self, channel):
+        """Show detailed channel info"""
+        try:
+            info_text = f"=== {channel.get('name', 'Unknown')} ===\n\n"
+
+            if channel.get('description'):
+                info_text += f"Description: {channel['description']}\n"
+
+            if channel.get('country'):
+                info_text += f"Country: {channel['country']}\n"
+
+            if channel.get('category'):
+                info_text += f"Category: {channel['category']}\n"
+
+            if channel.get('language'):
+                info_text += f"Language: {channel['language']}\n"
+
+            if channel.get('group'):
+                info_text += f"Group: {channel['group']}\n"
+
+            stream_url = channel.get('stream_url') or channel.get('url', '')
+            if stream_url:
+                info_text += f"\nStream URL:\n{stream_url[:100]}..."
+                if len(stream_url) > 100:
+                    info_text += f"\n...{stream_url[-50:]}"
+
+            self.session.open(
+                TextBox,
+                text=info_text,
+                title=_("Channel Information"),
+                pigless=True
+            )
+
+        except Exception as e:
+            log.error("Error showing channel info: %s" % e, module="Favorites")
+
+    def _clear_all_confirmation(self, result):
+        """Clear all after confirmation"""
+        if not result:
+            return
+
+        success, message = self.fav_manager.clear_all()
+        if success:
+            self.load_favorites()
+
+            self.session.open(
+                MessageBox,
+                message,
+                MessageBox.TYPE_INFO,
+                timeout=3
+            )
         else:
-            self["status"].setText(_("Error clearing favorites"))
+            self.session.open(
+                MessageBox,
+                message,
+                MessageBox.TYPE_ERROR,
+                timeout=3
+            )
 
     def up(self):
         """Handle up key"""

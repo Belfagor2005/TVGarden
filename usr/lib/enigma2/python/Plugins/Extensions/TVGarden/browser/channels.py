@@ -141,17 +141,17 @@ class ChannelsBrowser(BaseBrowser):
 
             channels = []
             if self.country_code:
-                print(f"[CHANNELS DEBUG] Loading country channels: {self.country_code}", file=stderr)
+                log.debug("Loading country channels: %s" % self.country_code, module="Channels")
                 channels = self.cache.get_country_channels(self.country_code)
             elif self.category_id:
-                print(f"[CHANNELS DEBUG] Loading category channels: {self.category_id}", file=stderr)
+                log.debug("Loading category channels: %s" % self.category_id, module="Channels")
                 channels = self.cache.get_category_channels(self.category_id)
             else:
-                print("[CHANNELS DEBUG] ERROR: No country_code or category_id!", file=stderr)
+                log.error("ERROR: No country_code or category_id!", module="Channels")
                 return
 
-            print(f"[CHANNELS DEBUG] Total channels received: {len(channels)}", file=stderr)
-            print(f"[CHANNELS DEBUG] Max channels limit: {max_channels} (0=all)", file=stderr)
+            log.debug("Total channels received: %d" % len(channels), module="Channels")
+            log.debug("Max channels limit: %d (0=all)" % max_channels, module="Channels")
 
             # Save the ORIGINAL channels
             self.channels = channels
@@ -168,10 +168,7 @@ class ChannelsBrowser(BaseBrowser):
             for idx, channel in enumerate(channels):
                 # Apply configurable limit (0 = all channels)
                 if max_channels > 0 and idx >= max_channels:
-                    print(
-                        f"[CHANNELS DEBUG] Stopped at {idx} channels (limit: {max_channels})",
-                        file=stderr
-                    )
+                    log.debug("Stopped at %d channels (limit: %d)" % (idx, max_channels), module="Channels")
                     skipped_count = len(channels) - idx
                     break
 
@@ -218,18 +215,12 @@ class ChannelsBrowser(BaseBrowser):
 
                 # 4. Basic URL validation
                 if not stream_url:
-                    print(
-                        f"[CHANNELS DEBUG] ✗ No stream URL: {name}",
-                        file=stderr
-                    )
+                    log.warning("✗ No stream URL: %s" % name, module="Channels")
                     continue
 
                 # 5. Advanced validation: playable URL
                 if not is_valid_stream_url(stream_url):
-                    print(
-                        f"[CHANNELS DEBUG] ✗ Invalid URL format: {name}",
-                        file=stderr
-                    )
+                    log.warning("✗ Invalid URL format: %s" % name, module="Channels")
                     continue
 
                 # 6. CRITICAL FILTER: skip known problematic hosts/protocols
@@ -253,11 +244,7 @@ class ChannelsBrowser(BaseBrowser):
                 is_problematic = False
                 for pattern in problematic_patterns:
                     if pattern in stream_lower:
-                        print(
-                            (f"[CHANNELS DEBUG] ⚠️ Skipping problematic pattern "
-                             f"'{pattern}': {name[:30]}..."),
-                            file=stderr
-                        )
+                        log.warning("⚠️ Skipping problematic pattern '%s': %s..." % (pattern, name[:30]), module="Channels")
                         problematic_count += 1
                         is_problematic = True
                         break
@@ -270,16 +257,11 @@ class ChannelsBrowser(BaseBrowser):
 
                 # Debug URL type
                 if stream_url.startswith("http://"):
-                    print("[CHANNELS DEBUG]   HTTP URL (good)", file=stderr)
+                    log.debug("   HTTP URL (good)", module="Channels")
                 elif stream_url.startswith("https://"):
-                    print("[CHANNELS DEBUG]   HTTPS URL (may have issues)",
-                          file=stderr)
-                elif (
-                    stream_url.startswith("rtmp://")
-                    or stream_url.startswith("rtsp://")
-                ):
-                    print("[CHANNELS DEBUG]   RTMP/RTSP URL (needs gstreamer)",
-                          file=stderr)
+                    log.debug("   HTTPS URL (may have issues)", module="Channels")
+                elif stream_url.startswith("rtmp://") or stream_url.startswith("rtsp://"):
+                    log.debug("   RTMP/RTSP URL (needs gstreamer)", module="Channels")
 
                 # 8. Build channel object
                 channel_data = {
@@ -304,7 +286,7 @@ class ChannelsBrowser(BaseBrowser):
                 menu_items.append((name, idx))
                 self.menu_channels.append(channel_data)
                 valid_count += 1
-                print(f"[CHANNELS DEBUG] ✓ Added: {name}", file=stderr)
+                log.debug("✓ Added: %s" % name, module="Channels")
 
             self["menu"].setList(menu_items)
             self["menu"].onSelectionChanged.append(self.onSelectionChanged)
@@ -312,7 +294,7 @@ class ChannelsBrowser(BaseBrowser):
                 selected_idx = menu_items[0][1]
                 if 0 <= selected_idx < len(self.menu_channels):
                     self.current_channel = self.menu_channels[selected_idx]
-                    print(f"[CHANNELS DEBUG] First channel: {self.current_channel['name']}", file=stderr)
+                    log.debug("First channel: %s" % self.current_channel['name'], module="Channels")
                     self.update_channel_selection(0)
 
             # Build status message
@@ -335,35 +317,33 @@ class ChannelsBrowser(BaseBrowser):
 
             self["status"].setText(status_text)
 
-            print(f"[CHANNELS FINAL] Playable: {valid_count}, "
-                  f"Skipped YouTube: {youtube_count}, "
-                  f"Filtered problematic: {problematic_count}, "
-                  f"Config limit: {max_channels}, "
-                  f"Skipped by limit: {skipped_count}", file=stderr)
+            log.info("Playable: %d, Skipped YouTube: %d, Filtered problematic: %d, Config limit: %d, Skipped by limit: %d" %
+                     (valid_count, youtube_count, problematic_count, max_channels, skipped_count),
+                     module="Channels")
 
         except Exception as e:
-            print(f"[CHANNELS ERROR] load_channels failed: {e}", file=stderr)
+            log.error("load_channels failed: %s" % e, module="Channels")
             import traceback
             traceback.print_exc()
             self["status"].setText(_("Error loading channels"))
 
     def update_channel_selection(self, index):
         """Update selection and load logo"""
-        print(f"[DEBUG] update_channel_selection called with index: {index}", file=stderr)
+        log.debug("update_channel_selection called with index: %d" % index, module="Channels")
         if 0 <= index < len(self.menu_channels):
             self.current_channel = self.menu_channels[index]
-            print(f"[DEBUG] Selected channel: {self.current_channel['name']}", file=stderr)
-            print(f"[DEBUG] Stream URL: {self.current_channel.get('stream_url', 'NONE')}", file=stderr)
+            log.debug("Selected channel: %s" % self.current_channel['name'], module="Channels")
+            log.debug("Stream URL: %s" % self.current_channel.get('stream_url', 'NONE'), module="Channels")
 
             logo_url = self.current_channel.get('logo')
             if logo_url:
-                print(f"[DEBUG] Loading logo: {logo_url[:50]}...", file=stderr)
+                log.debug("Loading logo: %s..." % logo_url[:50], module="Channels")
                 self.download_logo(logo_url)
             else:
-                print("[DEBUG] No logo available", file=stderr)
+                log.debug("No logo available", module="Channels")
                 self["logo"].hide()
         else:
-            print(f"[ChannelsBrowser] ERROR: Index {index} out of range (0-{len(self.menu_channels) - 1})", file=stderr)
+            log.error("ERROR: Index %d out of range (0-%d)" % (index, len(self.menu_channels) - 1), module="Channels")
 
     def download_logo(self, url):
         """Download and display channel logo"""
@@ -383,7 +363,7 @@ class ChannelsBrowser(BaseBrowser):
                 unlink(temp_path)
 
         except Exception as e:
-            print(f"[ChannelsBrowser] Error downloading logo: {e}", file=stderr)
+            log.error("Error downloading logo: %s" % e, module="Channels")
             self["logo"].hide()
 
     def update_logo(self, picInfo=None):
@@ -393,49 +373,35 @@ class ChannelsBrowser(BaseBrowser):
             self["logo"].instance.setScale(1)
             self["logo"].instance.setPixmap(ptr)
             self["logo"].show()
-            print("[ChannelsBrowser] logo displayed", file=stderr)
+            log.debug("logo displayed", module="Channels")
         else:
             self["logo"].hide()
-            print("[ChannelsBrowser] No logo data, hiding", file=stderr)
+            log.debug("No logo data, hiding", module="Channels")
 
     def play_channel(self):
         """Play the selected channel."""
         # 1. Get the correct index from the menu
         menu_idx = self["menu"].getSelectedIndex()
-        print(f"[PLAY DEBUG] Menu index: {menu_idx}", file=stderr)
+        log.debug("Menu index: %d" % menu_idx, module="Channels")
 
-        if (
-            menu_idx is None
-            or menu_idx < 0
-            or menu_idx >= len(self.menu_channels)
-        ):
-            print(
-                f"[PLAY DEBUG] ERROR: Invalid index {menu_idx}",
-                file=stderr
-            )
+        if menu_idx is None or menu_idx < 0 or menu_idx >= len(self.menu_channels):
+            log.error("ERROR: Invalid index %d" % menu_idx, module="Channels")
             return
 
         # 2. Get the selected channel by index
         selected_channel = self.menu_channels[menu_idx]
-        stream_url = (
-            selected_channel.get("stream_url")
-            or selected_channel.get("url")
-        )
+        stream_url = selected_channel.get("stream_url") or selected_channel.get("url")
 
         if not stream_url:
             self["status"].setText(_("No stream URL"))
             return
 
         # 3. Critical debug info
-        print("[PLAY DEBUG] ===== PASSING TO PLAYER =====",
-              file=stderr)
-        print(f"[PLAY DEBUG] Channel: {selected_channel.get('name')}",
-              file=stderr)
-        print(f"[PLAY DEBUG] Index: {menu_idx}", file=stderr)
-        print(f"[PLAY DEBUG] Total: {len(self.menu_channels)}",
-              file=stderr)
-        print(f"[PLAY DEBUG] URL: {stream_url[:80]}...",
-              file=stderr)
+        log.debug("===== PASSING TO PLAYER =====", module="Channels")
+        log.debug("Channel: %s" % selected_channel.get('name'), module="Channels")
+        log.debug("Index: %d" % menu_idx, module="Channels")
+        log.debug("Total: %d" % len(self.menu_channels), module="Channels")
+        log.debug("URL: %s..." % stream_url[:80], module="Channels")
 
         # 4. Create a basic service reference
         service_ref = eServiceReference(4097, 0, stream_url)
@@ -450,14 +416,38 @@ class ChannelsBrowser(BaseBrowser):
         )
 
     def toggle_favorite(self):
-        """Add/remove channel from favorites"""
-        if self.current_channel:
-            if self.fav_manager.is_favorite(self.current_channel):
-                self.fav_manager.remove(self.current_channel)
-                self["status"].setText(_("Removed from favorites"))
-            else:
-                self.fav_manager.add(self.current_channel)
-                self["status"].setText(_("Added to favorites"))
+        """Toggle favorite with MessageBox"""
+        if not self.current_channel:
+            return
+
+        channel_name = self.current_channel.get('name', _('Unknown'))
+
+        if self.fav_manager.is_favorite(self.current_channel):
+            self.session.openWithCallback(
+                lambda r: self._remove_favorite_confirmation(r),
+                MessageBox,
+                _("Remove '{}' from favorites?").format(channel_name),
+                MessageBox.TYPE_YESNO
+            )
+        else:
+            success, message = self.fav_manager.add(self.current_channel)
+            self.session.open(
+                MessageBox,
+                message,
+                MessageBox.TYPE_INFO if success else MessageBox.TYPE_ERROR,
+                timeout=3
+            )
+
+    def _remove_favorite_confirmation(self, result):
+        """Remove if confirmed"""
+        if result and self.current_channel:
+            success, message = self.fav_manager.remove(self.current_channel)
+            self.session.open(
+                MessageBox,
+                message,
+                MessageBox.TYPE_INFO if success else MessageBox.TYPE_ERROR,
+                timeout=3
+            )
 
     def show_info(self):
         """Show channel information"""
@@ -499,28 +489,28 @@ class ChannelsBrowser(BaseBrowser):
         """Handle up key"""
         self["menu"].up()
         current_index = self["menu"].getSelectedIndex()
-        print(f"[DEBUG] Up -> index: {current_index}", file=stderr)
+        log.debug("Up -> index: %d" % current_index, module="Channels")
         self.update_channel_selection(current_index)
 
     def down(self):
         """Handle down key"""
         self["menu"].down()
         current_index = self["menu"].getSelectedIndex()
-        print(f"[DEBUG] Down -> index: {current_index}", file=stderr)
+        log.debug("Down -> index: %d" % current_index, module="Channels")
         self.update_channel_selection(current_index)
 
     def left(self):
         """Handle left key"""
         self["menu"].pageUp()
         current_index = self["menu"].getSelectedIndex()
-        print(f"[DEBUG] Left -> index: {current_index}", file=stderr)
+        log.debug("Left -> index: %d" % current_index, module="Channels")
         self.update_channel_selection(current_index)
 
     def right(self):
         """Handle right key"""
         self["menu"].pageDown()
         current_index = self["menu"].getSelectedIndex()
-        print(f"[DEBUG] Right -> index: {current_index}", file=stderr)
+        log.debug("Right -> index: %d" % current_index, module="Channels")
         self.update_channel_selection(current_index)
 
     def exit(self):

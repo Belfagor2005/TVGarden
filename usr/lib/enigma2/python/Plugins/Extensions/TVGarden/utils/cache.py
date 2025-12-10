@@ -9,7 +9,6 @@ Based on TV Garden Project
 import time
 import hashlib
 import gzip
-from sys import stderr
 from os.path import join, exists, getmtime
 from os import listdir, remove, makedirs
 from json import load, loads, dump
@@ -26,9 +25,9 @@ try:
     )
 except ImportError as e:
     print('Error import helpers:', str(e))
-
-    def log(msg, level="INFO"):
-        print(f"[{level}] TVGarden: {msg}")
+    
+    def log(message, level="INFO", module=""):
+        print(f"[{level}] [{module}] TVGarden: {message}")
 
     def get_metadata_url():
         return "https://raw.githubusercontent.com/Belfagor2005/tv-garden-channel-list/main/channels/raw/countries_metadata.json"
@@ -51,7 +50,7 @@ class CacheManager:
 
         if not exists(self.cache_dir):
             makedirs(self.cache_dir)
-        print(f"[CacheManager] Initialized at {self.cache_dir}", file=stderr)
+        log.info("Initialized at %s" % self.cache_dir, module="Cache")
 
     def _get_cache_key(self, url):
         """Generate cache key from URL"""
@@ -77,7 +76,7 @@ class CacheManager:
                 with gzip.open(cache_path, 'rt', encoding='utf-8') as f:
                     return load(f)
             except Exception as e:
-                print(f"[CACHE] Error reading {cache_key}: {e}", file=stderr)
+                log.error("Error reading %s: %s" % (cache_key, e), module="Cache")
         return None
 
     def _set_cached(self, cache_key, data):
@@ -88,7 +87,7 @@ class CacheManager:
                 dump(data, f)
             return True
         except Exception as e:
-            print(f"[CACHE] Error saving {cache_key}: {e}", file=stderr)
+            log.error("Error saving %s: %s" % (cache_key, e), module="Cache")
             return False
 
     def _fetch_url(self, url):
@@ -109,7 +108,7 @@ class CacheManager:
                     except:
                         raise ValueError("Failed to decode response")
         except Exception as e:
-            print(f"[CACHE] Error fetching {url}: {e}", file=stderr)
+            log.error("Error fetching %s: %s" % (url, e), module="Cache")
             raise
 
     def fetch_url(self, url, force_refresh=False, ttl=3600):
@@ -130,7 +129,7 @@ class CacheManager:
             self._set_cached(cache_key, result)
             return result
         except Exception as e:
-            print(f"[CACHE] Error in fetch_url: {e}", file=stderr)
+            log.error("Error in fetch_url: %s" % e, module="Cache")
             raise
 
     def _get_default_categories(self):
@@ -173,11 +172,11 @@ class CacheManager:
             self.cache_data[cache_key] = categories
             self._save_cache()
 
-            print(f"[CacheManager] Found {len(categories)} categories from GitHub")
+            log.info("Found %d categories from GitHub" % len(categories), module="Cache")
             return categories
 
         except Exception as e:
-            print(f"[CacheManager] Error getting categories: {e}")
+            log.error("Error getting categories: %s" % e, module="Cache")
             # Fallback to hardcoded list
             return self._get_default_categories()
 
@@ -191,54 +190,54 @@ class CacheManager:
 
         try:
             url = get_category_url(category_id)
-            print(f"[CACHE DEBUG] Fetching category {category_id} from {url}", file=stderr)
+            log.debug("Fetching category %s from %s" % (category_id, url), module="Cache")
             data = self._fetch_url(url)
-            print(f"[CACHE DEBUG] Raw data type for {category_id}: {type(data)}", file=stderr)
+            log.debug("Raw data type for %s: %s" % (category_id, type(data)), module="Cache")
+            
             # Handle both possible formats
             if isinstance(data, list):
                 # Format: Direct list of channels
                 channels = data
-                print(f"[CACHE DEBUG] Data is list with {len(channels)} items", file=stderr)
+                log.debug("Data is list with %d items" % len(channels), module="Cache")
             elif isinstance(data, dict):
                 # Format: Object with a key containing the list
-                print(f"[CACHE DEBUG] Data is dict with keys: {list(data.keys())}", file=stderr)
+                log.debug("Data is dict with keys: %s" % list(data.keys()), module="Cache")
                 for key in ['channels', 'items', 'streams', 'list']:
                     if key in data and isinstance(data[key], list):
                         channels = data[key]
-                        print(f"[CACHE DEBUG] Found '{key}' key with {len(channels)} items", file=stderr)
+                        log.debug("Found '%s' key with %d items" % (key, len(channels)), module="Cache")
                         break
                 else:
                     channels = []
-                    print("[CACHE DEBUG] No known list key found", file=stderr)
+                    log.debug("No known list key found", module="Cache")
             else:
                 channels = []
-                print(f"[CACHE DEBUG] Unexpected format: {type(data)}", file=stderr)
+                log.debug("Unexpected format: %s" % type(data), module="Cache")
 
-            print(f"[CACHE DEBUG] Extracted {len(channels)} channels for {category_id}", file=stderr)
+            log.debug("Extracted %d channels for %s" % (len(channels), category_id), module="Cache")
 
             if channels:
                 self._set_cached(cache_key, channels)
             return channels
 
         except Exception as e:
-            print(f"[CACHE ERROR] Failed to get category {category_id}: {e}", file=stderr)
+            log.error("Failed to get category %s: %s" % (category_id, e), module="Cache")
             import traceback
             traceback.print_exc()
-
         return []
 
     def get_country_channels(self, country_code, force_refresh=False):
         """Get channels for specific country"""
         try:
             url = get_country_url(country_code)
-            print(f"[CACHE DEBUG] Fetching country {country_code}", file=stderr)
+            log.debug("Fetching country %s" % country_code, module="Cache")
 
             result = self.fetch_url(url, force_refresh)
-            print(f"[CACHE DEBUG] Fetch successful, type: {type(result)}", file=stderr)
+            log.debug("Fetch successful, type: %s" % type(result), module="Cache")
 
             return result
         except Exception as e:
-            print(f"[CACHE ERROR] ERROR fetching country {country_code}: {e}", file=stderr)
+            log.error("ERROR fetching country %s: %s" % (country_code, e), module="Cache")
             return []
 
     def get_countries_metadata(self, force_refresh=False):
@@ -251,7 +250,7 @@ class CacheManager:
         for file in listdir(self.cache_dir):
             if file.endswith('.json.gz'):
                 remove(join(self.cache_dir, file))
-        print("[CACHE] Cache cleared", file=stderr)
+        log.info("Cache cleared", module="Cache")
         return True
 
     def get_size(self):
