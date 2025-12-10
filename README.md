@@ -9,6 +9,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/Belfagor2005/TVGarden?style=social)](https://github.com/Belfagor2005/TVGarden/stargazers)
 
 **Professional IPTV Streaming Solution** for Enigma2 receivers with access to **50,000+ channels** from **150+ countries** and **29 categories**.
+
 ---
 <img src="https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/screen/screen1.png">
 <img src="https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/screen/screen2.png">
@@ -16,7 +17,6 @@
 <img src="https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/screen/screen4.png">
 <img src="https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/screen/screen5.png">
 <img src="https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/screen/screen6.png">
-
 
 ## 📺 Key Features
 
@@ -35,6 +35,8 @@
 - **Channel Zapping** (CH+/CH- navigation)
 - **Real-time Search** across all channels
 - **Favorites Management** with export/import
+- **Enigma2 Bouquet Export** - Direct integration with Enigma2 channel list
+- **Enhanced Favorites Options** - New menu with advanced management
 - **Parental Control** with PIN protection
 - **Multi-language** interface
 
@@ -77,7 +79,7 @@ opkg install enigma2-plugin-extensions-tvgarden
 reboot
 ```
 
-### Method 3: Plugin Manager
+### Method 2: Plugin Manager
 1. Open **Plugin Browser** on your receiver
 2. Select **Download Plugins**
 3. Find **TV Garden** in **Extensions** category
@@ -145,6 +147,16 @@ blocked_categories = []    # List of blocked categories
 - **YELLOW**: Show channel info
 - **BLUE/EXIT**: Close player
 
+### Enhanced Favorites Options (YELLOW Button)
+Access advanced favorites management with the Yellow button in Favorites browser:
+
+- **View Channel Info** - Detailed stream information
+- **Remove from Favorites** - Delete selected channel
+- **Clear All Favorites** - Remove all saved channels
+- **Export to Enigma2 Bouquet** - Create Enigma2 bouquet file
+- **Create Backup** - Backup bouquets.tv before changes
+- **Remove Bouquet from Enigma2** - Safe bouquet removal
+
 ---
 
 ## 🔧 Technical Details
@@ -157,37 +169,39 @@ TVGarden/
 ├── helpers.py
 ├── browser/
 │   ├── __init__.py
+│   ├── about.py
 │   ├── base.py
-│   ├── countries.py
 │   ├── categories.py
 │   ├── channels.py
+│   ├── countries.py
 │   ├── favorites.py
 │   └── search.py
 ├── player/
 │   ├── __init__.py
 │   └── iptv_player.py
 ├── utils/
+│   ├── __init__.py
 │   ├── config.py
 │   ├── cache.py
 │   ├── settings.py
 │   └── favorites.py
 ├── skins/
-│   ├── default/
-│   │   ├── skin.json
-│   │   └── main.xml
 │   ├── wqhd/
 │   ├── fhd/
 │   └── hd/
 ├── icons/
 │   ├── plugin.png
 │   ├── logo.png
-│   ├── country/
-│   └── category/
+│   ├── redbutton.png
+│   ├── greenbutton.png
+│   ├── yellowbutton.png
+│   ├── bluebutton.png
+│   ├── kofi.png
+│   └── paypal.png
 ├── locale/
 │   ├── it/
 │   ├── en/
 │   └── ...
-├── Makefile
 ├── install.sh
 └── README.md
 ```
@@ -253,6 +267,8 @@ TVGarden/
 - **Automatic Deduplication** - Unique channel IDs
 - **Timestamp Tracking** - Recently added first
 - **Search Integration** - Search within favorites
+- **Detailed Logger** - Comprehensive debugging system
+- **Bouquet Export** - Export to Enigma2 channel list
 
 ### Storage Format
 ```json
@@ -418,4 +434,16 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 **Enjoy streaming with TV Garden!** 📺✨
 
-*Last Updated: 2025-12-07* | *Version: 1.0*
+*Last Updated: 2025-12-11* | *Version: 1.1*
+
+**What's New in v1.1:**
+- ✅ **Enigma2 Bouquet Export** - Direct integration with Enigma2 channel list
+- ✅ **Enhanced Favorites Options** - New menu with advanced management
+- ✅ **Detailed Logger** - Comprehensive debugging system
+```
+
+---
+
+**Enjoy streaming with TV Garden!** 📺✨
+
+*Last Updated: 2025-12-07* | *Version: 1.1*
