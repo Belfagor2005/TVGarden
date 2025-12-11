@@ -44,7 +44,6 @@
 - **Connection Retry** with timeout handling
 - **Offline Cache** for previously viewed content
 - **Automatic Updates** from TV Garden repository
-
 ---
 
 ## 📊 Technical Specifications
