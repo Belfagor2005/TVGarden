@@ -37,7 +37,6 @@
 - **Favorites Management** with export/import
 - **Enigma2 Bouquet Export** - Direct integration with Enigma2 channel list
 - **Enhanced Favorites Options** - New menu with advanced management
-- **Parental Control** with PIN protection
 - **Multi-language** interface
 
 ### 🛡️ Reliability
@@ -113,11 +112,6 @@ show_logos = true          # Show channel logos
 items_per_page = 20        # Items per browser page
 ```
 
-### Parental Control
-```ini
-parental_lock = false      # Enable parental control
-parental_pin = 0000        # 4-digit PIN code
-blocked_categories = []    # List of blocked categories
 ```
 
 ---
