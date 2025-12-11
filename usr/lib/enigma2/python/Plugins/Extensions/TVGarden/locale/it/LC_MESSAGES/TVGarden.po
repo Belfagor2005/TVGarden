@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TVGarden\n"
-"POT-Creation-Date: 2025-12-11 18:23+0100\n"
+"POT-Creation-Date: 2025-12-11 19:12+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: lululla [ekekaz@gmail.com]\n"
@@ -205,70 +205,70 @@ msgid "Info"
 msgstr "Informazioni"
 
 #: browser/channels.py:300
-#, python-format
-msgid "Showing %d of %d channels"
-msgstr "Visualizzazione di %d canali su %d"
+#, python-brace-format
+msgid "Showing {shown} of {total} channels"
+msgstr "Visualizzazione di {shown} canali su {total}"
 
-#: browser/channels.py:305
+#: browser/channels.py:306
 #, python-format
 msgid "Found %d playable channels"
 msgstr "Trovati %d canali riproducibili"
 
-#: browser/channels.py:308 browser/search.py:330
+#: browser/channels.py:309 browser/search.py:331
 #, python-format
 msgid "(skipped %d YouTube)"
 msgstr "(saltato %d YouTube)"
 
-#: browser/channels.py:311 browser/search.py:333
+#: browser/channels.py:312 browser/search.py:334
 #, python-format
 msgid "(filtered %d problematic)"
 msgstr "(filtrato %d problematico)"
 
-#: browser/channels.py:314 browser/search.py:336
+#: browser/channels.py:315 browser/search.py:337
 #, python-format
 msgid "(limited to first %d)"
 msgstr "(limitato ai primi %d)"
 
-#: browser/channels.py:326 browser/search.py:142
+#: browser/channels.py:327 browser/search.py:142
 msgid "Error loading channels"
 msgstr "Errore durante il caricamento dei canali"
 
-#: browser/channels.py:394 browser/search.py:395 utils/favorites.py:380
+#: browser/channels.py:395 browser/search.py:396 utils/favorites.py:380
 msgid "No stream URL"
 msgstr "Nessun URL di streaming"
 
-#: browser/channels.py:421 browser/favorites.py:234
+#: browser/channels.py:422 browser/favorites.py:234
 msgid "Unknown"
 msgstr ""
 
-#: browser/channels.py:427 browser/favorites.py:239
+#: browser/channels.py:428 browser/favorites.py:239
 #, python-format
 msgid "Remove '%s' from favorites?"
 msgstr "Rimuovere '%s' dai preferiti?"
 
-#: browser/channels.py:461
+#: browser/channels.py:462
 #, python-format
 msgid "Stream: %s..."
 msgstr "Flusso: %s..."
 
-#: browser/channels.py:463
+#: browser/channels.py:464
 #, python-format
 msgid "Stream: %s"
 msgstr "Flusso: %s"
 
-#: browser/channels.py:470
+#: browser/channels.py:471
 msgid "Play Channel"
 msgstr "Riproduci canale"
 
-#: browser/channels.py:471
+#: browser/channels.py:472
 msgid "Add to Favorites"
 msgstr "Aggiungi ai Preferiti"
 
-#: browser/channels.py:472 browser/favorites.py:359
+#: browser/channels.py:473 browser/favorites.py:359
 msgid "Channel Information"
 msgstr "Informazioni sul canale"
 
-#: browser/channels.py:475
+#: browser/channels.py:476
 msgid "Channel Menu"
 msgstr "Menu Canale"
 
@@ -380,7 +380,7 @@ msgstr "%d preferiti"
 msgid "No stream URL available"
 msgstr "Nessun URL di streaming disponibile"
 
-#: browser/favorites.py:297 browser/search.py:410
+#: browser/favorites.py:297 browser/search.py:411
 msgid "Error opening player"
 msgstr "Errore durante l'apertura del lettore"
 
@@ -427,25 +427,25 @@ msgid "Searching..."
 msgstr "Ricerca in corso..."
 
 #: browser/search.py:322
-#, python-format
-msgid "Showing %d of %d results"
-msgstr "Visualizzazione di %d di %d risultati"
+#, python-brace-format
+msgid "Showing {shown} of {total} results"
+msgstr "Visualizzazione di {shown} di {total} risultati"
 
-#: browser/search.py:327
+#: browser/search.py:328
 #, python-format
 msgid "Found %d channels"
 msgstr "Trovati %d canali"
 
-#: browser/search.py:344
+#: browser/search.py:345
 #, python-format
 msgid "No channels found for: %s"
 msgstr "Nessun canale trovato per: %s"
 
-#: browser/search.py:418
+#: browser/search.py:419
 msgid "Removed from favorites"
 msgstr "Rimosso dai preferiti"
 
-#: browser/search.py:421
+#: browser/search.py:422
 msgid "Added to favorites"
 msgstr "Aggiunto ai Preferiti"
 

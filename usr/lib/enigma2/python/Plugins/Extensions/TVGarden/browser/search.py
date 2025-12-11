@@ -319,9 +319,10 @@ class SearchBrowser(BaseBrowser):
 
         # Build status message
         if max_channels > 0 and len(self.search_results) > max_channels:
-            status_text = _("Showing %d of %d results") % (
-                min(max_channels, valid_count),
-                len(self.search_results)
+            msg = _("Showing {shown} of {total} results")
+            status_text = msg.format(
+                shown=min(max_channels, valid_count),
+                total=len(self.search_results)
             )
         else:
             status_text = _("Found %d channels") % valid_count

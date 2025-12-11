@@ -297,9 +297,10 @@ class ChannelsBrowser(BaseBrowser):
 
             # Build status message
             if max_channels > 0 and len(channels) > max_channels:
-                status_text = _("Showing %d of %d channels") % (
-                    min(max_channels, valid_count),
-                    valid_count + youtube_count + problematic_count
+                msg = _("Showing {shown} of {total} channels")
+                status_text = msg.format(
+                    shown=min(max_channels, valid_count),
+                    total=valid_count + youtube_count + problematic_count
                 )
             else:
                 status_text = _("Found %d playable channels") % valid_count
