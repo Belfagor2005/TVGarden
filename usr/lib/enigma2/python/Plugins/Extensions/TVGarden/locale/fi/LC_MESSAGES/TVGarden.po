@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TVGarden\n"
 "POT-Creation-Date: 2025-12-10 18:09+0100\n"
-"PO-Revision-Date: 2025-12-10 18:09+0100\n"
+"PO-Revision-Date: 2025-12-11 12:05+0200\n"
 "Last-Translator: Orlandox\n"
 "Language-Team: Orlandox [www.huoltovalikko.com]\n"
 "Language: fi\n"
@@ -239,13 +239,13 @@ msgstr "Ei striimin URL-osoitetta"
 
 #: browser/channels.py:423 browser/favorites.py:234
 msgid "Unknown"
-msgstr ""
+msgstr "Tuntematon"
 
 #: browser/channels.py:429 browser/favorites.py:239
 #, python-brace-format
 #| msgid "Removed from favorites"
 msgid "Remove '{}' from favorites?"
-msgstr ""
+msgstr "Poista '{}' suosikeista?"
 
 #: browser/channels.py:462
 #, python-format
@@ -314,11 +314,11 @@ msgstr "Ladataan suosikkeja..."
 
 #: browser/favorites.py:65
 msgid "Options"
-msgstr ""
+msgstr "Optiot"
 
 #: browser/favorites.py:66
 msgid "Export"
-msgstr ""
+msgstr "Vie"
 
 #: browser/favorites.py:129
 #, python-format
@@ -339,49 +339,49 @@ msgstr "Kanavaa ei valittu"
 
 #: browser/favorites.py:149
 msgid "View Channel Info"
-msgstr ""
+msgstr "Näytä kanavan tiedot"
 
 #: browser/favorites.py:150
 msgid "Remove from Favorites"
-msgstr ""
+msgstr "Poista suosikeista"
 
 #: browser/favorites.py:151
 #| msgid "Max Favorites"
 msgid "Clear All Favorites"
-msgstr ""
+msgstr "Tyhjennä kaikki suosikit"
 
 #: browser/favorites.py:152
 msgid "Export to Enigma2 Bouquet"
-msgstr ""
+msgstr "Vie Enigma2 suosikkilistaan"
 
 #: browser/favorites.py:153
 msgid "Remove Bouquet from Enigma2"
-msgstr ""
+msgstr "Poista suosikkilista Enigma2:sta"
 
 #: browser/favorites.py:159
 #, python-brace-format
 msgid "Options for: {}"
-msgstr ""
+msgstr "Optiot: {}"
 
 #: browser/favorites.py:181
 #, python-brace-format
 msgid "Export '{}' to Enigma2 bouquet?"
-msgstr ""
+msgstr "Vie '{}' Enigma2 suosikkilistaan?"
 
 #: browser/favorites.py:189
 msgid "Remove TV Garden bouquet from Enigma2?"
-msgstr ""
+msgstr "Poista TV Garden -suosikkilista Enigma2:sta?"
 
 #: browser/favorites.py:197
 #| msgid "Error clearing favorites"
 msgid "Clear ALL favorites?"
-msgstr ""
+msgstr "Tyhjennä KAIKKI suosikit?"
 
 #: browser/favorites.py:252
 #, python-brace-format
 #| msgid "Favorites"
 msgid "{} favorites"
-msgstr ""
+msgstr "{} suosikkia"
 
 #: browser/favorites.py:278
 msgid "No stream URL available"
@@ -393,12 +393,12 @@ msgstr "Virhe avattaessa soitinta"
 
 #: browser/favorites.py:305
 msgid "No favorites to export"
-msgstr ""
+msgstr "Ei vietäviä suosikkeja"
 
 #: browser/favorites.py:314
 #, python-brace-format
 msgid "Export ALL {} favorites to Enigma2 bouquet?"
-msgstr ""
+msgstr "Vie KAIKKI ({}) suosikit Enigma2 suosikkilistaan?"
 
 #: browser/search.py:66
 msgid "Search:"
@@ -535,42 +535,42 @@ msgstr "Käytä ilmaisia ​​IPTV-kanavia ympäri maailmaa"
 #: utils/favorites.py:74
 #| msgid "Added to favorites"
 msgid "Already in favorites"
-msgstr ""
+msgstr "On jo suosikeissa"
 
 #: utils/favorites.py:86
 #, python-brace-format
 #| msgid "Added to favorites"
 msgid "Added to favorites: {}"
-msgstr ""
+msgstr "Lisättiin suosikkeihin: {}"
 
 #: utils/favorites.py:89 utils/favorites.py:104
 #| msgid "Error loading favorites"
 msgid "Error saving favorites"
-msgstr ""
+msgstr "Virhe tallennettaessa suosikkeja"
 
 #: utils/favorites.py:101
 #, python-brace-format
 #| msgid "Removed from favorites"
 msgid "Removed from favorites: {}"
-msgstr ""
+msgstr "Poistettiin suosikeista: {}"
 
 #: utils/favorites.py:106
 #| msgid "Error loading favorites"
 msgid "Channel not found in favorites"
-msgstr ""
+msgstr "Kanavaa ei löytynyt suosikeista"
 
 #: utils/favorites.py:211
 msgid "No channels to export"
-msgstr ""
+msgstr "Ei vietäviä kanavia"
 
 #: utils/favorites.py:245
 msgid "No valid stream URLs found"
-msgstr ""
+msgstr "Kelvollisia striimin URL-osoitteita ei löytynyt"
 
 #: utils/favorites.py:252
 #, python-brace-format
 msgid "Exported {} channels. Bouquet reloaded."
-msgstr ""
+msgstr "Viety {} kanavaa. Suosikkilista ladattu uudelleen."
 
 #: utils/favorites.py:256 utils/favorites.py:337 utils/favorites.py:374
 #: utils/settings.py:346
@@ -581,17 +581,17 @@ msgstr "Virhe: {}"
 #: utils/favorites.py:333
 #, python-brace-format
 msgid "Removed {} files"
-msgstr ""
+msgstr "Poistettu {} tiedostoa"
 
 #: utils/favorites.py:370
 msgid "Channel added. Bouquet reloaded."
-msgstr ""
+msgstr "Kanava lisätty. Suosikkilista ladattu uudelleen."
 
 #: utils/favorites.py:382
 #, python-brace-format
 #| msgid "Added to favorites"
 msgid "Cleared {} favorites"
-msgstr ""
+msgstr "Tyhjennetty {} suosikkia"
 
 #: utils/favorites.py:385
 msgid "Error clearing favorites"
@@ -603,7 +603,7 @@ msgstr "Lokitiedosto on tyhjä tai sitä ei löydy"
 
 #: utils/settings.py:51
 msgid "TV Garden Logs"
-msgstr "TV-puutarhalokit"
+msgstr "TV Garden -lokit"
 
 #: utils/settings.py:115
 msgid "TV Garden Settings"

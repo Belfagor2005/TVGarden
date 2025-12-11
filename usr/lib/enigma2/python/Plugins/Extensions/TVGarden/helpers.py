@@ -6,14 +6,14 @@ Based on TV Garden Project by Lululla
 Data Source: TV Garden Project
 """
 
+from sys import stderr
 from os import remove, makedirs
 from os.path import join, exists
-from sys import stderr
 from datetime import datetime
-from Tools.Directories import resolveFilename, SCOPE_PLUGINS, fileExists
 from enigma import getDesktop
+from Tools.Directories import resolveFilename, SCOPE_PLUGINS, fileExists
 
-from . import PLUGIN_NAME, PLUGIN_PATH  # , _, PLUGIN_VERSION, PLUGIN_ICON
+from . import PLUGIN_NAME, PLUGIN_PATH
 
 
 # Helper to load skin
@@ -279,9 +279,9 @@ DEFAULT_CONFIG = {
     "auto_refresh": True,         # Automatic cache refresh
 
     # Parental control
-    "parental_lock": False,       # Enable parental control
-    "parental_pin": "0000",       # 4-digit PIN
-    "blocked_categories": [],     # List of blocked categories
+    # "parental_lock": False,       # Enable parental control
+    # "parental_pin": "0000",       # 4-digit PIN
+    # "blocked_categories": [],     # List of blocked categories
 
     # Favorites
     "max_favorites": 100,         # Maximum favorites allowed

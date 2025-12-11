@@ -9,28 +9,19 @@ Based on TV Garden Project
 from enigma import (
     eServiceReference,
     iPlayableService,
-    eTimer,
-    # ePicLoad,
-    # loadPNG,
+    eTimer
 )
-from Components.ActionMap import ActionMap
 from Components.ServiceEventTracker import ServiceEventTracker, InfoBarBase
-
+from Components.ActionMap import ActionMap
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
 from Screens.InfoBarGenerics import (
-    # InfoBarSubtitleSupport,
-    # InfoBarMenu,
     InfoBarSeek,
     InfoBarAudioSelection,
     InfoBarNotifications,
 )
 
-# Local imports
 from ..helpers import log
-# from ..base import BaseBrowser
-# from ..channels import ChannelsBrowser
-# from ..utils.cache import CacheManager
 
 
 class TvInfoBarShowHide():
@@ -259,7 +250,11 @@ class TVGardenPlayer(InfoBarBase, InfoBarSeek, InfoBarAudioSelection, InfoBarNot
 
     def show_stream_warning(self, channel_name):
         """Show warning about potentially problematic stream"""
-        message = f"Warning: {channel_name}\n\nThis stream might use encryption or DRM that is not supported by your receiver.\n\nTry another channel."
+        message = (
+            "Warning: {}\n\n"
+            "This stream might use encryption or DRM that is not supported by your receiver.\n\n"
+            "Try another channel."
+        ).format(channel_name)
         self.session.open(MessageBox, message, MessageBox.TYPE_WARNING)
 
     def start_stream_check_timer(self):
@@ -398,18 +393,25 @@ class TVGardenPlayer(InfoBarBase, InfoBarSeek, InfoBarAudioSelection, InfoBarNot
         """Display information for the current channel."""
         if self.channel_list and 0 <= self.current_index < len(self.channel_list):
             channel = self.channel_list[self.current_index]
-            info = f"Canale: {channel.get('name', 'N/A')}\n"
-            info += f"Indice: {self.current_index + 1}/{self.itemscount}\n"
+            info = "Canale: %s\n" % channel.get('name', 'N/A')
+            info += "Indice: %d/%d\n" % (self.current_index + 1, self.itemscount)
 
             if channel.get('country'):
-                info += f"Paese: {channel.get('country')}\n"
+                info += "Paese: %s\n" % channel.get('country')
             if channel.get('language'):
-                info += f"Lingua: {channel.get('language')}\n"
+                info += "Lingua: %s\n" % channel.get('language')
 
             url = channel.get('stream_url') or channel.get('url', 'N/A')
-            info += f"URL: {url[:60]}..." if len(url) > 60 else f"URL: {url}"
+            if len(url) > 60:
+                info += "URL: %s..." % url[:60]
+            else:
+                info += "URL: %s" % url
 
             self.session.open(MessageBox, info, MessageBox.TYPE_INFO)
+
+    def show_error_message(self, message):
+        """Show error message"""
+        self.session.open(MessageBox, message, MessageBox.TYPE_ERROR)
 
     def cleanup(self):
         """Clean up resources."""
