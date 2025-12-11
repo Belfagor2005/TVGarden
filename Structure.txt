@@ -19,6 +19,8 @@ TVGarden/
 │   ├── config.py
 │   ├── cache.py
 │   ├── settings.py
+│   ├── update_manager.py
+│   ├── updater.py
 │   └── favorites.py
 ├── skins/
 │   ├── wqhd/

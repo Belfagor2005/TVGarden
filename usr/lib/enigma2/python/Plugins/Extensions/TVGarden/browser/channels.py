@@ -10,28 +10,26 @@ import tempfile
 from os import unlink
 from sys import stderr
 from urllib.request import urlopen
-
 from enigma import (
     ePicLoad,
     eServiceReference,
 )
-
-from Screens.MessageBox import MessageBox
-from Screens.ChoiceBox import ChoiceBox
-
-from Components.ActionMap import ActionMap
 from Components.Label import Label
-from Components.MenuList import MenuList
 from Components.Pixmap import Pixmap
+from Components.MenuList import MenuList
+from Screens.ChoiceBox import ChoiceBox
+from Screens.MessageBox import MessageBox
+from Components.ActionMap import ActionMap
+
 
 try:
     from ..helpers import is_valid_stream_url, log
 except ImportError as e:
-    print(f"[CHANNELS IMPORT ERROR] {e}", file=stderr)
-    # Fallback functions
+    print("[CHANNELS IMPORT ERROR] %s" % e, file=stderr)
 
+    # Fallback functions
     def log(msg, level="INFO"):
-        print(f"[{level}] TVGarden: {msg}")
+        print("[%s] TVGarden: %s" % (level, msg))
 
     def is_valid_stream_url(url):
         if not url or not isinstance(url, str):
@@ -94,9 +92,9 @@ class ChannelsBrowser(BaseBrowser):
 
         title = ""
         if country_name:
-            title = f"Channels - {country_name}"
+            title = "Channels - %s" % country_name
         elif category_name:
-            title = f"Channels - {category_name}"
+            title = "Channels - %s" % category_name
         self.setTitle(title)
 
         self["menu"] = MenuList([])
@@ -172,7 +170,7 @@ class ChannelsBrowser(BaseBrowser):
                     skipped_count = len(channels) - idx
                     break
 
-                name = channel.get("name", f"Channel {idx + 1}")
+                name = channel.get("name", "Channel %d" % (idx + 1))
 
                 stream_url = None
                 found_in = None
@@ -208,7 +206,7 @@ class ChannelsBrowser(BaseBrowser):
                 if is_youtube:
                     youtube_count += 1
                     print(
-                        f"[CHANNELS DEBUG] ⏭️ Skipping YouTube: {name}",
+                        "[CHANNELS DEBUG] ⏭️ Skipping YouTube: %s" % name,
                         file=stderr
                     )
                     continue  # skip this channel
@@ -273,7 +271,7 @@ class ChannelsBrowser(BaseBrowser):
                         or channel.get("icon")
                         or channel.get("image")
                     ),
-                    "id": channel.get("nanoid", f"ch_{idx}"),
+                    "id": channel.get("nanoid", "ch_%d" % idx),
                     "description": channel.get("description", ""),
                     "group": channel.get("group", ""),
                     "language": channel.get("language", ""),
@@ -299,21 +297,21 @@ class ChannelsBrowser(BaseBrowser):
 
             # Build status message
             if max_channels > 0 and len(channels) > max_channels:
-                status_text = _("Showing {shown} of {total} channels").format(
-                    shown=min(max_channels, valid_count),
-                    total=valid_count + youtube_count + problematic_count
+                status_text = _("Showing %d of %d channels") % (
+                    min(max_channels, valid_count),
+                    valid_count + youtube_count + problematic_count
                 )
             else:
-                status_text = _("Found {count} playable channels").format(count=valid_count)
+                status_text = _("Found %d playable channels") % valid_count
 
             if youtube_count > 0:
-                status_text += " " + _("(skipped {count} YouTube)").format(count=youtube_count)
+                status_text += " " + _("(skipped %d YouTube)") % youtube_count
 
             if problematic_count > 0:
-                status_text += " " + _("(filtered {count} problematic)").format(count=problematic_count)
+                status_text += " " + _("(filtered %d problematic)") % problematic_count
 
             if skipped_count > 0 and max_channels > 0:
-                status_text += " " + _("(limited to first {limit})").format(limit=max_channels)
+                status_text += " " + _("(limited to first %d)") % max_channels
 
             self["status"].setText(status_text)
 
@@ -426,7 +424,7 @@ class ChannelsBrowser(BaseBrowser):
             self.session.openWithCallback(
                 lambda r: self._remove_favorite_confirmation(r),
                 MessageBox,
-                _("Remove '{}' from favorites?").format(channel_name),
+                _("Remove '%s' from favorites?") % channel_name,
                 MessageBox.TYPE_YESNO
             )
         else:
@@ -452,14 +450,17 @@ class ChannelsBrowser(BaseBrowser):
     def show_info(self):
         """Show channel information"""
         if self.current_channel:
-            info = f"{self.current_channel.get('name', 'Unknown')}\n\n"
+            info = "%s\n\n" % self.current_channel.get('name', 'Unknown')
 
             desc = self.current_channel.get('description')
             if desc:
-                info += f"{desc}\n\n"
+                info += "%s\n\n" % desc
 
             stream_url = self.current_channel.get('stream_url', 'N/A')
-            info += _("Stream: %s") % (stream_url[:60] + '...' if len(stream_url) > 60 else stream_url)
+            if len(stream_url) > 60:
+                info += _("Stream: %s...") % stream_url[:60]
+            else:
+                info += _("Stream: %s") % stream_url
 
             self.session.open(MessageBox, info, MessageBox.TYPE_INFO)
 
@@ -469,8 +470,6 @@ class ChannelsBrowser(BaseBrowser):
             (_("Play Channel"), "play"),
             (_("Add to Favorites"), "favorite"),
             (_("Channel Information"), "info"),
-            (_("Share Channel"), "share"),
-            (_("Report Issue"), "report"),
         ]
         self.session.openWithCallback(self.menu_callback, ChoiceBox,
                                       title=_("Channel Menu"), list=menu)

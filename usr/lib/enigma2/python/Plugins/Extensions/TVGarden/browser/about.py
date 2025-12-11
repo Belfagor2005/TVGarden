@@ -5,16 +5,16 @@ TV Garden Plugin - About Screen
 Shows plugin information, credits and version
 """
 
+from enigma import eTimer
 from Screens.Screen import Screen
+from Components.Label import Label
 from Components.ActionMap import ActionMap
 from Components.ScrollLabel import ScrollLabel
-from Components.Label import Label
-from enigma import eTimer
 
-from .. import PLUGIN_VERSION, _
 from ..helpers import log
-from ..utils.config import PluginConfig
+from .. import _ , PLUGIN_VERSION
 from ..utils.cache import CacheManager
+from ..utils.config import PluginConfig
 
 
 class TVGardenAbout(Screen):
@@ -89,7 +89,7 @@ class TVGardenAbout(Screen):
             )
 
             self["scrolltext"].setText(about_text)
-            self["version"].setText(f"Version: {PLUGIN_VERSION}")
+            self["version"].setText("Version: %s" % PLUGIN_VERSION)
 
             # Auto-scroll after 3 seconds
             self.scroll_timer = eTimer()
@@ -102,24 +102,23 @@ class TVGardenAbout(Screen):
 
     def generate_about_text(self, countries_count="150+", cache_info="Active"):
         """Generate formatted about text"""
-        return f"""
+        return """
 ══════════════════════════════════════
     TV GARDEN PLUGIN
     Complete IPTV Solution for Enigma2
 ══════════════════════════════════════
 
-VERSION: {PLUGIN_VERSION}
+VERSION: %s
 STATUS: ● FULLY OPERATIONAL
 
 ━━━━━━━━━━━━━━━ CORE FEATURES ━━━━━━━━━━━━━━━━
-• Global Coverage: {countries_count} Countries
+• Global Coverage: %s Countries
 • Content Variety: 29 Categories
 • Channel Library: 50,000+ Streams
 • Real-time Search with Virtual Keyboard
-• Smart Caching System: {cache_info}
+• Smart Caching System: %s
 • Auto-Skin Detection (HD/FHD/WQHD)
 • Favorites Management with Bouquet Export
-• Parental Control with PIN
 • DRM/Problematic Stream Filtering
 • Configurable Channel Limits
 
@@ -193,7 +192,7 @@ For support, bug reports or feature requests,
 please visit the GitHub repository.
 
 Enjoy streaming with TV Garden! 📺
-"""
+""" % (PLUGIN_VERSION, countries_count, cache_info)
 
     def pageUp(self):
         """Scroll page up"""

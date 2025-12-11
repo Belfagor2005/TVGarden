@@ -65,12 +65,16 @@ from Screens.MessageBox import MessageBox
 
 from . import _, PLUGIN_VERSION, PLUGIN_ICON  # , PLUGIN_NAME, PLUGIN_PATH
 from .helpers import log, simple_log
+from .browser.about import TVGardenAbout
 from .browser.countries import CountriesBrowser
 from .browser.categories import CategoriesBrowser
 from .browser.favorites import FavoritesBrowser
 from .browser.search import SearchBrowser
 from .utils.cache import CacheManager
 from .utils.config import PluginConfig
+from .utils.update_manager import UpdateManager
+from .utils.updater import PluginUpdater
+
 
 # Add plugin path to sys.path for imports
 plugin_path = dirname(__file__)
@@ -94,11 +98,11 @@ if MODULES_LOADED:
     simple_log("✓ All modules loaded successfully")
 else:
     simple_log("✗ Some modules failed to load", "WARNING")
-    simple_log(f"  CountriesBrowser: {CountriesBrowser is not None}")
-    simple_log(f"  CategoriesBrowser: {CategoriesBrowser is not None}")
-    simple_log(f"  FavoritesBrowser: {FavoritesBrowser is not None}")
-    simple_log(f"  PluginConfig: {PluginConfig is not None}")
-    simple_log(f"  CacheManager: {CacheManager is not None}")
+    simple_log("  CountriesBrowser: %s" % (CountriesBrowser is not None))
+    simple_log("  CategoriesBrowser: %s" % (CategoriesBrowser is not None))
+    simple_log("  FavoritesBrowser: %s" % (FavoritesBrowser is not None))
+    simple_log("  PluginConfig: %s" % (PluginConfig is not None))
+    simple_log("  CacheManager: %s" % (CacheManager is not None))
 
 
 class TVGardenMain(Screen):
@@ -132,7 +136,7 @@ class TVGardenMain(Screen):
 
         Screen.__init__(self, session)
         self.session = session
-        self["status"] = Label(f"TV Garden {PLUGIN_VERSION} | Ready")
+        self["status"] = Label("TV Garden %s | Ready" % PLUGIN_VERSION)
 
         self.cache = CacheManager()
         self.menu_items = [
@@ -140,13 +144,14 @@ class TVGardenMain(Screen):
             (_("Browse by Category"), "categories", _("Browse channels by category")),
             (_("Favorites"), "favorites", _("Your favorite channels")),
             (_("Search"), "search", _("Search channels by name")),
+            (_("Check for Updates"), "updates", _("Check for plugin updates")),
             (_("Settings"), "settings", _("Plugin settings and configuration")),
             (_("About"), "about", _("About TV Garden plugin"))
         ]
 
         self["menu"] = MenuList(self.menu_items)
         self["status"] = Label(
-            f"TV Garden v.{PLUGIN_VERSION} | Cache: {self.cache.get_size()} items"
+            "TV Garden v.%s | Cache: %d items" % (PLUGIN_VERSION, self.cache.get_size())
         )
 
         self["key_red"] = Label(_("Exit"))
@@ -164,8 +169,6 @@ class TVGardenMain(Screen):
             "menu": self.open_settings,
         }, -2)
 
-        # self.onFirstExecBegin.append(self.check_modules)
-
     def select_item(self):
         """Handle menu item selection"""
         selection = self["menu"].getCurrent()
@@ -182,6 +185,8 @@ class TVGardenMain(Screen):
                 self.open_search()
             elif action == "settings":
                 self.open_settings()
+            elif action == "updates":
+                self.check_for_updates()
             elif action == "about":
                 self.show_about()
 
@@ -213,8 +218,32 @@ class TVGardenMain(Screen):
         self.cache.clear_all()
         self.cache.get_countries_metadata(force_refresh=True)
         self["status"] = Label(
-            f"TV Garden v.{PLUGIN_VERSION} | Cache: {self.cache.get_size()} items"
+            "TV Garden v.%s | Cache: %d items" % (PLUGIN_VERSION, self.cache.get_size())
         )
+
+    def check_for_updates(self):
+        """Check for plugin updates - VERSIONE CENTRALIZZATA"""
+        log.debug("check_for_updates called from main menu", module="Main")
+        
+        # Test diretto per vedere se il problema è in UpdateManager
+        try:
+            log.debug("Creating UpdateManager instance...", module="Main")
+            updater = PluginUpdater()
+            log.debug("PluginUpdater created successfully", module="Main")
+            
+            # Test diretto della funzione
+            latest = updater.get_latest_version()
+            log.debug("Direct test - Latest version: %s" % latest, module="Main")
+            
+            # Ora usa UpdateManager
+            UpdateManager.check_for_updates(self.session, self["status"])
+            
+        except Exception as e:
+            log.error("Direct test error: %s" % e, module="Main")
+            self["status"].setText(_("Update check error"))
+            self.session.open(MessageBox,
+                             _("Error: %s") % str(e),
+                             MessageBox.TYPE_ERROR)
 
     def show_about_fallback(self):
         col1_width = 30
@@ -260,7 +289,8 @@ class TVGardenMain(Screen):
             "https://github.com/Belfagor2005/tv-garden-channel-list",
             "",
             "PLUGIN STATUS: FULLY OPERATIONAL",
-            "BOUQUET EXPORT: ACTIVE"
+            "BOUQUET EXPORT: ACTIVE",
+            "PLUGIN AUTOUPDATE: ACTIVE"
         ])
 
         about_text = "\n".join(about_lines)
@@ -269,7 +299,6 @@ class TVGardenMain(Screen):
     def show_about(self):
         """Show about screen"""
         try:
-            from .browser.about import TVGardenAbout
             self.session.open(TVGardenAbout)
         except ImportError:
             # Fallback to MessageBox

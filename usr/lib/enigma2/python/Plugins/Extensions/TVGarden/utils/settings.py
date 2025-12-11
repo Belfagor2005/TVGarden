@@ -19,12 +19,12 @@ from Components.config import (
     ConfigYesNo,
     ConfigText,
     ConfigNothing,
-    # ConfigAction,
     getConfigListEntry
 )
 from .. import _
 from .config import get_config
 from ..helpers import log
+from .update_manager import UpdateManager
 
 
 class LogViewerScreen(TextBox):
@@ -145,8 +145,78 @@ class TVGardenSettings(ConfigListScreen, Screen):
             self.clear_logs()
             self._reset_action_selections()
             return
+        elif display_name == _("Check for Updates"):
+            self.check_for_updates()
+            self._reset_action_selections()
+            return
         elif isinstance(config_item, ConfigNothing):
             return
+
+    def check_for_updates(self):
+        """Check for updates from settings - VERSIONE CENTRALIZZATA"""
+        log.debug("check_for_updates called from settings", module="Settings")
+        UpdateManager.check_for_updates(self.session, self["status"])
+
+    def clear_logs(self):
+        """Clear log files"""
+        try:
+            self.session.openWithCallback(
+                self._clear_logs_callback,
+                MessageBox,
+                _("Are you sure you want to clear all log files?"),
+                MessageBox.TYPE_YESNO
+            )
+        except Exception as e:
+            self["status"].setText(_("Error: %s") % str(e))
+
+    def _clear_logs_callback(self, result):
+        """Callback dopo clear logs"""
+        if result:
+            try:
+                log.clear_logs()
+                self["status"].setText(_("Logs cleared"))
+                self.session.open(
+                    MessageBox,
+                    _("Log files cleared successfully"),
+                    MessageBox.TYPE_INFO,
+                    timeout=3
+                )
+            except Exception as e:
+                self.session.open(
+                    MessageBox,
+                    _("Error clearing logs: %s") % str(e),
+                    MessageBox.TYPE_ERROR
+                )
+
+    def _execute_view_logs(self):
+        """Execute view logs directly"""
+        try:
+            self.session.open(LogViewerScreen)
+        except Exception as e:
+            log.error("Error opening log viewer: %s" % e, module="Settings")
+
+    def apply_logging_settings(self):
+        """Apply logging settings immediately"""
+        try:
+            log_level = self.config.get("log_level", "INFO")
+            log.set_level(log_level)
+            log_to_file = self.config.get("log_to_file", True)
+            log.enable_file_logging(log_to_file)
+            log.info("Logging settings applied: level=%s, file=%s" % (log_level, log_to_file), "Settings")
+        except Exception as e:
+            log.error("Failed to apply logging settings: %s" % e, module="Settings")
+
+    def _reset_action_selections(self):
+        """Reset action selections to default"""
+        for i, entry in enumerate(self["config"].list):
+            display_name = entry[0]
+            config_item = entry[1]
+
+            if display_name in [_("View Log File"), _("Clear Log Files Now"), _("Check for Updates")]:
+                if hasattr(config_item, 'value'):
+                    config_item.value = config_item.choices[0][0] if config_item.choices else ""
+
+        self["config"].invalidateCurrent()
 
     def setupConfig(self):
         """Setup configuration entries"""
@@ -261,6 +331,20 @@ class TVGardenSettings(ConfigListScreen, Screen):
             ConfigText(default=self.config.get("user_agent", "TVGarden-Enigma2/1.0"), fixed_size=False)
         ])
 
+        # ============ UPDATE SETTINGS ============
+        self.config_entries.append(getConfigListEntry(
+            _("=== Update Settings ==="),
+            ConfigNothing()
+        ))
+
+        self.config_entries.append([
+            _("Check for Updates"), "check_update_action",
+            ConfigSelection(
+                choices=[("check", _("Press OK to check for updates"))],
+                default="check"
+            )
+        ])
+
         # ============ LOGGING SETTINGS ============
         self.config_entries.append(getConfigListEntry(
             _("=== Logging Settings ==="),
@@ -333,67 +417,6 @@ class TVGardenSettings(ConfigListScreen, Screen):
 
         self["config"].setList(self.list)
 
-    def clear_logs(self):
-        """Clear log files"""
-        try:
-            self.session.openWithCallback(
-                self._clear_logs_callback,
-                MessageBox,
-                _("Are you sure you want to clear all log files?"),
-                MessageBox.TYPE_YESNO
-            )
-        except Exception as e:
-            self["status"].setText(_("Error: {}").format(str(e)))
-
-    def _clear_logs_callback(self, result):
-        """Callback dopo clear logs"""
-        if result:
-            try:
-                log.clear_logs()
-                self["status"].setText(_("Logs cleared"))
-                self.session.open(
-                    MessageBox,
-                    _("Log files cleared successfully"),
-                    MessageBox.TYPE_INFO,
-                    timeout=3
-                )
-            except Exception as e:
-                self.session.open(
-                    MessageBox,
-                    _("Error clearing logs: {}").format(str(e)),
-                    MessageBox.TYPE_ERROR
-                )
-
-    def _execute_view_logs(self):
-        """Execute view logs directly"""
-        try:
-            self.session.open(LogViewerScreen)
-        except Exception as e:
-            log.error("Error opening log viewer: %s" % e, module="Settings")
-
-    def apply_logging_settings(self):
-        """Apply logging settings immediately"""
-        try:
-            log_level = self.config.get("log_level", "INFO")
-            log.set_level(log_level)
-            log_to_file = self.config.get("log_to_file", True)
-            log.enable_file_logging(log_to_file)
-            log.info(f"Logging settings applied: level={log_level}, file={log_to_file}", "Settings")
-        except Exception as e:
-            log.error("Failed to apply logging settings: %s" % e, module="Settings")
-
-    def _reset_action_selections(self):
-        """Reset action selections to default"""
-        for i, entry in enumerate(self["config"].list):
-            display_name = entry[0]
-            config_item = entry[1]
-
-            if display_name in [_("View Log File"), _("Clear Log Files Now")]:
-                if hasattr(config_item, 'value'):
-                    config_item.value = config_item.choices[0][0] if config_item.choices else ""
-
-        self["config"].invalidateCurrent()
-
     def save(self):
         log.debug("Starting save...", module="Settings")
         name_to_key = {
@@ -417,6 +440,7 @@ class TVGardenSettings(ConfigListScreen, Screen):
             _("Log Backup Files"): "log_backup_count",
             _("View Log File"): "view_log_action",
             _("Clear Log Files Now"): "clear_logs_action",
+            _("Check for Updates"): "check_update_action",
         }
 
         # STEP 1: Check if we're handling an action
@@ -433,6 +457,10 @@ class TVGardenSettings(ConfigListScreen, Screen):
                 self.clear_logs()
                 self._reset_action_selections()
                 return
+            elif config_key == "check_update_action":
+                self.check_for_updates()
+                self._reset_action_selections()
+                return
 
         # STEP 2: Normal save (only if not an action)
         for entry in self["config"].list:
@@ -443,8 +471,8 @@ class TVGardenSettings(ConfigListScreen, Screen):
             if isinstance(config_item, ConfigNothing):
                 continue
 
-            # Skip our fake action items (they shouldn't be saved)
-            if display_name in [_("View Log File"), _("Clear Log Files Now")]:
+            # Skip our fake action items
+            if display_name in [_("View Log File"), _("Clear Log Files Now"), _("Check for Updates")]:
                 continue
 
             config_key = name_to_key.get(display_name)
@@ -461,13 +489,13 @@ class TVGardenSettings(ConfigListScreen, Screen):
                 try:
                     mb_value = int(value)
 
-                    # Limit to a reasonable value (e.g. max 100MB)
+                    # Limit to a reasonable value
                     if mb_value < 1:
                         mb_value = 1
                     elif mb_value > 100:
                         mb_value = 100
 
-                    bytes_value = mb_value * 1048576  # 1MB = 1,048,576 bytes
+                    bytes_value = mb_value * 1048576
                     log.debug("Converting %d MB to %d bytes" % (mb_value, bytes_value), module="Settings")
 
                     self.config.set("log_max_size", bytes_value)

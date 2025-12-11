@@ -16,7 +16,7 @@ PLUGIN_NAME = "TVGarden"
 PLUGIN_VERSION = "1.1"
 PLUGIN_PATH = resolveFilename(SCOPE_PLUGINS, "Extensions/{}".format(PLUGIN_NAME))
 PLUGIN_ICON = resolveFilename(SCOPE_PLUGINS, "Extensions/TVGarden/icons/plugin.png")
-
+USER_AGENT = "TVGarden-Enigma2-Updater/%s" % PLUGIN_VERSION
 
 def localeInit():
     try:

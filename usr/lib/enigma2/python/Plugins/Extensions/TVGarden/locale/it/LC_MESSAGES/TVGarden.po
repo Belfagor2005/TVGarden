@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TVGarden\n"
-"POT-Creation-Date: 2025-12-11 16:19+0100\n"
+"POT-Creation-Date: 2025-12-11 18:23+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: lululla [ekekaz@gmail.com]\n"
@@ -39,7 +39,7 @@ msgstr "Errore durante il caricamento delle Informazioni"
 msgid "Animation"
 msgstr "Animazione"
 
-#: browser/categories.py:29 utils/settings.py:170 utils/settings.py:209
+#: browser/categories.py:29 utils/settings.py:231 utils/settings.py:270
 msgid "Auto"
 msgstr ""
 
@@ -160,7 +160,7 @@ msgstr "Caricamento categorie in corso..."
 msgid "Back"
 msgstr "Torna"
 
-#: browser/categories.py:96 browser/countries.py:74 plugin.py:155
+#: browser/categories.py:96 browser/countries.py:74 plugin.py:158
 msgid "Select"
 msgstr "Seleziona"
 
@@ -184,7 +184,7 @@ msgstr "Aggiornamento della cache..."
 msgid "Cache cleared"
 msgstr "Cache cancellata"
 
-#: browser/categories.py:190 browser/countries.py:361 plugin.py:212
+#: browser/categories.py:190 browser/countries.py:361 plugin.py:213
 msgid "Refresh failed"
 msgstr "Aggiornamento fallito"
 
@@ -276,7 +276,7 @@ msgstr "Menu Canale"
 msgid "Loading countries..."
 msgstr "Caricamento dei paesi in corso..."
 
-#: browser/countries.py:75 plugin.py:156
+#: browser/countries.py:75 plugin.py:159
 msgid "Refresh"
 msgstr "Aggiorna"
 
@@ -449,88 +449,98 @@ msgstr "Rimosso dai preferiti"
 msgid "Added to favorites"
 msgstr "Aggiunto ai Preferiti"
 
-#: plugin.py:140
+#: plugin.py:143
 msgid "Browse by Country"
 msgstr "Sfoglia per Paese"
 
-#: plugin.py:140
+#: plugin.py:143
 msgid "Browse channels by country"
 msgstr "Sfoglia i canali per paese"
 
-#: plugin.py:141
+#: plugin.py:144
 msgid "Browse by Category"
 msgstr "Sfoglia per categoria"
 
-#: plugin.py:141
+#: plugin.py:144
 msgid "Browse channels by category"
 msgstr "Sfoglia i canali per categoria"
 
-#: plugin.py:142 utils/settings.py:256
+#: plugin.py:145 utils/settings.py:317
 msgid "Favorites"
 msgstr "Preferiti"
 
-#: plugin.py:142
+#: plugin.py:145
 msgid "Your favorite channels"
 msgstr "I tuoi canali preferiti"
 
-#: plugin.py:143
+#: plugin.py:146
 msgid "Search"
 msgstr "Ricerca"
 
-#: plugin.py:143
+#: plugin.py:146
 msgid "Search channels by name"
 msgstr "Cerca i canali per nome"
 
-#: plugin.py:144 utils/settings.py:148 utils/settings.py:280
-#: utils/settings.py:443
+#: plugin.py:147 utils/settings.py:148 utils/settings.py:215
+#: utils/settings.py:341 utils/settings.py:443 utils/settings.py:475
 msgid "Check for Updates"
 msgstr "Controlla gli aggiornamenti"
 
-#: plugin.py:144
+#: plugin.py:147
 msgid "Check for plugin updates"
 msgstr "Controlla gli aggiornamenti dei plugin"
 
-#: plugin.py:145 plugin.py:157
+#: plugin.py:148 plugin.py:160
 msgid "Settings"
 msgstr "Configurazione"
 
-#: plugin.py:145
+#: plugin.py:148
 msgid "Plugin settings and configuration"
 msgstr "Impostazioni e configurazione del plugin"
 
-#: plugin.py:146
+#: plugin.py:149
 msgid "About"
 msgstr "Informazioni"
 
-#: plugin.py:146
+#: plugin.py:149
 msgid "About TV Garden plugin"
 msgstr "Informazioni sul plugin TV Garden"
 
-#: plugin.py:154
+#: plugin.py:157
 msgid "Exit"
 msgstr "Esci"
 
-#: plugin.py:203
+#: plugin.py:204
 msgid "Refreshing data..."
 msgstr "Aggiornamento dei dati in corso..."
 
-#: plugin.py:207
+#: plugin.py:208
 msgid "Data refreshed successfully"
 msgstr "Dati aggiornati correttamente"
 
-#: plugin.py:209
+#: plugin.py:210
 msgid "Cache and metadata have been refreshed."
 msgstr "La cache e i metadati sono stati aggiornati."
 
-#: plugin.py:214
+#: plugin.py:215
 msgid "Failed to refresh data. Check internet connection."
 msgstr "Impossibile aggiornare i dati. Controllare la connessione Internet."
 
-#: plugin.py:301
+#: plugin.py:243 utils/update_manager.py:57
+msgid "Update check error"
+msgstr "Errore di controllo dell'aggiornamento"
+
+#: plugin.py:245 utils/favorites.py:230 utils/favorites.py:368
+#: utils/favorites.py:408 utils/settings.py:170
+#, python-format
+msgid "Error: %s"
+msgstr "Errore: %s"
+
+#: plugin.py:321
 msgid "TV Garden"
 msgstr ""
 
-#: plugin.py:316
+#: plugin.py:336
 msgid "Access free IPTV channels from around the world"
 msgstr "Accedi gratuitamente ai canali IPTV da tutto il mondo"
 
@@ -568,12 +578,6 @@ msgstr "Nessun URL di streaming valido trovato"
 #, python-format
 msgid "Exported %d channels to bouquet"
 msgstr "Esportati %d canali nel bouquet"
-
-#: utils/favorites.py:230 utils/favorites.py:368 utils/favorites.py:408
-#: utils/settings.py:369
-#, python-format
-msgid "Error: %s"
-msgstr "Errore: %s"
 
 #: utils/favorites.py:364
 #, python-format
@@ -613,226 +617,233 @@ msgstr "Salva"
 msgid "Set options"
 msgstr "Imposta opzioni"
 
-#: utils/settings.py:140 utils/settings.py:331 utils/settings.py:414
+#: utils/settings.py:140 utils/settings.py:215 utils/settings.py:392
 #: utils/settings.py:441 utils/settings.py:475
 msgid "View Log File"
 msgstr "Visualizza file di registro"
 
-#: utils/settings.py:144 utils/settings.py:339 utils/settings.py:414
+#: utils/settings.py:144 utils/settings.py:215 utils/settings.py:400
 #: utils/settings.py:442 utils/settings.py:475
 msgid "Clear Log Files Now"
 msgstr "Cancella i file di registro ora"
 
-#: utils/settings.py:166 utils/settings.py:423
-msgid "Player"
-msgstr ""
-
-#: utils/settings.py:171
-msgid "ExtePlayer3"
-msgstr ""
-
-#: utils/settings.py:172
-msgid "GStreamer"
-msgstr ""
-
-#: utils/settings.py:178 utils/settings.py:424
-msgid "Volume"
-msgstr ""
-
-#: utils/settings.py:183 utils/settings.py:425
-msgid "Timeout (seconds)"
-msgstr "Timeout (secondi)"
-
-#: utils/settings.py:188 utils/settings.py:426
-msgid "Retries"
-msgstr "Tentativi"
-
-#: utils/settings.py:194 utils/settings.py:427
-msgid "Cache TTL (hours)"
-msgstr "Cache TTL (ore)"
-
-#: utils/settings.py:199 utils/settings.py:428
-msgid "Cache Size"
-msgstr "Dimensione Cache"
-
-#: utils/settings.py:205 utils/settings.py:429
-msgid "Skin"
-msgstr ""
-
-#: utils/settings.py:210
-msgid "HD"
-msgstr ""
-
-#: utils/settings.py:211
-msgid "FHD"
-msgstr ""
-
-#: utils/settings.py:212
-msgid "WQHD"
-msgstr ""
-
-#: utils/settings.py:218 utils/settings.py:430
-msgid "Show Flags"
-msgstr "Mostra bandiere"
-
-#: utils/settings.py:223 utils/settings.py:431
-msgid "Show Logos"
-msgstr "Mostra loghi"
-
-#: utils/settings.py:229 utils/settings.py:432
-msgid "Items per page"
-msgstr "Elementi per pagina"
-
-#: utils/settings.py:235 utils/settings.py:433
-msgid "Max channels per country"
-msgstr "Numero massimo di canali per paese"
-
-#: utils/settings.py:239
-msgid "100 channels"
-msgstr "100 canali"
-
-#: utils/settings.py:240
-msgid "250 channels"
-msgstr "250 canali"
-
-#: utils/settings.py:241
-msgid "500 channels"
-msgstr "500 canali"
-
-#: utils/settings.py:242
-msgid "1000 channels"
-msgstr "1000 canali"
-
-#: utils/settings.py:243
-msgid "All channels"
-msgstr "Tutti i canali"
-
-#: utils/settings.py:250 utils/settings.py:434
-msgid "Default View"
-msgstr "Visualizzazione predefinita"
-
-#: utils/settings.py:254
-msgid "Countries"
-msgstr "Paesi"
-
-#: utils/settings.py:255
-msgid "Categories"
-msgstr "Categorie"
-
-#: utils/settings.py:263 utils/settings.py:435
-msgid "Max Favorites"
-msgstr "Preferiti massimi"
-
-#: utils/settings.py:269 utils/settings.py:436
-msgid "User Agent"
-msgstr ""
-
-#: utils/settings.py:275
-msgid "=== Update Settings ==="
-msgstr "=== Aggiorna impostazioni ==="
-
-#: utils/settings.py:282
-msgid "Press OK to check for updates"
-msgstr "Premere OK per verificare la disponibilità di aggiornamenti"
-
-#: utils/settings.py:289
-msgid "=== Logging Settings ==="
-msgstr "=== Impostazioni di registrazione ==="
-
-#: utils/settings.py:294 utils/settings.py:437
-msgid "Log Level"
-msgstr "Livello di registro"
-
-#: utils/settings.py:298
-msgid "Debug (most verbose)"
-msgstr "Debug (il più dettagliato)"
-
-#: utils/settings.py:299
-msgid "Info (normal)"
-msgstr "Informazioni (normali)"
-
-#: utils/settings.py:300
-msgid "Warning"
-msgstr "Avvertimento"
-
-#: utils/settings.py:301
-msgid "Error only"
-msgstr "Solo Errore"
-
-#: utils/settings.py:302
-msgid "Critical only"
-msgstr "Solo critico"
-
-#: utils/settings.py:308 utils/settings.py:438
-msgid "Log to File"
-msgstr "Registra su file"
-
-#: utils/settings.py:313 utils/settings.py:439
-msgid "Max Log Size (MB)"
-msgstr "Dimensione massima del registro (MB)"
-
-#: utils/settings.py:321 utils/settings.py:440
-msgid "Log Backup Files"
-msgstr "File di backup del registro"
-
-#: utils/settings.py:326
-msgid "--- Log Maintenance ---"
-msgstr "--- Manutenzione del registro ---"
-
-#: utils/settings.py:333
-msgid "Press OK to view logs"
-msgstr "Premere OK per visualizzare i registri"
-
-#: utils/settings.py:341
-msgid "Press OK to clear logs"
-msgstr "Premere OK per cancellare i registri"
-
-#: utils/settings.py:365
+#: utils/settings.py:166
 msgid "Are you sure you want to clear all log files?"
 msgstr "Vuoi davvero cancellare tutti i file di registro?"
 
-#: utils/settings.py:376
+#: utils/settings.py:177
 msgid "Logs cleared"
 msgstr "Logs cancellati"
 
-#: utils/settings.py:379
+#: utils/settings.py:180
 msgid "Log files cleared successfully"
 msgstr "File di registro cancellati correttamente"
 
-#: utils/settings.py:386
+#: utils/settings.py:187
 #, python-format
 msgid "Error clearing logs: %s"
 msgstr "Errore durante la cancellazione dei log: %s"
 
-#: utils/update_manager.py:24
-msgid "Update check failed"
-msgstr "Controllo aggiornamento fallito"
+#: utils/settings.py:227 utils/settings.py:423
+msgid "Player"
+msgstr ""
 
-#: utils/update_manager.py:26
-msgid "Could not check for updates. Check internet connection."
-msgstr "Impossibile verificare la presenza di aggiornamenti. Controllare la connessione Internet."
+#: utils/settings.py:232
+msgid "ExtePlayer3"
+msgstr ""
 
-#: utils/update_manager.py:31
-msgid "Update available!"
-msgstr "Aggiornamento disponibile!"
+#: utils/settings.py:233
+msgid "GStreamer"
+msgstr ""
 
-#: utils/update_manager.py:36
-msgid "Plugin is up to date"
-msgstr "Il plugin è aggiornato"
+#: utils/settings.py:239 utils/settings.py:424
+msgid "Volume"
+msgstr ""
 
-#: utils/update_manager.py:38
-msgid "You have the latest version of TV Garden."
-msgstr "Hai l'ultima versione di TV Garden."
+#: utils/settings.py:244 utils/settings.py:425
+msgid "Timeout (seconds)"
+msgstr "Timeout (secondi)"
 
-#: utils/update_manager.py:42
+#: utils/settings.py:249 utils/settings.py:426
+msgid "Retries"
+msgstr "Tentativi"
+
+#: utils/settings.py:255 utils/settings.py:427
+msgid "Cache TTL (hours)"
+msgstr "Cache TTL (ore)"
+
+#: utils/settings.py:260 utils/settings.py:428
+msgid "Cache Size"
+msgstr "Dimensione Cache"
+
+#: utils/settings.py:266 utils/settings.py:429
+msgid "Skin"
+msgstr ""
+
+#: utils/settings.py:271
+msgid "HD"
+msgstr ""
+
+#: utils/settings.py:272
+msgid "FHD"
+msgstr ""
+
+#: utils/settings.py:273
+msgid "WQHD"
+msgstr ""
+
+#: utils/settings.py:279 utils/settings.py:430
+msgid "Show Flags"
+msgstr "Mostra bandiere"
+
+#: utils/settings.py:284 utils/settings.py:431
+msgid "Show Logos"
+msgstr "Mostra loghi"
+
+#: utils/settings.py:290 utils/settings.py:432
+msgid "Items per page"
+msgstr "Elementi per pagina"
+
+#: utils/settings.py:296 utils/settings.py:433
+msgid "Max channels per country"
+msgstr "Numero massimo di canali per paese"
+
+#: utils/settings.py:300
+msgid "100 channels"
+msgstr "100 canali"
+
+#: utils/settings.py:301
+msgid "250 channels"
+msgstr "250 canali"
+
+#: utils/settings.py:302
+msgid "500 channels"
+msgstr "500 canali"
+
+#: utils/settings.py:303
+msgid "1000 channels"
+msgstr "1000 canali"
+
+#: utils/settings.py:304
+msgid "All channels"
+msgstr "Tutti i canali"
+
+#: utils/settings.py:311 utils/settings.py:434
+msgid "Default View"
+msgstr "Visualizzazione predefinita"
+
+#: utils/settings.py:315
+msgid "Countries"
+msgstr "Paesi"
+
+#: utils/settings.py:316
+msgid "Categories"
+msgstr "Categorie"
+
+#: utils/settings.py:324 utils/settings.py:435
+msgid "Max Favorites"
+msgstr "Preferiti massimi"
+
+#: utils/settings.py:330 utils/settings.py:436
+msgid "User Agent"
+msgstr ""
+
+#: utils/settings.py:336
+msgid "=== Update Settings ==="
+msgstr "=== Aggiorna impostazioni ==="
+
+#: utils/settings.py:343
+msgid "Press OK to check for updates"
+msgstr "Premere OK per verificare la disponibilità di aggiornamenti"
+
+#: utils/settings.py:350
+msgid "=== Logging Settings ==="
+msgstr "=== Impostazioni di registrazione ==="
+
+#: utils/settings.py:355 utils/settings.py:437
+msgid "Log Level"
+msgstr "Livello di registro"
+
+#: utils/settings.py:359
+msgid "Debug (most verbose)"
+msgstr "Debug (il più dettagliato)"
+
+#: utils/settings.py:360
+msgid "Info (normal)"
+msgstr "Informazioni (normali)"
+
+#: utils/settings.py:361
+msgid "Warning"
+msgstr "Avvertimento"
+
+#: utils/settings.py:362
+msgid "Error only"
+msgstr "Solo Errore"
+
+#: utils/settings.py:363
+msgid "Critical only"
+msgstr "Solo critico"
+
+#: utils/settings.py:369 utils/settings.py:438
+msgid "Log to File"
+msgstr "Registra su file"
+
+#: utils/settings.py:374 utils/settings.py:439
+msgid "Max Log Size (MB)"
+msgstr "Dimensione massima del registro (MB)"
+
+#: utils/settings.py:382 utils/settings.py:440
+msgid "Log Backup Files"
+msgstr "File di backup del registro"
+
+#: utils/settings.py:387
+msgid "--- Log Maintenance ---"
+msgstr "--- Manutenzione del registro ---"
+
+#: utils/settings.py:394
+msgid "Press OK to view logs"
+msgstr "Premere OK per visualizzare i registri"
+
+#: utils/settings.py:402
+msgid "Press OK to clear logs"
+msgstr "Premere OK per cancellare i registri"
+
+#: utils/update_manager.py:23
 msgid "Checking for updates..."
 msgstr "Controllo degli aggiornamenti..."
 
-#: utils/update_manager.py:53
+#: utils/update_manager.py:34
+msgid "Update check failed"
+msgstr "Controllo aggiornamento fallito"
+
+#: utils/update_manager.py:36
+msgid "Could not check for updates. Check internet connection."
+msgstr ""
+"Impossibile verificare la presenza di aggiornamenti. Controllare la "
+"connessione Internet."
+
+#: utils/update_manager.py:41
+msgid "Update available!"
+msgstr "Aggiornamento disponibile!"
+
+#: utils/update_manager.py:46
+msgid "Plugin is up to date"
+msgstr "Il plugin è aggiornato"
+
+#: utils/update_manager.py:48
+msgid "You have the latest version of TV Garden."
+msgstr "Hai l'ultima versione di TV Garden."
+
+#: utils/update_manager.py:59
+#, python-format
+msgid "Could not check for updates: %s"
+msgstr "Impossibile verificare la presenza di aggiornamenti: %s"
+
+#: utils/update_manager.py:73
 msgid "Update cancelled"
 msgstr "Aggiornamento annullato"
 
-#: utils/update_manager.py:55
+#: utils/update_manager.py:75
 msgid ""
 "A new version is available!\n"
 "\n"
@@ -846,11 +857,11 @@ msgstr ""
 "\n"
 "(Si consiglia di effettuare prima un backup)"
 
-#: utils/update_manager.py:69
+#: utils/update_manager.py:91
 msgid "Update successful!"
 msgstr "Aggiornamento riuscito!"
 
-#: utils/update_manager.py:71
+#: utils/update_manager.py:93
 #, python-format
 msgid ""
 "%s\n"
@@ -861,43 +872,45 @@ msgstr ""
 "\n"
 "Riavvia Enigma2 ora affinché le modifiche abbiano effetto."
 
-#: utils/update_manager.py:80
+#: utils/update_manager.py:102
 msgid "Update failed"
 msgstr "Aggiornamento non riuscito"
 
-#: utils/update_manager.py:86
+#: utils/update_manager.py:108
 msgid "Updating plugin... Please wait"
 msgstr "Aggiornamento del plugin... Attendi"
 
-#: utils/update_manager.py:99
+#: utils/update_manager.py:125
 msgid "Please restart Enigma2 manually."
 msgstr "Riavviare Enigma2 manualmente."
 
-#: utils/updater.py:128
-#, python-format
-msgid "New version %s available! Go to menu > Check for Updates."
-msgstr "Nuova versione %s disponibile! Vai al menu > Controlla aggiornamenti."
-
-#: utils/updater.py:205
+#: utils/updater.py:147
 msgid "Failed to create backup. Update cancelled."
 msgstr "Impossibile creare il backup. Aggiornamento annullato."
 
-#: utils/updater.py:213
+#: utils/updater.py:155
 msgid "Update completed successfully!"
 msgstr "Aggiornamento completato con successo!"
 
-#: utils/updater.py:217
+#: utils/updater.py:159
 msgid "Update failed. Restored from backup."
 msgstr "Aggiornamento non riuscito. Ripristinato dal backup."
 
-#: utils/updater.py:219
+#: utils/updater.py:161
 msgid "Update failed and backup restore also failed!"
-msgstr "L'aggiornamento non è riuscito e anche il ripristino del backup non è riuscito!"
+msgstr ""
+"L'aggiornamento non è riuscito e anche il ripristino del backup non è "
+"riuscito!"
 
-#: utils/updater.py:228
+#: utils/updater.py:170
 #, python-format
 msgid "Update error: %s"
 msgstr "Errore di aggiornamento: %s"
+
+#, python-format
+#~ msgid "New version %s available! Go to menu > Check for Updates."
+#~ msgstr ""
+#~ "Nuova versione %s disponibile! Vai al menu > Controlla aggiornamenti."
 
 #~ msgid "Share Channel"
 #~ msgstr "Condividi canale"

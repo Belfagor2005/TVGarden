@@ -89,6 +89,10 @@ class PluginConfig:
             "log_max_size": 1048576,  # 1MB in bytes
             "log_backup_count": 3,      # Keep 3 backup files
 
+            # update checker
+            "update_check_interval": 86400,  # 24 ore in secondi
+            "last_update_check": 0,
+            "notify_on_update": True,
         }
 
         # Load or create config
@@ -132,7 +136,7 @@ class PluginConfig:
 
             return True
         except Exception as e:
-            log.error(f"Error loading config: {e}", module="Config")
+            log.error("Error loading config: %s" % e, module="Config")
             return False
 
     def validate_config(self, config):
@@ -270,19 +274,19 @@ class PluginConfig:
         """
         resolution = self.get_skin_resolution()
 
-        skin_file = join(PLUGIN_PATH, f"skins/{resolution}/{screen_name}.xml")
+        skin_file = join(PLUGIN_PATH, "skins/%s/%s.xml" % (resolution, screen_name))
 
         if fileExists(skin_file):
             try:
-                with open(skin_file, 'r', encoding='utf-8') as f:
+                with open(skin_file, 'r') as f:
                     skin_content = f.read()
-                log.info(f"Loaded skin from: {skin_file}", module="Config")
+                log.info("Loaded skin from: %s" % skin_file, module="Config")
                 return skin_content
             except Exception as e:
-                log.error(f"Error loading skin: {e}", module="Config")
+                log.error("Error loading skin: %s" % e, module="Config")
 
         # Fallback to Class Skin
-        log.warning(f"Using class skin for {screen_name}", module="Config")
+        log.warning("Using class skin for %s" % screen_name, module="Config")
         return default_skin
 
     def get_skin_path(self):

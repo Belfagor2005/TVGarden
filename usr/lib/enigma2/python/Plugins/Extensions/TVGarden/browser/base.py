@@ -6,11 +6,11 @@ Base class for all browser screens
 Based on TV Garden Project
 """
 
-from Screens.Screen import Screen
-from Components.ActionMap import ActionMap
-from Components.MenuList import MenuList
-from Components.Label import Label
 from enigma import eTimer
+from Screens.Screen import Screen
+from Components.Label import Label
+from Components.MenuList import MenuList
+from Components.ActionMap import ActionMap
 
 
 class BaseBrowser(Screen):
@@ -93,7 +93,7 @@ class BaseBrowser(Screen):
         """Update status label"""
         total = len(self.get_all_items())
         current = self["menu"].getSelectedIndex() + 1 + (self.current_page * self.items_per_page)
-        self["status"].setText(f"Item {current} of {total}")
+        self["status"].setText("Item %d of %d" % (current, total))
 
     def apply_filter(self, text):
         """Apply text filter"""
@@ -149,5 +149,5 @@ class BaseBrowser(Screen):
         """Create a standardized menu item"""
         display_text = text
         if icon:
-            display_text = f"[{icon}] {text}"
+            display_text = "[%s] %s" % (icon, text)
         return (display_text, data)

@@ -19,11 +19,11 @@ from . import PLUGIN_NAME, PLUGIN_PATH
 # Helper to load skin
 def load_skin_file(skin_name):
     """Load skin file for current resolution"""
-    skin_file = join(SKIN_PATH, f"{skin_name}.xml")
+    skin_file = join(SKIN_PATH, "%s.xml" % skin_name)
 
     # Fallback to HD if skin not found for current resolution
     if not fileExists(skin_file):
-        skin_file = join(DEFAULT_SKIN_PATH, f"{skin_name}.xml")
+        skin_file = join(DEFAULT_SKIN_PATH, "%s.xml" % skin_name)
 
     # Read skin content
     if fileExists(skin_file):
@@ -112,7 +112,7 @@ def get_skin_template(screen_name):
 
 def get_plugin_path():
     """Get absolute path to plugin directory"""
-    return resolveFilename(SCOPE_PLUGINS, f"Extensions/{PLUGIN_NAME}")
+    return resolveFilename(SCOPE_PLUGINS, "Extensions/%s" % PLUGIN_NAME)
 
 
 def get_icons_path():
@@ -147,11 +147,11 @@ def get_metadata_url():
 
 
 def get_country_url(country_code):
-    return f"https://raw.githubusercontent.com/Belfagor2005/tv-garden-channel-list/main/channels/raw/countries/{country_code.lower()}.json"
+    return "https://raw.githubusercontent.com/Belfagor2005/tv-garden-channel-list/main/channels/raw/countries/%s.json" % country_code.lower()
 
 
 def get_category_url(category_id):
-    return f"https://raw.githubusercontent.com/Belfagor2005/tv-garden-channel-list/main/channels/raw/categories/{category_id}.json"
+    return "https://raw.githubusercontent.com/Belfagor2005/tv-garden-channel-list/main/channels/raw/categories/%s.json" % category_id
 
 
 def get_categories_url():
@@ -160,7 +160,7 @@ def get_categories_url():
 
 def get_flag_url(country_code, size=80):
     """Get URL for country flag"""
-    return f"https://flagcdn.com/w{size}/{country_code.lower()}.png"
+    return "https://flagcdn.com/w%d/%s.png" % (size, country_code.lower())
 
 
 CATEGORIES = [
@@ -224,7 +224,7 @@ def format_channel_count(count):
     elif count == 1:
         return "1 channel"
     else:
-        return f"{count} channels"
+        return "%d channels" % count
 
 
 def is_valid_stream_url(url):
@@ -305,7 +305,7 @@ DEFAULT_CONFIG = {
     # Statistics
     "stats_enabled": True,
     "watch_time": 0,              # Total watch time in seconds
-    "channels_watched": 0,        # Number of channels watched
+    "channels_watched": 0,        # Number of channels watched,
 }
 
 
@@ -323,14 +323,14 @@ if not exists(LOG_PATH_DIR):
 
 class TVGardenLog:
     """Enhanced logging system for TV Garden"""
-    
+
     # Log levels
     DEBUG = "DEBUG"
     INFO = "INFO"
     WARNING = "WARNING"
     ERROR = "ERROR"
     CRITICAL = "CRITICAL"
-    
+
     # Colors for console (optional)
     COLORS = {
         DEBUG: "\033[94m",      # Blue
@@ -340,7 +340,7 @@ class TVGardenLog:
         CRITICAL: "\033[95m",   # Magenta
         'END': "\033[0m"        # Reset
     }
-    
+
     # Configuration
     _log_to_file = True
     _log_to_console = True
@@ -358,37 +358,37 @@ class TVGardenLog:
             log_level = config.get("log_level", "INFO").upper()
             cls._min_level = log_level
             cls._log_to_file = config.get("log_to_file", True)
-        
+
         # Create initial log entry
         cls.info("TV Garden logging system initialized", "System")
-    
+
     @classmethod
     def _should_log(cls, level):
         """Check if message should be logged based on level"""
         level_priority = [cls.DEBUG, cls.INFO, cls.WARNING, cls.ERROR, cls.CRITICAL]
         return level_priority.index(level) >= level_priority.index(cls._min_level)
-    
+
     @classmethod
     def log(cls, message, level=INFO, module=""):
         """Enhanced logging function"""
-        
+
         # Filter by level
         if not cls._should_log(level):
             return
-        
+
         # Timestamp with milliseconds
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
-        
+
         # Format message
-        module_prefix = f"[{module}] " if module else ""
-        full_message = f"[{timestamp}] [{level}] {module_prefix}{message}"
-        
+        module_prefix = "[%s] " % module if module else ""
+        full_message = "[%s] [%s] %s%s" % (timestamp, level, module_prefix, message)
+
         # Console output (with colors if supported)
         if cls._log_to_console:
             color = cls.COLORS.get(level, "")
             reset = cls.COLORS.get('END', '')
-            print(f"{color}{full_message}{reset}", file=stderr)
-        
+            print("%s%s%s" % (color, full_message, reset), file=stderr)
+
         # File output
         if cls._log_to_file:
             try:
@@ -396,29 +396,29 @@ class TVGardenLog:
                     f.write(full_message + "\n")
             except Exception as e:
                 # Fallback to stderr if file logging fails
-                print(f"Log file error: {e}", file=stderr)
-    
+                print("Log file error: %s" % e, file=stderr)
+
     # Shortcut methods (the ones you'll use most)
     @classmethod
     def debug(cls, message, module=""):
         cls.log(message, cls.DEBUG, module)
-    
+
     @classmethod
     def info(cls, message, module=""):
         cls.log(message, cls.INFO, module)
-    
+
     @classmethod
     def warning(cls, message, module=""):
         cls.log(message, cls.WARNING, module)
-    
+
     @classmethod
     def error(cls, message, module=""):
         cls.log(message, cls.ERROR, module)
-    
+
     @classmethod
     def critical(cls, message, module=""):
         cls.log(message, cls.CRITICAL, module)
-    
+
     # Utility methods
     @classmethod
     def set_level(cls, level):
@@ -426,18 +426,18 @@ class TVGardenLog:
         valid_levels = [cls.DEBUG, cls.INFO, cls.WARNING, cls.ERROR, cls.CRITICAL]
         if level in valid_levels:
             cls._min_level = level
-            cls.info(f"Log level changed to {level}", "System")
-    
+            cls.info("Log level changed to %s" % level, "System")
+
     @classmethod
     def enable_file_logging(cls, enable=True):
         """Enable/disable file logging"""
         cls._log_to_file = enable
-    
+
     @classmethod
     def get_log_path(cls):
         """Get log file path"""
         return LOG_PATH
-    
+
     @classmethod
     def clear_logs(cls):
         """Clear log file"""
@@ -446,8 +446,8 @@ class TVGardenLog:
                 remove(LOG_PATH)
                 cls.info("Log file cleared", "System")
         except Exception as e:
-            cls.error(f"Failed to clear log: {e}", "System")
-    
+            cls.error("Failed to clear log: %s" % e, "System")
+
     @classmethod
     def get_log_contents(cls, max_lines=100):
         """Get last N lines from log file"""
@@ -458,7 +458,7 @@ class TVGardenLog:
                 return "".join(lines[-max_lines:])
             return "Log file not found"
         except Exception as e:
-            return f"Error reading log: {e}"
+            return "Error reading log: %s" % e
 
 
 # Create global instance

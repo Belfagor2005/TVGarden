@@ -26,7 +26,7 @@ class FavoritesManager:
             makedirs(self.fav_dir)
 
         self.favorites = self.load_favorites()
-        log.info(f"Initialized with {len(self.favorites)} favorites", module="Favorites")
+        log.info("Initialized with %d favorites" % len(self.favorites), module="Favorites")
 
     def get_all(self):
         """Get all favorites"""
@@ -66,7 +66,7 @@ class FavoritesManager:
         # Fallback to name and other attributes
         name = channel.get('name', '')
         group = channel.get('group', '')
-        return md5(f"{name}{group}".encode()).hexdigest()[:16]
+        return md5("%s%s" % (name, group).encode()).hexdigest()[:16]
 
     def add(self, channel):
         """Add channel to favorites"""
@@ -83,7 +83,7 @@ class FavoritesManager:
 
         if self.save_favorites():
             log.info("✓ Added to favorites: %s" % channel_name, module="Favorites")
-            return True, _("Added to favorites: {}").format(channel_name)
+            return True, _("Added to favorites: %s") % channel_name
         else:
             log.error("✗ Failed to save favorites: %s" % channel_name, module="Favorites")
             return False, _("Error saving favorites")
@@ -98,7 +98,7 @@ class FavoritesManager:
                 del self.favorites[i]
                 if self.save_favorites():
                     log.info("✓ Removed from favorites: %s" % channel_name, module="Favorites")
-                    return True, _("Removed from favorites: {}").format(channel_name)
+                    return True, _("Removed from favorites: %s") % channel_name
                 else:
                     log.error("✗ Failed to save after removal: %s" % channel_name, module="Favorites")
                     return False, _("Error saving favorites")
@@ -151,16 +151,16 @@ class FavoritesManager:
         try:
             bouquet_name = "TVGarden"
             tag = "tvgarden"
-            userbouquet_file = f"/etc/enigma2/userbouquet.{tag}_{bouquet_name}.tv"
+            userbouquet_file = "/etc/enigma2/userbouquet.%s_%s.tv" % (tag, bouquet_name)
 
-            with open(userbouquet_file, "w", encoding="utf-8") as f:
+            with open(userbouquet_file, "w") as f:
                 # LULULLA STYLE HEADER
                 f.write("#NAME TV Garden Favorites\n")
                 f.write("#SERVICE 1:64:0:0:0:0:0:0:0:0:::--- | TV Garden Favorites by Lululla | ---\n")
                 f.write("#DESCRIPTION --- | TV Garden Favorites by Lululla | ---\n\n")
 
                 for idx, channel in enumerate(self.favorites, 1):
-                    name = channel.get('name', f'Channel {idx}')
+                    name = channel.get('name', 'Channel %d' % idx)
                     stream_url = channel.get('stream_url') or channel.get('url', '')
 
                     if not stream_url:
@@ -170,14 +170,14 @@ class FavoritesManager:
                     name_encoded = name.replace(":", "%3a")
 
                     # ONE service line per channel
-                    service_line = f'#SERVICE 4097:0:1:0:0:0:0:0:0:0:{url_encoded}:{name_encoded}\n'
+                    service_line = '#SERVICE 4097:0:1:0:0:0:0:0:0:0:%s:%s\n' % (url_encoded, name_encoded)
                     f.write(service_line)
-                    f.write(f'#DESCRIPTION {name}\n\n')
+                    f.write('#DESCRIPTION %s\n\n' % name)
 
             return True
 
         except Exception as e:
-            log.error(f"Error: {e}", module="Favorites")
+            log.error("Error: %s" % e, module="Favorites")
             return False
 
     def export_to_bouquet(self, channels=None, bouquet_name="tvgarden_favorites"):
@@ -190,30 +190,30 @@ class FavoritesManager:
                 return False, _("No channels to export")
 
             tag = "tvgarden"
-            userbouquet_file = f"/etc/enigma2/userbouquet.{tag}_{bouquet_name}.tv"
+            userbouquet_file = "/etc/enigma2/userbouquet.%s_%s.tv" % (tag, bouquet_name)
 
-            with open(userbouquet_file, "w", encoding="utf-8") as f:
+            with open(userbouquet_file, "w") as f:
                 f.write("#NAME TV Garden Favorites\n")
                 f.write("#SERVICE 1:64:0:0:0:0:0:0:0:0::--- | TV Garden Favorites by Lululla | ---\n")
                 f.write("#DESCRIPTION --- | TV Garden Favorites by Lululla | ---\n")
-                
+
                 valid_count = 0
                 for idx, channel in enumerate(channels, 1):
-                    name = channel.get('name', f'Channel {idx}')
+                    name = channel.get('name', 'Channel %d' % idx)
                     stream_url = channel.get('stream_url') or channel.get('url', '')
-                    
+
                     if not stream_url:
                         continue
-                    
+
                     # Encoding
                     url_encoded = stream_url.replace(":", "%3a")
                     name_encoded = name.replace(":", "%3a")
-                    
+
                     # Use 4097:0:1:0:0:0:0:0:0:0 format
-                    service_line = f'#SERVICE 4097:0:1:0:0:0:0:0:0:0:{url_encoded}:{name_encoded}\n'
+                    service_line = '#SERVICE 4097:0:1:0:0:0:0:0:0:0:%s:%s\n' % (url_encoded, name_encoded)
                     f.write(service_line)
-                    f.write(f'#DESCRIPTION {name}\n')
-                    
+                    f.write('#DESCRIPTION %s\n' % name)
+
                     valid_count += 1
 
             if valid_count == 0:
@@ -222,12 +222,12 @@ class FavoritesManager:
             # Use existing methods
             self._add_to_bouquets_tv(tag, bouquet_name)
             self._reload_bouquets()
-            
-            return True, _(f"Exported {valid_count} channels to bouquet")
-            
+
+            return True, _("Exported %d channels to bouquet") % valid_count
+
         except Exception as e:
-            log.error(f"Error: {e}", module="Favorites")
-            return False, _(f"Error: {str(e)}")
+            log.error("Error: %s" % e, module="Favorites")
+            return False, _("Error: %s") % str(e)
 
     def _reload_bouquets(self):
         """Reload bouquets in Enigma2 - ENHANCED"""
@@ -243,7 +243,7 @@ class FavoritesManager:
             return True
 
         except Exception as e:
-            log.error(f"eDVBDB reload failed: {e}", module="Favorites")
+            log.error("eDVBDB reload failed: %s" % e, module="Favorites")
 
             # Fallback: try shell command
             try:
@@ -258,11 +258,11 @@ class FavoritesManager:
         """Add bouquet reference to bouquets.tv - ADD TO END"""
         try:
             bouquet_tv_file = "/etc/enigma2/bouquets.tv"
-            bouquet_line = f'#SERVICE 1:7:1:0:0:0:0:0:0:0:FROM BOUQUET "userbouquet.{tag}_{bouquet_name}.tv" ORDER BY bouquet\n'
+            bouquet_line = '#SERVICE 1:7:1:0:0:0:0:0:0:0:FROM BOUQUET "userbouquet.%s_%s.tv" ORDER BY bouquet\n' % (tag, bouquet_name)
 
             if exists(bouquet_tv_file):
                 # Read entire file
-                with open(bouquet_tv_file, "r", encoding="utf-8") as f:
+                with open(bouquet_tv_file, "r") as f:
                     content = f.read()
 
                 # Check if already exists
@@ -277,7 +277,7 @@ class FavoritesManager:
                     needs_newline = last_char != b'\n'
 
                 # Append to END of file
-                with open(bouquet_tv_file, "a", encoding="utf-8") as f:
+                with open(bouquet_tv_file, "a") as f:
                     if needs_newline:
                         f.write("\n")
                     # f.write("# TV Garden Favorites - Added by TV Garden Plugin\n")
@@ -287,7 +287,7 @@ class FavoritesManager:
                 return True
             else:
                 # Create new bouquets.tv file
-                with open(bouquet_tv_file, "w", encoding="utf-8") as f:
+                with open(bouquet_tv_file, "w") as f:
                     f.write("#NAME Bouquets (TV)\n")
                     f.write("#SERVICE 1:7:1:0:0:0:0:0:0:0:\n")
                     f.write("\n# TV Garden Favorites\n")
@@ -297,7 +297,7 @@ class FavoritesManager:
                 return True
 
         except Exception as e:
-            log.error(f"Error updating bouquets.tv: {e}", module="Favorites")
+            log.error("Error updating bouquets.tv: %s" % e, module="Favorites")
             return False
 
     def remove_bouquet(self, bouquet_name="tvgarden_favorites"):
@@ -305,73 +305,73 @@ class FavoritesManager:
         try:
             tag = "tvgarden"
             removed_files = 0
-            
+
             # 1. SAFE REMOVAL from bouquets.tv (preserve order)
             bouquet_tv_file = "/etc/enigma2/bouquets.tv"
-            
+
             if exists(bouquet_tv_file):
                 # Backup original
-                backup_file = f"{bouquet_tv_file}.backup"
+                backup_file = "%s.backup" % bouquet_tv_file
                 copy2(bouquet_tv_file, backup_file)
-                
+
                 # Read and filter WITHOUT reordering
-                with open(bouquet_tv_file, "r", encoding="utf-8") as f:
+                with open(bouquet_tv_file, "r") as f:
                     lines = f.readlines()
-                
+
                 # Find and remove only TV Garden lines
                 new_lines = []
                 skip_next_empty = False
-                
+
                 for i, line in enumerate(lines):
                     # Skip lines containing our bouquet
-                    if f'userbouquet.{tag}_{bouquet_name}.tv' in line:
+                    if 'userbouquet.%s_%s.tv' % (tag, bouquet_name) in line:
                         skip_next_empty = True  # Skip next empty line if exists
                         continue
-                    
+
                     # Skip TV Garden comment lines
                     if "TV Garden" in line and "Favorites" in line:
                         continue
-                    
+
                     # Skip empty line after removed bouquet
                     if skip_next_empty and line.strip() == "":
                         skip_next_empty = False
                         continue
-                    
+
                     new_lines.append(line)
-                
+
                 # Write back preserving original order of other bouquets
                 if len(new_lines) != len(lines):
-                    with open(bouquet_tv_file, "w", encoding="utf-8") as f:
+                    with open(bouquet_tv_file, "w") as f:
                         f.writelines(new_lines)
                     log.info("Removed TV Garden from bouquets.tv (order preserved)", module="Favorites")
-            
+
             # 2. Remove bouquet files
             files_to_remove = [
-                f"/etc/enigma2/userbouquet.{tag}_{bouquet_name}.tv",
-                f"/etc/enigma2/userbouquet.{tag}_{bouquet_name}.del",
-                f"/etc/enigma2/userbouquet.{tag}_{bouquet_name}.radio"
+                "/etc/enigma2/userbouquet.%s_%s.tv" % (tag, bouquet_name),
+                "/etc/enigma2/userbouquet.%s_%s.del" % (tag, bouquet_name),
+                "/etc/enigma2/userbouquet.%s_%s.radio" % (tag, bouquet_name)
             ]
-            
+
             for file in files_to_remove:
                 if exists(file):
                     remove(file)
                     removed_files += 1
-                    log.info(f"Removed: {file}", module="Favorites")
-            
+                    log.info("Removed: %s" % file, module="Favorites")
+
             # 3. SOFT RELOAD (not full reloadBouquets!)
             self._reload_bouquets()
-            
-            return True, _(f"Bouquet removed. {removed_files} files deleted. Order preserved.")
-            
+
+            return True, _("Bouquet removed. %d files deleted. Order preserved.") % removed_files
+
         except Exception as e:
-            log.error(f"Error removing bouquet: {e}", module="Favorites")
-            return False, _(f"Error: {str(e)}")
+            log.error("Error removing bouquet: %s" % e, module="Favorites")
+            return False, _("Error: %s") % str(e)
 
     def export_single_channel(self, channel, bouquet_name="tvgarden_favorites"):
         """Export single channel to bouquet - LULULLA STYLE"""
         try:
             tag = "tvgarden"
-            userbouquet_file = f"/etc/enigma2/userbouquet.{tag}_{bouquet_name}.tv"
+            userbouquet_file = "/etc/enigma2/userbouquet.%s_%s.tv" % (tag, bouquet_name)
 
             name = channel.get('name', 'TV Garden Channel')
             stream_url = channel.get('stream_url') or channel.get('url', '')
@@ -383,7 +383,7 @@ class FavoritesManager:
             file_exists = exists(userbouquet_file)
             file_mode = "a" if file_exists else "w"
 
-            with open(userbouquet_file, file_mode, encoding="utf-8") as f:
+            with open(userbouquet_file, file_mode) as f:
                 # If new file, add Lululla style header
                 if file_mode == "w":
                     f.write("#NAME TV Garden Favorites\n")
@@ -393,9 +393,9 @@ class FavoritesManager:
                 url_encoded = stream_url.replace(":", "%3a")
                 name_encoded = name.replace(":", "%3a")
 
-                service_line = f'#SERVICE 4097:0:1:0:0:0:0:0:0:0:{url_encoded}:{name_encoded}\n'
+                service_line = '#SERVICE 4097:0:1:0:0:0:0:0:0:0:%s:%s\n' % (url_encoded, name_encoded)
                 f.write(service_line)
-                f.write(f'#DESCRIPTION {name}\n')
+                f.write('#DESCRIPTION %s\n' % name)
 
             # Use existing methods
             self._add_to_bouquets_tv(tag, bouquet_name)
@@ -404,8 +404,8 @@ class FavoritesManager:
             return True, _("Channel added to bouquet")
 
         except Exception as e:
-            log.error(f"Error: {e}", module="Favorites")
-            return False, _(f"Error: {str(e)}")
+            log.error("Error: %s" % e, module="Favorites")
+            return False, _("Error: %s") % str(e)
 
     def clear_all(self):
         """Clear all favorites"""
@@ -413,7 +413,7 @@ class FavoritesManager:
         self.favorites = []
         if self.save_favorites():
             log.info("✓ Cleared all favorites (%d)" % count, module="Favorites")
-            return True, _("Cleared {} favorites").format(count)
+            return True, _("Cleared %d favorites") % count
         else:
             log.error("✗ Failed to clear favorites", module="Favorites")
             return False, _("Error clearing favorites")

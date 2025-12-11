@@ -25,18 +25,18 @@ try:
     )
 except ImportError as e:
     print('Error import helpers:', str(e))
-    
+
     def log(message, level="INFO", module=""):
-        print(f"[{level}] [{module}] TVGarden: {message}")
+        print("[%s] [%s] TVGarden: %s" % (level, module, message))
 
     def get_metadata_url():
         return "https://raw.githubusercontent.com/Belfagor2005/tv-garden-channel-list/main/channels/raw/countries_metadata.json"
 
     def get_country_url(code):
-        return f"https://raw.githubusercontent.com/Belfagor2005/tv-garden-channel-list/main/channels/raw/countries/{code.lower()}.json"
+        return "https://raw.githubusercontent.com/Belfagor2005/tv-garden-channel-list/main/channels/raw/countries/%s.json" % code.lower()
 
     def get_category_url(cat_id):
-        return f"https://raw.githubusercontent.com/Belfagor2005/tv-garden-channel-list/main/channels/raw/categories/{cat_id}.json"
+        return "https://raw.githubusercontent.com/Belfagor2005/tv-garden-channel-list/main/channels/raw/categories/%s.json" % cat_id
 
     def get_categories_url():
         return "https://api.github.com/repos/Belfagor2005/tv-garden-channel-list/contents/channels/raw/categories"
@@ -47,6 +47,7 @@ class CacheManager:
 
     def __init__(self):
         self.cache_dir = "/tmp/tvgarden_cache"
+        self.cache_data = {}
 
         if not exists(self.cache_dir):
             makedirs(self.cache_dir)
@@ -58,7 +59,7 @@ class CacheManager:
 
     def _get_cache_path(self, key):
         """Get cache file path"""
-        return join(self.cache_dir, f"{key}.json.gz")
+        return join(self.cache_dir, "%s.json.gz" % key)
 
     def _is_cache_valid(self, cache_path, ttl=3600):
         """Check if cache is still valid"""
@@ -182,7 +183,7 @@ class CacheManager:
 
     def get_category_channels(self, category_id, force_refresh=False):
         """Get channels for a specific category, handling multiple JSON formats."""
-        cache_key = f"cat_{category_id}"
+        cache_key = "cat_%s" % category_id
         channels = self._get_cached(cache_key)
 
         if channels is not None and not force_refresh:
@@ -193,7 +194,7 @@ class CacheManager:
             log.debug("Fetching category %s from %s" % (category_id, url), module="Cache")
             data = self._fetch_url(url)
             log.debug("Raw data type for %s: %s" % (category_id, type(data)), module="Cache")
-            
+
             # Handle both possible formats
             if isinstance(data, list):
                 # Format: Direct list of channels

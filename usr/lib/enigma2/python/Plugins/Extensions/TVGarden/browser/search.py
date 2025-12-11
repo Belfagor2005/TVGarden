@@ -6,21 +6,22 @@ Live search like Vavoo
 Data Source: TV Garden Project
 """
 
-from Components.ActionMap import ActionMap
-from Components.MenuList import MenuList
 from Components.Label import Label
-from Components.Sources.StaticText import StaticText
+from Components.MenuList import MenuList
+from Components.ActionMap import ActionMap
 from enigma import eServiceReference, eTimer
+from Components.Sources.StaticText import StaticText
 
 from Screens.MessageBox import MessageBox
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 
 from .base import BaseBrowser
-from ..utils.config import PluginConfig, get_config
-from ..player.iptv_player import TVGardenPlayer
 from ..utils.cache import CacheManager
-from ..utils.favorites import FavoritesManager
 from ..helpers import is_valid_stream_url, log
+from ..utils.favorites import FavoritesManager
+from ..player.iptv_player import TVGardenPlayer
+from ..utils.config import PluginConfig, get_config
+
 from .. import _
 
 
@@ -102,14 +103,14 @@ class SearchBrowser(BaseBrowser):
 
             if all_channels_data:
                 self.all_channels = all_channels_data
-                log.info(f"Loaded {len(self.all_channels)} from all-channels.json", module="Search")
+                log.info("Loaded %d from all-channels.json" % len(self.all_channels), module="Search")
             else:
                 # 2. FALLBACK: use dynamic categories
                 log.debug("Using dynamic categories...", module="Search")
 
                 # Get available categories
                 categories = self.cache.get_available_categories()
-                log.debug(f"Found {len(categories)} available categories", module="Search")
+                log.debug("Found %d available categories" % len(categories), module="Search")
 
                 for category in categories:
                     cat_id = category['id']
@@ -122,22 +123,22 @@ class SearchBrowser(BaseBrowser):
                             for channel in channels:
                                 channel['category'] = category['name']
                                 self.all_channels.append(channel)
-                            log.debug(f"Added {len(channels)} from {cat_id}", module="Search")
+                            log.debug("Added %d from %s" % (len(channels), cat_id), module="Search")
                     except Exception as e:
-                        log.warning(f"Skipped {cat_id}: {str(e)[:50]}", module="Search")
+                        log.warning("Skipped %s: %s" % (cat_id, str(e)[:50]), module="Search")
                         continue
 
             # Final status
             total = len(self.all_channels)
             if total > 0:
-                self["status"].setText(_("Press GREEN for keyboard... Ready - {} channels").format(total))
-                log.info(f"TOTAL: {total} channels ready", module="Search")
+                self["status"].setText(_("Press GREEN for keyboard... Ready - %d channels") % total)
+                log.info("TOTAL: %d channels ready" % total, module="Search")
             else:
                 self["status"].setText(_("No channels loaded"))
                 log.error("No channels loaded", module="Search")
 
         except Exception as e:
-            log.error(f"ERROR: {e}", module="Search")
+            log.error("ERROR: %s" % e, module="Search")
             self["status"].setText(_("Error loading channels"))
 
     def open_keyboard(self):
@@ -187,10 +188,10 @@ class SearchBrowser(BaseBrowser):
 
     def perform_search(self):
         query = self.search_query.lower()
-        log.debug(f"Searching '{query}' in {len(self.all_channels)} channels", module="Search")
+        log.debug("Searching '%s' in %d channels" % (query, len(self.all_channels)), module="Search")
 
         if len(self.all_channels) < 100:
-            log.warning(f"Very few channels ({len(self.all_channels)})!", module="Search")
+            log.warning("Very few channels (%d)!" % len(self.all_channels), module="Search")
             log.warning("This might explain limited search results", module="Search")
 
         self.search_results = []
@@ -201,18 +202,18 @@ class SearchBrowser(BaseBrowser):
                 if self.match_channel(channel, query):
                     self.search_results.append(channel)
         except Exception as e:
-            log.error(f"Search error: {e}", module="Search")
+            log.error("Search error: %s" % e, module="Search")
 
         self.display_search_results()
 
     def display_search_results(self):
         """Display search results in menu"""
         log.info("Found %d results" % len(self.search_results), module="Search")
-        
+
         # Get configurable limit
         config = get_config()
         max_channels = config.get("max_channels", 500)
-        
+
         log.debug("Using max_channels limit: %d" % max_channels, module="Search")
 
         menu_items = []
@@ -230,7 +231,7 @@ class SearchBrowser(BaseBrowser):
                     skipped_by_limit = len(self.search_results) - idx
                     break
 
-            name = channel.get('name', f'Result {idx + 1}')
+            name = channel.get('name', 'Result %d' % (idx + 1))
             stream_url = None
             found_in = None
             is_youtube = False
@@ -292,7 +293,7 @@ class SearchBrowser(BaseBrowser):
 
             display_name = name
             if extra_info:
-                display_name += f" [{', '.join(extra_info)}]"
+                display_name += " [%s]" % ', '.join(extra_info)
 
             # Create channel data
             channel_data = {
@@ -300,7 +301,7 @@ class SearchBrowser(BaseBrowser):
                 'url': stream_url,
                 'stream_url': stream_url,
                 'logo': channel.get('logo'),
-                'id': channel.get('nanoid', f'srch_{idx}'),
+                'id': channel.get('nanoid', 'srch_%d' % idx),
                 'description': channel.get('description', ''),
                 'group': channel.get('group', ''),
                 'language': channel.get('language', ''),
@@ -318,21 +319,21 @@ class SearchBrowser(BaseBrowser):
 
         # Build status message
         if max_channels > 0 and len(self.search_results) > max_channels:
-            status_text = _("Showing {shown} of {total} results").format(
-                shown=min(max_channels, valid_count),
-                total=len(self.search_results)
+            status_text = _("Showing %d of %d results") % (
+                min(max_channels, valid_count),
+                len(self.search_results)
             )
         else:
-            status_text = _("Found {} channels").format(valid_count)
+            status_text = _("Found %d channels") % valid_count
 
         if youtube_count > 0:
-            status_text += " " + _("(skipped {count} YouTube)").format(count=youtube_count)
+            status_text += " " + _("(skipped %d YouTube)") % youtube_count
 
         if problematic_count > 0:
-            status_text += " " + _("(filtered {count} problematic)").format(count=problematic_count)
+            status_text += " " + _("(filtered %d problematic)") % problematic_count
 
         if skipped_by_limit > 0:
-            status_text += " " + _("(limited to first {limit})").format(limit=max_channels)
+            status_text += " " + _("(limited to first %d)") % max_channels
 
         self["status"].setText(status_text)
 
@@ -340,9 +341,10 @@ class SearchBrowser(BaseBrowser):
             if self.menu_channels:
                 self.current_channel = self.menu_channels[0]
         else:
-            self["status"].setText(_("No channels found for: {}").format(self.search_query))
+            self["status"].setText(_("No channels found for: %s") % self.search_query)
 
-        log.info(f"Final: {valid_count} playable, {youtube_count} YouTube skipped, {problematic_count} problematic filtered, {skipped_by_limit} limited by config", module="Search")
+        log.info("Final: %d playable, %d YouTube skipped, %d problematic filtered, %d limited by config" %
+                 (valid_count, youtube_count, problematic_count, skipped_by_limit), module="Search")
 
     def extract_stream_url(self, channel):
         """Extract stream URL from channel"""
@@ -396,7 +398,7 @@ class SearchBrowser(BaseBrowser):
         try:
             url_encoded = stream_url.replace(":", "%3a")
             name_encoded = channel['name'].replace(":", "%3a")
-            ref_str = f"4097:0:0:0:0:0:0:0:0:0:{url_encoded}:{name_encoded}"
+            ref_str = "4097:0:0:0:0:0:0:0:0:0:%s:%s" % (url_encoded, name_encoded)
 
             service_ref = eServiceReference(ref_str)
             service_ref.setName(channel['name'])

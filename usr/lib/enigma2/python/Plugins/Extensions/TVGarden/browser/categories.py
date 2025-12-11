@@ -6,18 +6,19 @@ Browse 29 categories of IPTV channels
 Based on TV Garden Project
 """
 
-from Components.ActionMap import ActionMap
-from Components.MenuList import MenuList
+from enigma import eTimer
 from Components.Label import Label
 from Components.Pixmap import Pixmap
-from enigma import eTimer
+from Components.MenuList import MenuList
+from Components.ActionMap import ActionMap
 
+from ..helpers import log
 from .base import BaseBrowser
 from .channels import ChannelsBrowser
-from ..helpers import log
-from ..utils.config import PluginConfig
 from ..utils.cache import CacheManager
+from ..utils.config import PluginConfig
 from .. import _
+
 
 try:
     from ..helpers import CATEGORIES
@@ -191,3 +192,11 @@ class CategoriesBrowser(BaseBrowser):
     def exit(self):
         """Exit browser"""
         self.close()
+
+    def up(self):
+        """Handle up key"""
+        self["menu"].up()
+
+    def down(self):
+        """Handle down key"""
+        self["menu"].down()

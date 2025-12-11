@@ -6,20 +6,20 @@ Browse and manage favorite channels
 Based on TV Garden Project
 """
 
-from Components.ActionMap import ActionMap
-from Components.MenuList import MenuList
 from Components.Label import Label
-from enigma import eServiceReference
-from Screens.MessageBox import MessageBox
-from Screens.ChoiceBox import ChoiceBox
 from Screens.TextBox import TextBox
+from enigma import eServiceReference
+from Screens.ChoiceBox import ChoiceBox
+from Components.MenuList import MenuList
+from Screens.MessageBox import MessageBox
+from Components.ActionMap import ActionMap
 
 from .base import BaseBrowser
-from ..utils.config import PluginConfig
-from ..player.iptv_player import TVGardenPlayer
-from ..utils.favorites import FavoritesManager
 from ..utils.cache import CacheManager
+from ..utils.config import PluginConfig
+from ..utils.favorites import FavoritesManager
 from ..helpers import is_valid_stream_url, log
+from ..player.iptv_player import TVGardenPlayer
 from .. import _
 
 
@@ -88,7 +88,7 @@ class FavoritesBrowser(BaseBrowser):
             self.menu_channels = []
 
             for idx, channel in enumerate(favorites):
-                name = channel.get('name', f'Favorite {idx + 1}')
+                name = channel.get('name', 'Favorite %d' % (idx + 1))
 
                 # Extract stream URL
                 stream_url = channel.get('stream_url') or channel.get('url')
@@ -104,7 +104,7 @@ class FavoritesBrowser(BaseBrowser):
 
                     display_name = name
                     if extra_info:
-                        display_name += f" [{', '.join(extra_info)}]"
+                        display_name += " [%s]" % ', '.join(extra_info)
 
                     # Create channel object
                     channel_data = {
@@ -112,7 +112,7 @@ class FavoritesBrowser(BaseBrowser):
                         'url': stream_url,
                         'stream_url': stream_url,
                         'logo': channel.get('logo') or channel.get('icon'),
-                        'id': channel.get('id', f'fav_{idx}'),
+                        'id': channel.get('id', 'fav_%d' % idx),
                         'description': channel.get('description', ''),
                         'group': channel.get('group', ''),
                         'language': channel.get('language', ''),
@@ -156,7 +156,7 @@ class FavoritesBrowser(BaseBrowser):
         self.session.openWithCallback(
             self._handle_yellow_option,
             ChoiceBox,
-            title=_("Options for: {}").format(channel.get('name')),
+            title=_("Options for: %s") % channel.get('name'),
             list=options
         )
 
@@ -178,7 +178,7 @@ class FavoritesBrowser(BaseBrowser):
             self.session.openWithCallback(
                 lambda r: self._export_single_confirmation(r, channel),
                 MessageBox,
-                _("Export '{}' to Enigma2 bouquet?").format(channel.get('name', '')),
+                _("Export '%s' to Enigma2 bouquet?") % channel.get('name', ''),
                 MessageBox.TYPE_YESNO
             )
 
@@ -236,7 +236,7 @@ class FavoritesBrowser(BaseBrowser):
         self.session.openWithCallback(
             lambda r: self._execute_removal(r, channel),
             MessageBox,
-            _("Remove '{}' from favorites?").format(channel_name),
+            _("Remove '%s' from favorites?") % channel_name,
             MessageBox.TYPE_YESNO
         )
 
@@ -249,7 +249,7 @@ class FavoritesBrowser(BaseBrowser):
 
         if success:
             self.load_favorites()
-            self["status"].setText(_("{} favorites").format(len(self.menu_channels)))
+            self["status"].setText(_("%d favorites") % len(self.menu_channels))
 
         self.session.open(
             MessageBox,
@@ -282,7 +282,7 @@ class FavoritesBrowser(BaseBrowser):
             # Create service reference
             url_encoded = stream_url.replace(":", "%3a")
             name_encoded = channel['name'].replace(":", "%3a")
-            ref_str = f"4097:0:0:0:0:0:0:0:0:0:{url_encoded}:{name_encoded}"
+            ref_str = "4097:0:0:0:0:0:0:0:0:0:%s:%s" % (url_encoded, name_encoded)
 
             service_ref = eServiceReference(ref_str)
             service_ref.setName(channel['name'])
@@ -311,7 +311,7 @@ class FavoritesBrowser(BaseBrowser):
         self.session.openWithCallback(
             self._export_all_confirmation,
             MessageBox,
-            _("Export ALL {} favorites to Enigma2 bouquet?").format(len(self.menu_channels)),
+            _("Export ALL %d favorites to Enigma2 bouquet?") % len(self.menu_channels),
             MessageBox.TYPE_YESNO
         )
 
@@ -330,28 +330,28 @@ class FavoritesBrowser(BaseBrowser):
     def _show_channel_info(self, channel):
         """Show detailed channel info"""
         try:
-            info_text = f"=== {channel.get('name', 'Unknown')} ===\n\n"
+            info_text = "=== %s ===\n\n" % channel.get('name', 'Unknown')
 
             if channel.get('description'):
-                info_text += f"Description: {channel['description']}\n"
+                info_text += "Description: %s\n" % channel['description']
 
             if channel.get('country'):
-                info_text += f"Country: {channel['country']}\n"
+                info_text += "Country: %s\n" % channel['country']
 
             if channel.get('category'):
-                info_text += f"Category: {channel['category']}\n"
+                info_text += "Category: %s\n" % channel['category']
 
             if channel.get('language'):
-                info_text += f"Language: {channel['language']}\n"
+                info_text += "Language: %s\n" % channel['language']
 
             if channel.get('group'):
-                info_text += f"Group: {channel['group']}\n"
+                info_text += "Group: %s\n" % channel['group']
 
             stream_url = channel.get('stream_url') or channel.get('url', '')
             if stream_url:
-                info_text += f"\nStream URL:\n{stream_url[:100]}..."
+                info_text += "\nStream URL:\n%s..." % stream_url[:100]
                 if len(stream_url) > 100:
-                    info_text += f"\n...{stream_url[-50:]}"
+                    info_text += "\n...%s" % stream_url[-50:]
 
             self.session.open(
                 TextBox,

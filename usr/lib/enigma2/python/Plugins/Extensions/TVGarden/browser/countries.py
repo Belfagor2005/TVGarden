@@ -11,18 +11,18 @@ from os import unlink
 from os.path import exists
 from urllib.request import urlopen, Request
 
-from enigma import ePicLoad, eTimer
-from Components.ActionMap import ActionMap
 from Components.Label import Label
-from Components.MenuList import MenuList
+from enigma import ePicLoad, eTimer
 from Components.Pixmap import Pixmap
+from Components.MenuList import MenuList
+from Components.ActionMap import ActionMap
 
+from .. import _
+from ..helpers import log
 from .base import BaseBrowser
 from .channels import ChannelsBrowser
-from ..helpers import log
-from ..utils.config import PluginConfig
 from ..utils.cache import CacheManager
-from .. import _
+from ..utils.config import PluginConfig
 
 
 class CountriesBrowser(BaseBrowser):
@@ -97,39 +97,66 @@ class CountriesBrowser(BaseBrowser):
         """Cleanup resources on close"""
         log.debug("Cleaning up", module="Countries")
 
-        # Remove temp flag file
+        # Flag to prevent double cleanup
+        if getattr(self, '_cleaned_up', False):
+            return
+        self._cleaned_up = True
+
+        # Remove timer callbacks
+        if hasattr(self, 'timer') and self.timer:
+            try:
+                self.timer.callback = []
+                self.timer.stop()
+            except Exception as e:
+                log.debug("Error stopping timer: {}".format(e), module="Countries")
+            finally:
+                self.timer = None
+
+        if hasattr(self, 'flag_timer') and self.flag_timer:
+            try:
+                self.flag_timer.callback = []
+                self.flag_timer.stop()
+            except Exception as e:
+                log.debug("Error stopping flag_timer: {}".format(e), module="Countries")
+            finally:
+                self.flag_timer = None
+
+        # Remove temporary flag file
         if hasattr(self, 'current_flag_path') and self.current_flag_path:
             if exists(self.current_flag_path):
                 try:
                     unlink(self.current_flag_path)
-                except:
-                    pass
+                except Exception as e:
+                    log.debug("Error deleting temp file: {}".format(e), module="Countries")
+            self.current_flag_path = None
 
-        # Disconnect picload callback
+        # Remove picload callback
         if hasattr(self, 'picload_conn') and self.picload_conn:
             try:
-                if self.picload and self.picload.PictureData.get():
-                    self.picload.PictureData.get().remove(self.picload_conn)
-            except:
-                pass
+                if self.picload and hasattr(self.picload, 'PictureData'):
+                    if self.picload.PictureData and self.picload.PictureData.get():
+                        self.picload.PictureData.get().remove(self.picload_conn)
+            except Exception as e:
+                log.debug("Error removing picload callback: {}".format(e), module="Countries")
+            finally:
+                self.picload_conn = None
 
-        # Stop timers if they exist
-        if hasattr(self, 'timer'):
+        # Cleanup picload
+        if hasattr(self, 'picload') and self.picload:
             try:
-                self.timer.stop()
+                # Force internal cleanup of ePicLoad
+                self.picload.__dict__.clear()
             except:
                 pass
+            finally:
+                self.picload = None
 
-        if hasattr(self, 'flag_timer'):
-            try:
-                self.flag_timer.stop()
-            except:
-                pass
-
-        # Clear picload by setting it to None
-        # ePicLoad si autodistrugge quando non ci sono più riferimenti
-        self.picload = None
-        self.picload_conn = None
+        # Remove menu callback
+        try:
+            if hasattr(self["menu"], 'onSelectionChanged'):
+                self["menu"].onSelectionChanged = []
+        except:
+            pass
 
     def load_countries(self):
         """Load countries list from TV Garden repository"""
@@ -151,9 +178,9 @@ class CountriesBrowser(BaseBrowser):
             # Create menu items
             menu_items = []
             for idx, country in enumerate(self.countries):
-                display_text = f"{country['name']}"
+                display_text = "%s" % country['name']
                 if country['channels'] > 0:
-                    display_text += f" ({country['channels']} ch)"
+                    display_text += " (%d ch)" % country['channels']
                 menu_items.append((display_text, idx))
 
             self["menu"].setList(menu_items)
@@ -194,7 +221,7 @@ class CountriesBrowser(BaseBrowser):
 
             # Load new flag with proper error handling
             flag_code = self.selected_country['code'].lower()
-            flag_url = f"https://flagcdn.com/w80/{flag_code}.png"
+            flag_url = "https://flagcdn.com/w80/%s.png" % flag_code
 
             # Use a timer to prevent rapid consecutive loads
             if hasattr(self, 'flag_timer'):
@@ -297,12 +324,12 @@ class CountriesBrowser(BaseBrowser):
             log.debug("Async decode finished: %s" % picInfo, module="Countries")
 
     def select_country(self):
-        """Select country and show channels"""
+        """Select a country and show its channels"""
         if not self.selected_country:
             self["status"].setText(_("No country selected"))
             return
 
-        log.info("Opening channels for: %s" % self.selected_country['code'], module="Countries")
+        log.info("Opening channels for: {}".format(self.selected_country['code']), module="Countries")
 
         # Cleanup before opening new screen
         if self.current_flag_path and exists(self.current_flag_path):
@@ -311,6 +338,14 @@ class CountriesBrowser(BaseBrowser):
             except:
                 pass
 
+        # Additional minor cleanup
+        if hasattr(self, 'flag_timer') and self.flag_timer:
+            try:
+                self.flag_timer.stop()
+            except:
+                pass
+
+        # Open the channel browser
         self.session.open(ChannelsBrowser,
                           country_code=self.selected_country['code'],
                           country_name=self.selected_country['name'])
