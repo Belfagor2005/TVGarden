@@ -16,12 +16,12 @@ TVGarden/
 │   └── iptv_player.py
 ├── utils/
 │   ├── __init__.py
-│   ├── config.py
 │   ├── cache.py
+│   ├── config.py
+│   ├── favorites.py
 │   ├── settings.py
 │   ├── update_manager.py
-│   ├── updater.py
-│   └── favorites.py
+│   └── updater.py
 ├── skins/
 │   ├── wqhd/
 │   ├── fhd/

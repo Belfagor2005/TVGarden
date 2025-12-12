@@ -5,6 +5,7 @@ TV Garden Plugin - Helpers Module
 Based on TV Garden Project by Lululla
 Data Source: TV Garden Project
 """
+from __future__ import print_function
 
 from sys import stderr
 from os import remove, makedirs
@@ -390,12 +391,13 @@ class TVGardenLog:
             print("%s%s%s" % (color, full_message, reset), file=stderr)
 
         # File output
+        import io
         if cls._log_to_file:
             try:
-                with open(LOG_PATH, "a", encoding="utf-8") as f:
-                    f.write(full_message + "\n")
+                # io.open funziona sia su Py2 che Py3
+                with io.open(LOG_PATH, "a", encoding="utf-8") as f:
+                    f.write(full_message + u"\n")
             except Exception as e:
-                # Fallback to stderr if file logging fails
                 print("Log file error: %s" % e, file=stderr)
 
     # Shortcut methods (the ones you'll use most)
