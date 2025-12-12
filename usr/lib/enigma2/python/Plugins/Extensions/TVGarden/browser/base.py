@@ -21,7 +21,10 @@ class BaseBrowser(Screen):
         self.session = session
 
         self.timer = eTimer()
-        self.timer.callback.append(self.on_timer)
+        try:
+            self.timer_conn = self.timer.timeout.connect(self.on_timer)
+        except AttributeError:
+            self.timer.callback.append(self.on_timer)
         self.current_page = 0
         self.items_per_page = 10
 

@@ -260,8 +260,11 @@ class TVGardenPlayer(InfoBarBase, InfoBarSeek, InfoBarAudioSelection, InfoBarNot
     def start_stream_check_timer(self):
         """Start timer to check if stream is actually playing"""
         self.stream_check_timer = eTimer()
-        self.stream_check_timer.callback.append(self.check_stream_status)
-        self.stream_check_timer.start(3000, True)  # Check after 3 seconds
+        try:
+            self.stream_check_timer_conn = self.stream_check_timer.timeout.connect(self.check_stream_status)
+        except AttributeError:
+            self.stream_check_timer.callback.append(self.check_stream_status)
+        self.stream_check_timer.start(3000, True)
 
     def check_stream_status(self):
         """Check whether the stream is actually playing."""
@@ -313,8 +316,11 @@ class TVGardenPlayer(InfoBarBase, InfoBarSeek, InfoBarAudioSelection, InfoBarNot
 
         # Reset audio tracks after 1 second
         self.audio_reset_timer = eTimer()
-        self.audio_reset_timer.callback.append(self.reset_audio_tracks)
-        self.audio_reset_timer.start(1000, True)  # 1 second
+        try:
+            self.audio_reset_timer_conn = self.audio_reset_timer.timeout.connect(self.reset_audio_tracks)
+        except AttributeError:
+            self.audio_reset_timer.callback.append(self.reset_audio_tracks)
+        self.audio_reset_timer.start(1000, True)
 
     def previous_channel(self):
         """Switch to the previous channel with audio fix"""
@@ -351,8 +357,11 @@ class TVGardenPlayer(InfoBarBase, InfoBarSeek, InfoBarAudioSelection, InfoBarNot
 
         # Reset audio tracks after 1 second
         self.audio_reset_timer = eTimer()
-        self.audio_reset_timer.callback.append(self.reset_audio_tracks)
-        self.audio_reset_timer.start(1000, True)  # 1 second
+        try:
+            self.audio_reset_timer_conn = self.audio_reset_timer.timeout.connect(self.reset_audio_tracks)
+        except AttributeError:
+            self.audio_reset_timer.callback.append(self.reset_audio_tracks)
+        self.audio_reset_timer.start(1000, True)
 
     def reset_audio_tracks(self):
         """Reset audio tracks when changing channels"""

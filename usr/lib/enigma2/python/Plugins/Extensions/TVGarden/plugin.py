@@ -338,7 +338,8 @@ def main(session, **kwargs):
             f.write("\n" + "=" * 50 + "\n")
         # Tenta almeno di mostrare un messaggio di errore
         from Screens.MessageBox import MessageBox
-        session.open(MessageBox, f"TVGarden Crash: {str(e)}", MessageBox.TYPE_ERROR)
+        error_msg = "TVGarden Crash: " + str(e)
+        session.open(MessageBox, error_msg, MessageBox.TYPE_ERROR)
         return None
 
 
