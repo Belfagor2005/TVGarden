@@ -96,6 +96,8 @@ if [ "$PYTHON" = "PY3" ]; then
 fi
 # install_pkg "$Packagerequests"
 
+[ -e "/usr/bin/python3" ] && PY="python3" || PY="python"; opkg update; opkg install "${PY}-requests"
+
 if [ "$OSTYPE" = "OE" ]; then
     echo "Installing additional multimedia packages..."
     for pkg in ffmpeg gstplayer exteplayer3 enigma2-plugin-systemplugins-serviceapp; do
