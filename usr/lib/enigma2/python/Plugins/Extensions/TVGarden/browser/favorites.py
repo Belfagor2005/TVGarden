@@ -150,6 +150,7 @@ class FavoritesBrowser(BaseBrowser):
             (_("Remove from Favorites"), "remove"),
             (_("Clear All Favorites"), "clear_all"),
             (_("Export to Enigma2 Bouquet"), "export_single"),
+            (_("Export ALL Database"), "export_all_database"),
             (_("Remove Bouquet from Enigma2"), "remove_bouquet"),
         ]
 
@@ -195,6 +196,14 @@ class FavoritesBrowser(BaseBrowser):
                 lambda r: self._clear_all_confirmation(r),
                 MessageBox,
                 _("Clear ALL favorites?"),
+                MessageBox.TYPE_YESNO
+            )
+
+        elif option_id == "export_all_database":
+            self.session.openWithCallback(
+                self._execute_export_all_database,  # <-- Chiama il metodo correttamente
+                MessageBox,
+                _("Export ALL channels from TV Garden database?\nThis may take some time."),
                 MessageBox.TYPE_YESNO
             )
 
@@ -257,6 +266,27 @@ class FavoritesBrowser(BaseBrowser):
             MessageBox.TYPE_INFO if success else MessageBox.TYPE_ERROR,
             timeout=3
         )
+
+    def _execute_export_all_database(self, result):
+        """Execute export of all database channels"""
+        if not result:
+            return
+        
+        self["status"].setText(_("Loading all channels..."))
+        
+        success, message = self.fav_manager.export_all_channels()
+        
+        self.session.open(
+            MessageBox,
+            message,
+            MessageBox.TYPE_INFO if success else MessageBox.TYPE_ERROR,
+            timeout=5
+        )
+        
+        if success:
+            self["status"].setText(_("Database exported successfully"))
+        else:
+            self["status"].setText(_("Export failed"))
 
     def get_current_channel(self):
         """Get currently selected channel"""

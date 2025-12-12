@@ -12,7 +12,7 @@ from Components.ActionMap import ActionMap
 from Components.ScrollLabel import ScrollLabel
 
 from ..helpers import log
-from .. import _ , PLUGIN_VERSION
+from .. import _, PLUGIN_VERSION
 from ..utils.cache import CacheManager
 from ..utils.config import PluginConfig
 

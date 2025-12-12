@@ -101,14 +101,25 @@ class ChannelsBrowser(BaseBrowser):
             title = "Channels - %s" % category_name
         self.setTitle(title)
 
+        self.export_enabled = True
+        self.auto_refresh_bouquet = False
+        self.confirm_before_export = True
+
+        self._load_export_settings()
+
         self["menu"] = MenuList([])
         self["status"] = Label(_("Loading channels..."))
         self["logo"] = Pixmap()
 
+        if self.export_enabled:
+            self["key_blue"] = Label(_("Export"))
+        else:
+            self["key_blue"] = Label(_("Info"))
+
         self["key_red"] = Label(_("Back"))
         self["key_green"] = Label(_("Play"))
         self["key_yellow"] = Label(_("Favorite"))
-        self["key_blue"] = Label(_("Info"))
+        # self["key_blue"] = Label(_("Info"))
 
         self["actions"] = ActionMap(["TVGardenActions", "OkCancelActions", "ColorActions"], {
             "cancel": self.exit,
@@ -134,6 +145,34 @@ class ChannelsBrowser(BaseBrowser):
         current_index = self["menu"].getSelectedIndex()
         if current_index is not None:
             self.update_channel_selection(current_index)
+
+    def channel_menu(self):
+        """Show channel context menu"""
+        menu = [
+            (_("Play Channel"), "play"),
+            (_("Add to Favorites"), "favorite"),
+            (_("Channel Information"), "info"),
+        ]
+        if self.export_enabled and self.menu_channels:
+            menu.append((_("Export Current View"), "export_current"))
+            menu.append((_("Export Settings"), "export_settings"))
+
+        self.session.openWithCallback(self.menu_callback, ChoiceBox,
+                                      title=_("Channel Menu"), list=menu)
+
+    def menu_callback(self, choice):
+        """Handle menu selection"""
+        if choice:
+            if choice[1] == "play":
+                self.play_channel()
+            elif choice[1] == "favorite":
+                self.toggle_favorite()
+            elif choice[1] == "info":
+                self.show_info()
+            elif choice[1] == "export_current":
+                self.export_current_view()
+            elif choice[1] == "export_settings":
+                self.export_settings_menu()
 
     def load_channels(self):
         """Load channels for current context (country or category)"""
@@ -348,6 +387,18 @@ class ChannelsBrowser(BaseBrowser):
         else:
             log.error("ERROR: Index %d out of range (0-%d)" % (index, len(self.menu_channels) - 1), module="Channels")
 
+    def update_logo(self, picInfo=None):
+        """Update logo pixmap"""
+        ptr = self.picload.getData()
+        if ptr:
+            self["logo"].instance.setScale(1)
+            self["logo"].instance.setPixmap(ptr)
+            self["logo"].show()
+            log.debug("logo displayed", module="Channels")
+        else:
+            self["logo"].hide()
+            log.debug("No logo data, hiding", module="Channels")
+
     def download_logo(self, url):
         """Download and display channel logo"""
         try:
@@ -369,17 +420,243 @@ class ChannelsBrowser(BaseBrowser):
             log.error("Error downloading logo: %s" % e, module="Channels")
             self["logo"].hide()
 
-    def update_logo(self, picInfo=None):
-        """Update logo pixmap"""
-        ptr = self.picload.getData()
-        if ptr:
-            self["logo"].instance.setScale(1)
-            self["logo"].instance.setPixmap(ptr)
-            self["logo"].show()
-            log.debug("logo displayed", module="Channels")
+    def generate_country_bouquet(self, country_code, channels):
+        """Generate bouquet for a specific country"""
+        try:
+            if not channels:
+                return False, "No channels for country: %s" % country_code
+            
+            tag = "tvgarden"
+            
+            # Use prefix from config
+            config = get_config()
+            prefix = config.get("bouquet_name_prefix", "TVGarden")
+            
+            # Create bouquet name: prefix_countrycode
+            bouquet_name = "%s_%s" % (prefix.lower(), country_code.lower())
+            userbouquet_file = "/etc/enigma2/userbouquet.%s_%s.tv" % (tag, bouquet_name)
+            
+            valid_count = 0
+            with open(userbouquet_file, "w") as f:
+                # Use prefix in display name
+                f.write("#NAME %s - %s\n" % (prefix, country_code.upper()))
+                f.write("#SERVICE 1:64:0:0:0:0:0:0:0:0::--- | %s %s | ---\n" % (prefix, country_code.upper()))
+                f.write("#DESCRIPTION --- | %s %s | ---\n" % (prefix, country_code.upper()))
+                
+                for channel in channels:
+                    name = channel.get('name', '')
+                    stream_url = channel.get('stream_url') or channel.get('url', '')
+                    
+                    if not stream_url:
+                        continue
+                    
+                    url_encoded = stream_url.replace(":", "%3a")
+                    name_encoded = name.replace(":", "%3a")
+                    
+                    f.write("#SERVICE 4097:0:1:0:0:0:0:0:0:0:%s:%s\n" % (url_encoded, name_encoded))
+                    f.write("#DESCRIPTION %s\n" % name)
+                    
+                    valid_count += 1
+            
+            if valid_count == 0:
+                return False, "No valid streams for country: %s" % country_code
+            
+            self._add_to_bouquets_tv(tag, bouquet_name)
+            self._reload_bouquets()
+            
+            return True, "Exported %d channels for %s" % (valid_count, country_code.upper())
+        
+        except Exception as e:
+            return False, "Error: %s" % str(e)
+
+    def generate_all_countries_bouquet(self):
+        """Generate separate bouquets for each country"""
+        try:
+            cache = CacheManager()
+
+            # Get all countries
+            countries_meta = cache.get_countries_metadata()
+
+            results = []
+            for country_code in countries_meta.keys():
+                # Load channels for this country
+                channels = cache.get_country_channels(country_code)
+
+                if channels:
+                    success, message = self.generate_country_bouquet(country_code, channels)
+                    results.append((country_code, success, message))
+
+            # Also create a bouquet containing all countries
+            if results:
+                all_channels = []
+                for country_code, success, msg in results:
+                    if success:
+                        channels = cache.get_country_channels(country_code)
+                        if channels:
+                            all_channels.extend(channels[:10])  # Limit to 10 per country
+
+                if all_channels:
+                    self.export_to_bouquet(all_channels, "all_countries")
+
+            return True, "Generated bouquets for %d countries" % len(results)
+
+        except Exception as e:
+            return False, "Error generating country bouquets: %s" % str(e)
+
+    def _load_export_settings(self):
+        """Load export settings from config"""
+        try:
+            config = get_config()
+            self.export_enabled = config.get("export_enabled", True)
+            self.auto_refresh_bouquet = config.get("auto_refresh_bouquet", False)
+            self.confirm_before_export = config.get("confirm_before_export", True)
+            self.max_channels_per_bouquet = config.get("max_channels_per_bouquet", 100)
+            self.bouquet_name_prefix = config.get("bouquet_name_prefix", "TVGarden")
+            
+            log.debug("Export settings loaded from config", module="Channels")
+            
+        except Exception as e:
+            self.export_enabled = True
+            self.auto_refresh_bouquet = False
+            self.confirm_before_export = True
+            self.max_channels_per_bouquet = 100
+            self.bouquet_name_prefix = "TVGarden"
+            log.error("Error loading export settings: %s" % e, module="Channels")
+
+    def _save_export_settings(self):
+        """Save export settings to config"""
+        try:
+            config = get_config()
+            config.set("export_enabled", self.export_enabled)
+            config.set("auto_refresh_bouquet", self.auto_refresh_bouquet)
+            config.set("confirm_before_export", self.confirm_before_export)
+            config.set("max_channels_per_bouquet", self.max_channels_per_bouquet)
+            config.set("bouquet_name_prefix", self.bouquet_name_prefix)
+            config.save_config()
+            
+            log.debug("Export settings saved to config", module="Channels")
+            
+        except Exception as e:
+            log.error("Error saving export settings: %s" % e, module="Channels")
+
+    def export_settings_menu(self):
+        """Export Settings Menu"""
+        export_status = _("ENABLED") if self.export_enabled else _("DISABLED")
+        refresh_status = _("ON") if self.auto_refresh_bouquet else _("OFF")
+        confirm_status = _("ON") if self.confirm_before_export else _("OFF")
+
+        menu = [
+            (_("Export: %s") % export_status, "toggle_export"),
+            (_("Auto-refresh: %s") % refresh_status, "toggle_refresh"),
+            (_("Confirm before export: %s") % confirm_status, "toggle_confirm"),
+            (_("Test Export (1 channel)"), "test_export"),
+            (_("Back"), "back"),
+        ]
+
+        self.session.openWithCallback(self.export_settings_callback, ChoiceBox,
+                                      title=_("Export Settings"), list=menu)
+
+    def export_settings_callback(self, choice):
+        """Manages settings menu selection"""
+        if not choice:
+            return
+
+        if choice[1] == "toggle_export":
+            self.export_enabled = not self.export_enabled
+            if self.export_enabled:
+                self["key_blue"] = Label(_("Export"))
+            else:
+                self["key_blue"] = Label(_("Info"))
+
+            self._save_export_settings()
+            self.export_settings_menu()
+
+        elif choice[1] == "toggle_refresh":
+            self.auto_refresh_bouquet = not self.auto_refresh_bouquet
+            self._save_export_settings()
+            self.export_settings_menu()
+
+        elif choice[1] == "toggle_confirm":
+            self.confirm_before_export = not self.confirm_before_export
+            self._save_export_settings()
+            self.export_settings_menu()
+
+        elif choice[1] == "test_export":
+            self._test_export_function()
+
+        elif choice[1] == "back":
+            self.channel_menu()
+
+    def export_current_view(self):
+        """Export current country/category channels"""
+        if not self.menu_channels:
+            self.session.open(MessageBox, _("No channels to export"),
+                              MessageBox.TYPE_INFO, timeout=2)
+            return
+
+        # If confirmation is disabled, export directly
+        if not self.confirm_before_export:
+            self.execute_export()
+            return
+
+        # Otherwise ask for confirmation
+        if self.country_name:
+            display_name = self.country_name
+        elif self.category_name:
+            base_name = self.category_name.split(' (')[0] if ' (' in self.category_name else self.category_name
+            display_name = base_name
         else:
-            self["logo"].hide()
-            log.debug("No logo data, hiding", module="Channels")
+            display_name = _("Channels")
+
+        msg = _("Export {count} channels to bouquet '{name}'?").format(
+            count=len(self.menu_channels),
+            name=display_name
+        )
+
+        self.session.openWithCallback(
+            lambda r: self.execute_export() if r else None,
+            MessageBox,
+            msg,
+            MessageBox.TYPE_YESNO
+        )
+
+    def execute_export(self):
+        """Perform actual export"""
+        try:
+            # Determine if it's a country or category
+            if self.country_code:
+                success, msg = self.fav_manager.generate_country_bouquet(
+                    self.country_code,
+                    self.menu_channels
+                )
+            elif self.category_id:
+                safe_name = self.category_name.split(' (')[0] if ' (' in self.category_name else self.category_name
+                safe_name = ''.join(c for c in safe_name if c.isalnum() or c in (' ', '-', '_')).replace(' ', '_')[:30]
+                success, msg = self.fav_manager.export_to_bouquet(
+                    self.menu_channels,
+                    "category_%s" % safe_name.lower()
+                )
+            else:
+                success, msg = self.fav_manager.export_to_bouquet(
+                    self.menu_channels,
+                    "tvgarden_channels"
+                )
+
+            self.session.open(
+                MessageBox,
+                msg,
+                MessageBox.TYPE_INFO if success else MessageBox.TYPE_ERROR,
+                timeout=4
+            )
+
+        except Exception as e:
+            log.error("Export error: %s" % e, module="Channels")
+            self.session.open(
+                MessageBox,
+                _("Export failed: %s") % str(e),
+                MessageBox.TYPE_ERROR,
+                timeout=4
+            )
 
     def play_channel(self):
         """Play the selected channel."""
@@ -468,26 +745,6 @@ class ChannelsBrowser(BaseBrowser):
                 info += _("Stream: %s") % stream_url
 
             self.session.open(MessageBox, info, MessageBox.TYPE_INFO)
-
-    def channel_menu(self):
-        """Show channel context menu"""
-        menu = [
-            (_("Play Channel"), "play"),
-            (_("Add to Favorites"), "favorite"),
-            (_("Channel Information"), "info"),
-        ]
-        self.session.openWithCallback(self.menu_callback, ChoiceBox,
-                                      title=_("Channel Menu"), list=menu)
-
-    def menu_callback(self, choice):
-        """Handle menu selection"""
-        if choice:
-            if choice[1] == "play":
-                self.play_channel()
-            elif choice[1] == "favorite":
-                self.toggle_favorite()
-            elif choice[1] == "info":
-                self.show_info()
 
     def up(self):
         """Handle up key"""

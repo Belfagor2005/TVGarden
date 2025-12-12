@@ -26,9 +26,13 @@ class PluginConfig:
 
         # Create config directory if not exists
         if not exists(self.config_dir):
-            makedirs(self.config_dir)
+            try:
+                makedirs(self.config_dir)
+                log.info("Created config directory: %s" % self.config_dir, module="Config")
+            except Exception as e:
+                log.error("Error creating config directory: %s" % e, module="Config")
 
-        # Default configuration
+        # ============ DEFAULT CONFIGURATION ============
         self.defaults = {
             # Player settings
             "player": "exteplayer3",
@@ -55,9 +59,9 @@ class PluginConfig:
             "auto_refresh": True,
 
             # Parental control
-            "parental_lock": False,
-            "parental_pin": "0000",
-            "blocked_categories": [],
+            # "parental_lock": False,
+            # "parental_pin": "0000",
+            # "blocked_categories": [],
 
             # Favorites
             "max_favorites": 100,
@@ -83,16 +87,28 @@ class PluginConfig:
             "watch_time": 0,
             "channels_watched": 0,
 
-            # Logging settings
-            "log_level": "INFO",        # DEBUG, INFO, WARNING, ERROR, CRITICAL
+            # ============ LOGGING SETTINGS ============
+            "log_level": "INFO",
             "log_to_file": True,
-            "log_max_size": 1048576,  # 1MB in bytes
-            "log_backup_count": 3,      # Keep 3 backup files
+            "log_max_size": 1048576,   # 1MB in bytes
+            "log_backup_count": 3,
 
             # update checker
-            "update_check_interval": 86400,  # 24 ore in secondi
+            "update_check_interval": 86400,  # 24 hours in seconds
             "last_update_check": 0,
             "notify_on_update": True,
+
+            # ============ EXPORT SETTINGS ============
+            "export_enabled": True,
+            "auto_refresh_bouquet": False,
+            "confirm_before_export": True,
+            "max_channels_per_bouquet": 100,
+            "bouquet_name_prefix": "TVGarden",
+            # ADVANCED SETTINGS
+            "debug_mode": False,
+            "use_hardware_acceleration": True,
+            "buffer_size": 2048,
+            "connection_timeout": 30,
         }
 
         # Load or create config
@@ -112,12 +128,14 @@ class PluginConfig:
                 # Validate and fix values
                 config = self.validate_config(config)
 
+                log.info("Configuration loaded successfully from %s" % self.config_file, module="Config")
                 return config
             except Exception as e:
                 log.error("Error loading config: %s" % e, module="Config")
                 return self.restore_backup()
 
         # Create new config with defaults
+        log.info("Creating new configuration with defaults", module="Config")
         return self.defaults.copy()
 
     def save_config(self):
@@ -125,7 +143,14 @@ class PluginConfig:
         try:
             # Create backup before saving
             if fileExists(self.config_file):
-                shutil.copy2(self.config_file, self.backup_file)
+                try:
+                    shutil.copy2(self.config_file, self.backup_file)
+                    log.debug("Created backup: %s" % self.backup_file, module="Config")
+                except Exception as e:
+                    log.warning("Could not create backup: %s" % e, module="Config")
+
+            # Validate before saving
+            self.config = self.validate_config(self.config)
 
             # Save config
             with open(self.config_file, 'w') as f:
@@ -134,54 +159,120 @@ class PluginConfig:
             # Set proper permissions
             chmod(self.config_file, 0o644)
 
+            log.info("Configuration saved to %s" % self.config_file, module="Config")
             return True
         except Exception as e:
-            log.error("Error loading config: %s" % e, module="Config")
+            log.error("Error saving config: %s" % e, module="Config")
             return False
 
     def validate_config(self, config):
         """Validate and fix configuration values"""
+        validated_config = config.copy()
+
         # Ensure volume is between 0-100
-        if 'volume' in config:
+        if 'volume' in validated_config:
             try:
-                config['volume'] = max(0, min(100, int(config['volume'])))
-            except:
-                config['volume'] = 80
+                volume = int(validated_config['volume'])
+                if volume < 0:
+                    volume = 0
+                elif volume > 100:
+                    volume = 100
+                validated_config['volume'] = volume
+            except (ValueError, TypeError):
+                validated_config['volume'] = 80
 
         # Ensure timeout is reasonable
-        if 'timeout' in config:
+        if 'timeout' in validated_config:
             try:
-                config['timeout'] = max(5, min(60, int(config['timeout'])))
-            except:
-                config['timeout'] = 10
+                timeout = int(validated_config['timeout'])
+                if timeout < 5:
+                    timeout = 5
+                elif timeout > 60:
+                    timeout = 60
+                validated_config['timeout'] = timeout
+            except (ValueError, TypeError):
+                validated_config['timeout'] = 10
+
+        # Ensure max_channels_per_bouquet is valid
+        if 'max_channels_per_bouquet' in validated_config:
+            try:
+                val = int(validated_config['max_channels_per_bouquet'])
+                if val < 0:
+                    val = 100
+                validated_config['max_channels_per_bouquet'] = val
+            except (ValueError, TypeError):
+                validated_config['max_channels_per_bouquet'] = 100
 
         # Ensure skin is valid
-        valid_skins = ['auto', 'hd', 'fhd', 'wqhd']
-        if config.get('skin') not in valid_skins:
-            config['skin'] = 'auto'
+        valid_skins = ['auto', 'hd', 'fhd', 'wqhd', 'sd']
+        if validated_config.get('skin') not in valid_skins:
+            validated_config['skin'] = 'auto'
 
         # Ensure player is valid
         valid_players = ['exteplayer3', 'gstplayer', 'auto']
-        if config.get('player') not in valid_players:
-            config['player'] = 'auto'
+        if validated_config.get('player') not in valid_players:
+            validated_config['player'] = 'auto'
 
-        return config
+        # Ensure log_level is valid
+        valid_log_levels = ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
+        if validated_config.get('log_level') not in valid_log_levels:
+            validated_config['log_level'] = 'INFO'
+
+        # Ensure buffer_size is reasonable
+        if 'buffer_size' in validated_config:
+            try:
+                buffer_size = int(validated_config['buffer_size'])
+                if buffer_size < 512:
+                    buffer_size = 512
+                elif buffer_size > 8192:
+                    buffer_size = 8192
+                validated_config['buffer_size'] = buffer_size
+            except (ValueError, TypeError):
+                validated_config['buffer_size'] = 2048
+
+        # Ensure connection_timeout is reasonable
+        if 'connection_timeout' in validated_config:
+            try:
+                timeout = int(validated_config['connection_timeout'])
+                if timeout < 10:
+                    timeout = 10
+                elif timeout > 120:
+                    timeout = 120
+                validated_config['connection_timeout'] = timeout
+            except (ValueError, TypeError):
+                validated_config['connection_timeout'] = 30
+
+        return validated_config
 
     def restore_backup(self):
         """Restore configuration from backup"""
         if fileExists(self.backup_file):
             try:
                 with open(self.backup_file, 'r') as f:
-                    return load(f)
-            except:
-                pass
+                    backup_config = load(f)
 
-        # Return defaults if backup also fails
-        return self.defaults.copy()
+                # Validate restored config
+                validated_config = self.validate_config(backup_config)
+
+                log.info("Configuration restored from backup: %s" % self.backup_file, module="Config")
+                return validated_config
+            except Exception as e:
+                log.error("Error restoring backup: %s" % e, module="Config")
+
+                # Return defaults if backup also fails
+                return self.defaults.copy()
+        else:
+            log.warning("No backup found, using defaults", module="Config")
+            return self.defaults.copy()
 
     def get(self, key, default=None):
         """Get config value"""
-        return self.config.get(key, default or self.defaults.get(key))
+        if key in self.config:
+            return self.config[key]
+        elif default is not None:
+            return default
+        else:
+            return self.defaults.get(key)
 
     def set(self, key, value):
         """Set config value and save"""
@@ -203,10 +294,18 @@ class PluginConfig:
     def export(self, filepath):
         """Export config to file"""
         try:
+            # Ensure directory exists
+            export_dir = join(filepath, '..')
+            if not exists(export_dir):
+                makedirs(export_dir)
+
             with open(filepath, 'w') as f:
                 dump(self.config, f, indent=4)
+
+            log.info("Configuration exported to: %s" % filepath, module="Config")
             return True
-        except:
+        except Exception as e:
+            log.error("Error exporting config: %s" % e, module="Config")
             return False
 
     def import_config(self, filepath):
@@ -216,12 +315,21 @@ class PluginConfig:
                 with open(filepath, 'r') as f:
                     imported = load(f)
 
-                # Merge with current config
-                self.config.update(imported)
+                # Validate imported config
+                validated_imported = self.validate_config(imported)
+
+                # Merge with current config (keep current values for missing keys)
+                for key, value in validated_imported.items():
+                    self.config[key] = value
+
+                log.info("Configuration imported from: %s" % filepath, module="Config")
                 return self.save_config()
-            except:
+            except Exception as e:
+                log.error("Error importing config: %s" % e, module="Config")
                 return False
-        return False
+        else:
+            log.error("Import file not found: %s" % filepath, module="Config")
+            return False
 
     # Convenience methods
     def get_player(self):
@@ -234,13 +342,19 @@ class PluginConfig:
                                         capture_output=True, text=True)
                 if result.returncode == 0:
                     return 'exteplayer3'
-            except:
-                pass
-            return 'gstplayer'
+                else:
+                    # Try gstplayer
+                    result = subprocess.run(['which', 'gst-launch-1.0'],
+                                            capture_output=True, text=True)
+                    if result.returncode == 0:
+                        return 'gstplayer'
+            except Exception as e:
+                log.debug("Auto-detection failed: %s" % e, module="Config")
+            return 'gstplayer'  # Default fallback
         return player
 
     def get_skin_resolution(self):
-        """Get skin resolution name (hd, fhd, wqhd)"""
+        """Get skin resolution name (hd, fhd, wqhd, sd)"""
         skin_setting = self.get('skin', 'auto')
 
         if skin_setting == 'auto':
@@ -258,8 +372,9 @@ class PluginConfig:
                     return "hd"
                 else:
                     return "sd"
-            except:
-                return 'hd'
+            except Exception as e:
+                log.error("Error detecting resolution: %s" % e, module="Config")
+                return 'hd'  # Default fallback
 
         return skin_setting
 
@@ -278,16 +393,20 @@ class PluginConfig:
 
         if fileExists(skin_file):
             try:
-                with open(skin_file, 'r') as f:
+                with open(skin_file, 'r', encoding='utf-8') as f:
                     skin_content = f.read()
                 log.info("Loaded skin from: %s" % skin_file, module="Config")
                 return skin_content
             except Exception as e:
                 log.error("Error loading skin: %s" % e, module="Config")
 
-        # Fallback to Class Skin
-        log.warning("Using class skin for %s" % screen_name, module="Config")
-        return default_skin
+                # Fallback to Class Skin
+                log.warning("Using class skin for %s due to error" % screen_name, module="Config")
+                return default_skin
+        else:
+            # Fallback to Class Skin
+            log.warning("Skin file not found: %s, using class skin for %s" % (skin_file, screen_name), module="Config")
+            return default_skin
 
     def get_skin_path(self):
         """Get skin path based on config and detection"""
@@ -296,8 +415,9 @@ class PluginConfig:
             try:
                 from ..helpers import get_resolution_type
                 return get_resolution_type()
-            except:
-                return 'hd'
+            except Exception as e:
+                log.error("Error getting resolution type: %s" % e, module="Config")
+                return 'hd'  # Default fallback
         return skin_setting
 
     def is_category_blocked(self, category_id):
@@ -313,14 +433,73 @@ class PluginConfig:
         if self.get('stats_enabled', True):
             current = self.get('watch_time', 0)
             self.set('watch_time', current + seconds)
+            log.debug("Added %d seconds to watch time, total: %d" % (seconds, current + seconds), module="Config")
 
     def increment_channels_watched(self):
         """Increment channels watched counter"""
         if self.get('stats_enabled', True):
             current = self.get('channels_watched', 0)
             self.set('channels_watched', current + 1)
+            log.debug("Incremented channels watched to: %d" % (current + 1), module="Config")
+
+    def get_connection_timeout(self):
+        """Get connection timeout in seconds"""
+        return self.get('connection_timeout', 30)
+
+    def get_buffer_size(self):
+        """Get buffer size in KB"""
+        return self.get('buffer_size', 2048)
+
+    def is_debug_mode(self):
+        """Check if debug mode is enabled"""
+        return self.get('debug_mode', False)
+
+    def use_hardware_acceleration(self):
+        """Check if hardware acceleration should be used"""
+        return self.get('use_hardware_acceleration', True)
+
+    def get_all_settings(self):
+        """Get all configuration as dictionary"""
+        return self.config.copy()
+
+    def get_settings_group(self, group_prefix):
+        """
+        Get all settings that start with a specific prefix
+        Example: get_settings_group("log_") returns all logging settings
+        """
+        result = {}
+        for key, value in self.config.items():
+            if key.startswith(group_prefix):
+                result[key] = value
+        return result
+
+    def update_settings(self, settings_dict):
+        """
+        Update multiple settings at once
+        Args:
+            settings_dict: Dictionary with settings to update
+        Returns:
+            True if successful, False otherwise
+        """
+        try:
+            for key, value in settings_dict.items():
+                self.config[key] = value
+            return self.save_config()
+        except Exception as e:
+            log.error("Error updating settings: %s" % e, module="Config")
+            return False
+
+    def get_version(self):
+        """Get configuration version (for future compatibility)"""
+        return self.get('config_version', 1)
+
+    def set_version(self, version):
+        """Set configuration version"""
+        self.config['config_version'] = version
+        return self.save_config()
 
 
+# Singleton instance
 _config_instance = None
 
 
@@ -329,4 +508,12 @@ def get_config():
     global _config_instance
     if _config_instance is None:
         _config_instance = PluginConfig()
+    return _config_instance
+
+
+def reload_config():
+    """Reload configuration from disk"""
+    if _config_instance is not None:
+        _config_instance.config = _config_instance.load_config()
+        log.info("Configuration reloaded from disk", module="Config")
     return _config_instance

@@ -26,6 +26,7 @@ try:
         get_country_url,
         get_category_url,
         get_categories_url,
+        get_all_channels_url,
         log
     )
 except ImportError as e:
@@ -45,6 +46,9 @@ except ImportError as e:
 
     def get_categories_url():
         return "https://api.github.com/repos/Belfagor2005/tv-garden-channel-list/contents/channels/raw/categories"
+
+    def get_all_channels_url():
+        return "https://raw.githubusercontent.com/Belfagor2005/tv-garden-channel-list/main/channels/raw/categories/all-channels.json"
 
 
 class CacheManager:

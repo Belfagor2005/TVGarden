@@ -159,6 +159,10 @@ def get_categories_url():
     return "https://api.github.com/repos/Belfagor2005/tv-garden-channel-list/contents/channels/raw/categories"
 
 
+def get_all_channels_url():
+    return "https://raw.githubusercontent.com/Belfagor2005/tv-garden-channel-list/main/channels/raw/categories/all-channels.json"
+
+
 def get_flag_url(country_code, size=80):
     """Get URL for country flag"""
     return "https://flagcdn.com/w%d/%s.png" % (size, country_code.lower())

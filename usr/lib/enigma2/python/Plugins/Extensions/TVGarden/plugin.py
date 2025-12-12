@@ -204,23 +204,23 @@ class TVGardenMain(Screen):
     def refresh_data(self):
         """Refresh cache and metadata - VERSIONE CORRETTA"""
         self["status"].setText(_("Refreshing data..."))
-        
+
         try:
             self.cache.clear_all()
-            
+
             countries_data = self.cache.get_countries_metadata(force_refresh=True)
-            
+
             cache_size = self.cache.get_size()
-            
+
             new_status = "TV Garden v.%s | Cache: %d items" % (PLUGIN_VERSION, cache_size)
             self["status"].setText(new_status)
-            
+
             self.session.open(
                 MessageBox,
                 _("Refresh completed!\nLoaded %d countries") % len(countries_data),
                 MessageBox.TYPE_INFO
             )
-            
+
         except Exception as e:
             error_msg = _("Refresh failed: %s") % str(e)
             self["status"].setText(error_msg)

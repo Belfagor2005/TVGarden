@@ -236,8 +236,16 @@ class CountriesBrowser(BaseBrowser):
                 self.flag_timer.stop()
 
             self.flag_timer = eTimer()
-            self.flag_timer.callback.append(lambda: self.download_flag_safe(flag_url, flag_code))
-            self.flag_timer.start(50, True)  # Small delay
+            try:
+                self.flag_timer.timeout.connect(
+                    lambda: self.download_flag_safe(flag_url, flag_code)
+                )
+            except AttributeError:
+                self.flag_timer.callback.append(
+                    lambda: self.download_flag_safe(flag_url, flag_code)
+                )
+
+            self.flag_timer.start(50, True)
 
     def download_flag_safe(self, url, country_code):
         """Safe flag download with memory management"""
