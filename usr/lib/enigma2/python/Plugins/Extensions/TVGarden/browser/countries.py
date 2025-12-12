@@ -14,6 +14,7 @@ from enigma import ePicLoad, eTimer
 from Components.Pixmap import Pixmap
 from Components.MenuList import MenuList
 from Components.ActionMap import ActionMap
+from sys import version_info
 
 from .. import _
 from ..helpers import log
@@ -22,8 +23,8 @@ from .channels import ChannelsBrowser
 from ..utils.cache import CacheManager
 from ..utils.config import PluginConfig
 
-import sys
-if sys.version_info[0] == 3:
+
+if version_info[0] == 3:
     from urllib.request import urlopen, Request
 else:
     from urllib2 import urlopen, Request
