@@ -63,11 +63,11 @@ if python --version 2>&1 | grep -q '^Python 3\.'; then
     echo "Python3 image detected"
     PYTHON="PY3"
     Packagesix="python3-six"
-    Packagerequests="python3-requests"
+    # Packagerequests="python3-requests"
 else
     echo "Python2 image detected"
     PYTHON="PY2"
-    Packagerequests="python-requests"
+    # Packagerequests="python-requests"
     Packagesix="python-six"
 fi
 
@@ -94,7 +94,7 @@ install_pkg() {
 if [ "$PYTHON" = "PY3" ]; then
     install_pkg "$Packagesix"
 fi
-install_pkg "$Packagerequests"
+# install_pkg "$Packagerequests"
 
 if [ "$OSTYPE" = "OE" ]; then
     echo "Installing additional multimedia packages..."
