@@ -12,7 +12,12 @@ import gzip
 from os.path import join, exists, getmtime
 from os import listdir, remove, makedirs
 from json import load, loads, dump
-from urllib.request import urlopen, Request
+from sys import version_info
+
+if version_info[0] == 3:
+    from urllib.request import urlopen, Request
+else:
+    from urllib2 import urlopen, Request
 
 
 try:

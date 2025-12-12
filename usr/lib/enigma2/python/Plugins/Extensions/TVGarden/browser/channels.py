@@ -8,8 +8,7 @@ Based on TV Garden Project
 
 import tempfile
 from os import unlink
-from sys import stderr
-from urllib.request import urlopen
+from sys import stderr, version_info
 from enigma import (
     ePicLoad,
     eServiceReference,
@@ -20,6 +19,11 @@ from Components.MenuList import MenuList
 from Screens.ChoiceBox import ChoiceBox
 from Screens.MessageBox import MessageBox
 from Components.ActionMap import ActionMap
+
+if version_info[0] == 3:
+    from urllib.request import urlopen
+else:
+    from urllib2 import urlopen
 
 
 try:

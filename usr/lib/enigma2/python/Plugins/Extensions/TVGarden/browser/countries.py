@@ -9,8 +9,6 @@ Based on TV Garden Project
 import tempfile
 from os import unlink
 from os.path import exists
-from urllib.request import urlopen, Request
-
 from Components.Label import Label
 from enigma import ePicLoad, eTimer
 from Components.Pixmap import Pixmap
@@ -23,6 +21,12 @@ from .base import BaseBrowser
 from .channels import ChannelsBrowser
 from ..utils.cache import CacheManager
 from ..utils.config import PluginConfig
+
+import sys
+if sys.version_info[0] == 3:
+    from urllib.request import urlopen, Request
+else:
+    from urllib2 import urlopen, Request
 
 
 class CountriesBrowser(BaseBrowser):

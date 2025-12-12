@@ -11,12 +11,17 @@ import subprocess
 from re import sub, search
 from os import makedirs
 from os.path import join, exists
-from urllib.request import urlopen, Request
 from enigma import eTimer
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
 from ..helpers import log
 from .. import _, PLUGIN_VERSION, PLUGIN_PATH, USER_AGENT
+
+from sys import version_info
+if version_info[0] == 3:
+    from urllib.request import urlopen, Request
+else:
+    from urllib2 import urlopen, Request
 
 
 class PluginUpdater:

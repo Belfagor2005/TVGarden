@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TVGarden\n"
-"POT-Creation-Date: 2025-12-11 19:15+0100\n"
+"POT-Creation-Date: 2025-12-11 19:12+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: giorbak\n"
@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.8\n"
-"X-Poedit-Basepath: ../../..\n"
+"X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: browser\n"
-"X-Poedit-SearchPath-1: player\n"
-"X-Poedit-SearchPath-2: utils\n"
-"X-Poedit-SearchPath-3: helpers.py\n"
-"X-Poedit-SearchPath-4: plugin.py\n"
+"X-Poedit-SearchPath-0: helpers.py\n"
+"X-Poedit-SearchPath-1: plugin.py\n"
+"X-Poedit-SearchPath-2: browser\n"
+"X-Poedit-SearchPath-3: player\n"
+"X-Poedit-SearchPath-4: utils\n"
 
 #: browser/about.py:45
 msgid "TV Garden Plugin"
@@ -211,27 +211,23 @@ msgstr "Εμφάνιση {shown} από {total} κανάλια"
 
 #: browser/channels.py:306
 #, python-format
-#| msgid "Found {count} playable channels"
 msgid "Found %d playable channels"
-msgstr ""
+msgstr "Βρέθηκαν %d κανάλια με δυνατότητα αναπαραγωγής"
 
 #: browser/channels.py:309 browser/search.py:331
 #, python-format
-#| msgid "(skipped {count} YouTube)"
 msgid "(skipped %d YouTube)"
-msgstr ""
+msgstr "(παραλείφθηκαν %d YouTube)"
 
 #: browser/channels.py:312 browser/search.py:334
 #, python-format
-#| msgid "(filtered {count} problematic)"
 msgid "(filtered %d problematic)"
-msgstr ""
+msgstr "(φιλτράρισμα %d προβληματικών)"
 
 #: browser/channels.py:315 browser/search.py:337
 #, python-format
-#| msgid "(limited to first {limit})"
 msgid "(limited to first %d)"
-msgstr ""
+msgstr "(περιορισμός στα πρώτα %d)"
 
 #: browser/channels.py:327 browser/search.py:142
 msgid "Error loading channels"
@@ -247,15 +243,13 @@ msgstr "Άγνωστο"
 
 #: browser/channels.py:428 browser/favorites.py:239
 #, python-format
-#| msgid "Remove '{}' from favorites?"
 msgid "Remove '%s' from favorites?"
-msgstr ""
+msgstr "Να γίνει αφαίρεση του '%s' από τα αγαπημένα;"
 
 #: browser/channels.py:462
 #, python-format
-#| msgid "Stream: %s"
 msgid "Stream: %s..."
-msgstr ""
+msgstr "Ροή: %s..."
 
 #: browser/channels.py:464
 #, python-format
@@ -349,7 +343,7 @@ msgstr "Αφαίρεση από τα αγαπημένα"
 
 #: browser/favorites.py:151
 msgid "Clear All Favorites"
-msgstr "Καθαρισμός όλων των αγαπημένων"
+msgstr "Εκκαθάριση όλων των αγαπημένων"
 
 #: browser/favorites.py:152
 msgid "Export to Enigma2 Bouquet"
@@ -361,15 +355,13 @@ msgstr "Αφαίρεση μπουκέτου από το Enigma2"
 
 #: browser/favorites.py:159
 #, python-format
-#| msgid "Options for: {}"
 msgid "Options for: %s"
-msgstr ""
+msgstr "Επιλογές για: %s"
 
 #: browser/favorites.py:181
 #, python-format
-#| msgid "Export '{}' to Enigma2 bouquet?"
 msgid "Export '%s' to Enigma2 bouquet?"
-msgstr ""
+msgstr "Να γίνει εξαγωγή του '%s' σε μπουκέτο Enigma2;"
 
 #: browser/favorites.py:189
 msgid "Remove TV Garden bouquet from Enigma2?"
@@ -377,13 +369,12 @@ msgstr "Να γίνει αφαίρεση του μπουκέτου TV Garden α�
 
 #: browser/favorites.py:197
 msgid "Clear ALL favorites?"
-msgstr "Να γίνει καθαρισμός ΟΛΩΝ των αγαπημένων;"
+msgstr "Να γίνει εκκαθάριση ΟΛΩΝ των αγαπημένων;"
 
 #: browser/favorites.py:252
 #, python-format
-#| msgid "{} favorites"
 msgid "%d favorites"
-msgstr ""
+msgstr "%d αγαπημένα"
 
 #: browser/favorites.py:278
 msgid "No stream URL available"
@@ -399,9 +390,8 @@ msgstr "Δεν υπάρχουν αγαπημένα για εξαγωγή"
 
 #: browser/favorites.py:314
 #, python-format
-#| msgid "Export ALL {} favorites to Enigma2 bouquet?"
 msgid "Export ALL %d favorites to Enigma2 bouquet?"
-msgstr ""
+msgstr "Να γίνει εξαγωγή ΟΛΩΝ των %d αγαπημένων σε μπουκέτο Enigma2;"
 
 #: browser/search.py:67
 msgid "Search:"
@@ -421,9 +411,8 @@ msgstr "Εκκαθάριση"
 
 #: browser/search.py:134
 #, python-format
-#| msgid "Press GREEN for keyboard... Ready - {} channels"
 msgid "Press GREEN for keyboard... Ready - %d channels"
-msgstr ""
+msgstr "Πατήστε το ΠΡΑΣΙΝΟ για πληκτρολόγιο... Έτοιμο - %d κανάλια"
 
 #: browser/search.py:137
 msgid "No channels loaded"
@@ -444,15 +433,13 @@ msgstr "Εμφάνιση {shown} από {total} αποτελέσματα"
 
 #: browser/search.py:328
 #, python-format
-#| msgid "Found {} channels"
 msgid "Found %d channels"
-msgstr ""
+msgstr "Βρέθηκαν %d κανάλια"
 
 #: browser/search.py:345
 #, python-format
-#| msgid "No channels found for: {}"
 msgid "No channels found for: %s"
-msgstr ""
+msgstr "Δεν βρέθηκαν κανάλια για: %s"
 
 #: browser/search.py:419
 msgid "Removed from favorites"
@@ -497,11 +484,11 @@ msgstr "Αναζήτηση καναλιών βάσει ονόματος"
 #: plugin.py:147 utils/settings.py:148 utils/settings.py:215
 #: utils/settings.py:341 utils/settings.py:443 utils/settings.py:475
 msgid "Check for Updates"
-msgstr ""
+msgstr "Έλεγχος για ενημερώσεις"
 
 #: plugin.py:147
 msgid "Check for plugin updates"
-msgstr ""
+msgstr "Έλεγχος για ενημερώσεις του πρόσθετου"
 
 #: plugin.py:148 plugin.py:160
 msgid "Settings"
@@ -533,7 +520,7 @@ msgstr "Τα δεδομένα ανανεώθηκαν επιτυχώς"
 
 #: plugin.py:210
 msgid "Cache and metadata have been refreshed."
-msgstr "Η προσωρινή μνήμη και τα μεταδεδομένα ανανεώθηκαν."
+msgstr "Η προσωρινή μνήμη και τα μεταδεδομένα έχουν ανανεωθεί."
 
 #: plugin.py:215
 msgid "Failed to refresh data. Check internet connection."
@@ -541,14 +528,13 @@ msgstr "Αποτυχία ανανέωσης δεδομένων. Ελέγξτε �
 
 #: plugin.py:243 utils/update_manager.py:57
 msgid "Update check error"
-msgstr ""
+msgstr "Σφάλμα ελέγχου ενημέρωσης"
 
 #: plugin.py:245 utils/favorites.py:230 utils/favorites.py:368
 #: utils/favorites.py:408 utils/settings.py:170
 #, python-format
-#| msgid "Error: {}"
 msgid "Error: %s"
-msgstr ""
+msgstr "Σφάλμα: %s"
 
 #: plugin.py:321
 msgid "TV Garden"
@@ -564,9 +550,8 @@ msgstr "Ήδη στα αγαπημένα"
 
 #: utils/favorites.py:86
 #, python-format
-#| msgid "Added to favorites: {}"
 msgid "Added to favorites: %s"
-msgstr ""
+msgstr "Προστέθηκε στα αγαπημένα: %s"
 
 #: utils/favorites.py:89 utils/favorites.py:104
 msgid "Error saving favorites"
@@ -574,9 +559,8 @@ msgstr "Σφάλμα αποθήκευσης αγαπημένων"
 
 #: utils/favorites.py:101
 #, python-format
-#| msgid "Removed from favorites: {}"
 msgid "Removed from favorites: %s"
-msgstr ""
+msgstr "Αφαιρέθηκε από τα αγαπημένα: %s"
 
 #: utils/favorites.py:106
 msgid "Channel not found in favorites"
@@ -592,14 +576,13 @@ msgstr "Δεν βρέθηκαν έγκυρα URL ροής"
 
 #: utils/favorites.py:226
 #, python-format
-#| msgid "Channel added to bouquet"
 msgid "Exported %d channels to bouquet"
-msgstr ""
+msgstr "Έγινε εξαγωγή %d καναλιών σε μπουκέτο"
 
 #: utils/favorites.py:364
 #, python-format
 msgid "Bouquet removed. %d files deleted. Order preserved."
-msgstr ""
+msgstr "Το μπουκέτο αφαιρέθηκε. Διαγράφηκαν %d αρχεία. Η σειρά διατηρήθηκε."
 
 #: utils/favorites.py:404
 msgid "Channel added to bouquet"
@@ -607,9 +590,8 @@ msgstr "Το κανάλι προστέθηκε στο μπουκέτο"
 
 #: utils/favorites.py:416
 #, python-format
-#| msgid "Cleared {} favorites"
 msgid "Cleared %d favorites"
-msgstr ""
+msgstr "Εκκαθαρίστηκαν %d αγαπημένα"
 
 #: utils/favorites.py:419
 msgid "Error clearing favorites"
@@ -643,7 +625,7 @@ msgstr "Προβολή αρχείου καταγραφής"
 #: utils/settings.py:144 utils/settings.py:215 utils/settings.py:400
 #: utils/settings.py:442 utils/settings.py:475
 msgid "Clear Log Files Now"
-msgstr "Καθαρισμός αρχείων καταγραφής τώρα"
+msgstr "Εκκαθάριση αρχείων καταγραφής τώρα"
 
 #: utils/settings.py:166
 msgid "Are you sure you want to clear all log files?"
@@ -651,17 +633,16 @@ msgstr "Είστε σίγουροι ότι θέλετε να καθαρίσετ�
 
 #: utils/settings.py:177
 msgid "Logs cleared"
-msgstr "Οι καταγραφές διαγράφηκαν"
+msgstr "Τα αρχεία καταγραφής εκκαθαρίστηκαν"
 
 #: utils/settings.py:180
 msgid "Log files cleared successfully"
-msgstr "Τα αρχεία καταγραφής διαγράφηκαν με επιτυχία"
+msgstr "Τα αρχεία καταγραφής εκκαθαρίστηκαν με επιτυχία"
 
 #: utils/settings.py:187
 #, python-format
-#| msgid "Error clearing logs: {}"
 msgid "Error clearing logs: %s"
-msgstr ""
+msgstr "Σφάλμα εκκαθάρισης αρχείων καταγραφής: %s"
 
 #: utils/settings.py:227 utils/settings.py:423
 msgid "Player"
@@ -768,14 +749,12 @@ msgid "User Agent"
 msgstr "Παράγοντας χρήστη"
 
 #: utils/settings.py:336
-#| msgid "=== Logging Settings ==="
 msgid "=== Update Settings ==="
-msgstr ""
+msgstr "=== Ρυθμίσεις ενημέρωσης ==="
 
 #: utils/settings.py:343
-#| msgid "Press OK to clear logs"
 msgid "Press OK to check for updates"
-msgstr ""
+msgstr "Πατήστε OK για έλεγχο ενημερώσεων"
 
 #: utils/settings.py:350
 msgid "=== Logging Settings ==="
@@ -830,40 +809,37 @@ msgid "Press OK to clear logs"
 msgstr "Πατήστε OK για καθαρισμό καταγραφών"
 
 #: utils/update_manager.py:23
-#| msgid "Loading favorites..."
 msgid "Checking for updates..."
-msgstr ""
+msgstr "Γίνεται έλεγχος για ενημερώσεις..."
 
 #: utils/update_manager.py:34
 msgid "Update check failed"
-msgstr ""
+msgstr "Αποτυχία ελέγχου ενημέρωσης"
 
 #: utils/update_manager.py:36
-#| msgid "Failed to refresh data. Check internet connection."
 msgid "Could not check for updates. Check internet connection."
-msgstr ""
+msgstr "Δεν ήταν δυνατός ο έλεγχος για ενημερώσεις. Ελέγξτε τη σύνδεση στο διαδίκτυο."
 
 #: utils/update_manager.py:41
-#| msgid "No stream URL available"
 msgid "Update available!"
-msgstr ""
+msgstr "Διαθέσιμη ενημέρωση!"
 
 #: utils/update_manager.py:46
 msgid "Plugin is up to date"
-msgstr ""
+msgstr "Το πρόσθετο είναι ενημερωμένο"
 
 #: utils/update_manager.py:48
 msgid "You have the latest version of TV Garden."
-msgstr ""
+msgstr "Έχετε την τελευταία έκδοση του TV Garden."
 
 #: utils/update_manager.py:59
 #, python-format
 msgid "Could not check for updates: %s"
-msgstr ""
+msgstr "Αδυναμία ελέγχου για ενημερώσεις: %s"
 
 #: utils/update_manager.py:73
 msgid "Update cancelled"
-msgstr ""
+msgstr "Η ενημέρωση ακυρώθηκε"
 
 #: utils/update_manager.py:75
 msgid ""
@@ -873,11 +849,15 @@ msgid ""
 "\n"
 "(Recommended to backup first)"
 msgstr ""
+"Μια νέα έκδοση είναι διαθέσιμη!\r\n"
+"\r\n"
+"Θέλετε να γίνει ενημέρωση τώρα;\r\n"
+"\r\n"
+"(Συνιστάται πρώτα να δημιουργήσετε αντίγραφο ασφαλείας)"
 
 #: utils/update_manager.py:91
-#| msgid "Data refreshed successfully"
 msgid "Update successful!"
-msgstr ""
+msgstr "Επιτυχής ενημέρωση!"
 
 #: utils/update_manager.py:93
 #, python-format
@@ -886,43 +866,39 @@ msgid ""
 "\n"
 "Restart Enigma2 now for changes to take effect."
 msgstr ""
+"%s\n"
+"\n"
+"Επανεκκινήστε τώρα το Enigma2 για να εφαρμοστούν οι αλλαγές."
 
 #: utils/update_manager.py:102
 msgid "Update failed"
-msgstr ""
+msgstr "Η ενημέρωση απέτυχε"
 
 #: utils/update_manager.py:108
 msgid "Updating plugin... Please wait"
-msgstr ""
+msgstr "Ενημέρωση του πρόσθετου... Παρακαλώ περιμένετε"
 
 #: utils/update_manager.py:125
 msgid "Please restart Enigma2 manually."
-msgstr ""
+msgstr "Παρακαλώ επανεκκινήστε το Enigma2 χειροκίνητα."
 
 #: utils/updater.py:147
 msgid "Failed to create backup. Update cancelled."
-msgstr ""
+msgstr "Αποτυχία δημιουργίας αντιγράφου ασφαλείας. Η ενημέρωση ακυρώθηκε."
 
 #: utils/updater.py:155
-#| msgid "Data refreshed successfully"
 msgid "Update completed successfully!"
-msgstr ""
+msgstr "Η ενημέρωση ολοκληρώθηκε με επιτυχία!"
 
 #: utils/updater.py:159
 msgid "Update failed. Restored from backup."
-msgstr ""
+msgstr "Η ενημέρωση απέτυχε. Η επαναφορά από το αντίγραφο ασφαλείας ολοκληρώθηκε."
 
 #: utils/updater.py:161
 msgid "Update failed and backup restore also failed!"
-msgstr ""
+msgstr "Η ενημέρωση απέτυχε και η επαναφορά αντιγράφου ασφαλείας επίσης απέτυχε!"
 
 #: utils/updater.py:170
 #, python-format
 msgid "Update error: %s"
-msgstr ""
-
-#~ msgid "Share Channel"
-#~ msgstr "Κοινή χρήση καναλιού"
-
-#~ msgid "Report Issue"
-#~ msgstr "Αναφορά προβλήματος"
+msgstr "Σφάλμα ενημέρωσης: %s"
