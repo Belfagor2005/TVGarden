@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TVGarden\n"
-"POT-Creation-Date: 2025-12-11 19:12+0100\n"
+"POT-Creation-Date: 2025-12-12 13:43+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: lululla [ekekaz@gmail.com]\n"
@@ -184,7 +184,7 @@ msgstr ""
 msgid "Cache cleared"
 msgstr ""
 
-#: browser/categories.py:190 browser/countries.py:361 plugin.py:213
+#: browser/categories.py:190 browser/countries.py:361
 msgid "Refresh failed"
 msgstr ""
 
@@ -514,33 +514,33 @@ msgstr ""
 msgid "Refreshing data..."
 msgstr ""
 
-#: plugin.py:208
-msgid "Data refreshed successfully"
+#: plugin.py:218
+#, python-format
+msgid ""
+"Refresh completed!\n"
+"Loaded %d countries"
 msgstr ""
 
-#: plugin.py:210
-msgid "Cache and metadata have been refreshed."
+#: plugin.py:223
+#, python-format
+msgid "Refresh failed: %s"
 msgstr ""
 
-#: plugin.py:215
-msgid "Failed to refresh data. Check internet connection."
-msgstr ""
-
-#: plugin.py:243 utils/update_manager.py:57
+#: plugin.py:246 utils/update_manager.py:57
 msgid "Update check error"
 msgstr ""
 
-#: plugin.py:245 utils/favorites.py:230 utils/favorites.py:368
+#: plugin.py:248 utils/favorites.py:230 utils/favorites.py:368
 #: utils/favorites.py:408 utils/settings.py:170
 #, python-format
 msgid "Error: %s"
 msgstr ""
 
-#: plugin.py:321
+#: plugin.py:324
 msgid "TV Garden"
 msgstr ""
 
-#: plugin.py:336
+#: plugin.py:339
 msgid "Access free IPTV channels from around the world"
 msgstr ""
 

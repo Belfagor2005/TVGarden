@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TVGarden\n"
-"POT-Creation-Date: 2025-12-11 19:12+0100\n"
+"POT-Creation-Date: 2025-12-12 13:43+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: lululla [ekekaz@gmail.com]\n"
@@ -184,7 +184,7 @@ msgstr "Aggiornamento della cache..."
 msgid "Cache cleared"
 msgstr "Cache cancellata"
 
-#: browser/categories.py:190 browser/countries.py:361 plugin.py:213
+#: browser/categories.py:190 browser/countries.py:361
 msgid "Refresh failed"
 msgstr "Aggiornamento fallito"
 
@@ -514,33 +514,35 @@ msgstr "Esci"
 msgid "Refreshing data..."
 msgstr "Aggiornamento dei dati in corso..."
 
-#: plugin.py:208
-msgid "Data refreshed successfully"
-msgstr "Dati aggiornati correttamente"
+#: plugin.py:218
+#, python-format
+msgid ""
+"Refresh completed!\n"
+"Loaded %d countries"
+msgstr ""
+"Aggiornamento completato!\n"
+"Caricati %d paesi"
 
-#: plugin.py:210
-msgid "Cache and metadata have been refreshed."
-msgstr "La cache e i metadati sono stati aggiornati."
+#: plugin.py:223
+#, python-format
+msgid "Refresh failed: %s"
+msgstr "Aggiornamento non riuscito: %s"
 
-#: plugin.py:215
-msgid "Failed to refresh data. Check internet connection."
-msgstr "Impossibile aggiornare i dati. Controllare la connessione Internet."
-
-#: plugin.py:243 utils/update_manager.py:57
+#: plugin.py:246 utils/update_manager.py:57
 msgid "Update check error"
 msgstr "Errore di controllo dell'aggiornamento"
 
-#: plugin.py:245 utils/favorites.py:230 utils/favorites.py:368
+#: plugin.py:248 utils/favorites.py:230 utils/favorites.py:368
 #: utils/favorites.py:408 utils/settings.py:170
 #, python-format
 msgid "Error: %s"
 msgstr "Errore: %s"
 
-#: plugin.py:321
+#: plugin.py:324
 msgid "TV Garden"
 msgstr ""
 
-#: plugin.py:336
+#: plugin.py:339
 msgid "Access free IPTV channels from around the world"
 msgstr "Accedi gratuitamente ai canali IPTV da tutto il mondo"
 
@@ -906,6 +908,15 @@ msgstr ""
 #, python-format
 msgid "Update error: %s"
 msgstr "Errore di aggiornamento: %s"
+
+#~ msgid "Data refreshed successfully"
+#~ msgstr "Dati aggiornati correttamente"
+
+#~ msgid "Cache and metadata have been refreshed."
+#~ msgstr "La cache e i metadati sono stati aggiornati."
+
+#~ msgid "Failed to refresh data. Check internet connection."
+#~ msgstr "Impossibile aggiornare i dati. Controllare la connessione Internet."
 
 #, python-format
 #~ msgid "New version %s available! Go to menu > Check for Updates."

@@ -200,50 +200,53 @@ class TVGardenMain(Screen):
         self.session.open(TVGardenSettings)
 
     def refresh_data(self):
-        """Refresh cache and metadata"""
+        """Refresh cache and metadata - VERSIONE CORRETTA"""
         self["status"].setText(_("Refreshing data..."))
-
-        def refresh_callback(result):
-            if result:
-                self["status"].setText(_("Data refreshed successfully"))
-                self.session.open(MessageBox,
-                                  _("Cache and metadata have been refreshed."),
-                                  MessageBox.TYPE_INFO)
-            else:
-                self["status"].setText(_("Refresh failed"))
-                self.session.open(MessageBox,
-                                  _("Failed to refresh data. Check internet connection."),
-                                  MessageBox.TYPE_ERROR)
-
-        self.cache.clear_all()
-        self.cache.get_countries_metadata(force_refresh=True)
-        self["status"] = Label(
-            "TV Garden v.%s | Cache: %d items" % (PLUGIN_VERSION, self.cache.get_size())
-        )
+        
+        try:
+            self.cache.clear_all()
+            
+            countries_data = self.cache.get_countries_metadata(force_refresh=True)
+            
+            cache_size = self.cache.get_size()
+            
+            new_status = "TV Garden v.%s | Cache: %d items" % (PLUGIN_VERSION, cache_size)
+            self["status"].setText(new_status)
+            
+            self.session.open(
+                MessageBox,
+                _("Refresh completed!\nLoaded %d countries") % len(countries_data),
+                MessageBox.TYPE_INFO
+            )
+            
+        except Exception as e:
+            error_msg = _("Refresh failed: %s") % str(e)
+            self["status"].setText(error_msg)
+            log.error("Refresh error: %s" % str(e), module="Main")
 
     def check_for_updates(self):
         """Check for plugin updates - VERSIONE CENTRALIZZATA"""
         log.debug("check_for_updates called from main menu", module="Main")
-        
+
         # Test diretto per vedere se il problema è in UpdateManager
         try:
             log.debug("Creating UpdateManager instance...", module="Main")
             updater = PluginUpdater()
             log.debug("PluginUpdater created successfully", module="Main")
-            
+
             # Test diretto della funzione
             latest = updater.get_latest_version()
             log.debug("Direct test - Latest version: %s" % latest, module="Main")
-            
+
             # Ora usa UpdateManager
             UpdateManager.check_for_updates(self.session, self["status"])
-            
+
         except Exception as e:
             log.error("Direct test error: %s" % e, module="Main")
             self["status"].setText(_("Update check error"))
             self.session.open(MessageBox,
-                             _("Error: %s") % str(e),
-                             MessageBox.TYPE_ERROR)
+                              _("Error: %s") % str(e),
+                              MessageBox.TYPE_ERROR)
 
     def show_about_fallback(self):
         col1_width = 30
