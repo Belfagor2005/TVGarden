@@ -5,7 +5,7 @@ TV Garden Plugin - Cache Module
 Smart caching with TTL + gzip
 Based on TV Garden Project
 """
-
+from __future__ import print_function
 import time
 import hashlib
 import gzip

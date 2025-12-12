@@ -5,7 +5,7 @@ TV Garden Plugin - Channels Browser
 List and play IPTV channels
 Based on TV Garden Project
 """
-
+from __future__ import print_function
 import tempfile
 from os import unlink
 from sys import stderr, version_info

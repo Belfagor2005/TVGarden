@@ -5,7 +5,7 @@ TV Garden Plugin - Countries Browser
 Browse 150+ countries with flags
 Based on TV Garden Project
 """
-
+from __future__ import print_function
 import tempfile
 from os import unlink
 from os.path import exists

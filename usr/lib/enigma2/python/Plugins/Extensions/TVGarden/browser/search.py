@@ -5,7 +5,7 @@ TV Garden Plugin - SearchBrowser
 Live search like Vavoo
 Data Source: TV Garden Project
 """
-
+from __future__ import print_function
 from Components.Label import Label
 from Components.MenuList import MenuList
 from Components.ActionMap import ActionMap

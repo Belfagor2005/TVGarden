@@ -5,7 +5,7 @@ TV Garden Plugin - Favorites Browser
 Browse and manage favorite channels
 Based on TV Garden Project
 """
-
+from __future__ import print_function
 from Components.Label import Label
 from Screens.TextBox import TextBox
 from enigma import eServiceReference

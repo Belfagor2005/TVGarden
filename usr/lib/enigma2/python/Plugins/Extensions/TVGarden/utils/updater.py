@@ -4,7 +4,7 @@
 TV Garden Plugin - Updater Module
 Based on TV Garden Project
 """
-
+from __future__ import print_function
 import time
 import shutil
 import subprocess

@@ -5,7 +5,7 @@
 TV Garden Plugin for Enigma2
 Based on TV Garden Project
 """
-
+from __future__ import print_function
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS
 from Components.Language import language
 from os import environ

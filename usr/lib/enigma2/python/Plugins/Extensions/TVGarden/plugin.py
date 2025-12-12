@@ -5,7 +5,7 @@
 ###########################################################
 #                                                         #
 #  TV Garden Plugin for Enigma2                           #
-#  Version: 1.1                                           #
+#  Version: 1.2                                           #
 #  Created by Enigma2 Developer Lulualla                  #
 #  Based on TV Garden Project by Lululla                  #
 #  Data Source: Belfagor2005 fork                         #
@@ -52,7 +52,7 @@
 ###########################################################
 """
 
-from __future__ import absolute_import
+from __future__ import absolute_import, print_function
 from os.path import dirname
 from sys import path
 

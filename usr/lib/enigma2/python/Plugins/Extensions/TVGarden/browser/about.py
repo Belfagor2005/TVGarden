@@ -4,7 +4,7 @@
 TV Garden Plugin - About Screen
 Shows plugin information, credits and version
 """
-
+from __future__ import print_function
 from enigma import eTimer
 from Screens.Screen import Screen
 from Components.Label import Label
