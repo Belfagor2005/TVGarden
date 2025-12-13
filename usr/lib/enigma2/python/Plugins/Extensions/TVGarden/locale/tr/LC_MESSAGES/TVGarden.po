@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TVGarden\n"
-"POT-Creation-Date: 2025-12-13 15:20+0100\n"
+"POT-Creation-Date: 2025-12-13 19:38+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: lululla [ekekaz@gmail.com]\n"
@@ -217,7 +217,7 @@ msgstr ""
 msgid "Add to Favorites"
 msgstr ""
 
-#: browser/channels.py:153 browser/favorites.py:389
+#: browser/channels.py:153 browser/favorites.py:419
 msgid "Channel Information"
 msgstr ""
 
@@ -297,7 +297,7 @@ msgstr ""
 msgid "Test Export (1 channel)"
 msgstr ""
 
-#: browser/channels.py:592 utils/favorites.py:192
+#: browser/channels.py:592 utils/favorites.py:195 utils/favorites.py:781
 msgid "No channels to export"
 msgstr ""
 
@@ -315,15 +315,15 @@ msgstr ""
 msgid "Export failed: %s"
 msgstr ""
 
-#: browser/channels.py:675 browser/search.py:399 utils/favorites.py:613
+#: browser/channels.py:675 browser/search.py:399 utils/favorites.py:659
 msgid "No stream URL"
 msgstr ""
 
-#: browser/channels.py:702 browser/favorites.py:243
+#: browser/channels.py:702 browser/favorites.py:252
 msgid "Unknown"
 msgstr ""
 
-#: browser/channels.py:708 browser/favorites.py:248
+#: browser/channels.py:708 browser/favorites.py:257
 #, python-format
 msgid "Remove '%s' from favorites?"
 msgstr ""
@@ -391,7 +391,7 @@ msgstr ""
 msgid "Error loading favorites"
 msgstr ""
 
-#: browser/favorites.py:145 browser/favorites.py:303
+#: browser/favorites.py:145 browser/favorites.py:333
 msgid "No channel selected"
 msgstr ""
 
@@ -412,67 +412,85 @@ msgid "Export to Enigma2 Bouquet"
 msgstr ""
 
 #: browser/favorites.py:153
-msgid "Export ALL Database"
+msgid "Export ALL Database (Single File)"
 msgstr ""
 
 #: browser/favorites.py:154
+msgid "Export ALL Database (Multi-File)"
+msgstr ""
+
+#: browser/favorites.py:155
 msgid "Remove Bouquet from Enigma2"
 msgstr ""
 
-#: browser/favorites.py:160
+#: browser/favorites.py:161
 #, python-format
 msgid "Options for: %s"
 msgstr ""
 
-#: browser/favorites.py:182
+#: browser/favorites.py:183
 #, python-format
 msgid "Export '%s' to Enigma2 bouquet?"
 msgstr ""
 
-#: browser/favorites.py:190
+#: browser/favorites.py:191
 msgid "Remove TV Garden bouquet from Enigma2?"
 msgstr ""
 
-#: browser/favorites.py:198
+#: browser/favorites.py:199
 msgid "Clear ALL favorites?"
 msgstr ""
 
-#: browser/favorites.py:206
+#: browser/favorites.py:207
 msgid ""
 "Export ALL channels from TV Garden database?\n"
 "This may take some time."
 msgstr ""
 
-#: browser/favorites.py:261
+#: browser/favorites.py:215
+msgid ""
+"Export ALL channels with multi-file structure?\n"
+"This will create smaller bouquet files for better performance."
+msgstr ""
+
+#: browser/favorites.py:270
 #, python-format
 msgid "%d favorites"
 msgstr ""
 
-#: browser/favorites.py:275
+#: browser/favorites.py:284
 msgid "Loading all channels..."
 msgstr ""
 
-#: browser/favorites.py:287
+#: browser/favorites.py:296
 msgid "Database exported successfully"
 msgstr ""
 
-#: browser/favorites.py:289
+#: browser/favorites.py:298 browser/favorites.py:319
 msgid "Export failed"
 msgstr ""
 
-#: browser/favorites.py:308
+#: browser/favorites.py:305
+msgid "Creating hierarchical structure..."
+msgstr ""
+
+#: browser/favorites.py:317
+msgid "Hierarchical export completed"
+msgstr ""
+
+#: browser/favorites.py:338
 msgid "No stream URL available"
 msgstr ""
 
-#: browser/favorites.py:327 browser/search.py:414
+#: browser/favorites.py:357 browser/search.py:414
 msgid "Error opening player"
 msgstr ""
 
-#: browser/favorites.py:335
+#: browser/favorites.py:365
 msgid "No favorites to export"
 msgstr ""
 
-#: browser/favorites.py:344
+#: browser/favorites.py:374
 #, python-format
 msgid "Export ALL %d favorites to Enigma2 bouquet?"
 msgstr ""
@@ -614,8 +632,8 @@ msgstr ""
 msgid "Update check error"
 msgstr ""
 
-#: plugin.py:307 utils/favorites.py:270 utils/favorites.py:448
-#: utils/favorites.py:594 utils/favorites.py:642 utils/settings.py:240
+#: plugin.py:307 utils/favorites.py:273 utils/favorites.py:640
+#: utils/favorites.py:688 utils/favorites.py:823 utils/settings.py:240
 #, python-format
 msgid "Error: %s"
 msgstr ""
@@ -628,69 +646,115 @@ msgstr ""
 msgid "Access free IPTV channels from around the world"
 msgstr ""
 
-#: utils/favorites.py:76
+#: utils/favorites.py:79
 msgid "Already in favorites"
 msgstr ""
 
-#: utils/favorites.py:88
+#: utils/favorites.py:91
 #, python-format
 msgid "Added to favorites: %s"
 msgstr ""
 
-#: utils/favorites.py:91 utils/favorites.py:106
+#: utils/favorites.py:94 utils/favorites.py:109
 msgid "Error saving favorites"
 msgstr ""
 
-#: utils/favorites.py:103
+#: utils/favorites.py:106
 #, python-format
 msgid "Removed from favorites: %s"
 msgstr ""
 
-#: utils/favorites.py:108
+#: utils/favorites.py:111
 msgid "Channel not found in favorites"
 msgstr ""
 
-#: utils/favorites.py:260 utils/favorites.py:434
+#: utils/favorites.py:263 utils/favorites.py:480
 msgid "No valid stream URLs found"
 msgstr ""
 
-#: utils/favorites.py:266
+#: utils/favorites.py:269
 #, python-format
 msgid "Exported %d channels to bouquet"
 msgstr ""
 
-#: utils/favorites.py:283
+#: utils/favorites.py:286 utils/favorites.py:701
 msgid "Empty database"
 msgstr ""
 
-#: utils/favorites.py:294
+#: utils/favorites.py:306 utils/favorites.py:705
 msgid "Failed to load database"
 msgstr ""
 
-#: utils/favorites.py:360
+#: utils/favorites.py:398 utils/favorites.py:742
 msgid "No valid channels found in database"
 msgstr ""
 
-#: utils/favorites.py:440
-#, python-brace-format
-msgid "Exported {count} channels from {countries} countries"
+#: utils/favorites.py:488
+msgid "Exported"
 msgstr ""
 
-#: utils/favorites.py:590
-#, python-format
-msgid "Bouquet removed. %d files deleted. Order preserved."
+#: utils/favorites.py:490
+msgid "channels from"
 msgstr ""
 
-#: utils/favorites.py:638
+#: utils/favorites.py:492
+msgid "countries"
+msgstr ""
+
+#: utils/favorites.py:501 utils/settings.py:420
+msgid "Error"
+msgstr ""
+
+#: utils/favorites.py:630
+msgid "Removed"
+msgstr ""
+
+#: utils/favorites.py:632
+msgid "files and"
+msgstr ""
+
+#: utils/favorites.py:634
+msgid "bouquet references"
+msgstr ""
+
+#: utils/favorites.py:684
 msgid "Channel added to bouquet"
 msgstr ""
 
-#: utils/favorites.py:650
+#: utils/favorites.py:805
+msgid "Hierarchical export completed!"
+msgstr ""
+
+#: utils/favorites.py:807
+msgid "Statistics:"
+msgstr ""
+
+#: utils/favorites.py:808
+msgid "Total channels:"
+msgstr ""
+
+#: utils/favorites.py:809
+msgid "Countries exported:"
+msgstr ""
+
+#: utils/favorites.py:810
+msgid "Files created:"
+msgstr ""
+
+#: utils/favorites.py:813
+msgid "Structure created:"
+msgstr ""
+
+#: utils/favorites.py:816
+msgid "Main bouquet:"
+msgstr ""
+
+#: utils/favorites.py:981
 #, python-format
 msgid "Cleared %d favorites"
 msgstr ""
 
-#: utils/favorites.py:653
+#: utils/favorites.py:984
 msgid "Error clearing favorites"
 msgstr ""
 
@@ -826,10 +890,6 @@ msgstr ""
 
 #: utils/settings.py:419
 msgid "Warning"
-msgstr ""
-
-#: utils/settings.py:420
-msgid "Error"
 msgstr ""
 
 #: utils/settings.py:421

@@ -309,33 +309,28 @@ class TVGardenMain(Screen):
 
     def show_about_fallback(self):
         about_text = """
-            TV GARDEN v%s | Cache: %d items
-
-            * Global: 150+ countries, 29 categories
-            * Streams: 50K+, HW Acceleration
-            * Buffer: 512KB-8MB, Export bouquet
-            * Search: Virtual keyboard, Smart filter
+            TV GARDEN v%s
+            Cache: %d items | Countries: 150+ | Streams: 50K+
 
             CONTROLS:
-            - PLAYER: CH+/−=Zap, OK=Info+Stats
-            - FAVORITES: BLUE=Export bouquet
-            - SETTINGS: 47+ options, Log viewer
+            • Browser: OK=Play, Yellow=Options, Blue=Export
+            • Favorites: Blue=Export all, Yellow=Single/Multi export
+            • Player: CH+/−=Zap, OK=Info, Red=Favorite
+
+            NEW EXPORT SYSTEM:
+            • Single File: All in one bouquet
+            • Multi-File: Smart split (>500 ch)
+            • Parent: userbouquet.tvgarden_container.tv
+            • Children: subbouquet.tvgarden_[country].tv
 
             PERFORMANCE:
-            - HW Accel for H.264/H.265
-            - Buffer size configurable
-            - Smart stream filtering
+            • HW Acceleration for H.264/H.265
+            • Buffer: 512KB-8MB configurable
+            • Max 500 channels per file
 
-            BOUQUET EXPORT:
-            - To Enigma2 native bouquet
-            - Configurable name & channels
-            - Auto-refresh option
-
-            STATUS: FULLY OPERATIONAL
-            SETTINGS: 47 parameters
-            LOGS: File + Rotation active
+            STATUS: OPERATIONAL | EXPORT: Dual Mode
             """ % (PLUGIN_VERSION, self.cache.get_size())
-    
+
         self.session.open(MessageBox, about_text.strip(), MessageBox.TYPE_INFO)
 
     def show_about(self):

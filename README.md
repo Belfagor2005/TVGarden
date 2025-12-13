@@ -47,6 +47,8 @@
 - **Configurable Export** - Bouquet name prefix, max channels, auto-refresh
 - **Favorites Management** - Unlimited storage with backup/restore
 - **Settings Backup** - Automatic configuration backup system
+- **Dual Export System** - Single-file simplicity or multi-file hierarchical performance
+- **Smart Channel Splitting** - Countries with >500 channels automatically split into multiple bouquet files
 
 ### 🛡️ Reliability & Safety
 - **DRM/Crash Protection** - Filtered problematic streams
@@ -528,7 +530,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 *Last Updated: 2025-12-13* | *Version: 1.4*
 
-### What's New in v1.4:
+### What's New in v1.5:
 - ✅ **Hardware Acceleration** - Configurable HW acceleration for H.264/H.265
 - ✅ **Buffer Size Control** - 512KB to 8MB configurable buffer
 - ✅ **Performance Optimization** - 47+ configuration parameters
@@ -537,4 +539,9 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 - ✅ **Log File Management** - Size limits and rotation
 - ✅ **Player Integration** - Performance settings applied during playback
 - ✅ **About Screen Update** - Complete feature listing
-```
+- ✅ **Dual Bouquet Export System** - Single-file simplicity or multi-file hierarchical performance
+- ✅ **Smart Channel Splitting** - Countries with >500 channels automatically split into multiple bouquet files
+- ✅ **Hierarchical Bouquet Architecture** - Parent container with country-specific sub-bouquets
+- ✅ **Enhanced Export Menu** - New options for single/multi-file export in Favorites browser
+- ✅ **Complete Bouquet Management** - Tag-based removal of all bouquet files (.tvgarden_*)
+- ✅ **Performance-Optimized Structure** - Max 500 channels per file ensures fast Enigma2 loading

@@ -87,13 +87,13 @@ class TVGardenAbout(Screen):
             self["scrolltext"].setText(about_text)
             self["version"].setText("Version: %s" % PLUGIN_VERSION)
 
-            # Auto-scroll after 3 seconds
+            # Auto-scroll after 5 seconds
             self.scroll_timer = eTimer()
             try:
                 self.scroll_timer_conn = self.scroll_timer.timeout.connect(self.auto_scroll)
             except AttributeError:
                 self.scroll_timer.callback.append(self.auto_scroll)
-            self.scroll_timer.start(3000, False)
+            self.scroll_timer.start(5000, False)
 
         except Exception as e:
             log.error("Error loading content: %s" % e, module="About")
@@ -103,8 +103,8 @@ class TVGardenAbout(Screen):
         """Generate formatted about text"""
         return """
             ═══════════════════════════════════════════════
-                     TV GARDEN PLUGIN
-                Complete IPTV Solution for Enigma2
+                         TV GARDEN PLUGIN
+                    Complete IPTV Solution for Enigma2
             ═══════════════════════════════════════════════
 
             VERSION: %s
@@ -122,6 +122,15 @@ class TVGardenAbout(Screen):
             • Configurable Channel Limits
             • Hardware Acceleration Support
             • Configurable Buffer Size (512KB - 8MB)
+
+            ━━━━━━━━━━━━━━━━━━ NEW: HIERARCHICAL BOUQUET EXPORT ━━━━━━━━━━━━━━━━━━
+            • SINGLE-FILE EXPORT: All channels in one bouquet (traditional)
+            • MULTI-FILE EXPORT: Hierarchical structure for better performance
+            • SMART SPLITTING: Countries with ≤500 channels → single file
+            • AUTO-PARTITION: Countries with >500 channels → multiple files
+            • CONTAINER SYSTEM: Parent bouquet with sub-bouquet references
+            • ENHANCED PERFORMANCE: Faster loading, no Enigma2 slowdown
+            • COMPATIBLE: Works with all Enigma2 receivers
 
             ━━━━━━━━━━━━━━━━━ PERFORMANCE SETTINGS ━━━━━━━━━━━━━━━━━━
             • Hardware Acceleration Toggle (On/Off)
@@ -145,6 +154,15 @@ class TVGardenAbout(Screen):
               BLUE            [X] Export ALL to Enigma2 Bouquet
               UP/DOWN         ^/v Navigate Channels
 
+            [ YELLOW BUTTON OPTIONS MENU ]
+              View Channel Info      - Detailed channel information
+              Remove from Favorites  - Remove selected channel
+              Clear All Favorites    - Clear all favorite channels
+              Export to Enigma2 Bouquet - Export single channel
+              Export ALL Database (Single File) - All channels in one bouquet
+              Export ALL Database (Multi-File)  - New hierarchical structure
+              Remove Bouquet from Enigma2 - Complete bouquet removal
+
             [ PLAYER ]
               CHANNEL +/-     ^/v Zap Between Channels
               OK              [i] Show Channel Info + Performance Stats
@@ -152,17 +170,30 @@ class TVGardenAbout(Screen):
               GREEN           [#] Show Channel List
               EXIT            [X] Close Player
 
-            ━━━━━━━━━━━━━━━━━ BOUQUET EXPORT ━━━━━━━━━━━━━━━━━━
-            • Export favorites to Enigma2 native bouquet
-            • Automatic bouquet.tv integration
-            • Supports single & bulk channel export
-            • Creates: userbouquet.tvgarden_TVGarden_Favorites.tv
-            • Tag-based identification (tvgarden)
-            • Easy removal via Options menu
-            • Configurable Bouquet Name Prefix
-            • Max Channels per Bouquet Limit (50-1000)
-            • Auto-Refresh Bouquet Option
-            • Requires Enigma2 restart after export
+            ━━━━━━━━━━━━━━━━━ BOUQUET EXPORT SYSTEM ━━━━━━━━━━━━━━━━━━
+            • EXPORT OPTIONS:
+              - Single channel export (via Options menu)
+              - All favorites export (Blue button in Favorites)
+              - Complete database export - SINGLE FILE
+              - Complete database export - MULTI-FILE (NEW!)
+
+            • BOUQUET STRUCTURE:
+              SINGLE-FILE: userbouquet.tvgarden_TVGarden_Favorites.tv
+              MULTI-FILE:  userbouquet.tvgarden_complete_container.tv (parent)
+                           subbouquet.tvgarden_italy.tv (child - ≤500 channels)
+                           subbouquet.tvgarden_us_part1.tv (child - >500 channels)
+
+            • AUTOMATIC INTEGRATION:
+              - Added to bouquets.tv automatically
+              - Tag-based identification (tvgarden)
+              - Auto-reload after export
+              - Preserves existing bouquet order
+
+            • REMOVAL SYSTEM:
+              - Removes ALL bouquet files with .tvgarden_ tag
+              - Cleans bouquets.tv references
+              - Preserves other bouquet files
+              - Automatic reload after removal
 
             ━━━━━━━━━━━━━━━━━ SEARCH FEATURES ━━━━━━━━━━━━━━━━━━
             • Instant Results While Typing
@@ -207,6 +238,7 @@ class TVGardenAbout(Screen):
             • Plugin Development: TV Garden Team
             • Bouquet Export Feature: Community Request
             • Performance Optimization: Recent Update
+            • Hierarchical Export: Inspired by Vavoo Plugin Architecture
             • Testing Community: Enigma2 Users Worldwide
 
             ━━━━━━━━━━━━━━━━━ PERFORMANCE TIPS ━━━━━━━━━━━━━━━━━━━━
@@ -218,12 +250,18 @@ class TVGardenAbout(Screen):
             5. Cache TTL: 4-8 hours for balance
 
             BOUQUET EXPORT TIPS:
-            1. Export favorites from Favorites Browser (BLUE button)
-            2. Single channel export via Options (YELLOW button)
-            3. Set Bouquet Name Prefix in Settings for easy identification
-            4. Configure Max Channels per Bouquet to manage size
-            5. Restart Enigma2 to see bouquet in channel list
-            6. Bouquet file location: /etc/enigma2/userbouquet.tvgarden_*.tv
+            1. SINGLE-FILE EXPORT: Best for small channel lists (<1000 channels)
+            2. MULTI-FILE EXPORT: Recommended for complete database export
+            3. File location: /etc/enigma2/
+            4. Tag pattern: *.tvgarden_* (for easy identification)
+            5. Parent container: userbouquet.tvgarden_complete_container.tv
+            6. Child bouquets: subbouquet.tvgarden_[country].tv
+
+            HIERARCHICAL STRUCTURE BENEFITS:
+            • FASTER LOADING: Each file has max 500 channels
+            • BETTER ORGANIZATION: Countries separated in individual files
+            • EASY NAVIGATION: Parent container provides overview
+            • OPTIMAL PERFORMANCE: No Enigma2 slowdown with large lists
 
             LOGGING & TROUBLESHOOTING:
             • Log Level: INFO for normal use, DEBUG for troubleshooting
@@ -231,6 +269,12 @@ class TVGardenAbout(Screen):
             • Max Log Size: 1MB-5MB recommended
             • View logs via Settings → "View Log File"
             • Clear logs via Settings → "Clear Log Files Now"
+
+            TROUBLESHOOTING BOUQUET EXPORT:
+            1. If bouquets don't appear: Restart Enigma2
+            2. To remove all bouquets: Use "Remove Bouquet" option
+            3. Check file permissions in /etc/enigma2/
+            4. Verify bouquets.tv contains TV Garden references
 
             For support, bug reports or feature requests,
             please visit the GitHub repository.

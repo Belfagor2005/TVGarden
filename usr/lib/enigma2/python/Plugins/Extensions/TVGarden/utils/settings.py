@@ -701,7 +701,7 @@ class TVGardenSettings(ConfigListScreen, Screen):
     def keyUp(self):
         """Up arrow - navigate skipping separators."""
         # Save current position
-        current_index = self["config"].getCurrentIndex()
+        # current_index = self["config"].getCurrentIndex()
         
         # Navigate up
         ConfigListScreen.keyUp(self)
@@ -723,7 +723,7 @@ class TVGardenSettings(ConfigListScreen, Screen):
     def keyDown(self):
         """Down arrow - navigate skipping separators."""
         # Save current position
-        current_index = self["config"].getCurrentIndex()
+        # current_index = self["config"].getCurrentIndex()
         list_length = len(self["config"].list)
         
         # Navigate down

@@ -150,7 +150,8 @@ class FavoritesBrowser(BaseBrowser):
             (_("Remove from Favorites"), "remove"),
             (_("Clear All Favorites"), "clear_all"),
             (_("Export to Enigma2 Bouquet"), "export_single"),
-            (_("Export ALL Database"), "export_all_database"),
+            (_("Export ALL Database (Single File)"), "export_all_database"),
+            (_("Export ALL Database (Multi-File)"), "export_all_hierarchical"),  # NEW OPTION
             (_("Remove Bouquet from Enigma2"), "remove_bouquet"),
         ]
 
@@ -201,9 +202,17 @@ class FavoritesBrowser(BaseBrowser):
 
         elif option_id == "export_all_database":
             self.session.openWithCallback(
-                self._execute_export_all_database,  # <-- Chiama il metodo correttamente
+                self._execute_export_all_database,
                 MessageBox,
                 _("Export ALL channels from TV Garden database?\nThis may take some time."),
+                MessageBox.TYPE_YESNO
+            )
+
+        elif option_id == "export_all_hierarchical":
+            self.session.openWithCallback(
+                lambda r: self._execute_export_all_hierarchical(r),
+                MessageBox,
+                _("Export ALL channels with multi-file structure?\nThis will create smaller bouquet files for better performance."),
                 MessageBox.TYPE_YESNO
             )
 
@@ -268,7 +277,7 @@ class FavoritesBrowser(BaseBrowser):
         )
 
     def _execute_export_all_database(self, result):
-        """Execute export of all database channels"""
+        """Execute export of all database channels (single file)"""
         if not result:
             return
         
@@ -285,6 +294,27 @@ class FavoritesBrowser(BaseBrowser):
         
         if success:
             self["status"].setText(_("Database exported successfully"))
+        else:
+            self["status"].setText(_("Export failed"))
+
+    def _execute_export_all_hierarchical(self, result):
+        """Execute export of all database channels with hierarchical structure"""
+        if not result:
+            return
+        
+        self["status"].setText(_("Creating hierarchical structure..."))
+        
+        success, message = self.fav_manager.export_all_channels_hierarchical()
+        
+        self.session.open(
+            MessageBox,
+            message,
+            MessageBox.TYPE_INFO if success else MessageBox.TYPE_ERROR,
+            timeout=8
+        )
+        
+        if success:
+            self["status"].setText(_("Hierarchical export completed"))
         else:
             self["status"].setText(_("Export failed"))
 
