@@ -11,6 +11,7 @@ from os import makedirs, chmod
 from json import load, dump
 from Tools.Directories import fileExists
 import shutil
+from .. import USER_AGENT
 from ..helpers import log
 from .. import PLUGIN_PATH
 
@@ -34,84 +35,79 @@ class PluginConfig:
 
         # ============ DEFAULT CONFIGURATION ============
         self.defaults = {
-            # Player settings
-            "player": "exteplayer3",
-            "timeout": 10,
-            "retries": 3,
-            "volume": 80,
+            # ============ PLAYER SETTINGS ============
+            "player": "exteplayer3",             # "auto", "exteplayer3", "gstplayer"
+            "timeout": 10,                       # Connection timeout in seconds
+            "retries": 3,                        # Connection retry attempts
+            "volume": 80,                        # Default volume 0-100
 
-            # Display settings
-            "skin": "auto",
-            "show_flags": True,
-            "show_logos": True,
-            "show_info": True,
+            # ============ DISPLAY SETTINGS ============
+            "skin": "auto",                      # "auto", "hd", "fhd", "wqhd"
+            "show_flags": True,                  # Show country flags
+            "show_logos": True,                  # Show channel logos
+            "show_info": True,                   # Show channel info
+            "items_per_page": 20,                # Items per browser page
 
-            # Browser settings
-            "items_per_page": 20,
-            "max_channels": 500,
-            "sort_by": "name",
-            "default_view": "countries",
+            # ============ BROWSER SETTINGS ============
+            "max_channels": 500,                 # Max channels per country (0=all)
+            "sort_by": "name",                   # Sort channels by
+            "default_view": "countries",         # "countries", "categories", "favorites"
 
-            # Cache settings
-            "cache_enabled": True,
-            "cache_ttl": 3600,
-            "cache_size": 100,
-            "auto_refresh": True,
+            # ============ CACHE SETTINGS ============
+            "cache_enabled": True,               # Enable caching
+            "cache_ttl": 3600,                   # Cache time-to-live in seconds (1 hour)
+            "cache_size": 100,                   # Maximum cache items
+            "auto_refresh": True,                # Automatic cache refresh
 
-            # Parental control
-            # "parental_lock": False,
-            # "parental_pin": "0000",
-            # "blocked_categories": [],
+            # ============ EXPORT SETTINGS ============
+            "export_enabled": True,              # Enable bouquet export
+            "auto_refresh_bouquet": False,       # Auto-refresh bouquet
+            "confirm_before_export": True,       # Confirm before exporting
+            "max_channels_for_bouquet": 100,     # Max channels for bouquet
+            "bouquet_name_prefix": "TVGarden",   # Bouquet name prefix
 
-            # Favorites
-            "max_favorites": 100,
-            "auto_add_favorite": False,
-
-            # Network
-            "user_agent": "TVGarden-Enigma2/1.0",
+            # ============ NETWORK SETTINGS ============
+            "user_agent": USER_AGENT,
             "use_proxy": False,
             "proxy_url": "",
+            "connection_timeout": 30,            # Network connection timeout
 
-            # Updates
-            "auto_update": True,
-            "update_channel": "stable",
+            # ============ LOGGING SETTINGS ============
+            "log_level": "INFO",                 # "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"
+            "log_to_file": True,                 # Log to file
+            "log_max_size": 1048576,             # Max log file size in bytes (1MB)
+            "log_backup_count": 3,               # Number of backup log files
 
-            # Last session
+            # ============ UPDATE SETTINGS ============
+            "auto_update": True,                 # Automatic updates
+            "update_channel": "stable",          # "stable", "beta", "dev"
+            "update_check_interval": 86400,      # Check for updates every 24 hours
+            "notify_on_update": True,            # Notify when updates available
+            "last_update_check": 0,              # Timestamp of last update check
+
+            # ============ FAVORITES SETTINGS ============
+            "max_favorites": 100,                # Maximum favorites allowed
+            "auto_add_favorite": False,          # Automatically add watched to favorites
+
+            # ============ PERFORMANCE SETTINGS ============
+            "use_hardware_acceleration": True,   # Use hardware acceleration
+            "buffer_size": 2048,                 # Buffer size in KB
+
+            # ============ DEBUG/DEVELOPMENT ============
+            "debug_mode": False,                 # Enable debug mode
+
+            # ============ LAST SESSION ============
             "last_country": None,
             "last_category": None,
             "last_channel": None,
             "last_volume": 80,
 
-            # Statistics
+            # ============ STATISTICS ============
             "stats_enabled": True,
-            "watch_time": 0,
-            "channels_watched": 0,
-
-            # ============ LOGGING SETTINGS ============
-            "log_level": "INFO",
-            "log_to_file": True,
-            "log_max_size": 1048576,   # 1MB in bytes
-            "log_backup_count": 3,
-
-            # update checker
-            "update_check_interval": 86400,  # 24 hours in seconds
-            "last_update_check": 0,
-            "notify_on_update": True,
-
-            # ============ EXPORT SETTINGS ============
-            "export_enabled": True,
-            "auto_refresh_bouquet": False,
-            "confirm_before_export": True,
-            "max_channels_per_bouquet": 100,
-            "bouquet_name_prefix": "TVGarden",
-            # ADVANCED SETTINGS
-            "debug_mode": False,
-            "use_hardware_acceleration": True,
-            "buffer_size": 2048,
-            "connection_timeout": 30,
+            "watch_time": 0,                     # Total watch time in seconds
+            "channels_watched": 0,               # Number of channels watched
         }
 
-        # Load or create config
         self.config = self.load_config()
 
     def load_config(self):
@@ -136,7 +132,7 @@ class PluginConfig:
 
         # Create new config with defaults
         log.info("Creating new configuration with defaults", module="Config")
-        return self.defaults.copy()
+        return self.validate_config(self.defaults.copy())
 
     def save_config(self):
         """Save configuration to JSON file"""
@@ -193,15 +189,15 @@ class PluginConfig:
             except (ValueError, TypeError):
                 validated_config['timeout'] = 10
 
-        # Ensure max_channels_per_bouquet is valid
-        if 'max_channels_per_bouquet' in validated_config:
+        # Ensure max_channels_for_bouquet is valid
+        if 'max_channels_for_bouquet' in validated_config:
             try:
-                val = int(validated_config['max_channels_per_bouquet'])
+                val = int(validated_config['max_channels_for_bouquet'])
                 if val < 0:
                     val = 100
-                validated_config['max_channels_per_bouquet'] = val
+                validated_config['max_channels_for_bouquet'] = val
             except (ValueError, TypeError):
-                validated_config['max_channels_per_bouquet'] = 100
+                validated_config['max_channels_for_bouquet'] = 100
 
         # Ensure skin is valid
         valid_skins = ['auto', 'hd', 'fhd', 'wqhd', 'sd']
@@ -230,6 +226,30 @@ class PluginConfig:
             except (ValueError, TypeError):
                 validated_config['buffer_size'] = 2048
 
+        # Ensure log_max_size is reasonable
+        if 'log_max_size' in validated_config:
+            try:
+                val = int(validated_config['log_max_size'])
+                if val < 102400:  # Min 100KB
+                    val = 102400
+                elif val > 10485760:  # Max 10MB
+                    val = 10485760
+                validated_config['log_max_size'] = val
+            except (ValueError, TypeError):
+                validated_config['log_max_size'] = 1048576  # 1MB default
+
+        # Ensure log_backup_count is reasonable
+        if 'log_backup_count' in validated_config:
+            try:
+                val = int(validated_config['log_backup_count'])
+                if val < 1:
+                    val = 1
+                elif val > 10:
+                    val = 10
+                validated_config['log_backup_count'] = val
+            except (ValueError, TypeError):
+                validated_config['log_backup_count'] = 3
+
         # Ensure connection_timeout is reasonable
         if 'connection_timeout' in validated_config:
             try:
@@ -241,6 +261,30 @@ class PluginConfig:
                 validated_config['connection_timeout'] = timeout
             except (ValueError, TypeError):
                 validated_config['connection_timeout'] = 30
+
+        # Ensure cache_ttl is reasonable
+        if 'cache_ttl' in validated_config:
+            try:
+                val = int(validated_config['cache_ttl'])
+                if val < 60:  # Min 1 minute
+                    val = 60
+                elif val > 86400:  # Max 24 hours
+                    val = 86400
+                validated_config['cache_ttl'] = val
+            except (ValueError, TypeError):
+                validated_config['cache_ttl'] = 3600
+
+        # Ensure cache_size is reasonable
+        if 'cache_size' in validated_config:
+            try:
+                val = int(validated_config['cache_size'])
+                if val < 10:
+                    val = 10
+                elif val > 1000:
+                    val = 1000
+                validated_config['cache_size'] = val
+            except (ValueError, TypeError):
+                validated_config['cache_size'] = 100
 
         return validated_config
 
@@ -420,14 +464,6 @@ class PluginConfig:
                 return 'hd'  # Default fallback
         return skin_setting
 
-    def is_category_blocked(self, category_id):
-        """Check if category is blocked by parental control"""
-        if not self.get('parental_lock', False):
-            return False
-
-        blocked = self.get('blocked_categories', [])
-        return category_id in blocked
-
     def add_watch_time(self, seconds):
         """Add watch time to statistics"""
         if self.get('stats_enabled', True):
@@ -473,17 +509,22 @@ class PluginConfig:
                 result[key] = value
         return result
 
-    def update_settings(self, settings_dict):
+    def update_settings(self, settings_dict, replace_all=False):
         """
         Update multiple settings at once
         Args:
             settings_dict: Dictionary with settings to update
+            replace_all: If True, replace entire config with settings_dict
         Returns:
             True if successful, False otherwise
         """
         try:
-            for key, value in settings_dict.items():
-                self.config[key] = value
+            if replace_all:
+                self.config = settings_dict.copy()
+            else:
+                for key, value in settings_dict.items():
+                    self.config[key] = value
+                    
             return self.save_config()
         except Exception as e:
             log.error("Error updating settings: %s" % e, module="Config")

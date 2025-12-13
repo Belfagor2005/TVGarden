@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TVGarden\n"
-"POT-Creation-Date: 2025-12-12 22:01+0100\n"
+"POT-Creation-Date: 2025-12-13 15:18+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Warder <ciksa@seznam.cz>\n"
 "Language-Team: lululla [ekekaz@gmail.com]\n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "TV Garden Plugin"
 msgstr "TV Garden plugin"
 
-#: browser/about.py:46 utils/settings.py:59
+#: browser/about.py:46 utils/settings.py:56
 msgid "Close"
 msgstr "Bezár"
 
@@ -31,7 +31,7 @@ msgstr "Bezár"
 msgid "About TV Garden"
 msgstr "A TV Garden"
 
-#: browser/about.py:102
+#: browser/about.py:100
 msgid "Error loading information"
 msgstr "Hiba az információ betöltésekor"
 
@@ -39,7 +39,7 @@ msgstr "Hiba az információ betöltésekor"
 msgid "Animation"
 msgstr "Animáció"
 
-#: browser/categories.py:29 utils/settings.py:296 utils/settings.py:347
+#: browser/categories.py:29 utils/settings.py:272 utils/settings.py:308
 msgid "Auto"
 msgstr "Automatikus"
 
@@ -155,13 +155,13 @@ msgstr "Időjárás"
 msgid "Loading categories..."
 msgstr "A kategóriák betöltése..."
 
-#: browser/categories.py:95 browser/channels.py:119 browser/channels.py:553
-#: browser/countries.py:78 browser/favorites.py:63 browser/search.py:71
-#: utils/settings.py:121
+#: browser/categories.py:95 browser/channels.py:119 browser/channels.py:552
+#: browser/countries.py:77 browser/favorites.py:63 browser/search.py:71
+#: utils/settings.py:118
 msgid "Back"
 msgstr "Vissza"
 
-#: browser/categories.py:96 browser/countries.py:79 plugin.py:160
+#: browser/categories.py:96 browser/countries.py:78 plugin.py:217
 msgid "Select"
 msgstr "Kiválasztás"
 
@@ -185,7 +185,7 @@ msgstr "Cache frissítése..."
 msgid "Cache cleared"
 msgstr "Gyorsítótár üres"
 
-#: browser/categories.py:193 browser/countries.py:377
+#: browser/categories.py:193 browser/countries.py:376
 msgid "Refresh failed"
 msgstr "A frissítés sikertelen"
 
@@ -193,11 +193,11 @@ msgstr "A frissítés sikertelen"
 msgid "Loading channels..."
 msgstr "Csatornák betöltése..."
 
-#: browser/channels.py:115 browser/channels.py:567 browser/favorites.py:66
+#: browser/channels.py:115 browser/channels.py:566 browser/favorites.py:66
 msgid "Export"
 msgstr "Exportálás"
 
-#: browser/channels.py:117 browser/channels.py:569 utils/settings.py:490
+#: browser/channels.py:117 browser/channels.py:568 utils/settings.py:418
 msgid "Info"
 msgstr "Információ"
 
@@ -209,164 +209,164 @@ msgstr "Lejátszás"
 msgid "Favorite"
 msgstr "Kedvenc"
 
-#: browser/channels.py:152
+#: browser/channels.py:151
 msgid "Play Channel"
 msgstr "Lejátszási csatorna"
 
-#: browser/channels.py:153
+#: browser/channels.py:152
 msgid "Add to Favorites"
 msgstr "Hozzáadás kedvencekhez"
 
-#: browser/channels.py:154 browser/favorites.py:389
+#: browser/channels.py:153 browser/favorites.py:389
 msgid "Channel Information"
 msgstr "Csatorna információk"
 
-#: browser/channels.py:157
+#: browser/channels.py:156
 msgid "Export Current View"
 msgstr ""
 
-#: browser/channels.py:158 browser/channels.py:557
+#: browser/channels.py:157 browser/channels.py:556
 msgid "Export Settings"
 msgstr ""
 
-#: browser/channels.py:161
+#: browser/channels.py:160
 msgid "Channel Menu"
 msgstr "Csatorna menü"
 
-#: browser/channels.py:343
+#: browser/channels.py:342
 #, python-brace-format
 msgid "Showing {shown} of {total} channels"
 msgstr "{shown} csatorna megjelenítése {total} csatornából"
 
-#: browser/channels.py:349
+#: browser/channels.py:348
 #, python-format
 msgid "Found %d playable channels"
 msgstr ""
 
-#: browser/channels.py:352 browser/search.py:334
+#: browser/channels.py:351 browser/search.py:334
 #, python-format
 msgid "(skipped %d YouTube)"
 msgstr ""
 
-#: browser/channels.py:355 browser/search.py:337
+#: browser/channels.py:354 browser/search.py:337
 #, python-format
 msgid "(filtered %d problematic)"
 msgstr ""
 
-#: browser/channels.py:358 browser/search.py:340
+#: browser/channels.py:357 browser/search.py:340
 #, python-format
 msgid "(limited to first %d)"
 msgstr ""
 
-#: browser/channels.py:370 browser/search.py:145
+#: browser/channels.py:369 browser/search.py:145
 msgid "Error loading channels"
 msgstr "Hiba a csatornák betöltésekor"
 
-#: browser/channels.py:544
+#: browser/channels.py:543
 msgid "ENABLED"
 msgstr ""
 
-#: browser/channels.py:544
+#: browser/channels.py:543
 msgid "DISABLED"
 msgstr ""
 
-#: browser/channels.py:545 browser/channels.py:546
+#: browser/channels.py:544 browser/channels.py:545
 msgid "ON"
 msgstr ""
 
-#: browser/channels.py:545 browser/channels.py:546
+#: browser/channels.py:544 browser/channels.py:545
 msgid "OFF"
 msgstr ""
 
-#: browser/channels.py:549
+#: browser/channels.py:548
 #, python-format
 msgid "Export: %s"
 msgstr ""
 
-#: browser/channels.py:550
+#: browser/channels.py:549
 #, python-format
 msgid "Auto-refresh: %s"
 msgstr ""
 
-#: browser/channels.py:551
+#: browser/channels.py:550
 #, python-format
 msgid "Confirm before export: %s"
 msgstr ""
 
-#: browser/channels.py:552
+#: browser/channels.py:551
 msgid "Test Export (1 channel)"
 msgstr ""
 
-#: browser/channels.py:593 utils/favorites.py:192
+#: browser/channels.py:592 utils/favorites.py:192
 msgid "No channels to export"
 msgstr "Nincs exportálható csatorna"
 
-#: browser/channels.py:609
+#: browser/channels.py:608
 msgid "Channels"
 msgstr ""
 
-#: browser/channels.py:611
+#: browser/channels.py:610
 #, python-brace-format
 msgid "Export {count} channels to bouquet '{name}'?"
 msgstr ""
 
-#: browser/channels.py:656
+#: browser/channels.py:655
 #, python-format
 msgid "Export failed: %s"
 msgstr ""
 
-#: browser/channels.py:676 browser/search.py:399 utils/favorites.py:614
+#: browser/channels.py:675 browser/search.py:399 utils/favorites.py:613
 msgid "No stream URL"
 msgstr "Nincs stream URL"
 
-#: browser/channels.py:703 browser/favorites.py:243
+#: browser/channels.py:702 browser/favorites.py:243
 msgid "Unknown"
 msgstr "Ismeretlen"
 
-#: browser/channels.py:709 browser/favorites.py:248
+#: browser/channels.py:708 browser/favorites.py:248
 #, python-format
 msgid "Remove '%s' from favorites?"
 msgstr ""
 
-#: browser/channels.py:743
+#: browser/channels.py:742
 #, python-format
 msgid "Stream: %s..."
 msgstr ""
 
-#: browser/channels.py:745
+#: browser/channels.py:744
 #, python-format
 msgid "Stream: %s"
 msgstr "Stream: %s"
 
-#: browser/countries.py:76
+#: browser/countries.py:75
 msgid "Loading countries..."
 msgstr "Országok betöltése..."
 
-#: browser/countries.py:80 plugin.py:161
+#: browser/countries.py:79 plugin.py:218
 msgid "Refresh"
 msgstr "Frissítés"
 
-#: browser/countries.py:194
+#: browser/countries.py:193
 msgid "Select a country"
 msgstr "Válasszon Országot"
 
-#: browser/countries.py:203
+#: browser/countries.py:202
 msgid "No countries with channels found"
 msgstr "Nincs olyan ország, ahol csatornák találhatók"
 
-#: browser/countries.py:206
+#: browser/countries.py:205
 msgid "Error loading countries"
 msgstr "Hiba az országok betöltésekor"
 
-#: browser/countries.py:345
+#: browser/countries.py:344
 msgid "No country selected"
 msgstr "Nincs kiválasztott ország"
 
-#: browser/countries.py:371
+#: browser/countries.py:370
 msgid "Refreshing..."
 msgstr "Üdítő..."
 
-#: browser/countries.py:375
+#: browser/countries.py:374
 msgid "Countries refreshed"
 msgstr "Frissített országok"
 
@@ -533,98 +533,98 @@ msgstr "Eltávolítva a kedvencek közül"
 msgid "Added to favorites"
 msgstr "Hozzáadva a kedvencekhez"
 
-#: plugin.py:145
+#: plugin.py:202
 msgid "Browse by Country"
 msgstr "Országok szerint böngészés"
 
-#: plugin.py:145
+#: plugin.py:202
 msgid "Browse channels by country"
 msgstr "Csatornák országok szerint"
 
-#: plugin.py:146
+#: plugin.py:203
 msgid "Browse by Category"
 msgstr "Kategória szerint böngészés"
 
-#: plugin.py:146
+#: plugin.py:203
 msgid "Browse channels by category"
 msgstr "Csatornák böngészése kategória szerint"
 
-#: plugin.py:147 utils/settings.py:398
+#: plugin.py:204 utils/settings.py:345
 msgid "Favorites"
 msgstr "Kedvencek"
 
-#: plugin.py:147
+#: plugin.py:204
 msgid "Your favorite channels"
 msgstr "Kedvenc csatornáid"
 
-#: plugin.py:148
+#: plugin.py:205
 msgid "Search"
 msgstr "Keresés"
 
-#: plugin.py:148
+#: plugin.py:205
 msgid "Search channels by name"
 msgstr "Csatornák keresése név szerint"
 
-#: plugin.py:149 utils/settings.py:204 utils/settings.py:229
-#: utils/settings.py:473 utils/settings.py:572 utils/settings.py:625
+#: plugin.py:206 utils/settings.py:188 utils/settings.py:216
+#: utils/settings.py:511
 msgid "Check for Updates"
 msgstr ""
 
-#: plugin.py:149
+#: plugin.py:206
 msgid "Check for plugin updates"
 msgstr ""
 
-#: plugin.py:150 plugin.py:162
+#: plugin.py:207 plugin.py:219
 msgid "Settings"
 msgstr "Beállítások"
 
-#: plugin.py:150
+#: plugin.py:207
 msgid "Plugin settings and configuration"
 msgstr "Plugin beállítások és konfiguráció"
 
-#: plugin.py:151
+#: plugin.py:208
 msgid "About"
 msgstr "Rólunk"
 
-#: plugin.py:151
+#: plugin.py:208
 msgid "About TV Garden plugin"
 msgstr "A TV Garden pluginról"
 
-#: plugin.py:159
+#: plugin.py:216
 msgid "Exit"
 msgstr "Kilépés"
 
-#: plugin.py:206
+#: plugin.py:263
 msgid "Refreshing data..."
 msgstr "Adatok frissítése..."
 
-#: plugin.py:220
+#: plugin.py:277
 #, python-format
 msgid ""
 "Refresh completed!\n"
 "Loaded %d countries"
 msgstr ""
 
-#: plugin.py:225
+#: plugin.py:282
 #, python-format
 msgid "Refresh failed: %s"
 msgstr ""
 
-#: plugin.py:248 utils/update_manager.py:57
+#: plugin.py:305 utils/update_manager.py:57
 msgid "Update check error"
 msgstr ""
 
-#: plugin.py:250 utils/favorites.py:270 utils/favorites.py:449
-#: utils/favorites.py:595 utils/favorites.py:643 utils/settings.py:253
+#: plugin.py:307 utils/favorites.py:270 utils/favorites.py:448
+#: utils/favorites.py:594 utils/favorites.py:642 utils/settings.py:240
 #, python-format
 msgid "Error: %s"
 msgstr ""
 
-#: plugin.py:321
+#: plugin.py:358
 msgid "TV Garden"
 msgstr "TV Kert"
 
-#: plugin.py:357
+#: plugin.py:394
 msgid "Access free IPTV channels from around the world"
 msgstr "Hozzáférés ingyenes IPTV csatornákhoz a világ minden tájáról"
 
@@ -650,7 +650,7 @@ msgstr ""
 msgid "Channel not found in favorites"
 msgstr "Csatorna nem található a kedvencek között"
 
-#: utils/favorites.py:260 utils/favorites.py:435
+#: utils/favorites.py:260 utils/favorites.py:434
 msgid "No valid stream URLs found"
 msgstr "Érvényes stream URL-ek nem találhatóak"
 
@@ -671,302 +671,326 @@ msgstr ""
 msgid "No valid channels found in database"
 msgstr ""
 
-#: utils/favorites.py:441
+#: utils/favorites.py:440
 #, python-brace-format
 msgid "Exported {count} channels from {countries} countries"
 msgstr ""
 
-#: utils/favorites.py:591
+#: utils/favorites.py:590
 #, python-format
 msgid "Bouquet removed. %d files deleted. Order preserved."
 msgstr ""
 
-#: utils/favorites.py:639
+#: utils/favorites.py:638
 msgid "Channel added to bouquet"
 msgstr "Csatorna hozzáadva a csomaghoz"
 
-#: utils/favorites.py:651
+#: utils/favorites.py:650
 #, python-format
 msgid "Cleared %d favorites"
 msgstr ""
 
-#: utils/favorites.py:654
+#: utils/favorites.py:653
 msgid "Error clearing favorites"
 msgstr "Hiba a kedvencek törlésénél"
 
-#: utils/settings.py:54
+#: utils/settings.py:51
 msgid "Log file is empty or not found"
 msgstr "A naplófájl üres vagy nem található"
 
-#: utils/settings.py:57
+#: utils/settings.py:54
 msgid "TV Garden Logs"
 msgstr "TV Kertnapló"
 
-#: utils/settings.py:118
+#: utils/settings.py:115
 msgid "TV Garden Settings"
 msgstr "TV Garden beállítások"
 
-#: utils/settings.py:122
+#: utils/settings.py:119
 msgid "Save"
 msgstr "Mentés"
 
-#: utils/settings.py:123
+#: utils/settings.py:120 utils/settings.py:148 utils/settings.py:152
 msgid "Set options"
 msgstr "Beállítások"
 
-#: utils/settings.py:147
+#: utils/settings.py:150
 #, python-format
 msgid "Editing: %s"
 msgstr ""
 
-#: utils/settings.py:204 utils/settings.py:221 utils/settings.py:523
-#: utils/settings.py:580 utils/settings.py:625
+#: utils/settings.py:188 utils/settings.py:208 utils/settings.py:525
 msgid "View Log File"
 msgstr "Naplófájl megtekintése"
 
-#: utils/settings.py:204 utils/settings.py:225 utils/settings.py:528
-#: utils/settings.py:581 utils/settings.py:625
+#: utils/settings.py:188 utils/settings.py:212 utils/settings.py:526
 msgid "Clear Log Files Now"
 msgstr "Naplófájlok törlése most"
 
-#: utils/settings.py:249
+#: utils/settings.py:236
 msgid "Are you sure you want to clear all log files?"
 msgstr "Biztosan törölni szeretné az összes naplófájlt?"
 
-#: utils/settings.py:260
+#: utils/settings.py:247
 msgid "Logs cleared"
 msgstr "Naplók törölve"
 
-#: utils/settings.py:263
+#: utils/settings.py:250
 msgid "Log files cleared successfully"
 msgstr "A naplófájlok sikeresen törölve"
 
-#: utils/settings.py:270
+#: utils/settings.py:257
 #, python-format
 msgid "Error clearing logs: %s"
 msgstr ""
 
-#: utils/settings.py:284 utils/settings.py:584
-msgid "=== Player Settings ==="
-msgstr ""
-
-#: utils/settings.py:292 utils/settings.py:539
-msgid "Player"
-msgstr "Lejátszó"
-
-#: utils/settings.py:297
+#: utils/settings.py:273
 msgid "ExtePlayer3"
 msgstr "ExtePlayer3"
 
-#: utils/settings.py:298
+#: utils/settings.py:274
 msgid "GStreamer"
 msgstr "GStreamer"
 
-#: utils/settings.py:304 utils/settings.py:540
-msgid "Volume"
-msgstr "Térfogat"
-
-#: utils/settings.py:309 utils/settings.py:541
-msgid "Timeout (seconds)"
-msgstr "Időkorlát (másodperc)"
-
-#: utils/settings.py:314 utils/settings.py:542
-msgid "Retries"
-msgstr "Ismétlések"
-
-#: utils/settings.py:319 utils/settings.py:585
-msgid "=== Cache Settings ==="
-msgstr ""
-
-#: utils/settings.py:326 utils/settings.py:545
-msgid "Cache TTL (hours)"
-msgstr "Cache TTL (órák)"
-
-#: utils/settings.py:331 utils/settings.py:546
-msgid "Cache Size"
-msgstr "Cache méret"
-
-#: utils/settings.py:336 utils/settings.py:586
-msgid "=== Display Settings ==="
-msgstr ""
-
-#: utils/settings.py:343 utils/settings.py:549
-msgid "Skin"
-msgstr "Kinézet"
-
-#: utils/settings.py:348
+#: utils/settings.py:309
 msgid "HD"
 msgstr "HD"
 
-#: utils/settings.py:349
+#: utils/settings.py:310
 msgid "FHD"
 msgstr "FHD"
 
-#: utils/settings.py:350
+#: utils/settings.py:311
 msgid "WQHD"
 msgstr "WQHD"
 
-#: utils/settings.py:356 utils/settings.py:550
-msgid "Show Flags"
-msgstr "Zászlók megjelenítése"
-
-#: utils/settings.py:361 utils/settings.py:551
-msgid "Show Logos"
-msgstr "Logók megjelenítése"
-
-#: utils/settings.py:366 utils/settings.py:552
-msgid "Items per page"
-msgstr "Oldalankénti tételek"
-
-#: utils/settings.py:371 utils/settings.py:587
-msgid "=== Browser Settings ==="
-msgstr ""
-
-#: utils/settings.py:378 utils/settings.py:555
-msgid "Max channels per country"
-msgstr "Maximális csatornák száma országonként"
-
-#: utils/settings.py:382 utils/settings.py:439
+#: utils/settings.py:332 utils/settings.py:372
 msgid "100 channels"
 msgstr "100 csatorna"
 
-#: utils/settings.py:383 utils/settings.py:440
+#: utils/settings.py:333 utils/settings.py:373
 msgid "250 channels"
 msgstr "250 csatorna"
 
-#: utils/settings.py:384 utils/settings.py:441
+#: utils/settings.py:334 utils/settings.py:374
 msgid "500 channels"
 msgstr "500 csatorna"
 
-#: utils/settings.py:385 utils/settings.py:442
+#: utils/settings.py:335 utils/settings.py:375
 msgid "1000 channels"
 msgstr "1000 csatorna"
 
-#: utils/settings.py:386 utils/settings.py:443
+#: utils/settings.py:336 utils/settings.py:376
 msgid "All channels"
 msgstr "Összes csatorna"
 
-#: utils/settings.py:392 utils/settings.py:556
-msgid "Default View"
-msgstr "Alapértelmezett nézet"
-
-#: utils/settings.py:396
+#: utils/settings.py:343
 msgid "Countries"
 msgstr "Országok"
 
-#: utils/settings.py:397
+#: utils/settings.py:344
 msgid "Categories"
 msgstr "Kategóriák"
 
-#: utils/settings.py:404 utils/settings.py:588
-msgid "=== Favorites Settings ==="
-msgstr ""
-
-#: utils/settings.py:411 utils/settings.py:559
-msgid "Max Favorites"
-msgstr "Max Kedvencek"
-
-#: utils/settings.py:416 utils/settings.py:589
-msgid "=== Export Settings ==="
-msgstr ""
-
-#: utils/settings.py:423 utils/settings.py:562
-msgid "Enable Export"
-msgstr ""
-
-#: utils/settings.py:425 utils/settings.py:563
-msgid "Auto-Refresh Bouquet"
-msgstr ""
-
-#: utils/settings.py:429 utils/settings.py:564
-msgid "Confirm Before Export"
-msgstr ""
-
-#: utils/settings.py:434 utils/settings.py:565
-msgid "Max Channels per Bouquet"
-msgstr ""
-
-#: utils/settings.py:438
+#: utils/settings.py:371
 msgid "50 channels"
 msgstr ""
 
-#: utils/settings.py:449 utils/settings.py:566
-msgid "Bouquet Name Prefix"
+#: utils/settings.py:393
+msgid "512 KB"
 msgstr ""
 
-#: utils/settings.py:454 utils/settings.py:590
-msgid "=== Network Settings ==="
+#: utils/settings.py:394
+msgid "1 MB"
 msgstr ""
 
-#: utils/settings.py:461 utils/settings.py:569
-msgid "User Agent"
-msgstr "Böngésző"
-
-#: utils/settings.py:466 utils/settings.py:591
-msgid "=== Update Settings ==="
+#: utils/settings.py:395
+msgid "2 MB"
 msgstr ""
 
-#: utils/settings.py:474
+#: utils/settings.py:396
+msgid "4 MB"
+msgstr ""
+
+#: utils/settings.py:397
+msgid "8 MB"
+msgstr ""
+
+#: utils/settings.py:409
 msgid "Press OK to check for updates"
 msgstr ""
 
-#: utils/settings.py:478 utils/settings.py:592
-msgid "=== Logging Settings ==="
-msgstr "=== Naplózási beállítások ==="
-
-#: utils/settings.py:485 utils/settings.py:576
-msgid "Log Level"
-msgstr "Naplózás szintje"
-
-#: utils/settings.py:489
+#: utils/settings.py:417
 msgid "Debug"
 msgstr ""
 
-#: utils/settings.py:491
+#: utils/settings.py:419
 msgid "Warning"
 msgstr "Figyelmeztetés"
 
-#: utils/settings.py:492
-#, fuzzy
+#: utils/settings.py:420
 #| msgid "Error only"
 msgid "Error"
-msgstr "Csak hiba"
+msgstr ""
 
-#: utils/settings.py:493
-#, fuzzy
+#: utils/settings.py:421
 #| msgid "Critical only"
 msgid "Critical"
-msgstr "Csak kritikus"
+msgstr ""
 
-#: utils/settings.py:499 utils/settings.py:577
-msgid "Log to File"
-msgstr "Napló fájlba"
-
-#: utils/settings.py:503 utils/settings.py:578
-msgid "Max Log Size (MB)"
-msgstr "Maximális napló mérete (MB)"
-
-#: utils/settings.py:511 utils/settings.py:579
-msgid "Log Backup Files"
-msgstr "Naplófájlok biztonsági mentése"
-
-#: utils/settings.py:516
-#, fuzzy
-#| msgid "--- Log Maintenance ---"
-msgid "=== Log Maintenance ==="
-msgstr "--- Napló karbantartás ---"
-
-#: utils/settings.py:524
+#: utils/settings.py:441
 msgid "Press OK to view logs"
 msgstr "Nyomja meg az OK gombot a naplók megtekintéséhez"
 
-#: utils/settings.py:529
+#: utils/settings.py:446
 msgid "Press OK to clear logs"
 msgstr "Nyomja meg az OK gombot a naplók törléséhez"
 
-#: utils/settings.py:593
-msgid "--- Log Maintenance ---"
-msgstr "--- Napló karbantartás ---"
+#: utils/settings.py:455
+msgid "=== Player Settings ==="
+msgstr ""
+
+#: utils/settings.py:457
+msgid "Player"
+msgstr "Lejátszó"
+
+#: utils/settings.py:458
+msgid "Volume"
+msgstr "Térfogat"
+
+#: utils/settings.py:459
+msgid "Timeout (seconds)"
+msgstr "Időkorlát (másodperc)"
+
+#: utils/settings.py:460
+msgid "Retries"
+msgstr "Ismétlések"
+
+#: utils/settings.py:463
+msgid "=== Cache Settings ==="
+msgstr ""
+
+#: utils/settings.py:465
+msgid "Cache TTL (hours)"
+msgstr "Cache TTL (órák)"
+
+#: utils/settings.py:466
+msgid "Cache Size"
+msgstr "Cache méret"
+
+#: utils/settings.py:469
+msgid "=== Display Settings ==="
+msgstr ""
+
+#: utils/settings.py:471
+msgid "Skin"
+msgstr "Kinézet"
+
+#: utils/settings.py:472
+msgid "Show Flags"
+msgstr "Zászlók megjelenítése"
+
+#: utils/settings.py:473
+msgid "Show Logos"
+msgstr "Logók megjelenítése"
+
+#: utils/settings.py:474
+msgid "Items per page"
+msgstr "Oldalankénti tételek"
+
+#: utils/settings.py:477
+msgid "=== Browser Settings ==="
+msgstr ""
+
+#: utils/settings.py:479
+msgid "Max channels per country"
+msgstr "Maximális csatornák száma országonként"
+
+#: utils/settings.py:480
+msgid "Default View"
+msgstr "Alapértelmezett nézet"
+
+#: utils/settings.py:483
+msgid "=== Favorites Settings ==="
+msgstr ""
+
+#: utils/settings.py:485
+msgid "Max Favorites"
+msgstr "Max Kedvencek"
+
+#: utils/settings.py:488
+msgid "=== Export Settings ==="
+msgstr ""
+
+#: utils/settings.py:490
+msgid "Enable Export"
+msgstr ""
+
+#: utils/settings.py:492
+msgid "Auto-Refresh Bouquet"
+msgstr ""
+
+#: utils/settings.py:493
+msgid "Confirm Before Export"
+msgstr ""
+
+#: utils/settings.py:494
+msgid "Max Channels per Bouquet"
+msgstr ""
+
+#: utils/settings.py:495
+msgid "Bouquet Name Prefix"
+msgstr ""
+
+#: utils/settings.py:498
+#| msgid "=== Logging Settings ==="
+msgid "=== Performance Settings ==="
+msgstr ""
+
+#: utils/settings.py:500
+msgid "Use Hardware Acceleration"
+msgstr ""
+
+#: utils/settings.py:501
+msgid "Buffer Size"
+msgstr ""
+
+#: utils/settings.py:504
+msgid "=== Network Settings ==="
+msgstr ""
+
+#: utils/settings.py:506
+msgid "User Agent"
+msgstr "Böngésző"
+
+#: utils/settings.py:509
+msgid "=== Update Settings ==="
+msgstr ""
+
+#: utils/settings.py:514
+msgid "=== Logging Settings ==="
+msgstr "=== Naplózási beállítások ==="
+
+#: utils/settings.py:516
+msgid "Log Level"
+msgstr "Naplózás szintje"
+
+#: utils/settings.py:517
+msgid "Log to File"
+msgstr "Napló fájlba"
+
+#: utils/settings.py:519
+msgid "Max Log Size (MB)"
+msgstr "Maximális napló mérete (MB)"
+
+#: utils/settings.py:520
+msgid "Log Backup Files"
+msgstr "Naplófájlok biztonsági mentése"
+
+#: utils/settings.py:523
+#| msgid "--- Log Maintenance ---"
+msgid "=== Log Maintenance ==="
+msgstr ""
 
 #: utils/update_manager.py:23
 msgid "Checking for updates..."
@@ -1054,6 +1078,9 @@ msgstr ""
 #, python-format
 msgid "Update error: %s"
 msgstr ""
+
+#~ msgid "--- Log Maintenance ---"
+#~ msgstr "--- Napló karbantartás ---"
 
 #~ msgid "Debug (most verbose)"
 #~ msgstr "Hibakeresés (legbőbeszédesebb)"

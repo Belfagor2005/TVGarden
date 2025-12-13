@@ -193,7 +193,7 @@ class FavoritesManager:
 
             # Read configuration
             config = get_config()
-            max_channels = config.get("max_channels_per_bouquet", 100)
+            max_channels = config.get("max_channels_for_bouquet", 100)
 
             # Apply channel limit if specified
             if max_channels > 0 and len(channels) > max_channels:

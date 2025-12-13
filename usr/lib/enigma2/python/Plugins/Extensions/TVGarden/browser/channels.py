@@ -119,7 +119,6 @@ class ChannelsBrowser(BaseBrowser):
         self["key_red"] = Label(_("Back"))
         self["key_green"] = Label(_("Play"))
         self["key_yellow"] = Label(_("Favorite"))
-        # self["key_blue"] = Label(_("Info"))
 
         self["actions"] = ActionMap(["TVGardenActions", "OkCancelActions", "ColorActions"], {
             "cancel": self.exit,
@@ -510,7 +509,7 @@ class ChannelsBrowser(BaseBrowser):
             self.export_enabled = config.get("export_enabled", True)
             self.auto_refresh_bouquet = config.get("auto_refresh_bouquet", False)
             self.confirm_before_export = config.get("confirm_before_export", True)
-            self.max_channels_per_bouquet = config.get("max_channels_per_bouquet", 100)
+            self.max_channels_for_bouquet = config.get("max_channels_for_bouquet", 100)
             self.bouquet_name_prefix = config.get("bouquet_name_prefix", "TVGarden")
             
             log.debug("Export settings loaded from config", module="Channels")
@@ -519,7 +518,7 @@ class ChannelsBrowser(BaseBrowser):
             self.export_enabled = True
             self.auto_refresh_bouquet = False
             self.confirm_before_export = True
-            self.max_channels_per_bouquet = 100
+            self.max_channels_for_bouquet = 100
             self.bouquet_name_prefix = "TVGarden"
             log.error("Error loading export settings: %s" % e, module="Channels")
 
@@ -530,7 +529,7 @@ class ChannelsBrowser(BaseBrowser):
             config.set("export_enabled", self.export_enabled)
             config.set("auto_refresh_bouquet", self.auto_refresh_bouquet)
             config.set("confirm_before_export", self.confirm_before_export)
-            config.set("max_channels_per_bouquet", self.max_channels_per_bouquet)
+            config.set("max_channels_for_bouquet", self.max_channels_for_bouquet)
             config.set("bouquet_name_prefix", self.bouquet_name_prefix)
             config.save_config()
             

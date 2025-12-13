@@ -14,7 +14,7 @@ from datetime import datetime
 from enigma import getDesktop
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS, fileExists
 
-from . import PLUGIN_NAME, PLUGIN_PATH
+from . import PLUGIN_NAME, PLUGIN_PATH, USER_AGENT
 
 
 # Helper to load skin
@@ -258,48 +258,69 @@ def is_valid_stream_url(url):
 
 
 # ============ DEFAULT CONFIG ============
+# helpers.py - DEFAULT_CONFIG aggiornato
+
 DEFAULT_CONFIG = {
     # Player settings
-    "player": "exteplayer3",      # "auto", "exteplayer3", "gstplayer"
-    "timeout": 10,                # Connection timeout in seconds
-    "retries": 3,                 # Connection retry attempts
-    "volume": 80,                 # Default volume 0-100
+    "player": "exteplayer3",             # "auto", "exteplayer3", "gstplayer"
+    "timeout": 10,                       # Connection timeout in seconds
+    "retries": 3,                        # Connection retry attempts
+    "volume": 80,                        # Default volume 0-100
 
     # Display settings
-    "skin": "auto",               # "auto", "hd", "fhd", "wqhd"
-    "show_flags": True,           # Show country flags
-    "show_logos": True,           # Show channel logos (not "show_icons")
-    "show_info": True,            # Show channel info
+    "skin": "auto",                      # "auto", "hd", "fhd", "wqhd"
+    "show_flags": True,                  # Show country flags
+    "show_logos": True,                  # Show channel logos
+    "show_info": True,                   # Show channel info
+    "items_per_page": 20,                # Items per browser page
 
     # Browser settings
-    "items_per_page": 20,         # Items per browser page
-    "max_channels": 500,          # Max channels per country (0=all)
-    "sort_by": "name",            # Sort channels by
-    "default_view": "countries",  # "countries", "categories", "favorites"
+    "max_channels": 500,                 # Max channels per country (0=all)
+    "sort_by": "name",                   # Sort channels by
+    "default_view": "countries",         # "countries", "categories", "favorites"
 
     # Cache settings
-    "cache_enabled": True,        # Enable caching
-    "cache_ttl": 3600,            # Cache time-to-live in seconds
-    "cache_size": 100,            # Maximum cache items
-    "auto_refresh": True,         # Automatic cache refresh
+    "cache_enabled": True,               # Enable caching
+    "cache_ttl": 3600,                   # Cache time-to-live in seconds (1 hour)
+    "cache_size": 100,                   # Maximum cache items
+    "auto_refresh": True,                # Automatic cache refresh
 
-    # Parental control
-    # "parental_lock": False,       # Enable parental control
-    # "parental_pin": "0000",       # 4-digit PIN
-    # "blocked_categories": [],     # List of blocked categories
+    # Export settings
+    "export_enabled": True,              # Enable bouquet export
+    "auto_refresh_bouquet": False,       # Auto-refresh bouquet
+    "confirm_before_export": True,       # Confirm before exporting
+    "max_channels_for_bouquet": 100,     # Max channels per bouquet
+    "bouquet_name_prefix": "TVGarden",   # Bouquet name prefix
 
-    # Favorites
-    "max_favorites": 100,         # Maximum favorites allowed
-    "auto_add_favorite": False,   # Automatically add watched to favorites
-
-    # Network
-    "user_agent": "TVGarden-Enigma2/1.1",
+    # Network settings
+    "user_agent": USER_AGENT,
     "use_proxy": False,
     "proxy_url": "",
+    "connection_timeout": 30,            # Network connection timeout
 
-    # Updates
-    "auto_update": True,          # Automatic updates
-    "update_channel": "stable",   # "stable", "beta", "dev"
+    # Logging settings
+    "log_level": "INFO",                 # "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"
+    "log_to_file": True,                 # Log to file
+    "log_max_size": 1048576,             # Max log file size in bytes (1MB)
+    "log_backup_count": 3,               # Number of backup log files
+
+    # Update settings
+    "auto_update": True,                 # Automatic updates
+    "update_channel": "stable",          # "stable", "beta", "dev"
+    "update_check_interval": 86400,      # Check for updates every 24 hours
+    "notify_on_update": True,            # Notify when updates available
+    "last_update_check": 0,              # Timestamp of last update check
+
+    # Favorites
+    "max_favorites": 100,                # Maximum favorites allowed
+    "auto_add_favorite": False,          # Automatically add watched to favorites
+
+    # Performance
+    "use_hardware_acceleration": True,   # Use hardware acceleration
+    "buffer_size": 2048,                 # Buffer size in KB
+
+    # Debug/Development
+    "debug_mode": False,                 # Enable debug mode
 
     # Last session
     "last_country": None,
@@ -309,10 +330,9 @@ DEFAULT_CONFIG = {
 
     # Statistics
     "stats_enabled": True,
-    "watch_time": 0,              # Total watch time in seconds
-    "channels_watched": 0,        # Number of channels watched,
+    "watch_time": 0,                     # Total watch time in seconds
+    "channels_watched": 0,               # Number of channels watched
 }
-
 
 # ============ LOGGING ============
 LOG_PATH_DIR = "/tmp/tvgarden_cache"

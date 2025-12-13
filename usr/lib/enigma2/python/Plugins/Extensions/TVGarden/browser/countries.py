@@ -61,10 +61,9 @@ class CountriesBrowser(BaseBrowser):
         self.cache = CacheManager()
 
         # Initialize before widgets
-        self.picload = ePicLoad()
-        self.picload_conn = None  # Store connection to prevent garbage collection
-
         self.countries = []
+        self.picload = ePicLoad()
+        self.picload_conn = None
         self.selected_country = None
         self.current_flag_path = None
 

@@ -3,8 +3,8 @@
 # TV Garden Installer for Enigma2
 # wget -q --no-check-certificate "https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/installer.sh" -O - | /bin/sh
 
-version='1.3'
-changelog='Comaptibility Test Python2'
+version='1.4'
+changelog='Recoded Config\nHardware acceleration and buffer control\nDetailed Configuration System\nBuffer size range and HW acceleration\nPerformance Tips\nTroubleshooting\n'
 
 TMPPATH=/tmp/TVGarden-install
 FILEPATH=/tmp/TVGarden-main.tar.gz

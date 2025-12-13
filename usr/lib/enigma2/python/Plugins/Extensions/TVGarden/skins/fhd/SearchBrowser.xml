@@ -9,11 +9,11 @@
 	<widget source="key_green" render="Label" position="261,976" zPosition="1" size="210,60" font="Regular;32" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend" />
 	<widget source="key_yellow" render="Label" position="474,978" zPosition="1" size="210,60" font="Regular;32" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend" />
 	<widget source="key_blue" render="Label" position="686,976" zPosition="1" size="210,60" font="Regular;32" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend" />
-	<widget name="menu" position="48,160" size="1020,736" font="Regular;32" itemHeight="50" scrollbarMode="showOnDemand" backgroundColor="#16213e" />
+	<widget name="menu" position="48,160" size="1020,750" font="Regular;32" itemHeight="50" scrollbarMode="showOnDemand" backgroundColor="#16213e" />
 	<widget name="status" position="921,976" size="976,61" font="Regular; 32" halign="center" foregroundColor="#3333ff" transparent="1" alphatest="blend" />
 	<widget name="search_label" position="48,30" size="610,90" zPosition="1" font="Regular; 34" halign="right" valign="center" foregroundColor="#ffffff" />
 	<widget name="search_text" position="671,30" size="1220,90" zPosition="1" font="Regular; 34" halign="left" valign="center" backgroundColor="#2d3047" foregroundColor="#ffffff" />
 	<eLabel backgroundColor="#001a2336" cornerRadius="30" position="8,959" size="1905,90" zPosition="-80" />
-	<eLabel name="" position="36,152" size="1041,753" zPosition="-1" cornerRadius="18" backgroundColor="#00171a1c" foregroundColor="#00171a1c" />
+	<eLabel name="" position="36,152" size="1040,767" zPosition="-1" cornerRadius="18" backgroundColor="#00171a1c" foregroundColor="#00171a1c" />
 	<widget source="session.VideoPicture" render="Pig" position="1109,210" zPosition="19" size="780,462" backgroundColor="transparent" transparent="0" cornerRadius="14" />
 </screen>

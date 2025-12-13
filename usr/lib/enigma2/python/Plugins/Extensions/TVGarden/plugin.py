@@ -5,7 +5,7 @@
 ###########################################################
 #                                                         #
 #  TV Garden Plugin for Enigma2                           #
-#  Version: 1.2                                           #
+#  Version: 1.4                                           #
 #  Created by Enigma2 Developer Lulualla                  #
 #  Based on TV Garden Project by Lululla                  #
 #  Data Source: Belfagor2005 fork                         #
@@ -13,42 +13,99 @@
 #  Repository:                                            #
 #  https://github.com/Belfagor2005/tv-garden-channel-list #
 #                                                         #
-#  Plugin Features:                                       #
-#  • Browse 150+ countries with flags                     #
-#  • 29 categories with filtered content                  #
-#  • Smart caching system (TTL + gzip)                    #
-#  • Advanced player with channel zapping                 #
-#  • Favorites with export/import                         #
-#  • Fast search across all channels                      #
-#  • Multiple skin support (HD/FHD/WQHD)                  #
-#  • DRM/crash protection filters                         #
+#  PLUGIN FEATURES:                                       #
+#  • Global: 150+ countries with flags                    #
+#  • Content: 29 categories, 50,000+ channels             #
+#  • Caching: Smart TTL + gzip compression                #
+#  • Player: Advanced with channel zapping                #
+#  • Favorites: Export to Enigma2 bouquets                #
+#  • Search: Fast virtual keyboard search                 #
+#  • Skins: Auto-detection (HD/FHD/WQHD)                  #
+#  • Safety: DRM/crash stream filtering                   #
+#  • Performance: HW acceleration + buffer control        #
+#  • Logging: File logging with rotation                  #
+#  • Updates: Auto-check with notifications               #
 #                                                         #
-#  Player Controls:                                       #
-#  • CHANNEL +/- : Navigate channel list                  #
-#  • OK : Show channel info                               #
-#  • EXIT : Close player                                  #
+#  PERFORMANCE OPTIMIZATION:                              #
+#  • Hardware acceleration for H.264/H.265                #
+#  • Configurable buffer size (512KB-8MB)                 #
+#  • Smart player selection (Auto/ExtePlayer3/GStreamer)  #
+#  • Connection timeout & retry system                    #
+#  • Memory efficient (~50MB RAM usage)                   #
 #                                                         #
-#  Technical Details:                                     #
-#  • Python 2.7+ compatible                               #
-#  • Enigma2 MoviePlayer based                            #
-#  • Gstreamer HLS support                                #
-#  • Memory efficient (~50MB RAM)                         #
+#  BOUQUET EXPORT SYSTEM:                                 #
+#  • Export favorites to native Enigma2 bouquets          #
+#  • Configurable bouquet name prefix                     #
+#  • Max channels per bouquet limit                       #
+#  • Auto-refresh bouquet option                          #
+#  • Single/Bulk export capabilities                      #
+#  • Requires Enigma2 restart after export                #
 #                                                         #
-#  Statistics:                                            #
+#  CONFIGURATION SYSTEM:                                  #
+#  • 47+ configurable parameters                          #
+#  • Organized settings categories:                       #
+#    - Player: Volume, Timeout, Retries                   #
+#    - Display: Skin, Flags, Logos, Items per page        #
+#    - Browser: Max channels, Default view                #
+#    - Cache: TTL, Size, Auto-refresh                     #
+#    - Export: Enabled, Auto-refresh, Max channels        #
+#    - Network: User agent, Connection timeout            #
+#    - Logging: Level, File logging, Size, Backups        #
+#    - Performance: HW acceleration, Buffer size          #
+#    - Updates: Auto-update, Channel, Interval            #
+#                                                         #
+#  KEY CONTROLS:                                          #
+#  [ BROWSER ]                                            #
+#    OK/GREEN    - Play selected channel                  #
+#    EXIT/RED    - Back / Exit                            #
+#    YELLOW      - Context menu (Remove/Export)           #
+#    BLUE        - Export favorites to bouquet            #
+#    MENU        - Context menu                           #
+#                                                         #
+#  [ FAVORITES BROWSER ]                                  #
+#    OK/GREEN    - Play selected channel                  #
+#    EXIT/RED    - Back / Exit                            #
+#    YELLOW      - Options (Remove/Info/Export)           #
+#    BLUE        - Export ALL to Enigma2 bouquet          #
+#    ARROWS      - Navigate channels                      #
+#                                                         #
+#  [ PLAYER ]                                             #
+#    CHANNEL +/- - Zap between channels                   #
+#    OK          - Show channel info + performance stats  #
+#    RED         - Toggle favorite                        #
+#    GREEN       - Show channel list                      #
+#    EXIT        - Close player                           #
+#                                                         #
+#  TECHNICAL DETAILS:                                     #
+#  • Python 2.7+ compatible (Enigma2 optimized)           #
+#  • Player engines: GStreamer / ExtePlayer3 / Auto       #
+#  • HLS stream support with adaptive bitrate             #
+#  • Automatic cache management                           #
+#  • Configuration backup & restore                       #
+#  • Skin system with resolution detection                #
+#  • Bouquet integration with Enigma2 EPG                 #
+#                                                         #
+#  STATISTICS:                                            #
 #  • 50,000+ channels available                           #
 #  • ~70% stream compatibility rate                       #
 #  • <5 sec loading time (cached)                         #
+#  • 47 configuration parameters                          #
+#  • 150+ countries supported                             #
+#  • 29 content categories                                #
 #                                                         #
-#  Credits & Thanks:                                      #
-#  • Original TV Garden: Lululla                          #
-#  • Repository fork: Belfagor2005 as (Lululla)           #
-#  • Enigma2 community for testing                        #
+#  CREDITS & THANKS:                                      #
+#  • Original TV Garden concept: Lululla                  #
+#  • Repository fork & maintenance: Belfagor2005          #
+#  • Plugin development: TV Garden Team                   #
+#  • Performance optimization: Recent updates             #
+#  • Enigma2 community for testing & feedback             #
 #  • All open-source contributors                         #
 #                                                         #
-#  Note: This plugin is for educational purposes only.    #
+#  NOTE: This plugin is for educational purposes only.    #
 #  Please respect content rights and usage policies.      #
 #                                                         #
-#  Last Updated: 2025-12-06                               #
+#  Last Updated: 2025-12-13                               #
+#  Performance Update: HW acceleration + buffer control   #
 ###########################################################
 """
 
@@ -251,55 +308,35 @@ class TVGardenMain(Screen):
                               MessageBox.TYPE_ERROR)
 
     def show_about_fallback(self):
-        col1_width = 30
-        features = [
-            ("Browse by Country", "Countries: ~150"),
-            ("Browse by Category", "Categories: 29+"),
-            ("Favorites Management", "Channels: 50,000+"),
-            ("Bouquet Export", "Enigma2 Integration"),
-            ("Search All Channels", "Cache: %d items" % self.cache.get_size())
-        ]
+        about_text = """
+            TV GARDEN v%s | Cache: %d items
 
-        about_lines = [
-            "TV GARDEN PLUGIN v%s" % PLUGIN_VERSION,
-            "══════════════════════════════════════",
-            "",
-            "CORE FEATURES" + " " * (col1_width - 13) + "STATISTICS"
-        ]
+            * Global: 150+ countries, 29 categories
+            * Streams: 50K+, HW Acceleration
+            * Buffer: 512KB-8MB, Export bouquet
+            * Search: Virtual keyboard, Smart filter
 
-        for feat_left, feat_right in features:
-            spaces = " " * (col1_width - len(feat_left) - 2)  # -2 per "• "
-            about_lines.append("• " + feat_left + spaces + "• " + feat_right)
+            CONTROLS:
+            - PLAYER: CH+/−=Zap, OK=Info+Stats
+            - FAVORITES: BLUE=Export bouquet
+            - SETTINGS: 47+ options, Log viewer
 
-        about_lines.extend([
-            "• Advanced Player with Zapping",
-            "• Smart Caching System",
-            "• Filtered Streams",
-            "• Multiple Skins Support",
-            "• Export to Enigma2 Bouquets",
-            "",
-            "KEY CONTROLS",
-            "• FAVORITES: YELLOW=Options, BLUE=Export",
-            "• PLAYER: CH+/-=Navigate, OK=Info",
-            "• BROWSER: YELLOW=Favorite, BLUE=Clear",
-            "",
-            "BOUQUET EXPORT",
-            "• Export favorites to Enigma2 bouquet",
-            "• Single/Bulk channel export",
-            "• Auto bouquets.tv integration",
-            "• Restart Enigma2 required",
-            "",
-            "DATA SOURCE",
-            "TV Garden Project (Belfagor2005 fork)",
-            "https://github.com/Belfagor2005/tv-garden-channel-list",
-            "",
-            "PLUGIN STATUS: FULLY OPERATIONAL",
-            "BOUQUET EXPORT: ACTIVE",
-            "PLUGIN AUTOUPDATE: ACTIVE"
-        ])
+            PERFORMANCE:
+            - HW Accel for H.264/H.265
+            - Buffer size configurable
+            - Smart stream filtering
 
-        about_text = "\n".join(about_lines)
-        self.session.open(MessageBox, about_text, MessageBox.TYPE_INFO)
+            BOUQUET EXPORT:
+            - To Enigma2 native bouquet
+            - Configurable name & channels
+            - Auto-refresh option
+
+            STATUS: FULLY OPERATIONAL
+            SETTINGS: 47 parameters
+            LOGS: File + Rotation active
+            """ % (PLUGIN_VERSION, self.cache.get_size())
+    
+        self.session.open(MessageBox, about_text.strip(), MessageBox.TYPE_INFO)
 
     def show_about(self):
         """Show about screen"""

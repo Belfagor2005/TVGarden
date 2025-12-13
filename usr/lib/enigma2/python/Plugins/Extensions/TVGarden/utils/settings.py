@@ -6,8 +6,6 @@ Plugin configuration interface
 Based on TV Garden Project
 """
 from __future__ import print_function
-from os.path import exists
-from json import load
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
 from Screens.TextBox import TextBox
@@ -23,7 +21,7 @@ from Components.config import (
     getConfigListEntry,
     NoSave
 )
-from .. import _
+from .. import _, USER_AGENT
 from ..helpers import log
 from .config import get_config
 from .update_manager import UpdateManager
@@ -43,7 +41,6 @@ class LogViewerScreen(TextBox):
     """
 
     def __init__(self, session, max_lines=100):
-
         self.config = get_config()
         dynamic_skin = self.config.load_skin("LogViewerScreen", self.skin)
         self.skin = dynamic_skin
@@ -125,7 +122,6 @@ class TVGardenSettings(ConfigListScreen, Screen):
             ["SetupActions", "ColorActions", "DirectionActions"],
             {
                 "cancel": self.cancel,
-                # "save": self.save,
                 "green": self.save,
                 "ok": self.handle_ok,
                 "up": self.keyUp,
@@ -134,6 +130,7 @@ class TVGardenSettings(ConfigListScreen, Screen):
                 "right": self.keyRight,
             }, -2
         )
+        self.initConfig()
         self.createSetup()
         self.onChangedEntry.append(self.updateStatus)
         self.onLayoutFinish.append(self.__layoutFinished)
@@ -144,8 +141,15 @@ class TVGardenSettings(ConfigListScreen, Screen):
     def updateStatus(self):
         current = self["config"].getCurrent()
         if current:
-            self["status"].setText(_("Editing: %s") % current[0])
-            # self.createSetup()
+            current_text = current[0]
+            config_item = current[1]
+            
+            if isinstance(config_item, ConfigNothing) or "===" in current_text:
+                self["status"].setText(_("Set options"))
+            else:
+                self["status"].setText(_("Editing: %s") % current_text)
+        else:
+            self["status"].setText(_("Set options"))
 
     def changedEntry(self):
         self.item = self["config"].getCurrent()
@@ -163,26 +167,6 @@ class TVGardenSettings(ConfigListScreen, Screen):
 
     def getCurrentValue(self):
         return self["config"].getCurrent() and str(self["config"].getCurrent()[1].getText()) or ""
-
-    def keyUp(self):
-        """Freccia su - solo navigazione."""
-        ConfigListScreen.keyUp(self)
-        self.updateStatus()
-
-    def keyDown(self):
-        """Freccia giù - solo navigazione."""
-        ConfigListScreen.keyDown(self)
-        self.updateStatus()
-
-    def keyLeft(self):
-        """Freccia sinistra - solo navigazione."""
-        ConfigListScreen.keyLeft(self)
-        self.updateStatus()
-
-    def keyRight(self):
-        """Freccia destra - solo navigazione."""
-        ConfigListScreen.keyRight(self)
-        self.updateStatus()
 
     def apply_logging_settings(self):
         """Apply logging settings immediately"""
@@ -215,6 +199,9 @@ class TVGardenSettings(ConfigListScreen, Screen):
 
         display_name = current[0]
         config_item = current[1]
+
+        if "===" in display_name or isinstance(config_item, ConfigNothing):
+            return
 
         log.debug("OK pressed on: %s" % display_name, module="Settings")
 
@@ -276,417 +263,495 @@ class TVGardenSettings(ConfigListScreen, Screen):
         log.debug("check_for_updates called from settings", module="Settings")
         UpdateManager.check_for_updates(self.session, self["status"])
 
+    def initConfig(self):
+        """Initialize all configuration objects"""
+        # ========= PLAYER =========
+        self.cfg_player = ConfigSelection(
+            default=self.config.get("player", "auto"),
+            choices=[
+                ("auto", _("Auto")),
+                ("exteplayer3", _("ExtePlayer3")),
+                ("gstplayer", _("GStreamer"))
+            ]
+        )
+
+        self.cfg_volume = ConfigInteger(
+            default=self.config.get("volume", 80),
+            limits=(0, 100)
+        )
+
+        self.cfg_timeout = ConfigInteger(
+            default=self.config.get("timeout", 10),
+            limits=(5, 60)
+        )
+
+        self.cfg_retries = ConfigInteger(
+            default=self.config.get("retries", 3),
+            limits=(1, 10)
+        )
+
+        # ========= CACHE =========
+        self.cfg_cache_ttl = ConfigInteger(
+            default=self.config.get("cache_ttl", 3600) // 3600,
+            limits=(1, 24)
+        )
+
+        self.cfg_cache_size = ConfigInteger(
+            default=self.config.get("cache_size", 100),
+            limits=(10, 1000)
+        )
+
+        # ========= DISPLAY =========
+        self.cfg_skin = ConfigSelection(
+            default=self.config.get("skin", "auto"),
+            choices=[
+                ("auto", _("Auto")),
+                ("hd", _("HD")),
+                ("fhd", _("FHD")),
+                ("wqhd", _("WQHD"))
+            ]
+        )
+
+        self.cfg_show_flags = ConfigYesNo(
+            default=self.config.get("show_flags", True)
+        )
+
+        self.cfg_show_logos = ConfigYesNo(
+            default=self.config.get("show_logos", False)
+        )
+
+        self.cfg_items_per_page = ConfigInteger(
+            default=self.config.get("items_per_page", 20),
+            limits=(10, 100)
+        )
+
+        # ========= BROWSER =========
+        self.cfg_max_channels = ConfigSelection(
+            default=self.config.get("max_channels", 500),
+            choices=[
+                (100, _("100 channels")),
+                (250, _("250 channels")),
+                (500, _("500 channels")),
+                (1000, _("1000 channels")),
+                (0, _("All channels"))
+            ]
+        )
+
+        self.cfg_default_view = ConfigSelection(
+            default=self.config.get("default_view", "countries"),
+            choices=[
+                ("countries", _("Countries")),
+                ("categories", _("Categories")),
+                ("favorites", _("Favorites"))
+            ]
+        )
+
+        # ========= FAVORITES =========
+        self.cfg_max_favorites = ConfigInteger(
+            default=self.config.get("max_favorites", 100),
+            limits=(10, 500)
+        )
+
+        # ========= EXPORT =========
+        self.cfg_export_enabled = ConfigYesNo(
+            default=self.config.get("export_enabled", True)
+        )
+
+        self.cfg_auto_refresh_bouquet = ConfigYesNo(
+            default=self.config.get("auto_refresh_bouquet", False)
+        )
+
+        self.cfg_confirm_before_export = ConfigYesNo(
+            default=self.config.get("confirm_before_export", True)
+        )
+
+        self.cfg_max_channels_for_bouquet = ConfigSelection(
+            default=self.config.get("max_channels_for_bouquet", 100),
+            choices=[
+                (50, _("50 channels")),
+                (100, _("100 channels")),
+                (250, _("250 channels")),
+                (500, _("500 channels")),
+                (1000, _("1000 channels")),
+                (0, _("All channels"))
+            ]
+        )
+
+        self.cfg_bouquet_name_prefix = ConfigText(
+            default=self.config.get("bouquet_name_prefix", "TVGarden"),
+            fixed_size=False
+        )
+
+        # ========= PERFORMANCE =========
+        self.cfg_use_hardware_acceleration = ConfigYesNo(
+            default=self.config.get("use_hardware_acceleration", True)
+        )
+
+        self.cfg_buffer_size = ConfigSelection(
+            default=self.config.get("buffer_size", 2048),
+            choices=[
+                (512, _("512 KB")),
+                (1024, _("1 MB")),
+                (2048, _("2 MB")),
+                (4096, _("4 MB")),
+                (8192, _("8 MB"))
+            ]
+        )
+
+        # ========= NETWORK =========
+        self.cfg_user_agent = ConfigText(
+            default=self.config.get("user_agent", USER_AGENT),
+            fixed_size=False
+        )
+
+        # ========= UPDATE =========
+        self.cfg_check_for_updates = ConfigSelection(
+            choices=[("check", _("Press OK to check for updates"))],
+            default="check"
+        )
+
+        # ========= LOGGING =========
+        self.cfg_log_level = ConfigSelection(
+            default=self.config.get("log_level", "INFO"),
+            choices=[
+                ("DEBUG", _("Debug")),
+                ("INFO", _("Info")),
+                ("WARNING", _("Warning")),
+                ("ERROR", _("Error")),
+                ("CRITICAL", _("Critical"))
+            ]
+        )
+
+        self.cfg_log_to_file = ConfigYesNo(
+            default=self.config.get("log_to_file", True)
+        )
+
+        self.cfg_log_max_size = ConfigInteger(
+            default=self.config.get("log_max_size", 1048576) // 1048576,
+            limits=(1, 10)
+        )
+
+        self.cfg_log_backup_count = ConfigInteger(
+            default=self.config.get("log_backup_count", 3),
+            limits=(1, 10)
+        )
+
+        # ========= ACTIONS =========
+        self.cfg_view_log_file = ConfigSelection(
+            choices=[("open", _("Press OK to view logs"))],
+            default="open"
+        )
+
+        self.cfg_clear_logs_now = ConfigSelection(
+            choices=[("clear", _("Press OK to clear logs"))],
+            default="clear"
+        )
+
     def createSetup(self):
-        """Setup configuration entries with organized sections"""
+        """Create the setup list with organized sections"""
         self.list = []
 
         # ============ PLAYER SETTINGS ============
         section = _('=== Player Settings ===')
-        self.list.append(getConfigListEntry(
-            _(section),
-            NoSave(ConfigNothing())
-        ))
-
-        # CORREZIONE: Usa getConfigListEntry invece della lista
-        self.list.append(getConfigListEntry(
-            _("Player"),
-            ConfigSelection(
-                default=self.config.get("player", "auto"),
-                choices=[
-                    ("auto", _("Auto")),
-                    ("exteplayer3", _("ExtePlayer3")),
-                    ("gstplayer", _("GStreamer"))
-                ]
-            )
-        ))
-
-        self.list.append(getConfigListEntry(
-            _("Volume"),
-            ConfigInteger(default=self.config.get("volume", 80), limits=(0, 100))
-        ))
-
-        self.list.append(getConfigListEntry(
-            _("Timeout (seconds)"),
-            ConfigInteger(default=self.config.get("timeout", 10), limits=(5, 60))
-        ))
-
-        self.list.append(getConfigListEntry(
-            _("Retries"),
-            ConfigInteger(default=self.config.get("retries", 3), limits=(1, 10))
-        ))
+        self.list.append(getConfigListEntry(section, NoSave(ConfigNothing())))
+        self.list.append(getConfigListEntry(_("Player"), self.cfg_player))
+        self.list.append(getConfigListEntry(_("Volume"), self.cfg_volume))
+        self.list.append(getConfigListEntry(_("Timeout (seconds)"), self.cfg_timeout))
+        self.list.append(getConfigListEntry(_("Retries"), self.cfg_retries))
 
         # ============ CACHE SETTINGS ============
         section = _('=== Cache Settings ===')
-        self.list.append(getConfigListEntry(
-            _(section),
-            NoSave(ConfigNothing())
-        ))
-
-        self.list.append(getConfigListEntry(
-            _("Cache TTL (hours)"),
-            ConfigInteger(default=self.config.get("cache_ttl", 3600) // 3600, limits=(1, 24))
-        ))
-
-        self.list.append(getConfigListEntry(
-            _("Cache Size"),
-            ConfigInteger(default=self.config.get("cache_size", 100), limits=(10, 1000))
-        ))
+        self.list.append(getConfigListEntry(section, NoSave(ConfigNothing())))
+        self.list.append(getConfigListEntry(_("Cache TTL (hours)"), self.cfg_cache_ttl))
+        self.list.append(getConfigListEntry(_("Cache Size"), self.cfg_cache_size))
 
         # ============ DISPLAY SETTINGS ============
         section = _('=== Display Settings ===')
-        self.list.append(getConfigListEntry(
-            _(section),
-            NoSave(ConfigNothing())
-        ))
-
-        self.list.append(getConfigListEntry(
-            _("Skin"),
-            ConfigSelection(
-                default=self.config.get("skin", "auto"),
-                choices=[
-                    ("auto", _("Auto")),
-                    ("hd", _("HD")),
-                    ("fhd", _("FHD")),
-                    ("wqhd", _("WQHD"))
-                ]
-            )
-        ))
-
-        self.list.append(getConfigListEntry(
-            _("Show Flags"),
-            ConfigYesNo(default=self.config.get("show_flags", True))
-        ))
-
-        self.list.append(getConfigListEntry(
-            _("Show Logos"),
-            ConfigYesNo(default=self.config.get("show_logos", True))
-        ))
-
-        self.list.append(getConfigListEntry(
-            _("Items per page"),
-            ConfigInteger(default=self.config.get("items_per_page", 20), limits=(10, 100))
-        ))
+        self.list.append(getConfigListEntry(section, NoSave(ConfigNothing())))
+        self.list.append(getConfigListEntry(_("Skin"), self.cfg_skin))
+        self.list.append(getConfigListEntry(_("Show Flags"), self.cfg_show_flags))
+        self.list.append(getConfigListEntry(_("Show Logos"), self.cfg_show_logos))
+        self.list.append(getConfigListEntry(_("Items per page"), self.cfg_items_per_page))
 
         # ============ BROWSER SETTINGS ============
         section = _('=== Browser Settings ===')
-        self.list.append(getConfigListEntry(
-            _(section),
-            NoSave(ConfigNothing())
-        ))
-
-        self.list.append(getConfigListEntry(
-            _("Max channels per country"),
-            ConfigSelection(
-                default=self.config.get("max_channels", 500),
-                choices=[
-                    (100, _("100 channels")),
-                    (250, _("250 channels")),
-                    (500, _("500 channels")),
-                    (1000, _("1000 channels")),
-                    (0, _("All channels"))
-                ]
-            )
-        ))
-
-        self.list.append(getConfigListEntry(
-            _("Default View"),
-            ConfigSelection(
-                default=self.config.get("default_view", "countries"),
-                choices=[
-                    ("countries", _("Countries")),
-                    ("categories", _("Categories")),
-                    ("favorites", _("Favorites"))
-                ]
-            )
-        ))
+        self.list.append(getConfigListEntry(section, NoSave(ConfigNothing())))
+        self.list.append(getConfigListEntry(_("Max channels per country"), self.cfg_max_channels))
+        self.list.append(getConfigListEntry(_("Default View"), self.cfg_default_view))
 
         # ============ FAVORITES SETTINGS ============
         section = _('=== Favorites Settings ===')
-        self.list.append(getConfigListEntry(
-            _(section),
-            NoSave(ConfigNothing())
-        ))
-
-        self.list.append(getConfigListEntry(
-            _("Max Favorites"),
-            ConfigInteger(default=self.config.get("max_favorites", 100), limits=(10, 500))
-        ))
+        self.list.append(getConfigListEntry(section, NoSave(ConfigNothing())))
+        self.list.append(getConfigListEntry(_("Max Favorites"), self.cfg_max_favorites))
 
         # ============ EXPORT SETTINGS ============
         section = _('=== Export Settings ===')
-        self.list.append(getConfigListEntry(
-            _(section),
-            NoSave(ConfigNothing())
-        ))
+        self.list.append(getConfigListEntry(section, NoSave(ConfigNothing())))
+        self.list.append(getConfigListEntry(_("Enable Export"), self.cfg_export_enabled))
+        if self.cfg_export_enabled.value:
+            self.list.append(getConfigListEntry(_("Auto-Refresh Bouquet"), self.cfg_auto_refresh_bouquet))
+            self.list.append(getConfigListEntry(_("Confirm Before Export"), self.cfg_confirm_before_export))
+            self.list.append(getConfigListEntry(_("Max Channels per Bouquet"), self.cfg_max_channels_for_bouquet))
+            self.list.append(getConfigListEntry(_("Bouquet Name Prefix"), self.cfg_bouquet_name_prefix))
 
-        self.export_enabled_config = ConfigYesNo(default=self.config.get("export_enabled", True))
-        self.list.append(getConfigListEntry(_("Enable Export"), self.export_enabled_config))
-        if self.export_enabled_config.value:
-            self.list.append(getConfigListEntry(_("Auto-Refresh Bouquet"),
-                             ConfigYesNo(default=self.config.get("auto_refresh_bouquet", False))))
-
-            self.list.append(getConfigListEntry(
-                _("Confirm Before Export"),
-                ConfigYesNo(default=self.config.get("confirm_before_export", True))
-            ))
-
-            self.list.append(getConfigListEntry(
-                _("Max Channels per Bouquet"),
-                ConfigSelection(
-                    default=self.config.get("max_channels_per_bouquet", 100),
-                    choices=[
-                        (50, _("50 channels")),
-                        (100, _("100 channels")),
-                        (250, _("250 channels")),
-                        (500, _("500 channels")),
-                        (1000, _("1000 channels")),
-                        (0, _("All channels"))
-                    ]
-                )
-            ))
-
-            self.list.append(getConfigListEntry(
-                _("Bouquet Name Prefix"),
-                ConfigText(default=self.config.get("bouquet_name_prefix", "TVGarden"), fixed_size=False)
-            ))
+        # ============ PERFORMANCE SETTINGS ============
+        section = _('=== Performance Settings ===')
+        self.list.append(getConfigListEntry(section, NoSave(ConfigNothing())))
+        self.list.append(getConfigListEntry(_("Use Hardware Acceleration"), self.cfg_use_hardware_acceleration))
+        self.list.append(getConfigListEntry(_("Buffer Size"), self.cfg_buffer_size))
 
         # ============ NETWORK SETTINGS ============
         section = _('=== Network Settings ===')
-        self.list.append(getConfigListEntry(
-            _(section),
-            NoSave(ConfigNothing())
-        ))
-
-        self.list.append(getConfigListEntry(
-            _("User Agent"),
-            ConfigText(default=self.config.get("user_agent", "TVGarden-Enigma2/1.0"), fixed_size=False)
-        ))
+        self.list.append(getConfigListEntry(section, NoSave(ConfigNothing())))
+        self.list.append(getConfigListEntry(_("User Agent"), self.cfg_user_agent))
 
         # ============ UPDATE SETTINGS ============
         section = _('=== Update Settings ===')
-        self.list.append(getConfigListEntry(
-            _(section),
-            NoSave(ConfigNothing())
-        ))
-
-        self.list.append(getConfigListEntry(
-            _("Check for Updates"),
-            ConfigSelection(choices=[("check", _("Press OK to check for updates"))], default="check")
-        ))
+        self.list.append(getConfigListEntry(section, NoSave(ConfigNothing())))
+        self.list.append(getConfigListEntry(_("Check for Updates"), self.cfg_check_for_updates))
 
         # ============ LOGGING SETTINGS ============
         section = _('=== Logging Settings ===')
-        self.list.append(getConfigListEntry(
-            _(section),
-            NoSave(ConfigNothing())
-        ))
+        self.list.append(getConfigListEntry(section, NoSave(ConfigNothing())))
+        self.list.append(getConfigListEntry(_("Log Level"), self.cfg_log_level))
+        self.list.append(getConfigListEntry(_("Log to File"), self.cfg_log_to_file))
+        if self.cfg_log_to_file.value:
+            self.list.append(getConfigListEntry(_("Max Log Size (MB)"), self.cfg_log_max_size))
+            self.list.append(getConfigListEntry(_("Log Backup Files"), self.cfg_log_backup_count))
 
-        self.list.append(getConfigListEntry(
-            _("Log Level"),
-            ConfigSelection(
-                default=self.config.get("log_level", "INFO"),
-                choices=[
-                    ("DEBUG", _("Debug")),
-                    ("INFO", _("Info")),
-                    ("WARNING", _("Warning")),
-                    ("ERROR", _("Error")),
-                    ("CRITICAL", _("Critical"))
-                ]
-            )
-        ))
-
-        self.log_to_file_config = ConfigYesNo(default=self.config.get("log_to_file", True))
-        self.list.append(getConfigListEntry(_("Log to File"), self.log_to_file_config))
-
-        if self.log_to_file_config.value:
-            self.list.append(getConfigListEntry(
-                _("Max Log Size (MB)"),
-                ConfigInteger(
-                    default=self.config.get("log_max_size", 1048576) // 1048576,
-                    limits=(1, 10)
-                )
-            ))
-
-            self.list.append(getConfigListEntry(
-                _("Log Backup Files"),
-                ConfigInteger(default=self.config.get("log_backup_count", 3), limits=(1, 10))
-            ))
-
-            # Log Maintenance
+            # ============ LOG MAINTENANCE ============
             section = _('=== Log Maintenance ===')
-            self.list.append(getConfigListEntry(
-                _(section),
-                NoSave(ConfigNothing())
-            ))
+            self.list.append(getConfigListEntry(section, NoSave(ConfigNothing())))
+            self.list.append(getConfigListEntry(_("View Log File"), self.cfg_view_log_file))
+            self.list.append(getConfigListEntry(_("Clear Log Files Now"), self.cfg_clear_logs_now))
 
-            self.list.append(getConfigListEntry(
-                _("View Log File"),
-                ConfigSelection(choices=[("open", _("Press OK to view logs"))], default="open")
-            ))
-
-            self.list.append(getConfigListEntry(
-                _("Clear Log Files Now"),
-                ConfigSelection(choices=[("clear", _("Press OK to clear logs"))], default="clear")
-            ))
-
-        self['config'].list = self.list
-        self['config'].l.setList(self.list)
+        # ===== FINISH =====
+        self["config"].list = self.list
+        self["config"].l.setList(self.list)
 
     def save(self):
+        """Save all settings - FULL OVERWRITE VERSION"""
         log.debug("Starting save...", module="Settings")
-        name_to_key = {
-            # ============ PLAYER SETTINGS ============
-            _("Player"): "player",
-            _("Volume"): "volume",
-            _("Timeout (seconds)"): "timeout",
-            _("Retries"): "retries",
 
-            # ============ CACHE SETTINGS ============
-            _("Cache TTL (hours)"): "cache_ttl",
-            _("Cache Size"): "cache_size",
+        # Build the COMPLETE configuration from scratch
+        config_data = {}
 
-            # ============ DISPLAY SETTINGS ============
-            _("Skin"): "skin",
-            _("Show Flags"): "show_flags",
-            _("Show Logos"): "show_logos",
-            _("Items per page"): "items_per_page",
+        # 1. Copy defaults
+        config = get_config()
+        config_data = config.defaults.copy()  # Start from defaults
 
-            # ============ BROWSER SETTINGS ============
-            _("Max channels per country"): "max_channels",
-            _("Default View"): "default_view",
+        # 2. Overwrite with current UI values
+        config_data["player"] = self.cfg_player.value
+        config_data["volume"] = self.cfg_volume.value
+        config_data["timeout"] = self.cfg_timeout.value
+        config_data["retries"] = self.cfg_retries.value
+        config_data["skin"] = self.cfg_skin.value
+        config_data["show_flags"] = self.cfg_show_flags.value
+        config_data["show_logos"] = self.cfg_show_logos.value
+        config_data["items_per_page"] = self.cfg_items_per_page.value
 
-            # ============ FAVORITES SETTINGS ============
-            _("Max Favorites"): "max_favorites",
-
-            # ============ EXPORT SETTINGS ============
-            _("Enable Export"): "export_enabled",
-            _("Auto-Refresh Bouquet"): "auto_refresh_bouquet",
-            _("Confirm Before Export"): "confirm_before_export",
-            _("Max Channels per Bouquet"): "max_channels_per_bouquet",
-            _("Bouquet Name Prefix"): "bouquet_name_prefix",
-
-            # ============ NETWORK SETTINGS ============
-            _("User Agent"): "user_agent",
-
-            # ============ UPDATE SETTINGS ============
-            _("Check for Updates"): "check_update_action",
-
-
-            # ============ LOGGING SETTINGS ============
-            _("Log Level"): "log_level",
-            _("Log to File"): "log_to_file",
-            _("Max Log Size (MB)"): "log_max_size",
-            _("Log Backup Files"): "log_backup_count",
-            _("View Log File"): "view_log_action",
-            _("Clear Log Files Now"): "clear_logs_action",
-
-            # ============ SECTION TITLES (per saltarle) ============
-            _('=== Player Settings ==='): None,
-            _('=== Cache Settings ==='): None,
-            _('=== Display Settings ==='): None,
-            _('=== Browser Settings ==='): None,
-            _('=== Favorites Settings ==='): None,
-            _('=== Export Settings ==='): None,
-            _('=== Network Settings ==='): None,
-            _('=== Update Settings ==='): None,
-            _('=== Logging Settings ==='): None,
-            _('--- Log Maintenance ---'): None,
-        }
-
-        # STEP 1: Check if we're handling an action
-        current = self["config"].getCurrent()
-        if current:
-            display_name = current[0]
-            config_key = name_to_key.get(display_name)
-
-            if config_key == "view_log_action":
-                self._execute_view_logs()
-                self._reset_action_selections()
-                return
-            elif config_key == "clear_logs_action":
-                self.clear_logs()
-                self._reset_action_selections()
-                return
-            elif config_key == "check_update_action":
-                self.check_for_updates()
-                self._reset_action_selections()
-                return
-
-        # STEP 2: Normal save (only if not an action)
-        for entry in self["config"].list:
-            display_name = entry[0]
-            config_item = entry[1]
-
-            # Skip separators and actions
-            if isinstance(config_item, ConfigNothing):
-                continue
-
-            # Skip our fake action items
-            if display_name in [_("View Log File"), _("Clear Log Files Now"), _("Check for Updates")]:
-                continue
-
-            config_key = name_to_key.get(display_name)
-            if not config_key:
-                log.warning("No key found for: '%s'" % display_name, module="Settings")
-                continue
-
-            value = config_item.value
-            log.debug("Saving: %s = %s (type: %s)" % (config_key, value, type(value)), module="Settings")
-
-            if config_key == "log_max_size":
-                log.debug("log_max_size raw value: %s (type: %s)" % (value, type(value)), module="Settings")
-
-                try:
-                    mb_value = int(value)
-
-                    # Limit to a reasonable value
-                    if mb_value < 1:
-                        mb_value = 1
-                    elif mb_value > 100:
-                        mb_value = 100
-
-                    bytes_value = mb_value * 1048576
-                    log.debug("Converting %d MB to %d bytes" % (mb_value, bytes_value), module="Settings")
-
-                    self.config.set("log_max_size", bytes_value)
-                except Exception as e:
-                    log.error("Error converting log_max_size '%s': %s" % (value, e), module="Settings")
-                    self.config.set("log_max_size", 1048576)  # Default 1MB
-            elif config_key == "cache_ttl":
-                self.config.set("cache_ttl", int(value) * 3600)
-            elif config_key == "max_channels":
-                try:
-                    int_value = int(value)
-                    self.config.set("max_channels", int_value)
-                    log.debug("Saved max_channels as: %d" % int_value, module="Settings")
-                except Exception as e:
-                    log.error("Could not convert max_channels '%s': %s" % (value, e), module="Settings")
-                    self.config.set("max_channels", 500)
+        # max_channels handling
+        try:
+            max_channels_val = self.cfg_max_channels.value
+            if isinstance(max_channels_val, tuple):
+                # If it's a tuple (value, description), take the value
+                config_data["max_channels"] = int(max_channels_val[0])
             else:
-                self.config.set(config_key, value)
+                config_data["max_channels"] = int(max_channels_val)
+        except:
+            config_data["max_channels"] = 500
 
-        # STEP 3: Apply and save
+        config_data["default_view"] = self.cfg_default_view.value
+        config_data["cache_ttl"] = int(self.cfg_cache_ttl.value) * 3600
+        config_data["cache_size"] = self.cfg_cache_size.value
+        config_data["max_favorites"] = self.cfg_max_favorites.value
+        config_data["export_enabled"] = self.cfg_export_enabled.value
+
+        if config_data["export_enabled"]:
+            if hasattr(self, 'cfg_auto_refresh_bouquet'):
+                config_data["auto_refresh_bouquet"] = self.cfg_auto_refresh_bouquet.value
+            if hasattr(self, 'cfg_confirm_before_export'):
+                config_data["confirm_before_export"] = self.cfg_confirm_before_export.value
+            if hasattr(self, 'cfg_max_channels_for_bouquet'):
+                try:
+                    max_bouquet_val = self.cfg_max_channels_for_bouquet.value
+                    if isinstance(max_bouquet_val, tuple):
+                        config_data["max_channels_for_bouquet"] = int(max_bouquet_val[0])
+                    else:
+                        config_data["max_channels_for_bouquet"] = int(max_bouquet_val)
+                except:
+                    config_data["max_channels_for_bouquet"] = 100
+            if hasattr(self, 'cfg_bouquet_name_prefix'):
+                config_data["bouquet_name_prefix"] = self.cfg_bouquet_name_prefix.value
+
+        # Performance settings
+        config_data["use_hardware_acceleration"] = self.cfg_use_hardware_acceleration.value
+        config_data["buffer_size"] = int(self.cfg_buffer_size.value)
+
+        config_data["user_agent"] = self.cfg_user_agent.value
+        config_data["log_level"] = self.cfg_log_level.value
+        config_data["log_to_file"] = self.cfg_log_to_file.value
+
+        if config_data["log_to_file"]:
+            try:
+                config_data["log_max_size"] = int(self.cfg_log_max_size.value) * 1048576
+            except:
+                config_data["log_max_size"] = 1048576
+
+            if hasattr(self, 'cfg_log_backup_count'):
+                config_data["log_backup_count"] = self.cfg_log_backup_count.value
+
+        # 3. Overwrite the current config with the new complete configuration
+        config.config = config_data
+
+        # 4. Validate configuration
+        config.config = config.validate_config(config.config)
+
+        # 5. Save ONCE
+        if config.save_config():
+            log.info("Config saved successfully to disk", module="Settings")
+
+            # Verify: read saved file
+            try:
+                from json import load, dump
+                with open("/etc/enigma2/tvgarden/config.json", 'r') as f:
+                    saved_config = load(f)
+
+                # Check for duplicate keys
+                keys = list(saved_config.keys())
+                log.debug("Config saved with %d keys" % len(keys), module="Settings")
+
+                # Remove duplicate if exists
+                if "max_channels_per_bouquet" in saved_config:
+                    log.warning("WARNING: Duplicate key 'max_channels_per_bouquet' found", module="Settings")
+                    del saved_config["max_channels_per_bouquet"]
+                    with open("/etc/enigma2/tvgarden/config.json", 'w') as f:
+                        dump(saved_config, f, indent=4)
+                    log.info("Duplicate key removed", module="Settings")
+
+            except Exception as e:
+                log.error("Error verifying config: %s" % e, module="Settings")
+        else:
+            log.error("Failed to save config to disk!", module="Settings")
+
+        # Apply logging settings
         self.apply_logging_settings()
 
-        if self.config.save_config():
+        self.close(True)
+
+    def savexxxxxxxxxxxxx(self):
+        """Save all settings - SIMPLIFIED VERSION"""
+        log.debug("Starting save...", module="Settings")
+
+        # Prepare ALL settings in a dictionary
+        settings_dict = {
+            # Player
+            "player": self.cfg_player.value,
+            "volume": self.cfg_volume.value,
+            "timeout": self.cfg_timeout.value,
+            "retries": self.cfg_retries.value,
+
+            # Display
+            "skin": self.cfg_skin.value,
+            "show_flags": self.cfg_show_flags.value,
+            "show_logos": self.cfg_show_logos.value,
+            "items_per_page": self.cfg_items_per_page.value,
+
+            # Browser
+            "max_channels": int(self.cfg_max_channels.value),
+            "default_view": self.cfg_default_view.value,
+
+            # Cache
+            "cache_ttl": int(self.cfg_cache_ttl.value) * 3600,
+            "cache_size": self.cfg_cache_size.value,
+
+            # Favorites
+            "max_favorites": self.cfg_max_favorites.value,
+
+            # Export
+            "export_enabled": self.cfg_export_enabled.value,
+            "auto_refresh_bouquet": self.cfg_auto_refresh_bouquet.value if hasattr(self, 'cfg_auto_refresh_bouquet') else False,
+            "confirm_before_export": self.cfg_confirm_before_export.value if hasattr(self, 'cfg_confirm_before_export') else True,
+            "max_channels_for_bouquet": int(self.cfg_max_channels_for_bouquet.value),
+            "bouquet_name_prefix": self.cfg_bouquet_name_prefix.value if hasattr(self, 'cfg_bouquet_name_prefix') else "TVGarden",
+
+            # Network
+            "user_agent": self.cfg_user_agent.value,
+
+            # Logging
+            "log_level": self.cfg_log_level.value,
+            "log_to_file": self.cfg_log_to_file.value,
+            "log_max_size": int(self.cfg_log_max_size.value) * 1048576 if self.cfg_log_to_file.value else 1048576,
+            "log_backup_count": self.cfg_log_backup_count.value if hasattr(self, 'cfg_log_backup_count') and self.cfg_log_to_file.value else 3,
+        }
+
+        log.debug("Saving %d settings" % len(settings_dict), module="Settings")
+
+        # Use update_settings to save ONCE
+        if self.config.update_settings(settings_dict):
             log.info("Config saved successfully to disk", module="Settings")
         else:
             log.error("Failed to save config to disk!", module="Settings")
 
-        # STEP 4: Verify and close
-        saved_max = self.config.get("max_channels", 500)
-        log.debug("VERIFIED - max_channels in config: %d" % saved_max, module="Settings")
-
-        try:
-            config_file = "/etc/enigma2/tvgarden/config.json"
-            if exists(config_file):
-                with open(config_file, 'r') as f:
-                    file_content = load(f)
-                log.debug("File content - max_channels: %s" % file_content.get('max_channels', 'NOT FOUND'), module="Settings")
-        except Exception as e:
-            log.error("Could not read config file: %s" % e, module="Settings")
+        # Apply logging settings
+        self.apply_logging_settings()
 
         self.close(True)
+
+    def keyUp(self):
+        """Up arrow - navigate skipping separators."""
+        # Save current position
+        current_index = self["config"].getCurrentIndex()
+        
+        # Navigate up
+        ConfigListScreen.keyUp(self)
+        
+        # Check if we are on a separator
+        current = self["config"].getCurrent()
+        if current:
+            display_name = current[0]
+            config_item = current[1]
+            
+            # If it's a separator, skip another item up
+            if "===" in display_name or isinstance(config_item, ConfigNothing):
+                # If not already at the top, move up one more
+                if self["config"].getCurrentIndex() > 0:
+                    self["config"].instance.moveSelection(self["config"].instance.moveUp)
+        
+        self.updateStatus()
+
+    def keyDown(self):
+        """Down arrow - navigate skipping separators."""
+        # Save current position
+        current_index = self["config"].getCurrentIndex()
+        list_length = len(self["config"].list)
+        
+        # Navigate down
+        ConfigListScreen.keyDown(self)
+        
+        # Check if we are on a separator
+        current = self["config"].getCurrent()
+        if current:
+            display_name = current[0]
+            config_item = current[1]
+            
+            # If it's a separator, skip another item down
+            if "===" in display_name or isinstance(config_item, ConfigNothing):
+                # If not already at the bottom, move down one more
+                if self["config"].getCurrentIndex() < list_length - 1:
+                    self["config"].instance.moveSelection(self["config"].instance.moveDown)
+        
+        self.updateStatus()
+
+    def keyLeft(self):
+        """Freccia sinistra - solo navigazione."""
+        ConfigListScreen.keyLeft(self)
+        self.updateStatus()
+
+    def keyRight(self):
+        """Freccia destra - solo navigazione."""
+        ConfigListScreen.keyRight(self)
+        self.updateStatus()
 
     def cancel(self):
         """Cancel without saving"""

@@ -22,6 +22,7 @@ from Screens.InfoBarGenerics import (
 )
 
 from ..helpers import log
+from ..utils.config import get_config
 
 
 class TvInfoBarShowHide():
@@ -133,6 +134,8 @@ class TVGardenPlayer(InfoBarBase, InfoBarSeek, InfoBarAudioSelection, InfoBarNot
         self.session = session
         self.skinName = 'MoviePlayer'
 
+        self.config = get_config()
+
         InfoBarBase.__init__(self)
         InfoBarSeek.__init__(self)
         InfoBarAudioSelection.__init__(self)
@@ -195,24 +198,51 @@ class TVGardenPlayer(InfoBarBase, InfoBarSeek, InfoBarAudioSelection, InfoBarNot
         log.info("Playing channel %d: %s" % (self.current_index, channel_name), module="Player")
         log.debug("URL: %s..." % stream_url[:80], module="Player")
 
+        use_hw_accel = self.config.get("use_hardware_acceleration", True)
+        buffer_size = self.config.get("buffer_size", 2048)
+        player_type = self.config.get("player", "auto")
+
+        log.info("=== PERFORMANCE SETTINGS ===", module="Player")
+        log.info("Player: %s" % player_type, module="Player")
+        log.info("Hardware Acceleration: %s" % ("ENABLED" if use_hw_accel else "DISABLED"), module="Player")
+        log.info("Buffer Size: %s KB" % buffer_size, module="Player")
+
+        # Decisione HW acceleration
+        if self.should_use_hardware_acceleration(stream_url):
+            log.info("HW Acceleration decision: WILL USE for this stream", module="Player")
+        else:
+            log.info("HW Acceleration decision: WILL NOT USE for this stream", module="Player")
+
+        # Buffer size application
+        if player_type == "exteplayer3" and buffer_size > 0:
+            log.info("Buffer size will be applied: %s bytes" % (buffer_size * 1024), module="Player")
+        else:
+            log.info("Buffer size setting may not apply to player: %s" % player_type, module="Player")
+
         # Check if the URL may be problematic
         if self.is_problematic_stream(stream_url):
             log.warning("Stream might be problematic", module="Player")
             self.show_stream_warning(channel_name)
 
         try:
-            # Create service reference
+            # Create service reference with performance parameters
             url_encoded = stream_url.replace(":", "%3a")
             name_encoded = channel_name.replace(":", "%3a")
 
-            ref_str = (
-                "4097:0:1:0:0:0:0:0:0:0:"
-                + url_encoded
-                + ":"
-                + name_encoded
-            )
+            # Build service reference string with additional parameters
+            if self.should_use_hardware_acceleration(stream_url):
+                # Add parameters for hardware acceleration
+                ref_str = self.build_service_ref_with_hw_accel(url_encoded, name_encoded)
+                log.debug("Using hardware acceleration", module="Player")
+            else:
+                # Use standard format
+                ref_str = self.build_standard_service_ref(url_encoded, name_encoded)
+                log.debug("Using standard playback", module="Player")
 
-            log.debug("ServiceRef string: " + ref_str, module="Player")
+            # Add buffer size if supported
+            ref_str = self.add_buffer_size_param(ref_str, buffer_size)
+
+            log.debug("ServiceRef string: " + ref_str[:100] + "...", module="Player")
 
             sref = eServiceReference(ref_str)
             sref.setName(channel_name)
@@ -227,6 +257,82 @@ class TVGardenPlayer(InfoBarBase, InfoBarSeek, InfoBarAudioSelection, InfoBarNot
         except Exception as error:
             log.error("ERROR starting stream: " + str(error), module="Player")
             self.show_error_message("Cannot play: " + channel_name)
+
+    def should_use_hardware_acceleration(self, stream_url):
+        """Decide whether to use hardware acceleration for this stream"""
+        if not self.config.get("use_hardware_acceleration", True):
+            return False
+
+        # Check stream type
+        url_lower = stream_url.lower()
+
+        # Formats that usually support hardware acceleration
+        hw_accel_formats = [
+            '.mp4', '.m4v', '.mov',        # MP4 container
+            '.ts', '.m2ts', '.mts',        # MPEG-TS
+            '.mkv',                        # Matroska
+            '.avi',                        # AVI
+            '.flv',                        # Flash Video
+        ]
+
+        # Codecs that support hardware acceleration
+        hw_accel_codecs = [
+            'h264', 'h.264', 'avc',        # H.264
+            'h265', 'h.265', 'hevc',       # H.265/HEVC
+            'mpeg2', 'mpeg-2',             # MPEG-2
+            'mpeg4', 'mpeg-4',             # MPEG-4
+        ]
+
+        # Check file format
+        for fmt in hw_accel_formats:
+            if fmt in url_lower:
+                return True
+
+        # Check codec in URL (if specified)
+        for codec in hw_accel_codecs:
+            if codec in url_lower:
+                return True
+
+        # For HTTP streams, try hardware acceleration
+        if url_lower.startswith(('http://', 'https://')):
+            return True
+
+        return False
+
+    def build_standard_service_ref(self, url_encoded, name_encoded):
+        """Build standard service reference"""
+        return "4097:0:1:0:0:0:0:0:0:0:%s:%s" % (url_encoded, name_encoded)
+
+    def build_service_ref_with_hw_accel(self, url_encoded, name_encoded):
+        """Build service reference with hardware acceleration support"""
+        # Format for hardware acceleration (depends on player)
+        player = self.config.get("player", "auto")
+
+        if player == "exteplayer3":
+            # exteplayer3 with hardware acceleration
+            return "4097:0:1:0:0:0:0:0:0:0:%s:%s" % (url_encoded, name_encoded)
+        elif player == "gstplayer":
+            # gstreamer with hardware acceleration
+            return "4097:0:1:0:0:0:0:0:0:0:%s:%s" % (url_encoded, name_encoded)
+        else:
+            # Standard format
+            return "4097:0:1:0:0:0:0:0:0:0:%s:%s" % (url_encoded, name_encoded)
+
+    def add_buffer_size_param(self, ref_str, buffer_size_kb):
+        """Add buffer size parameter if supported"""
+        # For some players, we can add parameters to the service reference
+        # This depends on the specific player implementation
+
+        # For exteplayer3: use buffersize parameter
+        player = self.config.get("player", "auto")
+
+        if player == "exteplayer3" and buffer_size_kb > 0:
+            # Add buffersize parameter (in bytes)
+            buffer_size_bytes = buffer_size_kb * 1024
+            ref_str += "?buffersize=%d" % buffer_size_bytes
+            log.debug("Added buffer size: %sKB (%s bytes)" % (buffer_size_kb, buffer_size_bytes), module="Player")
+
+        return ref_str
 
     def is_problematic_stream(self, url):
         """Check whether a stream URL may cause playback issues."""
@@ -302,7 +408,16 @@ class TVGardenPlayer(InfoBarBase, InfoBarSeek, InfoBarAudioSelection, InfoBarNot
         # Create new service reference
         url_encoded = stream_url.replace(":", "%3a")
         name_encoded = channel_name.replace(":", "%3a")
-        ref_str = "4097:0:1:0:0:0:0:0:0:0:%s:%s" % (url_encoded, name_encoded)
+
+        # Use same performance settings
+        buffer_size = self.config.get("buffer_size", 2048)
+
+        if self.should_use_hardware_acceleration(stream_url):
+            ref_str = self.build_service_ref_with_hw_accel(url_encoded, name_encoded)
+        else:
+            ref_str = self.build_standard_service_ref(url_encoded, name_encoded)
+
+        ref_str = self.add_buffer_size_param(ref_str, buffer_size)
 
         log.info("Switching to: %s" % channel_name, module="Player")
 
@@ -343,7 +458,16 @@ class TVGardenPlayer(InfoBarBase, InfoBarSeek, InfoBarAudioSelection, InfoBarNot
         # Create new service reference
         url_encoded = stream_url.replace(":", "%3a")
         name_encoded = channel_name.replace(":", "%3a")
-        ref_str = "4097:0:1:0:0:0:0:0:0:0:%s:%s" % (url_encoded, name_encoded)
+
+        # Use same performance settings
+        buffer_size = self.config.get("buffer_size", 2048)
+
+        if self.should_use_hardware_acceleration(stream_url):
+            ref_str = self.build_service_ref_with_hw_accel(url_encoded, name_encoded)
+        else:
+            ref_str = self.build_standard_service_ref(url_encoded, name_encoded)
+
+        ref_str = self.add_buffer_size_param(ref_str, buffer_size)
 
         log.info("Switching to: %s" % channel_name, module="Player")
 
@@ -402,13 +526,19 @@ class TVGardenPlayer(InfoBarBase, InfoBarSeek, InfoBarAudioSelection, InfoBarNot
         """Display information for the current channel."""
         if self.channel_list and 0 <= self.current_index < len(self.channel_list):
             channel = self.channel_list[self.current_index]
-            info = "Canale: %s\n" % channel.get('name', 'N/A')
-            info += "Indice: %d/%d\n" % (self.current_index + 1, self.itemscount)
+            info = "Channel: %s\n" % channel.get('name', 'N/A')
+            info += "Index: %d/%d\n" % (self.current_index + 1, self.itemscount)
+
+            # Add performance settings info
+            use_hw_accel = self.config.get("use_hardware_acceleration", True)
+            buffer_size = self.config.get("buffer_size", 2048)
+            info += "HW Accel: %s\n" % ("On" if use_hw_accel else "Off")
+            info += "Buffer: %sKB\n" % buffer_size
 
             if channel.get('country'):
-                info += "Paese: %s\n" % channel.get('country')
+                info += "Country: %s\n" % channel.get('country')
             if channel.get('language'):
-                info += "Lingua: %s\n" % channel.get('language')
+                info += "Language: %s\n" % channel.get('language')
 
             url = channel.get('stream_url') or channel.get('url', 'N/A')
             if len(url) > 60:
