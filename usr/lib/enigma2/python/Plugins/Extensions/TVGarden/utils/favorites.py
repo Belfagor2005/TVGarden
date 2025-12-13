@@ -157,9 +157,9 @@ class FavoritesManager:
 
             with open(userbouquet_file, "w") as f:
                 # LULULLA STYLE HEADER
-                f.write("#NAME TV Garden Favorites\n")
+                f.write("#NAME TV Garden Favorites by Lululla\n")
                 f.write("#SERVICE 1:64:0:0:0:0:0:0:0:0:::--- | TV Garden Favorites by Lululla | ---\n")
-                f.write("#DESCRIPTION --- | TV Garden Favorites by Lululla | ---\n\n")
+                f.write("#DESCRIPTION --- | TV Garden Favorites by Lululla | ---\n")
 
                 for idx, channel in enumerate(self.favorites, 1):
                     name = channel.get('name', 'Channel %d' % idx)
@@ -174,7 +174,7 @@ class FavoritesManager:
                     # ONE service line per channel
                     service_line = '#SERVICE 4097:0:1:0:0:0:0:0:0:0:%s:%s\n' % (url_encoded, name_encoded)
                     f.write(service_line)
-                    f.write('#DESCRIPTION %s\n\n' % name)
+                    f.write('#DESCRIPTION %s\n' % name)
 
             return True
 
@@ -218,9 +218,9 @@ class FavoritesManager:
                 channels_by_country[country].append(channel)
 
             with open(userbouquet_file, "w") as f:
-                f.write("#NAME TV Garden Favorites\n")
+                f.write("#NAME TV Garden Favorites by Lululla\n")
                 f.write("#SERVICE 1:64:0:0:0:0:0:0:0:0::--- | TV Garden Favorites by Lululla | ---\n")
-                f.write("#DESCRIPTION --- | TV Garden Favorites by Lululla | ---\n\n")
+                f.write("#DESCRIPTION --- | TV Garden Favorites by Lululla | ---\n")
 
                 valid_count = 0
 
@@ -228,7 +228,7 @@ class FavoritesManager:
                 for country, country_channels in channels_by_country.items():
                     # Add country marker
                     f.write("#SERVICE 1:64:0:0:0:0:0:0:0:0::--- %s ---\n" % country.upper())
-                    f.write("#DESCRIPTION --- %s ---\n\n" % country.upper())
+                    f.write("#DESCRIPTION --- %s ---\n" % country.upper())
 
                     # Write channels for this country
                     for channel in country_channels:
@@ -245,7 +245,7 @@ class FavoritesManager:
                         # Use 4097:0:1:0:0:0:0:0:0:0 format
                         service_line = '#SERVICE 4097:0:1:0:0:0:0:0:0:0:%s:%s\n' % (url_encoded, name_encoded)
                         f.write(service_line)
-                        f.write('#DESCRIPTION %s\n\n' % name)
+                        f.write('#DESCRIPTION %s\n' % name)
 
                         valid_count += 1
 
@@ -379,27 +379,32 @@ class FavoritesManager:
 
             # Write the bouquet file organized by country
             with open(userbouquet_file, "w") as f:
-                f.write("#NAME %s - All Database\n" % prefix)
-                f.write("#SERVICE 1:64:0:0:0:0:0:0:0:0::--- | %s Complete Database | ---\n" % prefix)
-                f.write("#DESCRIPTION --- | %s Complete Database | ---\n\n" % prefix)
+                f.write("#NAME %s - TV Garden All by Lululla\n" % prefix)
+                f.write("#SERVICE 1:64:0:0:0:0:0:0:0:0::--- | %s TV Garden by Lululla | ---\n" % prefix)
+                f.write("#DESCRIPTION --- | %s TV Garden by Lululla | ---\n" % prefix)
 
                 valid_count = 0
+                # current_country = None
 
-                # Sort countries alphabetically
+                # PRIMA: ordina i canali per paese
+                from collections import defaultdict
+                channels_by_country = defaultdict(list)
+                for channel in all_channels:
+                    channels_by_country[channel.get('country', 'UNKNOWN')].append(channel)
+
+                # SCRITTURA OTTIMIZZATA
                 for country in sorted(channels_by_country.keys()):
                     country_channels = channels_by_country[country]
 
                     if not country_channels:
                         continue
 
-                    # Country markers
+                    # SEPARATORE PAESE OTTIMIZZATO (1 linea invece di 2)
                     country_display = country.upper() if country != 'UNKNOWN' else 'OTHER'
-                    f.write("#SERVICE 1:64:0:0:0:0:0:0:0:0::--- %s (%d channels) ---\n" %
-                            (country_display, len(country_channels)))
-                    f.write("#DESCRIPTION --- %s (%d channels) ---\n\n" %
+                    f.write("#SERVICE 1:64:0:0:0:0:0:0:0:0::%s (%d)\n" %
                             (country_display, len(country_channels)))
 
-                    # Write channels for this country
+                    # CANALI IN FORMATO COMPATTO (1 linea per canale, no #DESCRIPTION)
                     for channel in country_channels:
                         name = channel.get('name', '').strip()
                         stream_url = channel.get('stream_url') or channel.get('url', '')
@@ -407,28 +412,20 @@ class FavoritesManager:
                         if not name or not stream_url:
                             continue
 
-                        # Encode for Enigma2
-                        url_encoded = stream_url.replace(":", "%3a")
+                        # ENCODING: usa ':' normale (non %3a) - più efficiente per Enigma2
+                        url_encoded = stream_url  # LASCIALO COSÌ, non fare replace
 
-                        # Generate fake SID/TSID/ONID based on channel index
-                        # This makes each service reference unique
-                        service_id = valid_count + 1
-                        fake_sid = hex(service_id * 0x100 + 0x79)[2:].upper().zfill(4)
-                        fake_tsid = hex(service_id * 0x200 + 0xD2)[2:].upper().zfill(4)
-
-                        # Correct format: 4097:0:1:SID:TSID:EC:0:0:0:0:URL
-                        service_line = '#SERVICE 4097:0:1:%s:%s:EC:0:0:0:0:%s\n' % (
-                            fake_sid, fake_tsid, url_encoded
+                        # FORMATO ULTRA-COMPATTO: solo URL, nome nel servizio
+                        # Il nome viene messo alla fine dopo i due punti
+                        service_line = '#SERVICE 4097:0:1:0:0:0:0:0:0:0:%s:%s\n' % (
+                            url_encoded, name
                         )
 
                         f.write(service_line)
                         f.write('#DESCRIPTION %s\n' % name)
                         valid_count += 1
 
-                    f.write("\n")  # Space between countries
-
-            log.info("Created bouquet with %d channels from %d countries" %
-                     (valid_count, len(channels_by_country)), module="Favorites")
+                log.info("Created OPTIMIZED bouquet with %d channels" % valid_count, module="Favorites")
 
             if valid_count == 0:
                 return False, _("No valid stream URLs found")
@@ -523,12 +520,7 @@ class FavoritesManager:
         try:
             tag = "tvgarden"
             removed_files = 0
-
-            # If no name is provided, use prefix + favorites
-            if bouquet_name is None:
-                config = get_config()
-                prefix = config.get("bouquet_name_prefix", "TVGarden")
-                bouquet_name = "%s_favorites" % prefix.lower()
+            removed_lines = 0
 
             # 1. SAFE REMOVAL from bouquets.tv (preserve order)
             bouquet_tv_file = "/etc/enigma2/bouquets.tv"
@@ -542,52 +534,43 @@ class FavoritesManager:
                 with open(bouquet_tv_file, "r") as f:
                     lines = f.readlines()
 
-                # Remove only TV Garden references
+                # Remove ALL lines containing userbouquet.tvgarden_
                 new_lines = []
-                skip_next_empty = False
-
-                for i, line in enumerate(lines):
-                    # Skip the bouquet entry containing this bouquet
-                    if 'userbouquet.%s_%s.tv' % (tag, bouquet_name) in line:
-                        skip_next_empty = True  # Also skip next empty line
+                for line in lines:
+                    if 'userbouquet.%s_' % tag in line:
+                        removed_lines += 1
                         continue
-
-                    # Skip TV Garden comment lines (use prefix)
-                    config = get_config()
-                    prefix = config.get("bouquet_name_prefix", "TVGarden")
-                    if prefix in line and "Favorites" in line:
-                        continue
-
-                    # Skip empty line immediately after removed bouquet
-                    if skip_next_empty and line.strip() == "":
-                        skip_next_empty = False
-                        continue
-
                     new_lines.append(line)
 
                 # Write back only if modifications were made
                 if len(new_lines) != len(lines):
                     with open(bouquet_tv_file, "w") as f:
                         f.writelines(new_lines)
-                    log.info("Removed %s from bouquets.tv" % bouquet_name, module="Favorites")
+                    log.info("Removed %d bouquet references from bouquets.tv" % removed_lines, module="Favorites")
 
-            # 2. Remove bouquet files
-            files_to_remove = [
-                "/etc/enigma2/userbouquet.%s_%s.tv" % (tag, bouquet_name),
-                "/etc/enigma2/userbouquet.%s_%s.del" % (tag, bouquet_name),
-                "/etc/enigma2/userbouquet.%s_%s.radio" % (tag, bouquet_name)
+            # 2. Find and remove ALL bouquet files with the tag
+            import glob
+            bouquet_patterns = [
+                "/etc/enigma2/userbouquet.%s_*.tv" % tag,
+                "/etc/enigma2/userbouquet.%s_*.del" % tag,
+                "/etc/enigma2/userbouquet.%s_*.radio" % tag,
+                "/etc/enigma2/userbouquet.%s_*.tv.backup" % tag
             ]
 
-            for file in files_to_remove:
-                if exists(file):
-                    remove(file)
-                    removed_files += 1
-                    log.info("Removed: %s" % file, module="Favorites")
+            for pattern in bouquet_patterns:
+                for file_path in glob.glob(pattern):
+                    try:
+                        remove(file_path)
+                        removed_files += 1
+                        log.info("Removed: %s" % file_path, module="Favorites")
+                    except Exception as e:
+                        log.error("Failed to remove %s: %s" % (file_path, e), module="Favorites")
 
-            # 3. SOFT RELOAD (not a full reloadBouquets!)
+            # 3. SOFT RELOAD
             self._reload_bouquets()
 
-            return True, _("Bouquet removed. %d files deleted. Order preserved.") % removed_files
+            message = _("Removed %d files and %d bouquet references") % (removed_files, removed_lines)
+            return True, message
 
         except Exception as e:
             log.error("Error removing bouquet: %s" % e, module="Favorites")
