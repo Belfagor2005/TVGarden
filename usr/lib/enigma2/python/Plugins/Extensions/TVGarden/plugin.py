@@ -360,14 +360,22 @@ def main(session, **kwargs):
     except Exception as e:
         import traceback
         import time
+        import codecs
+
         log_path = "/tmp/tvgarden_crash.log"
-        with open(log_path, "a") as f:
+        f = None
+        try:
+            f = codecs.open(log_path, "a", "utf-8")
             f.write("=" * 50 + "\n")
             f.write(time.ctime() + "\n")
             f.write("CRASH on init TVGardenMain\n")
             f.write(str(e) + "\n")
             f.write(traceback.format_exc())
             f.write("\n" + "=" * 50 + "\n")
+        finally:
+            if f:
+                f.close()
+
         # Tenta almeno di mostrare un messaggio di errore
         from Screens.MessageBox import MessageBox
         error_msg = "TVGarden Crash: " + str(e)

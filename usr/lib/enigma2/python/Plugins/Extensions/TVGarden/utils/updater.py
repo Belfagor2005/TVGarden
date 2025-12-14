@@ -12,9 +12,9 @@ from re import sub, search
 from os import makedirs
 from os.path import join, exists
 from sys import version_info
-from enigma import eTimer
-from Screens.MessageBox import MessageBox
-from Screens.Screen import Screen
+# from enigma import eTimer
+# from Screens.MessageBox import MessageBox
+# from Screens.Screen import Screen
 from ..helpers import log
 from .. import _, PLUGIN_VERSION, PLUGIN_PATH, USER_AGENT
 
@@ -49,7 +49,7 @@ class PluginUpdater:
             makedirs(self.BACKUP_DIR, mode=0o755)
 
     def get_latest_version(self):
-        """Get latest version from installer.sh"""
+        """Get latest version from installer.sh - Python 2/3 compatible"""
         try:
             installer_url = "https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/installer.sh"
 
@@ -58,30 +58,35 @@ class PluginUpdater:
             headers = {'User-Agent': self.user_agent}
             req = Request(installer_url, headers=headers)
 
-            with urlopen(req, timeout=10) as response:
+            response = None
+            try:
+                response = urlopen(req, timeout=10)
                 content = response.read().decode('utf-8')
+            finally:
+                if response:
+                    response.close()
 
-                patterns = [
-                    r"version\s*=\s*['\"](\d+\.\d+)['\"]",  # version='1.1' o version="1.1"
-                    r"version\s*:\s*['\"](\d+\.\d+)['\"]",  # version: '1.1'
-                    r"Version\s*=\s*['\"](\d+\.\d+)['\"]",  # Version='1.1'
-                ]
+            patterns = [
+                r"version\s*=\s*['\"](\d+\.\d+)['\"]",  # version='1.1' o version="1.1"
+                r"version\s*:\s*['\"](\d+\.\d+)['\"]",  # version: '1.1'
+                r"Version\s*=\s*['\"](\d+\.\d+)['\"]",  # Version='1.1'
+            ]
 
-                for pattern in patterns:
-                    match = search(pattern, content)
-                    if match:
-                        version = match.group(1)
-                        log.info("Found version %s using pattern: %s" % (version, pattern), module="Updater")
-                        return version
-
-                log.warning("No version pattern found in installer.sh", module="Updater")
-                fallback = search(r'(\d+\.\d+)', content)
-                if fallback:
-                    version = fallback.group(1)
-                    log.info("Fallback found version: %s" % version, module="Updater")
+            for pattern in patterns:
+                match = search(pattern, content)
+                if match:
+                    version = match.group(1)
+                    log.info("Found version %s using pattern: %s" % (version, pattern), module="Updater")
                     return version
 
-                return None
+            log.warning("No version pattern found in installer.sh", module="Updater")
+            fallback = search(r'(\d+\.\d+)', content)
+            if fallback:
+                version = fallback.group(1)
+                log.info("Fallback found version: %s" % version, module="Updater")
+                return version
+
+            return None
 
         except Exception as e:
             log.error("Error getting latest version: %s" % e, module="Updater")
@@ -115,26 +120,26 @@ class PluginUpdater:
     def check_update(self, callback=None):
         """Check if update is available - VERSIONE SINCROZINATA"""
         log.debug("PluginUpdater.check_update called", module="Updater")
-        
+
         try:
             latest = self.get_latest_version()
             log.debug("get_latest_version returned: %s" % latest, module="Updater")
             log.debug("Current version: %s" % self.current_version, module="Updater")
-            
+
             if latest is None:
                 log.warning("Could not get latest version", module="Updater")
                 if callback:
                     callback(None)
                 return
-            
+
             # Compare versions
             is_newer = self.compare_versions(latest, self.current_version) > 0
             log.debug("Version comparison: is_newer = %s" % is_newer, module="Updater")
-            
+
             if callback:
                 log.debug("Calling callback with: %s" % is_newer, module="Updater")
                 callback(is_newer)
-                
+
         except Exception as e:
             log.error("Error in check_update: %s" % e, module="Updater")
             if callback:

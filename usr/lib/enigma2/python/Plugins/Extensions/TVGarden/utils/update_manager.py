@@ -33,8 +33,8 @@ class UpdateManager:
                     if status_label:
                         status_label.setText(_("Update check failed"))
                     session.open(MessageBox,
-                                _("Could not check for updates. Check internet connection."),
-                                MessageBox.TYPE_ERROR)
+                                 _("Could not check for updates. Check internet connection."),
+                                 MessageBox.TYPE_ERROR)
 
                 elif result:
                     if status_label:
@@ -45,8 +45,8 @@ class UpdateManager:
                     if status_label:
                         status_label.setText(_("Plugin is up to date"))
                     session.open(MessageBox,
-                                _("You have the latest version of TV Garden."),
-                                MessageBox.TYPE_INFO)
+                                 _("You have the latest version of TV Garden."),
+                                 MessageBox.TYPE_INFO)
 
             log.debug("Calling updater.check_update()", module="UpdateManager")
             updater.check_update(update_callback)
@@ -56,8 +56,8 @@ class UpdateManager:
             if status_label:
                 status_label.setText(_("Update check error"))
             session.open(MessageBox,
-                        _("Could not check for updates: %s") % str(e),
-                        MessageBox.TYPE_ERROR)
+                         _("Could not check for updates: %s") % str(e),
+                         MessageBox.TYPE_ERROR)
 
     @staticmethod
     def ask_to_update(session, status_label=None, updater=None):

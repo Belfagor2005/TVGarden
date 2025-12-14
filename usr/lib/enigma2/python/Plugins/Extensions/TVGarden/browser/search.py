@@ -51,7 +51,7 @@ class SearchBrowser(BaseBrowser):
     def __init__(self, session):
 
         self.config = PluginConfig()
-        dynamic_skin = self.config.load_skin("FavoritesBrowser", self.skin)
+        dynamic_skin = self.config.load_skin("SearchBrowser", self.skin)
         self.skin = dynamic_skin
 
         BaseBrowser.__init__(self, session)

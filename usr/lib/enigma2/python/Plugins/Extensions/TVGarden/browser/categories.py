@@ -146,7 +146,7 @@ class CategoriesBrowser(BaseBrowser):
 
                 # Full log for the first 500 characters
                 data_str = str(data)
-                log.debug("Data sample: %s..." % data_str[:300], module="Categories")
+                log.debug("Data sample: %s..." % data_str[:300] if len(data_str) > 300 else data_str, module="Categories")
 
                 # Extract channels
                 channels = []

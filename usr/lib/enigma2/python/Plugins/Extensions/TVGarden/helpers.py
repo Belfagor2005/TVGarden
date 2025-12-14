@@ -13,6 +13,7 @@ from os.path import join, exists
 from datetime import datetime
 from enigma import getDesktop
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS, fileExists
+import codecs
 
 from . import PLUGIN_NAME, PLUGIN_PATH, USER_AGENT
 
@@ -29,8 +30,14 @@ def load_skin_file(skin_name):
     # Read skin content
     if fileExists(skin_file):
         try:
-            with open(skin_file, 'r') as f:
+            # Python 2: NO encoding parameter
+            f = None
+            try:
+                f = codecs.open(skin_file, 'r', 'utf-8')
                 return f.read()
+            finally:
+                if f:
+                    f.close()
         except:
             pass
 
@@ -395,7 +402,7 @@ class TVGardenLog:
 
     @classmethod
     def log(cls, message, level=INFO, module=""):
-        """Enhanced logging function"""
+        """Enhanced logging function - Python 2/3 compatible"""
 
         # Filter by level
         if not cls._should_log(level):
@@ -414,13 +421,17 @@ class TVGardenLog:
             reset = cls.COLORS.get('END', '')
             print("%s%s%s" % (color, full_message, reset), file=stderr)
 
-        # File output
-        import io
+        # File output - Python 2/3 compatible
         if cls._log_to_file:
             try:
-                # io.open funziona sia su Py2 che Py3
-                with io.open(LOG_PATH, "a", encoding="utf-8") as f:
+                import codecs
+                f = None
+                try:
+                    f = codecs.open(LOG_PATH, "a", "utf-8")
                     f.write(full_message + u"\n")
+                finally:
+                    if f:
+                        f.close()
             except Exception as e:
                 print("Log file error: %s" % e, file=stderr)
 
@@ -476,12 +487,18 @@ class TVGardenLog:
 
     @classmethod
     def get_log_contents(cls, max_lines=100):
-        """Get last N lines from log file"""
+        """Get last N lines from log file - Python 2/3 compatible"""
         try:
             if exists(LOG_PATH):
-                with open(LOG_PATH, "r", encoding="utf-8") as f:
+                import codecs
+                f = None
+                try:
+                    f = codecs.open(LOG_PATH, "r", "utf-8")
                     lines = f.readlines()
-                return "".join(lines[-max_lines:])
+                    return "".join(lines[-max_lines:])
+                finally:
+                    if f:
+                        f.close()
             return "Log file not found"
         except Exception as e:
             return "Error reading log: %s" % e

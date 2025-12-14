@@ -11,6 +11,7 @@ from Screens.Screen import Screen
 from Components.Label import Label
 from Components.MenuList import MenuList
 from Components.ActionMap import ActionMap
+from .. import _
 
 
 class BaseBrowser(Screen):
@@ -95,8 +96,13 @@ class BaseBrowser(Screen):
     def update_status(self):
         """Update status label"""
         total = len(self.get_all_items())
+        if total == 0:
+            self["status"].setText(_("No items"))
+            return
+
         current = self["menu"].getSelectedIndex() + 1 + (self.current_page * self.items_per_page)
-        self["status"].setText("Item %d of %d" % (current, total))
+        translation = _("Item {} of {}").format(current, total)
+        self["status"].setText(translation)
 
     def apply_filter(self, text):
         """Apply text filter"""

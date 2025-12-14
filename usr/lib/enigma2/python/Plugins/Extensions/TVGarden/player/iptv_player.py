@@ -355,12 +355,12 @@ class TVGardenPlayer(InfoBarBase, InfoBarSeek, InfoBarAudioSelection, InfoBarNot
         return any(sign in url_lower for sign in warning_signs)
 
     def show_stream_warning(self, channel_name):
-        """Show warning about potentially problematic stream"""
+        """Show warning about potentially problematic stream - Python 2/3 compatible"""
         message = (
-            "Warning: {}\n\n"
+            "Warning: %s\n\n"
             "This stream might use encryption or DRM that is not supported by your receiver.\n\n"
             "Try another channel."
-        ).format(channel_name)
+        ) % channel_name
         self.session.open(MessageBox, message, MessageBox.TYPE_WARNING)
 
     def start_stream_check_timer(self):

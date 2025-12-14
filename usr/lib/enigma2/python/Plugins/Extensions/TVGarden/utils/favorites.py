@@ -61,6 +61,16 @@ class FavoritesManager:
         except:
             return False
 
+    def save_bouquet_file(self, filepath, data):
+        """Save bouquet file (NON gzip)"""
+        try:
+            with open(filepath, 'w') as f:
+                dump(data, f, indent=2)
+            return True
+        except Exception as e:
+            log.error("Error saving bouquet %s: %s" % (filepath, e), module="Favorites")
+            return False
+
     def generate_id(self, channel):
         """Generate unique ID for channel"""
         # Use stream URL as base for ID
@@ -186,6 +196,100 @@ class FavoritesManager:
             return False
 
     def export_to_bouquet(self, channels=None, bouquet_name=None):
+        """Export channels to an Enigma2 bouquet file - FIXED VERSION"""
+        try:
+            if channels is None:
+                channels = self.favorites
+
+            if not channels or len(channels) == 0:
+                return False, _("No channels to export")
+
+            # Read configuration
+            config = get_config()
+            max_channels = config.get("max_channels_for_bouquet", 100)
+
+            # Apply channel limit if specified
+            if max_channels > 0 and len(channels) > max_channels:
+                channels = channels[:max_channels]
+                log.info("Limited to %d channels" % max_channels, module="Favorites")
+
+            tag = "tvgarden"
+
+            # If no bouquet name is provided, use prefix + favorites
+            if bouquet_name is None:
+                prefix = config.get("bouquet_name_prefix", "TVGarden")
+                bouquet_name = "%s_favorites" % prefix.lower()
+
+            userbouquet_file = "/etc/enigma2/userbouquet.%s_%s.tv" % (tag, bouquet_name)
+
+            # 1. Group channels by country
+            channels_by_country = {}
+            for channel in channels:
+                country = channel.get('country', 'Unknown')
+                if country not in channels_by_country:
+                    channels_by_country[country] = []
+                channels_by_country[country].append(channel)
+
+            # 2. Write the bouquet file - SIMPLIFIED
+            try:
+                f = open(userbouquet_file, "w")
+                
+                # Write header
+                f.write("#NAME TV Garden Favorites by Lululla\n")
+                f.write("#SERVICE 1:64:0:0:0:0:0:0:0:0::--- | TV Garden Favorites by Lululla | ---\n")
+                f.write("#DESCRIPTION --- | TV Garden Favorites by Lululla | ---\n")
+
+                valid_count = 0
+
+                # 3. Write countries and channels
+                for country in sorted(channels_by_country.keys()):
+                    country_channels = channels_by_country[country]
+                    
+                    if not country_channels:
+                        continue
+
+                    # Country separator
+                    f.write("#SERVICE 1:64:0:0:0:0:0:0:0:0::--- %s ---\n" % country.upper())
+                    f.write("#DESCRIPTION --- %s ---\n" % country.upper())
+
+                    # Write channels for this country
+                    for channel in country_channels:
+                        name = channel.get('name', 'Channel')
+                        stream_url = channel.get('stream_url') or channel.get('url', '')
+
+                        if not stream_url:
+                            continue
+
+                        # Encoding
+                        url_encoded = stream_url.replace(":", "%3a")
+                        name_encoded = name.replace(":", "%3a")
+
+                        # Write channel entry
+                        f.write('#SERVICE 4097:0:1:0:0:0:0:0:0:0:%s:%s\n' % (url_encoded, name_encoded))
+                        f.write('#DESCRIPTION %s\n' % name)
+
+                        valid_count += 1
+
+                f.close()  # Chiudi il file normalmente
+
+            except Exception as e:
+                log.error("Error writing bouquet file: %s" % e, module="Favorites")
+                return False, _("Error writing file: %s") % str(e)
+
+            if valid_count == 0:
+                return False, _("No valid stream URLs found")
+
+            # Add to bouquets and reload
+            self._add_to_bouquets_tv(tag, bouquet_name)
+            self._reload_bouquets()
+
+            return True, _("Exported %d channels to bouquet") % valid_count
+
+        except Exception as e:
+            log.error("Error: %s" % e, module="Favorites")
+            return False, _("Error: %s") % str(e)
+
+    def export_to_bouquetxxx(self, channels=None, bouquet_name=None):
         """Export channels to an Enigma2 bouquet file"""
         try:
             if channels is None:
@@ -220,44 +324,54 @@ class FavoritesManager:
                     channels_by_country[country] = []
                 channels_by_country[country].append(channel)
 
-            with open(userbouquet_file, "w") as f:
-                f.write("#NAME TV Garden Favorites by Lululla\n")
-                f.write("#SERVICE 1:64:0:0:0:0:0:0:0:0::--- | TV Garden Favorites by Lululla | ---\n")
-                f.write("#DESCRIPTION --- | TV Garden Favorites by Lululla | ---\n")
+            # Python 2 compatible file writing
+            try:
+                f = open(userbouquet_file, "w")
+                try:
+                    f.write("#NAME TV Garden Favorites by Lululla\n")
+                    f.write("#SERVICE 1:64:0:0:0:0:0:0:0:0::--- | TV Garden Favorites by Lululla | ---\n")
+                    f.write("#DESCRIPTION --- | TV Garden Favorites by Lululla | ---\n")
 
-                valid_count = 0
+                    valid_count = 0
 
-                # 2. Process each country group
-                for country, country_channels in channels_by_country.items():
-                    # Add country marker
-                    f.write("#SERVICE 1:64:0:0:0:0:0:0:0:0::--- %s ---\n" % country.upper())
-                    f.write("#DESCRIPTION --- %s ---\n" % country.upper())
+                    # 2. Process each country group
+                    for country, country_channels in channels_by_country.items():
+                        # Add country marker
+                        f.write("#SERVICE 1:64:0:0:0:0:0:0:0:0::--- %s ---\n" % country.upper())
+                        f.write("#DESCRIPTION --- %s ---\n" % country.upper())
 
-                    # Write channels for this country
-                    for channel in country_channels:
-                        name = channel.get('name', 'Channel')
-                        stream_url = channel.get('stream_url') or channel.get('url', '')
+                        # Write channels for this country
+                        for channel in country_channels:
+                            name = channel.get('name', 'Channel')
+                            stream_url = channel.get('stream_url') or channel.get('url', '')
 
-                        if not stream_url:
-                            continue
+                            if not stream_url:
+                                continue
 
-                        # Encoding
-                        url_encoded = stream_url.replace(":", "%3a")
-                        name_encoded = name.replace(":", "%3a")
+                            # Encoding
+                            url_encoded = stream_url.replace(":", "%3a")
+                            name_encoded = name.replace(":", "%3a")
 
-                        # Use 4097:0:1:0:0:0:0:0:0:0 format
-                        service_line = '#SERVICE 4097:0:1:0:0:0:0:0:0:0:%s:%s\n' % (url_encoded, name_encoded)
-                        f.write(service_line)
-                        f.write('#DESCRIPTION %s\n' % name)
+                            # Use 4097:0:1:0:0:0:0:0:0:0 format
+                            service_line = '#SERVICE 4097:0:1:0:0:0:0:0:0:0:%s:%s\n' % (url_encoded, name_encoded)
+                            f.write(service_line)
+                            f.write('#DESCRIPTION %s\n' % name)
 
-                        valid_count += 1
+                            valid_count += 1
 
-                # Remove last empty line if needed
-                f.seek(0, 2)  # Go to end of file
-                f.seek(f.tell() - 1, 0)  # Go back one character
-                if f.read(1) == '\n':
-                    f.seek(f.tell() - 1, 0)
-                    f.truncate()
+                    # Remove last empty line if needed
+                    f.seek(0, 2)  # Go to end of file
+                    f.seek(f.tell() - 1, 0)  # Go back one character
+                    if f.read(1) == '\n':
+                        f.seek(f.tell() - 1, 0)
+                        f.truncate()
+
+                finally:
+                    f.close()
+
+            except Exception as e:
+                log.error("Error writing bouquet file: %s" % e, module="Favorites")
+                return False, _("Error writing file: %s") % str(e)
 
             if valid_count == 0:
                 return False, _("No valid stream URLs found")
@@ -410,11 +524,11 @@ class FavoritesManager:
             )
 
             # Group channels by country
-            from collections import defaultdict
-            channels_by_country = defaultdict(list)
-
+            channels_by_country = {}
             for channel in all_channels:
                 country = channel.get('country', 'UNKNOWN')
+                if country not in channels_by_country:
+                    channels_by_country[country] = []
                 channels_by_country[country].append(channel)
 
             # Write the bouquet file organized by country
@@ -430,11 +544,6 @@ class FavoritesManager:
                 )
 
                 valid_count = 0
-
-                # FIRST: sort channels by country
-                channels_by_country = defaultdict(list)
-                for channel in all_channels:
-                    channels_by_country[channel.get('country', 'UNKNOWN')].append(channel)
 
                 # OPTIMIZED WRITE
                 for country in sorted(channels_by_country.keys()):
@@ -465,7 +574,6 @@ class FavoritesManager:
                         name_encoded = name.replace(":", "%3a")
 
                         # Use 4097:0:1:0:0:0:0:0:0:0 format
-                        # service_line = '#SERVICE 4097:0:1:0:0:0:0:0:0:0:%s:%s\n' % (url_encoded, name_encoded)
                         service_line = (
                             "#SERVICE 4097:0:1:0:0:0:0:0:0:0:%s:%s\n" %
                             (url_encoded, name_encoded)
@@ -530,7 +638,7 @@ class FavoritesManager:
                 return False
 
     def _add_to_bouquets_tv(self, tag, bouquet_name):
-        """Add bouquet reference to bouquets.tv"""
+        """Add bouquet reference to bouquets.tv - SAFE VERSION"""
         try:
             bouquet_tv_file = "/etc/enigma2/bouquets.tv"
             bouquet_line = '#SERVICE 1:7:1:0:0:0:0:0:0:0:FROM BOUQUET "userbouquet.%s_%s.tv" ORDER BY bouquet\n' % (tag, bouquet_name)
@@ -539,23 +647,20 @@ class FavoritesManager:
                 # Read entire file
                 with open(bouquet_tv_file, "r") as f:
                     content = f.read()
+                    lines = content.split('\n')
 
                 # Check if already exists
-                if bouquet_line in content:
+                if bouquet_line.strip() in [line.strip() for line in lines if line.strip()]:
                     log.info("Bouquet already in bouquets.tv", module="Favorites")
                     return True
 
-                # Check if file ends with newline
-                with open(bouquet_tv_file, "rb") as f:
-                    f.seek(-1, 2)  # Go to last byte
-                    last_char = f.read(1)
-                    needs_newline = last_char != b'\n'
+                # Check if last line is empty
+                last_line_empty = (not lines or lines[-1].strip() == '')
 
-                # Append to END of file
+                # Append to file
                 with open(bouquet_tv_file, "a") as f:
-                    if needs_newline:
+                    if not last_line_empty:
                         f.write("\n")
-                    # f.write("# TV Garden Favorites - Added by TV Garden Plugin\n")
                     f.write(bouquet_line)
 
                 log.info("Added bouquet to END of bouquets.tv", module="Favorites")
@@ -745,11 +850,11 @@ class FavoritesManager:
             if len(all_channels) == 0:
                 return False, _("No valid channels found in database")
 
-            from collections import defaultdict
-            channels_by_country = defaultdict(list)
-
+            channels_by_country = {}
             for channel in all_channels:
                 country = channel.get('country', 'UNKNOWN')
+                if country not in channels_by_country:
+                    channels_by_country[country] = []
                 channels_by_country[country].append(channel)
 
             tag = "tvgarden"

@@ -239,7 +239,7 @@ class CountriesBrowser(BaseBrowser):
             self.flag_timer.start(50, True)
 
     def download_flag_safe(self, url, country_code):
-        """Safe flag download with memory management"""
+        """Safe flag download with memory management - Python 2/3 compatible"""
         try:
             # Cleanup old temp file
             if self.current_flag_path and exists(self.current_flag_path):
@@ -248,68 +248,91 @@ class CountriesBrowser(BaseBrowser):
                 except:
                     pass
 
-            # Download flag
+            # Download flag - Python 2 compatible
             req = Request(url, headers={'User-Agent': 'TVGarden-Enigma2/1.0'})
-            with urlopen(req, timeout=3) as response:
-                if response.status == 200:
+            response = None
+            flag_data = None
+            try:
+                response = urlopen(req, timeout=3)
+                if response.getcode() == 200:  # .getcode() per Python 2
                     flag_data = response.read()
+            finally:
+                if response:
+                    response.close()
 
-                    # Save to temp file
-                    with tempfile.NamedTemporaryFile(delete=False, suffix='.png') as f:
-                        f.write(flag_data)
-                        temp_path = f.name
+            if not flag_data:
+                log.warning("No data for flag %s" % country_code, module="Countries")
+                self.load_default_flag()
+                return
 
-                    self.current_flag_path = temp_path
+            # Save to temp file - Python 2 compatible
+            try:
+                from os import close
 
-                    # Get ACTUAL widget size from skin
-                    try:
-                        # Get widget position and size
-                        flag_widget = self["flag"]
-                        widget_size = flag_widget.instance.size()
-                        widget_width = widget_size.width()
-                        widget_height = widget_size.height()
+                # Python 2: mkstemp invece di NamedTemporaryFile con suffix
+                temp_fd, temp_path = tempfile.mkstemp(suffix='.png')
+                close(temp_fd)  # Chiudi il file descriptor
 
-                        log.debug("Widget size: %dx%d for %s" % (widget_width, widget_height, country_code), module="Countries")
+                f = None
+                try:
+                    f = open(temp_path, 'wb')
+                    f.write(flag_data)
+                finally:
+                    if f:
+                        f.close()
 
-                        # Use actual widget size or default
-                        width = widget_width if widget_width > 0 else 80
-                        height = widget_height if widget_height > 0 else 50
+                self.current_flag_path = temp_path
+            except Exception as e:
+                log.error("Error creating temp file: %s" % e, module="Countries")
+                self.load_default_flag()
+                return
 
-                    except:
-                        # Fallback to default size
-                        width, height = 80, 50
-                        log.debug("Using default size for %s" % country_code, module="Countries")
+            # Get ACTUAL widget size from skin
+            try:
+                # Get widget position and size
+                flag_widget = self["flag"]
+                widget_size = flag_widget.instance.size()
+                widget_width = widget_size.width()
+                widget_height = widget_size.height()
 
-                    # Load with ePicLoad - Use actual widget size
-                    # Parameters: (width, height, scaletype, aspectratio, resize, alphablend, background_color)
-                    self.picload.setPara((
-                        width,       # widget width
-                        height,      # widget height
-                        1,           # scaletype: 0=No scale, 1=Scale, 2=Keep aspect, 3=Center
-                        1,           # aspectratio: 0=ignore, 1=keep
-                        False,       # resize: True=resize image to fit
-                        1,           # alphablend: 0=no, 1=yes
-                        "#00000000"  # transparent background
-                    ))
+                log.debug("Widget size: %dx%d for %s" % (widget_width, widget_height, country_code), module="Countries")
 
-                    # Try sync decode
-                    result = self.picload.startDecode(temp_path, 0, 0, False)
+                # Use actual widget size or default
+                width = widget_width if widget_width > 0 else 80
+                height = widget_height if widget_height > 0 else 50
 
-                    if result == 0:  # Success
-                        ptr = self.picload.getData()
-                        if ptr:
-                            self["flag"].instance.setPixmap(ptr)
-                            self["flag"].show()
-                            log.debug("Flag displayed %dx%d for %s" % (width, height, country_code), module="Countries")
-                        else:
-                            log.warning("No pixmap data for %s" % country_code, module="Countries")
-                            self.load_default_flag()
-                    else:
-                        log.warning("Decode failed for %s" % country_code, module="Countries")
-                        self.load_default_flag()
+            except:
+                # Fallback to default size
+                width, height = 80, 50
+                log.debug("Using default size for %s" % country_code, module="Countries")
+
+            # Load with ePicLoad - Use actual widget size
+            # Parameters: (width, height, scaletype, aspectratio, resize, alphablend, background_color)
+            self.picload.setPara((
+                width,       # widget width
+                height,      # widget height
+                1,           # scaletype: 0=No scale, 1=Scale, 2=Keep aspect, 3=Center
+                1,           # aspectratio: 0=ignore, 1=keep
+                False,       # resize: True=resize image to fit
+                1,           # alphablend: 0=no, 1=yes
+                "#00000000"  # transparent background
+            ))
+
+            # Try sync decode
+            result = self.picload.startDecode(temp_path, 0, 0, False)
+
+            if result == 0:  # Success
+                ptr = self.picload.getData()
+                if ptr:
+                    self["flag"].instance.setPixmap(ptr)
+                    self["flag"].show()
+                    log.debug("Flag displayed %dx%d for %s" % (width, height, country_code), module="Countries")
                 else:
-                    log.warning("HTTP %d for %s" % (response.status, url), module="Countries")
+                    log.warning("No pixmap data for %s" % country_code, module="Countries")
                     self.load_default_flag()
+            else:
+                log.warning("Decode failed for %s" % country_code, module="Countries")
+                self.load_default_flag()
 
         except Exception as e:
             log.error("Error downloading flag %s: %s" % (country_code, e), module="Countries")

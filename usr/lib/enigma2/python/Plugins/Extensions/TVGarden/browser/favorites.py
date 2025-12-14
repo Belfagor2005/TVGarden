@@ -280,18 +280,18 @@ class FavoritesBrowser(BaseBrowser):
         """Execute export of all database channels (single file)"""
         if not result:
             return
-        
+
         self["status"].setText(_("Loading all channels..."))
-        
+
         success, message = self.fav_manager.export_all_channels()
-        
+
         self.session.open(
             MessageBox,
             message,
             MessageBox.TYPE_INFO if success else MessageBox.TYPE_ERROR,
             timeout=5
         )
-        
+
         if success:
             self["status"].setText(_("Database exported successfully"))
         else:
@@ -301,18 +301,18 @@ class FavoritesBrowser(BaseBrowser):
         """Execute export of all database channels with hierarchical structure"""
         if not result:
             return
-        
+
         self["status"].setText(_("Creating hierarchical structure..."))
-        
+
         success, message = self.fav_manager.export_all_channels_hierarchical()
-        
+
         self.session.open(
             MessageBox,
             message,
             MessageBox.TYPE_INFO if success else MessageBox.TYPE_ERROR,
             timeout=8
         )
-        
+
         if success:
             self["status"].setText(_("Hierarchical export completed"))
         else:
@@ -409,9 +409,11 @@ class FavoritesBrowser(BaseBrowser):
 
             stream_url = channel.get('stream_url') or channel.get('url', '')
             if stream_url:
-                info_text += "\nStream URL:\n%s..." % stream_url[:100]
-                if len(stream_url) > 100:
-                    info_text += "\n...%s" % stream_url[-50:]
+                info_text += "\nStream URL:\n"
+                if len(stream_url) > 150:
+                    info_text += "%s...\n...%s" % (stream_url[:100], stream_url[-50:])
+                else:
+                    info_text += stream_url
 
             self.session.open(
                 TextBox,

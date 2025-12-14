@@ -143,7 +143,7 @@ class TVGardenSettings(ConfigListScreen, Screen):
         if current:
             current_text = current[0]
             config_item = current[1]
-            
+
             if isinstance(config_item, ConfigNothing) or "===" in current_text:
                 self["status"].setText(_("Set options"))
             else:
@@ -611,85 +611,38 @@ class TVGardenSettings(ConfigListScreen, Screen):
         if config.save_config():
             log.info("Config saved successfully to disk", module="Settings")
 
-            # Verify: read saved file
+            # Verify: read saved file - Python 2 compatible
             try:
                 from json import load, dump
-                with open("/etc/enigma2/tvgarden/config.json", 'r') as f:
+                f = None
+                try:
+                    f = open("/etc/enigma2/tvgarden/config.json", 'r')
                     saved_config = load(f)
 
-                # Check for duplicate keys
-                keys = list(saved_config.keys())
-                log.debug("Config saved with %d keys" % len(keys), module="Settings")
+                    # Check for duplicate keys
+                    keys = list(saved_config.keys())
+                    log.debug("Config saved with %d keys" % len(keys), module="Settings")
 
-                # Remove duplicate if exists
-                if "max_channels_per_bouquet" in saved_config:
-                    log.warning("WARNING: Duplicate key 'max_channels_per_bouquet' found", module="Settings")
-                    del saved_config["max_channels_per_bouquet"]
-                    with open("/etc/enigma2/tvgarden/config.json", 'w') as f:
-                        dump(saved_config, f, indent=4)
-                    log.info("Duplicate key removed", module="Settings")
+                    # Remove duplicate if exists
+                    if "max_channels_per_bouquet" in saved_config:
+                        log.warning("WARNING: Duplicate key 'max_channels_per_bouquet' found", module="Settings")
+                        del saved_config["max_channels_per_bouquet"]
 
+                        # Salva di nuovo senza il duplicato
+                        f2 = None
+                        try:
+                            f2 = open("/etc/enigma2/tvgarden/config.json", 'w')
+                            dump(saved_config, f2, indent=4)
+                            log.info("Duplicate key removed", module="Settings")
+                        finally:
+                            if f2:
+                                f2.close()
+
+                finally:
+                    if f:
+                        f.close()
             except Exception as e:
                 log.error("Error verifying config: %s" % e, module="Settings")
-        else:
-            log.error("Failed to save config to disk!", module="Settings")
-
-        # Apply logging settings
-        self.apply_logging_settings()
-
-        self.close(True)
-
-    def savexxxxxxxxxxxxx(self):
-        """Save all settings - SIMPLIFIED VERSION"""
-        log.debug("Starting save...", module="Settings")
-
-        # Prepare ALL settings in a dictionary
-        settings_dict = {
-            # Player
-            "player": self.cfg_player.value,
-            "volume": self.cfg_volume.value,
-            "timeout": self.cfg_timeout.value,
-            "retries": self.cfg_retries.value,
-
-            # Display
-            "skin": self.cfg_skin.value,
-            "show_flags": self.cfg_show_flags.value,
-            "show_logos": self.cfg_show_logos.value,
-            "items_per_page": self.cfg_items_per_page.value,
-
-            # Browser
-            "max_channels": int(self.cfg_max_channels.value),
-            "default_view": self.cfg_default_view.value,
-
-            # Cache
-            "cache_ttl": int(self.cfg_cache_ttl.value) * 3600,
-            "cache_size": self.cfg_cache_size.value,
-
-            # Favorites
-            "max_favorites": self.cfg_max_favorites.value,
-
-            # Export
-            "export_enabled": self.cfg_export_enabled.value,
-            "auto_refresh_bouquet": self.cfg_auto_refresh_bouquet.value if hasattr(self, 'cfg_auto_refresh_bouquet') else False,
-            "confirm_before_export": self.cfg_confirm_before_export.value if hasattr(self, 'cfg_confirm_before_export') else True,
-            "max_channels_for_bouquet": int(self.cfg_max_channels_for_bouquet.value),
-            "bouquet_name_prefix": self.cfg_bouquet_name_prefix.value if hasattr(self, 'cfg_bouquet_name_prefix') else "TVGarden",
-
-            # Network
-            "user_agent": self.cfg_user_agent.value,
-
-            # Logging
-            "log_level": self.cfg_log_level.value,
-            "log_to_file": self.cfg_log_to_file.value,
-            "log_max_size": int(self.cfg_log_max_size.value) * 1048576 if self.cfg_log_to_file.value else 1048576,
-            "log_backup_count": self.cfg_log_backup_count.value if hasattr(self, 'cfg_log_backup_count') and self.cfg_log_to_file.value else 3,
-        }
-
-        log.debug("Saving %d settings" % len(settings_dict), module="Settings")
-
-        # Use update_settings to save ONCE
-        if self.config.update_settings(settings_dict):
-            log.info("Config saved successfully to disk", module="Settings")
         else:
             log.error("Failed to save config to disk!", module="Settings")
 
@@ -702,22 +655,22 @@ class TVGardenSettings(ConfigListScreen, Screen):
         """Up arrow - navigate skipping separators."""
         # Save current position
         # current_index = self["config"].getCurrentIndex()
-        
+
         # Navigate up
         ConfigListScreen.keyUp(self)
-        
+
         # Check if we are on a separator
         current = self["config"].getCurrent()
         if current:
             display_name = current[0]
             config_item = current[1]
-            
+
             # If it's a separator, skip another item up
             if "===" in display_name or isinstance(config_item, ConfigNothing):
                 # If not already at the top, move up one more
                 if self["config"].getCurrentIndex() > 0:
                     self["config"].instance.moveSelection(self["config"].instance.moveUp)
-        
+
         self.updateStatus()
 
     def keyDown(self):
@@ -725,22 +678,22 @@ class TVGardenSettings(ConfigListScreen, Screen):
         # Save current position
         # current_index = self["config"].getCurrentIndex()
         list_length = len(self["config"].list)
-        
+
         # Navigate down
         ConfigListScreen.keyDown(self)
-        
+
         # Check if we are on a separator
         current = self["config"].getCurrent()
         if current:
             display_name = current[0]
             config_item = current[1]
-            
+
             # If it's a separator, skip another item down
             if "===" in display_name or isinstance(config_item, ConfigNothing):
                 # If not already at the bottom, move down one more
                 if self["config"].getCurrentIndex() < list_length - 1:
                     self["config"].instance.moveSelection(self["config"].instance.moveDown)
-        
+
         self.updateStatus()
 
     def keyLeft(self):

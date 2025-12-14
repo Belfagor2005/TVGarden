@@ -10,13 +10,14 @@ from Tools.Directories import resolveFilename, SCOPE_PLUGINS
 from Components.Language import language
 from os import environ
 import gettext
-import sys
+# import sys
 
 PLUGIN_NAME = "TVGarden"
-PLUGIN_VERSION = "1.5"
+PLUGIN_VERSION = "1.6"
 PLUGIN_PATH = resolveFilename(SCOPE_PLUGINS, "Extensions/{}".format(PLUGIN_NAME))
 PLUGIN_ICON = resolveFilename(SCOPE_PLUGINS, "Extensions/TVGarden/icons/plugin.png")
 USER_AGENT = "TVGarden-Enigma2-Updater/%s" % PLUGIN_VERSION
+
 
 def localeInit():
     try:
@@ -45,4 +46,5 @@ localeInit()
 language.addCallback(localeInit)
 
 # Make translation available to all modules
-sys.modules[__name__].__dict__['_'] = _
+__all__ = ['_', 'PLUGIN_NAME', 'PLUGIN_VERSION']
+# sys.modules[__name__].__dict__['_'] = _

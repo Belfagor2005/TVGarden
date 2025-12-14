@@ -381,19 +381,34 @@ class PluginConfig:
         player = self.get('player', 'auto')
         if player == 'auto':
             try:
+                # Python 2/3 compatible subprocess
                 import subprocess
-                result = subprocess.run(['which', 'exteplayer3'],
-                                        capture_output=True, text=True)
-                if result.returncode == 0:
-                    return 'exteplayer3'
-                else:
-                    # Try gstplayer
-                    result = subprocess.run(['which', 'gst-launch-1.0'],
-                                            capture_output=True, text=True)
-                    if result.returncode == 0:
+
+                # Check for exteplayer3
+                try:
+                    p = subprocess.Popen(['which', 'exteplayer3'],
+                                         stdout=subprocess.PIPE,
+                                         stderr=subprocess.PIPE)
+                    output, error = p.communicate()
+                    if p.returncode == 0:
+                        return 'exteplayer3'
+                except Exception:
+                    pass
+
+                # Check for gstplayer
+                try:
+                    p = subprocess.Popen(['which', 'gst-launch-1.0'],
+                                         stdout=subprocess.PIPE,
+                                         stderr=subprocess.PIPE)
+                    output, error = p.communicate()
+                    if p.returncode == 0:
                         return 'gstplayer'
+                except Exception:
+                    pass
+
             except Exception as e:
                 log.debug("Auto-detection failed: %s" % e, module="Config")
+
             return 'gstplayer'  # Default fallback
         return player
 
@@ -425,28 +440,30 @@ class PluginConfig:
     def load_skin(self, screen_name, default_skin):
         """
         Load skin from file or use default from class
-        Compatibile Python 2
+        Python 2 compatible version
         """
         resolution = self.get_skin_resolution()
+        skin_file = join(PLUGIN_PATH, "skins", resolution, "%s.xml" % screen_name)
 
-        skin_file = join(PLUGIN_PATH, "skins/%s/%s.xml" % (resolution, screen_name))
+        log.debug("Looking for skin: %s" % skin_file, module="Config")
 
         if fileExists(skin_file):
             try:
-                # Python 2: NO 'encoding' parameter
-                f = open(skin_file, 'r')
-                skin_content = f.read()
-                f.close()
-                
-                log.info("Loaded skin from: %s" % skin_file, module="Config")
-                return skin_content
+                # Python 2 compatible - manual file handling
+                f = None
+                try:
+                    f = open(skin_file, 'r')
+                    skin_content = f.read()
+                    log.info("Loaded skin from: %s (%d chars)" % (skin_file, len(skin_content)), module="Config")
+                    return skin_content
+                finally:
+                    if f:
+                        f.close()
             except Exception as e:
-                log.error("Error loading skin: %s" % e, module="Config")
-                # Fallback to Class Skin
+                log.error("Error loading skin %s: %s" % (skin_file, e), module="Config")
                 log.warning("Using class skin for %s due to error" % screen_name, module="Config")
                 return default_skin
         else:
-            # Fallback to Class Skin
             log.warning("Skin file not found: %s, using class skin for %s" % (skin_file, screen_name), module="Config")
             return default_skin
 
@@ -522,7 +539,7 @@ class PluginConfig:
             else:
                 for key, value in settings_dict.items():
                     self.config[key] = value
-                    
+
             return self.save_config()
         except Exception as e:
             log.error("Error updating settings: %s" % e, module="Config")

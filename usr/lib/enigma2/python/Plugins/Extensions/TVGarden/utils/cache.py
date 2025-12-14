@@ -60,7 +60,39 @@ class CacheManager:
 
         if not exists(self.cache_dir):
             makedirs(self.cache_dir)
+
+        self._load_cache()
         log.info("Initialized at %s" % self.cache_dir, module="Cache")
+
+    def _load_cache(self):
+        """Load memory cache from disk"""
+        try:
+            cache_file = join(self.cache_dir, "memory_cache.json")
+            if exists(cache_file):
+                with open(cache_file, 'r') as f:
+                    self.cache_data = load(f)
+                log.debug("Memory cache loaded from %s" % cache_file, module="Cache")
+                return True
+        except Exception as e:
+            log.error("Error loading memory cache: %s" % e, module="Cache")
+        return False
+
+    def _save_cache(self):
+        """Save memory cache to disk"""
+        try:
+            cache_file = join(self.cache_dir, "memory_cache.json")
+            f = None
+            try:
+                f = open(cache_file, 'w')
+                dump(self.cache_data, f)
+                log.debug("Memory cache saved to %s" % cache_file, module="Cache")
+                return True
+            finally:
+                if f:
+                    f.close()
+        except Exception as e:
+            log.error("Error saving memory cache: %s" % e, module="Cache")
+            return False
 
     def _get_cache_key(self, url):
         """Generate cache key from URL"""
@@ -79,62 +111,79 @@ class CacheManager:
         return file_age < ttl
 
     def _get_cached(self, cache_key):
-        """Get data from cache - nuovo metodo mancante"""
+        """Get data from cache - Python 2/3 compatible"""
         cache_path = self._get_cache_path(cache_key)
         if exists(cache_path):
             try:
-                with gzip.open(cache_path, 'rt', encoding='utf-8') as f:
-                    return load(f)
+                # Python 2/3 compatible gzip reading
+                f = None
+                try:
+                    f = gzip.open(cache_path, 'rb')  # 'rb' non 'rt' per Python 2
+                    data = f.read()
+                    return loads(data.decode('utf-8'))
+                finally:
+                    if f:
+                        f.close()
             except Exception as e:
                 log.error("Error reading %s: %s" % (cache_key, e), module="Cache")
         return None
 
     def _set_cached(self, cache_key, data):
-        """Save data to cache - nuovo metodo mancante"""
+        """Save data to cache - Python 2/3 compatible"""
         cache_path = self._get_cache_path(cache_key)
         try:
-            with gzip.open(cache_path, 'wt', encoding='utf-8') as f:
+            # Python 2/3 compatible gzip writing
+            f = None
+            try:
+                f = gzip.open(cache_path, 'wb')  # 'wb' non 'wt' per Python 2
                 dump(data, f)
-            return True
+                return True
+            finally:
+                if f:
+                    f.close()
         except Exception as e:
             log.error("Error saving %s: %s" % (cache_key, e), module="Cache")
             return False
 
     def _fetch_url(self, url):
-        """Fetch URL - compatibile Python 2"""
+        """Fetch URL - Python 2 compatible"""
         try:
-            headers = {'User-Agent': 'TVGarden-Enigma2-Plugin/1.0'}
+            headers = {'User-Agent': 'TVGarden-Enigma2/1.0'}
             req = Request(url, headers=headers)
 
             response = None
             try:
+                # Python 2: NO 'with' statement
                 response = urlopen(req, timeout=15)
                 data = response.read()
 
+                # Try to decode as JSON
                 try:
                     return loads(data.decode('utf-8'))
                 except:
+                    # Try gzip decompression
                     try:
                         return loads(gzip.decompress(data).decode('utf-8'))
                     except:
-                        raise ValueError("Failed to decode response")
+                        # Try direct decode if it's text
+                        return data.decode('utf-8', errors='ignore')
             finally:
+                # Always close connection
                 if response:
                     response.close()
-                    
+
         except Exception as e:
             log.error("Error fetching %s: %s" % (url, e), module="Cache")
             raise
 
     def fetch_url(self, url, force_refresh=False, ttl=3600):
-        """Fetch URL with caching support (metodo vecchio ma usato da get_country_channels)"""
+        """Fetch URL with caching support"""
         cache_key = self._get_cache_key(url)
         cache_path = self._get_cache_path(cache_key)
 
         if not force_refresh and self._is_cache_valid(cache_path, ttl):
             try:
-                with gzip.open(cache_path, 'rt', encoding='utf-8') as f:
-                    return load(f)
+                return self._get_cached(cache_key)
             except:
                 pass
 
@@ -172,8 +221,14 @@ class CacheManager:
                 return self.cache_data[cache_key]
 
             # Download file list from GitHub directory
-            with urlopen(categories_url, timeout=10) as response:
+            # Python 2 compatible - NO 'with' statement
+            response = None
+            try:
+                response = urlopen(categories_url, timeout=10)
                 data = load(response)
+            finally:
+                if response:
+                    response.close()
 
             # Extract .json filenames
             categories = []
@@ -262,10 +317,16 @@ class CacheManager:
 
     def clear_all(self):
         """Clear all cache"""
+        # Clear disk cache
         for file in listdir(self.cache_dir):
             if file.endswith('.json.gz'):
                 remove(join(self.cache_dir, file))
-        log.info("Cache cleared", module="Cache")
+
+        # Clear memory cache
+        self.cache_data = {}
+        self._save_cache()
+
+        log.info("Cache cleared (disk + memory)", module="Cache")
         return True
 
     def get_size(self):

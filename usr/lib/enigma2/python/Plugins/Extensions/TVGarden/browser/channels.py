@@ -401,19 +401,45 @@ class ChannelsBrowser(BaseBrowser):
     def download_logo(self, url):
         """Download and display channel logo"""
         try:
-            with urlopen(url, timeout=5) as response:
-                logo_data = response.read()
+            try:
+                response = urlopen(url, timeout=5)
+                try:
+                    logo_data = response.read()
+                finally:
+                    response.close()
+            except Exception as e:
+                log.error("Error downloading logo: %s" % e, module="Channels")
+                self["logo"].hide()
+                return
 
-                with tempfile.NamedTemporaryFile(delete=False, suffix='.png') as f:
+            try:
+                from os import close
+                temp_fd, temp_path = tempfile.mkstemp(suffix='.png')
+                close(temp_fd)
+                f = None
+                try:
+                    f = open(temp_path, 'wb')
                     f.write(logo_data)
-                    temp_path = f.name
+                finally:
+                    if f:
+                        f.close()
+            except Exception as e:
+                log.error("Error creating temp file: %s" % e, module="Channels")
+                self["logo"].hide()
+                return
 
-                # Load with ePicLoad
-                self.picload.setPara((80, 50, 1, 1, False, 1, "#00000000"))
-                self.picload.startDecode(temp_path)
+            # Load with ePicLoad
+            self.picload.setPara((80, 50, 1, 1, False, 1, "#00000000"))
+            result = self.picload.startDecode(temp_path)
 
-                # Cleanup
+            if result != 0:
+                log.error("Logo decode failed for: %s" % url, module="Channels")
+
+            # Cleanup temp file
+            try:
                 unlink(temp_path)
+            except:
+                pass
 
         except Exception as e:
             log.error("Error downloading logo: %s" % e, module="Channels")
@@ -424,47 +450,47 @@ class ChannelsBrowser(BaseBrowser):
         try:
             if not channels:
                 return False, "No channels for country: %s" % country_code
-            
+
             tag = "tvgarden"
-            
+
             # Use prefix from config
             config = get_config()
             prefix = config.get("bouquet_name_prefix", "TVGarden")
-            
+
             # Create bouquet name: prefix_countrycode
             bouquet_name = "%s_%s" % (prefix.lower(), country_code.lower())
             userbouquet_file = "/etc/enigma2/userbouquet.%s_%s.tv" % (tag, bouquet_name)
-            
+
             valid_count = 0
             with open(userbouquet_file, "w") as f:
                 # Use prefix in display name
                 f.write("#NAME %s - %s\n" % (prefix, country_code.upper()))
                 f.write("#SERVICE 1:64:0:0:0:0:0:0:0:0::--- | %s %s | ---\n" % (prefix, country_code.upper()))
                 f.write("#DESCRIPTION --- | %s %s | ---\n" % (prefix, country_code.upper()))
-                
+
                 for channel in channels:
                     name = channel.get('name', '')
                     stream_url = channel.get('stream_url') or channel.get('url', '')
-                    
+
                     if not stream_url:
                         continue
-                    
+
                     url_encoded = stream_url.replace(":", "%3a")
                     name_encoded = name.replace(":", "%3a")
-                    
+
                     f.write("#SERVICE 4097:0:1:0:0:0:0:0:0:0:%s:%s\n" % (url_encoded, name_encoded))
                     f.write("#DESCRIPTION %s\n" % name)
-                    
+
                     valid_count += 1
-            
+
             if valid_count == 0:
                 return False, "No valid streams for country: %s" % country_code
-            
+
             self._add_to_bouquets_tv(tag, bouquet_name)
             self._reload_bouquets()
-            
+
             return True, "Exported %d channels for %s" % (valid_count, country_code.upper())
-        
+
         except Exception as e:
             return False, "Error: %s" % str(e)
 
@@ -511,9 +537,9 @@ class ChannelsBrowser(BaseBrowser):
             self.confirm_before_export = config.get("confirm_before_export", True)
             self.max_channels_for_bouquet = config.get("max_channels_for_bouquet", 100)
             self.bouquet_name_prefix = config.get("bouquet_name_prefix", "TVGarden")
-            
+
             log.debug("Export settings loaded from config", module="Channels")
-            
+
         except Exception as e:
             self.export_enabled = True
             self.auto_refresh_bouquet = False
@@ -532,9 +558,9 @@ class ChannelsBrowser(BaseBrowser):
             config.set("max_channels_for_bouquet", self.max_channels_for_bouquet)
             config.set("bouquet_name_prefix", self.bouquet_name_prefix)
             config.save_config()
-            
+
             log.debug("Export settings saved to config", module="Channels")
-            
+
         except Exception as e:
             log.error("Error saving export settings: %s" % e, module="Channels")
 
