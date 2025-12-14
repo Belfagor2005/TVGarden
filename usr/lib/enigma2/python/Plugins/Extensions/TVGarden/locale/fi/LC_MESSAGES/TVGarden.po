@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TVGarden\n"
 "POT-Creation-Date: 2025-12-13 19:29+0100\n"
-"PO-Revision-Date: 2025-12-13 19:29+0100\n"
+"PO-Revision-Date: 2025-12-14 13:22+0200\n"
 "Last-Translator: Orlandox\n"
 "Language-Team: Orlandox [www.huoltovalikko.com]\n"
 "Language: fi\n"
@@ -411,16 +411,12 @@ msgid "Export to Enigma2 Bouquet"
 msgstr "Vie Enigma2 suosikkilistaan"
 
 #: browser/favorites.py:153
-#, fuzzy
-#| msgid "Export ALL Database"
 msgid "Export ALL Database (Single File)"
-msgstr "Vie KOKO tietokanta"
+msgstr "Vie KOKO tietokanta (yksittäinen tiedosto)"
 
 #: browser/favorites.py:154
-#, fuzzy
-#| msgid "Export ALL Database"
 msgid "Export ALL Database (Multi-File)"
-msgstr "Vie KOKO tietokanta"
+msgstr "Vie KOKO tietokanta (monitiedostoinen)"
 
 #: browser/favorites.py:155
 msgid "Remove Bouquet from Enigma2"
@@ -457,6 +453,8 @@ msgid ""
 "Export ALL channels with multi-file structure?\n"
 "This will create smaller bouquet files for better performance."
 msgstr ""
+"Vie KAIKKI kanavat monitiedostorakenteella?\n"
+"Tämä luo pienempiä suosikkilistatiedostoja paremman suorituskyvyn saavuttamiseksi."
 
 #: browser/favorites.py:270
 #, python-format
@@ -477,11 +475,11 @@ msgstr "Vienti epäonnistui"
 
 #: browser/favorites.py:305
 msgid "Creating hierarchical structure..."
-msgstr ""
+msgstr "Luodaan hierarkkista rakennetta..."
 
 #: browser/favorites.py:317
 msgid "Hierarchical export completed"
-msgstr ""
+msgstr "Hierarkkinen vienti valmis"
 
 #: browser/favorites.py:338
 msgid "No stream URL available"
@@ -705,22 +703,16 @@ msgid "No valid channels found in database"
 msgstr "Tietokannasta ei löytynyt kelvollisia kanavia"
 
 #: ⁨utils/favorites - Copia (2).py⁩:488 utils/favorites.py:488
-#, fuzzy
-#| msgid "Export"
 msgid "Exported"
-msgstr "Vie"
+msgstr "Viety"
 
 #: ⁨utils/favorites - Copia (2).py⁩:490 utils/favorites.py:490
-#, fuzzy
-#| msgid "50 channels"
 msgid "channels from"
-msgstr "50 kanavaa"
+msgstr "kanavaa"
 
 #: ⁨utils/favorites - Copia (2).py⁩:492 utils/favorites.py:492
-#, fuzzy
-#| msgid "Countries"
 msgid "countries"
-msgstr "Maat"
+msgstr "maat"
 
 #: ⁨utils/favorites - Copia (2).py⁩:501 utils/favorites.py:501
 #: utils/settings.py:420
@@ -728,18 +720,16 @@ msgid "Error"
 msgstr "Virhe"
 
 #: ⁨utils/favorites - Copia (2).py⁩:630 utils/favorites.py:630
-#, fuzzy
-#| msgid "Remove"
 msgid "Removed"
-msgstr "Poista"
+msgstr "Poistettu"
 
 #: ⁨utils/favorites - Copia (2).py⁩:632 utils/favorites.py:632
 msgid "files and"
-msgstr ""
+msgstr "tiedostot ja"
 
 #: ⁨utils/favorites - Copia (2).py⁩:634 utils/favorites.py:634
 msgid "bouquet references"
-msgstr ""
+msgstr "suosikkilistan viittaukset"
 
 #: ⁨utils/favorites - Copia (2).py⁩:684 utils/favorites.py:684
 msgid "Channel added to bouquet"
@@ -760,6 +750,17 @@ msgid ""
 "\n"
 "Main bouquet: '%s'"
 msgstr ""
+"-> Hierarkkinen vienti valmis!\n"
+"\n"
+"-> Tilastot:\n"
+"• Kanavia yhteensä: %d\n"
+"• Maita viety: %d\n"
+"• Tiedostoja luotu: %d\n"
+"\n"
+"-> Rakenne luotu:\n"
+"%s\n"
+"\n"
+"Pääsuosikkilista: '%s'"
 
 #: ⁨utils/favorites - Copia (2).py⁩:918 utils/favorites.py:981
 #, python-format
@@ -772,35 +773,31 @@ msgstr "Virhe tyhjennettäessä suosikkeja"
 
 #: utils/favorites.py:805
 msgid "Hierarchical export completed!"
-msgstr ""
+msgstr "Hierarkkinen vienti valmis!"
 
 #: utils/favorites.py:807
 msgid "Statistics:"
-msgstr ""
+msgstr "Tilastot:"
 
 #: utils/favorites.py:808
-#, fuzzy
-#| msgid "All channels"
 msgid "Total channels:"
-msgstr "Kaikki kanavat"
+msgstr "Kanavia yhteensä:"
 
 #: utils/favorites.py:809
-#, fuzzy
-#| msgid "Countries refreshed"
 msgid "Countries exported:"
-msgstr "Maat virkistetty"
+msgstr "Maita viety:"
 
 #: utils/favorites.py:810
 msgid "Files created:"
-msgstr ""
+msgstr "Tiedostoja luotu:"
 
 #: utils/favorites.py:813
 msgid "Structure created:"
-msgstr ""
+msgstr "Rakenne luotu:"
 
 #: utils/favorites.py:816
 msgid "Main bouquet:"
-msgstr ""
+msgstr "Pääsuosikkilista:"
 
 #: utils/settings.py:51
 msgid "Log file is empty or not found"
@@ -906,23 +903,23 @@ msgstr "50 kanavaa"
 
 #: utils/settings.py:393
 msgid "512 KB"
-msgstr ""
+msgstr "512 KB"
 
 #: utils/settings.py:394
 msgid "1 MB"
-msgstr ""
+msgstr "1 MB"
 
 #: utils/settings.py:395
 msgid "2 MB"
-msgstr ""
+msgstr "2 MB"
 
 #: utils/settings.py:396
 msgid "4 MB"
-msgstr ""
+msgstr "4 MB"
 
 #: utils/settings.py:397
 msgid "8 MB"
-msgstr ""
+msgstr "8 MB"
 
 #: utils/settings.py:409
 msgid "Press OK to check for updates"
