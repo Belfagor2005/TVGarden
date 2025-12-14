@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TVGarden\n"
-"POT-Creation-Date: 2025-12-13 19:38+0100\n"
+"POT-Creation-Date: 2025-12-13 19:30+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Warder <ciksa@seznam.cz>\n"
 "Language-Team: lululla [ekekaz@gmail.com]\n"
@@ -293,7 +293,9 @@ msgstr ""
 msgid "Test Export (1 channel)"
 msgstr ""
 
-#: browser/channels.py:592 utils/favorites.py:195 utils/favorites.py:781
+#: browser/channels.py:592 ⁨utils/favorites - Copia (2).py⁩:195
+#: ⁨utils/favorites - Copia (2).py⁩:781 utils/favorites.py:195
+#: utils/favorites.py:781
 msgid "No channels to export"
 msgstr "Нет каналов для экспорта"
 
@@ -311,7 +313,8 @@ msgstr ""
 msgid "Export failed: %s"
 msgstr ""
 
-#: browser/channels.py:675 browser/search.py:399 utils/favorites.py:659
+#: browser/channels.py:675 browser/search.py:399
+#: ⁨utils/favorites - Copia (2).py⁩:659 utils/favorites.py:659
 msgid "No stream URL"
 msgstr "URL потока отсутствует"
 
@@ -628,8 +631,11 @@ msgstr ""
 msgid "Update check error"
 msgstr ""
 
-#: plugin.py:307 utils/favorites.py:273 utils/favorites.py:640
-#: utils/favorites.py:688 utils/favorites.py:823 utils/settings.py:240
+#: plugin.py:307 ⁨utils/favorites - Copia (2).py⁩:273
+#: ⁨utils/favorites - Copia (2).py⁩:640 ⁨utils/favorites - Copia (2).py⁩:688
+#: ⁨utils/favorites - Copia (2).py⁩:825 utils/favorites.py:273
+#: utils/favorites.py:640 utils/favorites.py:688 utils/favorites.py:823
+#: utils/settings.py:240
 #, python-format
 msgid "Error: %s"
 msgstr ""
@@ -642,86 +648,117 @@ msgstr "ТВ-сад"
 msgid "Access free IPTV channels from around the world"
 msgstr "Получите доступ к бесплатным IPTV-каналам со всего мира"
 
-#: utils/favorites.py:79
+#: ⁨utils/favorites - Copia (2).py⁩:79 utils/favorites.py:79
 msgid "Already in favorites"
 msgstr "Уже в избранном"
 
-#: utils/favorites.py:91
+#: ⁨utils/favorites - Copia (2).py⁩:91 utils/favorites.py:91
 #, python-format
 msgid "Added to favorites: %s"
 msgstr ""
 
+#: ⁨utils/favorites - Copia (2).py⁩:94 ⁨utils/favorites - Copia (2).py⁩:109
 #: utils/favorites.py:94 utils/favorites.py:109
 msgid "Error saving favorites"
 msgstr "Ошибка сохранения избранного"
 
-#: utils/favorites.py:106
+#: ⁨utils/favorites - Copia (2).py⁩:106 utils/favorites.py:106
 #, python-format
 msgid "Removed from favorites: %s"
 msgstr ""
 
-#: utils/favorites.py:111
+#: ⁨utils/favorites - Copia (2).py⁩:111 utils/favorites.py:111
 msgid "Channel not found in favorites"
 msgstr "Канал не найден в избранном"
 
+#: ⁨utils/favorites - Copia (2).py⁩:263 ⁨utils/favorites - Copia (2).py⁩:480
 #: utils/favorites.py:263 utils/favorites.py:480
 msgid "No valid stream URLs found"
 msgstr "Не найдено ни одного действительного URL-адреса потока."
 
-#: utils/favorites.py:269
+#: ⁨utils/favorites - Copia (2).py⁩:269 utils/favorites.py:269
 #, python-format
 msgid "Exported %d channels to bouquet"
 msgstr ""
 
+#: ⁨utils/favorites - Copia (2).py⁩:286 ⁨utils/favorites - Copia (2).py⁩:701
 #: utils/favorites.py:286 utils/favorites.py:701
 msgid "Empty database"
 msgstr ""
 
+#: ⁨utils/favorites - Copia (2).py⁩:306 ⁨utils/favorites - Copia (2).py⁩:705
 #: utils/favorites.py:306 utils/favorites.py:705
 msgid "Failed to load database"
 msgstr ""
 
+#: ⁨utils/favorites - Copia (2).py⁩:398 ⁨utils/favorites - Copia (2).py⁩:742
 #: utils/favorites.py:398 utils/favorites.py:742
 msgid "No valid channels found in database"
 msgstr ""
 
-#: utils/favorites.py:488
+#: ⁨utils/favorites - Copia (2).py⁩:488 utils/favorites.py:488
 #, fuzzy
 #| msgid "Export"
 msgid "Exported"
 msgstr "Экспорт"
 
-#: utils/favorites.py:490
+#: ⁨utils/favorites - Copia (2).py⁩:490 utils/favorites.py:490
 #, fuzzy
 #| msgid "No channels loaded"
 msgid "channels from"
 msgstr "Каналы не загружены"
 
-#: utils/favorites.py:492
+#: ⁨utils/favorites - Copia (2).py⁩:492 utils/favorites.py:492
 #, fuzzy
 #| msgid "Countries"
 msgid "countries"
 msgstr "Страны"
 
-#: utils/favorites.py:501 utils/settings.py:420
+#: ⁨utils/favorites - Copia (2).py⁩:501 utils/favorites.py:501
+#: utils/settings.py:420
 msgid "Error"
 msgstr ""
 
-#: utils/favorites.py:630
+#: ⁨utils/favorites - Copia (2).py⁩:630 utils/favorites.py:630
 msgid "Removed"
 msgstr ""
 
-#: utils/favorites.py:632
+#: ⁨utils/favorites - Copia (2).py⁩:632 utils/favorites.py:632
 msgid "files and"
 msgstr ""
 
-#: utils/favorites.py:634
+#: ⁨utils/favorites - Copia (2).py⁩:634 utils/favorites.py:634
 msgid "bouquet references"
 msgstr ""
 
-#: utils/favorites.py:684
+#: ⁨utils/favorites - Copia (2).py⁩:684 utils/favorites.py:684
 msgid "Channel added to bouquet"
 msgstr "Канал добавлен в букет"
+
+#: ⁨utils/favorites - Copia (2).py⁩:805
+#, python-format
+msgid ""
+"-> Hierarchical export completed!\n"
+"\n"
+"-> Statistics:\n"
+"• Total channels: %d\n"
+"• Countries exported: %d\n"
+"• Files created: %d\n"
+"\n"
+"-> Structure created:\n"
+"%s\n"
+"\n"
+"Main bouquet: '%s'"
+msgstr ""
+
+#: ⁨utils/favorites - Copia (2).py⁩:918 utils/favorites.py:981
+#, python-format
+msgid "Cleared %d favorites"
+msgstr ""
+
+#: ⁨utils/favorites - Copia (2).py⁩:921 utils/favorites.py:984
+msgid "Error clearing favorites"
+msgstr "Ошибка при очистке избранного"
 
 #: utils/favorites.py:805
 msgid "Hierarchical export completed!"
@@ -754,15 +791,6 @@ msgstr ""
 #: utils/favorites.py:816
 msgid "Main bouquet:"
 msgstr ""
-
-#: utils/favorites.py:981
-#, python-format
-msgid "Cleared %d favorites"
-msgstr ""
-
-#: utils/favorites.py:984
-msgid "Error clearing favorites"
-msgstr "Ошибка при очистке избранного"
 
 #: utils/settings.py:51
 msgid "Log file is empty or not found"

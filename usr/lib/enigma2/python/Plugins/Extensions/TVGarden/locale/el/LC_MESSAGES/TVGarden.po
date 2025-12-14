@@ -11,9 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.8\n"
-"X-Poedit-Basepath: ../../..\n"
+"X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-0: helpers.py\n"
+"X-Poedit-SearchPath-1: plugin.py\n"
+"X-Poedit-SearchPath-2: browser\n"
+"X-Poedit-SearchPath-3: player\n"
+"X-Poedit-SearchPath-4: utils\n"
 
 #: browser/about.py:43
 msgid "TV Garden Plugin"
@@ -409,11 +413,11 @@ msgstr "Εξαγωγή σε μπουκέτο Enigma2"
 
 #: browser/favorites.py:153
 msgid "Export ALL Database (Single File)"
-msgstr ""
+msgstr "Εξαγωγή ΟΛΗΣ της βάσης δεδομένων (ένα αρχείο)"
 
 #: browser/favorites.py:154
 msgid "Export ALL Database (Multi-File)"
-msgstr ""
+msgstr "Εξαγωγή ΟΛΗΣ της βάσης δεδομένων (πολλαπλά αρχεία)"
 
 #: browser/favorites.py:155
 msgid "Remove Bouquet from Enigma2"
@@ -450,6 +454,8 @@ msgid ""
 "Export ALL channels with multi-file structure?\n"
 "This will create smaller bouquet files for better performance."
 msgstr ""
+"Να γίνει εξαγωγή ΟΛΩΝ των καναλιών με δομή πολλαπλών αρχείων;\n"
+"Αυτό θα δημιουργήσει μικρότερα αρχεία μπουκέτων για καλύτερη απόδοση."
 
 #: browser/favorites.py:270
 #, python-format
@@ -470,11 +476,11 @@ msgstr "Η εξαγωγή απέτυχε"
 
 #: browser/favorites.py:305
 msgid "Creating hierarchical structure..."
-msgstr ""
+msgstr "Δημιουργία ιεραρχικής δομής..."
 
 #: browser/favorites.py:317
 msgid "Hierarchical export completed"
-msgstr ""
+msgstr "Η ιεραρχική εξαγωγή ολοκληρώθηκε"
 
 #: browser/favorites.py:338
 msgid "No stream URL available"
@@ -691,15 +697,15 @@ msgstr "Δεν βρέθηκαν έγκυρα κανάλια στη βάση δε
 
 #: utils/favorites.py:488
 msgid "Exported"
-msgstr ""
+msgstr "Εξήχθησαν"
 
 #: utils/favorites.py:490
 msgid "channels from"
-msgstr ""
+msgstr "κανάλια από"
 
 #: utils/favorites.py:492
 msgid "countries"
-msgstr ""
+msgstr "χώρες"
 
 #: utils/favorites.py:501 utils/settings.py:420
 msgid "Error"
@@ -707,15 +713,15 @@ msgstr "Σφάλμα"
 
 #: utils/favorites.py:630
 msgid "Removed"
-msgstr ""
+msgstr "Αφαιρέθηκαν"
 
 #: utils/favorites.py:632
 msgid "files and"
-msgstr ""
+msgstr "αρχεία και"
 
 #: utils/favorites.py:634
 msgid "bouquet references"
-msgstr ""
+msgstr "αναφορές καναλιών"
 
 #: utils/favorites.py:684
 msgid "Channel added to bouquet"
@@ -723,31 +729,31 @@ msgstr "Το κανάλι προστέθηκε στο μπουκέτο"
 
 #: utils/favorites.py:805
 msgid "Hierarchical export completed!"
-msgstr ""
+msgstr "Η ιεραρχική εξαγωγή ολοκληρώθηκε!"
 
 #: utils/favorites.py:807
 msgid "Statistics:"
-msgstr ""
+msgstr "Στατιστικά:"
 
 #: utils/favorites.py:808
 msgid "Total channels:"
-msgstr ""
+msgstr "Συνολικά κανάλια:"
 
 #: utils/favorites.py:809
 msgid "Countries exported:"
-msgstr ""
+msgstr "Χώρες που εξήχθησαν:"
 
 #: utils/favorites.py:810
 msgid "Files created:"
-msgstr ""
+msgstr "Αρχεία που δημιουργήθηκαν:"
 
 #: utils/favorites.py:813
 msgid "Structure created:"
-msgstr ""
+msgstr "Δομή που δημιουργήθηκε:"
 
 #: utils/favorites.py:816
 msgid "Main bouquet:"
-msgstr ""
+msgstr "Κύριο μπουκέτο:"
 
 #: utils/favorites.py:981
 #, python-format
@@ -1142,11 +1148,3 @@ msgstr "Η ενημέρωση απέτυχε και η επαναφορά αντ
 #, python-format
 msgid "Update error: %s"
 msgstr "Σφάλμα ενημέρωσης: %s"
-
-#, python-brace-format
-#~ msgid "Exported {count} channels from {countries} countries"
-#~ msgstr "Εξαγωγή {count} καναλιών από {countries} χώρες"
-
-#, python-format
-#~ msgid "Bouquet removed. %d files deleted. Order preserved."
-#~ msgstr "Το μπουκέτο αφαιρέθηκε. Διαγράφηκαν %d αρχεία. Η σειρά διατηρήθηκε."
