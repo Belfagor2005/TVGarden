@@ -13,6 +13,8 @@ from enigma import (
 )
 from Components.ServiceEventTracker import ServiceEventTracker, InfoBarBase
 from Components.ActionMap import ActionMap
+from Components.Label import Label
+from Components.config import config
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
 from Screens.InfoBarGenerics import (
@@ -49,17 +51,58 @@ class TvInfoBarShowHide():
                 iPlayableService.evStart: self.serviceStarted})
         self.__state = self.STATE_SHOWN
         self.__locked = 0
+
+        self.helpOverlay = Label("")
+        self.helpOverlay.skinAttributes = [
+            ("position", "0,0"),
+            ("size", "1280,50"),
+            ("font", "Regular;28"),
+            ("halign", "center"),
+            ("valign", "center"),
+            ("foregroundColor", "#FFFFFF"),
+            ("backgroundColor", "#666666"),
+            ("transparent", "0"),
+            ("zPosition", "100")
+        ]
+
+        self["helpOverlay"] = self.helpOverlay
+        self["helpOverlay"].hide()
+
         self.hideTimer = eTimer()
         try:
             self.hideTimer_conn = self.hideTimer.timeout.connect(
                 self.doTimerHide)
         except BaseException:
             self.hideTimer.callback.append(self.doTimerHide)
-        self.hideTimer.start(3000, True)
+        self.hideTimer.start(5000, True)
         self.onShow.append(self.__onShow)
         self.onHide.append(self.__onHide)
 
+    def show_help_overlay(self):
+        help_text = (
+            "OK = Info | CH-/CH+ = Prev/Next | PLAY/PAUSE = Toggle | STOP = Stop | EXIT = Exit | by Lululla"
+        )
+        self["helpOverlay"].setText(help_text)
+        self["helpOverlay"].show()
+
+        if not hasattr(self, 'help_timer'):
+            self.help_timer = eTimer()
+            self.help_timer.callback.append(self.hide_help_overlay)
+
+        self.help_timer.start(5000, True)
+
+    def hide_help_overlay(self):
+        if self["helpOverlay"].visible:
+            self["helpOverlay"].hide()
+
     def OkPressed(self):
+        if self.__state == self.STATE_SHOWN:
+            if self["helpOverlay"].visible:
+                self.help_timer.stop()
+                self.hide_help_overlay()
+            else:
+                self.show_help_overlay()
+        
         self.toggleShow()
 
     def __onShow(self):
@@ -69,38 +112,51 @@ class TvInfoBarShowHide():
     def __onHide(self):
         self.__state = self.STATE_HIDDEN
 
-    def serviceStarted(self):
-        if self.execing:
-            self.doShow()
-
-    def startHideTimer(self):
-        if self.__state == self.STATE_SHOWN and not self.__locked:
-            self.hideTimer.stop()
-            self.hideTimer.start(3000, True)
-        elif hasattr(self, "pvrStateDialog"):
-            self.hideTimer.stop()
-        self.skipToggleShow = False
-
     def doShow(self):
         self.hideTimer.stop()
         self.show()
         self.startHideTimer()
 
+    def doHide(self):
+        self.hideTimer.stop()
+        self.hide()
+        if self["helpOverlay"].visible:
+            self.help_timer.stop()
+            self.hide_help_overlay()
+        self.startHideTimer()
+
+    def serviceStarted(self):
+        if self.execing and config.usage.show_infobar_on_zap.value:
+            self.doShow()
+
+    def startHideTimer(self):
+        if self.__state == self.STATE_SHOWN and not self.__locked:
+            self.hideTimer.stop()
+            self.hideTimer.start(5000, True)
+        elif hasattr(self, "pvrStateDialog"):
+            self.hideTimer.stop()
+        self.skipToggleShow = False
+
     def doTimerHide(self):
         self.hideTimer.stop()
         if self.__state == self.STATE_SHOWN:
             self.hide()
+            if self["helpOverlay"].visible:
+                self.help_timer.stop()
+                self.hide_help_overlay()
 
     def toggleShow(self):
-        if self.skipToggleShow:
-            self.skipToggleShow = False
-            return
-        if self.__state == self.STATE_HIDDEN:
-            self.show()
-            self.hideTimer.stop()
+        if not self.skipToggleShow:
+            if self.__state == self.STATE_HIDDEN:
+                self.doShow()
+                self.show_help_overlay()
+            else:
+                self.doHide()
+                if self["helpOverlay"].visible:
+                    self.help_timer.stop()
+                    self.hide_help_overlay()
         else:
-            self.hide()
-            self.startHideTimer()
+            self.skipToggleShow = False
 
     def lockShow(self):
         try:
@@ -128,6 +184,7 @@ class TVGardenPlayer(InfoBarBase, InfoBarSeek, InfoBarAudioSelection, InfoBarNot
     STATE_PLAYING = 1
     STATE_PAUSED = 2
     ENABLE_RESUME_SUPPORT = True
+    ALLOW_SUSPEND = True
 
     def __init__(self, session, service, channel_list=None, current_index=0):
         Screen.__init__(self, session)
@@ -152,7 +209,6 @@ class TVGardenPlayer(InfoBarBase, InfoBarSeek, InfoBarAudioSelection, InfoBarNot
             log.debug("Current channel: %s" % current_ch.get('name'), module="Player")
             log.debug("Current URL: %s" % (current_ch.get('stream_url') or current_ch.get('url')), module="Player")
 
-        self.srefInit = self.session.nav.getCurrentlyPlayingServiceReference()
         self['actions'] = ActionMap(
             [
                 'MoviePlayerActions',
@@ -178,6 +234,15 @@ class TVGardenPlayer(InfoBarBase, InfoBarSeek, InfoBarAudioSelection, InfoBarNot
             -1
         )
 
+        self.__event_tracker = ServiceEventTracker(
+            screen=self,
+            eventmap={
+                iPlayableService.evStart: self.__serviceStarted,
+                iPlayableService.evEOF: self.__evEOF,
+                iPlayableService.evStopped: self.__evStopped,
+            }
+        )
+        self.srefInit = self.session.nav.getCurrentlyPlayingServiceReference()
         self.onFirstExecBegin.append(self.start_stream)
         self.onClose.append(self.cleanup)
 
@@ -565,4 +630,17 @@ class TVGardenPlayer(InfoBarBase, InfoBarSeek, InfoBarAudioSelection, InfoBarNot
     def leave_player(self):
         """Exit the player."""
         self.cleanup()
+        self.close()
+
+    def __serviceStarted(self):
+        """Service started playing"""
+        log.debug("Playback started successfully", module="Player")
+        self.state = self.STATE_PLAYING
+
+    def __evEOF(self):
+        log.info("Playback completed", module="Player")
+        self.close()
+
+    def __evStopped(self):
+        log.info("Playback stopped", module="Player")
         self.close()
