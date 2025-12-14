@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TVGarden\n"
-"POT-Creation-Date: 2025-12-13 19:29+0100\n"
+"POT-Creation-Date: 2025-12-14 18:54+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: lululla [ekekaz@gmail.com]\n"
@@ -156,12 +156,12 @@ msgid "Loading categories..."
 msgstr "Caricamento categorie in corso..."
 
 #: browser/categories.py:95 browser/channels.py:119 browser/channels.py:552
-#: browser/countries.py:77 browser/favorites.py:63 browser/search.py:71
+#: browser/countries.py:74 browser/favorites.py:63 browser/search.py:71
 #: utils/settings.py:118
 msgid "Back"
 msgstr "Torna"
 
-#: browser/categories.py:96 browser/countries.py:78 plugin.py:217
+#: browser/categories.py:96 browser/countries.py:75 plugin.py:217
 msgid "Select"
 msgstr "Seleziona"
 
@@ -185,7 +185,7 @@ msgstr "Aggiornamento della cache..."
 msgid "Cache cleared"
 msgstr "Cache cancellata"
 
-#: browser/categories.py:193 browser/countries.py:376
+#: browser/categories.py:193 browser/countries.py:368
 msgid "Refresh failed"
 msgstr "Aggiornamento fallito"
 
@@ -297,9 +297,7 @@ msgstr "Conferma prima dell'esportazione: %s"
 msgid "Test Export (1 channel)"
 msgstr "Test di esportazione (1 canale)"
 
-#: browser/channels.py:592 ⁨utils/favorites - Copia (2).py⁩:195
-#: ⁨utils/favorites - Copia (2).py⁩:781 utils/favorites.py:195
-#: utils/favorites.py:781
+#: browser/channels.py:592 utils/favorites.py:195 utils/favorites.py:785
 msgid "No channels to export"
 msgstr "Nessun canale da esportare"
 
@@ -317,8 +315,7 @@ msgstr "Esportare {count} canali nel bouquet '{name}'?"
 msgid "Export failed: %s"
 msgstr "Esportazione non riuscita: %s"
 
-#: browser/channels.py:675 browser/search.py:399
-#: ⁨utils/favorites - Copia (2).py⁩:659 utils/favorites.py:659
+#: browser/channels.py:675 browser/search.py:399 utils/favorites.py:663
 msgid "No stream URL"
 msgstr "Nessun URL di streaming"
 
@@ -341,35 +338,35 @@ msgstr "Flusso: %s..."
 msgid "Stream: %s"
 msgstr "Flusso: %s"
 
-#: browser/countries.py:75
+#: browser/countries.py:72
 msgid "Loading countries..."
 msgstr "Caricamento paesi in corso..."
 
-#: browser/countries.py:79 plugin.py:218
+#: browser/countries.py:76 plugin.py:218
 msgid "Refresh"
 msgstr "Aggiorna"
 
-#: browser/countries.py:193
+#: browser/countries.py:185
 msgid "Select a country"
 msgstr "Seleziona un paese"
 
-#: browser/countries.py:202
+#: browser/countries.py:194
 msgid "No countries with channels found"
 msgstr "Nessun paese con canali trovati"
 
-#: browser/countries.py:205
+#: browser/countries.py:197
 msgid "Error loading countries"
 msgstr "Errore durante il caricamento dei Paesi"
 
-#: browser/countries.py:344
+#: browser/countries.py:336
 msgid "No country selected"
 msgstr "Nessun paese selezionato"
 
-#: browser/countries.py:370
+#: browser/countries.py:362
 msgid "Refreshing..."
 msgstr "Aggiornamento..."
 
-#: browser/countries.py:374
+#: browser/countries.py:366
 msgid "Countries refreshed"
 msgstr "Paesi aggiornati"
 
@@ -643,168 +640,143 @@ msgstr "Aggiornamento non riuscito: %s"
 msgid "Update check error"
 msgstr "Errore di controllo dell'aggiornamento"
 
-#: plugin.py:307 ⁨utils/favorites - Copia (2).py⁩:273
-#: ⁨utils/favorites - Copia (2).py⁩:640 ⁨utils/favorites - Copia (2).py⁩:688
-#: ⁨utils/favorites - Copia (2).py⁩:825 utils/favorites.py:273
-#: utils/favorites.py:640 utils/favorites.py:688 utils/favorites.py:823
-#: utils/settings.py:240
+#: plugin.py:307 utils/favorites.py:273 utils/favorites.py:644
+#: utils/favorites.py:692 utils/favorites.py:827 utils/settings.py:240
 #, python-format
 msgid "Error: %s"
 msgstr "Errore: %s"
 
-#: plugin.py:358
+#: plugin.py:353
 msgid "TV Garden"
 msgstr ""
 
-#: plugin.py:394
+#: plugin.py:389
 msgid "Access free IPTV channels from around the world"
 msgstr "Accedi gratuitamente ai canali IPTV da tutto il mondo"
 
-#: ⁨utils/favorites - Copia (2).py⁩:79 utils/favorites.py:79
+#: utils/favorites.py:79
 msgid "Already in favorites"
 msgstr "Già nei preferiti"
 
-#: ⁨utils/favorites - Copia (2).py⁩:91 utils/favorites.py:91
+#: utils/favorites.py:91
 #, python-format
 msgid "Added to favorites: %s"
 msgstr "Aggiunto ai preferiti: %s"
 
-#: ⁨utils/favorites - Copia (2).py⁩:94 ⁨utils/favorites - Copia (2).py⁩:109
 #: utils/favorites.py:94 utils/favorites.py:109
 msgid "Error saving favorites"
 msgstr "Errore durante il salvataggio dei preferiti"
 
-#: ⁨utils/favorites - Copia (2).py⁩:106 utils/favorites.py:106
+#: utils/favorites.py:106
 #, python-format
 msgid "Removed from favorites: %s"
 msgstr "Rimosso dai preferiti: %s"
 
-#: ⁨utils/favorites - Copia (2).py⁩:111 utils/favorites.py:111
+#: utils/favorites.py:111
 msgid "Channel not found in favorites"
 msgstr "Canale non trovato nei preferiti"
 
-#: ⁨utils/favorites - Copia (2).py⁩:263 ⁨utils/favorites - Copia (2).py⁩:480
-#: utils/favorites.py:263 utils/favorites.py:480
+#: utils/favorites.py:263 utils/favorites.py:484
 msgid "No valid stream URLs found"
 msgstr "Nessun URL di streaming valido trovato"
 
-#: ⁨utils/favorites - Copia (2).py⁩:269 utils/favorites.py:269
+#: utils/favorites.py:269
 #, python-format
 msgid "Exported %d channels to bouquet"
 msgstr "Esportati %d canali nel bouquet"
 
-#: ⁨utils/favorites - Copia (2).py⁩:286 ⁨utils/favorites - Copia (2).py⁩:701
-#: utils/favorites.py:286 utils/favorites.py:701
+#: utils/favorites.py:286 utils/favorites.py:705
 msgid "Empty database"
 msgstr "Database vuoto"
 
-#: ⁨utils/favorites - Copia (2).py⁩:306 ⁨utils/favorites - Copia (2).py⁩:705
-#: utils/favorites.py:306 utils/favorites.py:705
+#: utils/favorites.py:306 utils/favorites.py:709
 msgid "Failed to load database"
 msgstr "Impossibile caricare il database"
 
-#: ⁨utils/favorites - Copia (2).py⁩:398 ⁨utils/favorites - Copia (2).py⁩:742
-#: utils/favorites.py:398 utils/favorites.py:742
+#: utils/favorites.py:398 utils/favorites.py:746
 msgid "No valid channels found in database"
 msgstr "Nessun canale valido trovato nel database"
 
-#: ⁨utils/favorites - Copia (2).py⁩:488 utils/favorites.py:488
+#: utils/favorites.py:492
 #, fuzzy
 #| msgid "Export"
 msgid "Exported"
 msgstr "Esporta"
 
-#: ⁨utils/favorites - Copia (2).py⁩:490 utils/favorites.py:490
+#: utils/favorites.py:494
 #, fuzzy
 #| msgid "50 channels"
 msgid "channels from"
 msgstr "50 canali"
 
-#: ⁨utils/favorites - Copia (2).py⁩:492 utils/favorites.py:492
+#: utils/favorites.py:496
 #, fuzzy
 #| msgid "Countries"
 msgid "countries"
 msgstr "Paesi"
 
-#: ⁨utils/favorites - Copia (2).py⁩:501 utils/favorites.py:501
-#: utils/settings.py:420
+#: utils/favorites.py:505 utils/settings.py:420
 msgid "Error"
 msgstr "Errore"
 
-#: ⁨utils/favorites - Copia (2).py⁩:630 utils/favorites.py:630
+#: utils/favorites.py:634
 msgid "Removed"
 msgstr "Rimosso"
 
-#: ⁨utils/favorites - Copia (2).py⁩:632 utils/favorites.py:632
+#: utils/favorites.py:636
 msgid "files and"
 msgstr "file e"
 
-#: ⁨utils/favorites - Copia (2).py⁩:634 utils/favorites.py:634
+#: utils/favorites.py:638
 msgid "bouquet references"
 msgstr "riferimenti al bouquet"
 
-#: ⁨utils/favorites - Copia (2).py⁩:684 utils/favorites.py:684
+#: utils/favorites.py:688
 msgid "Channel added to bouquet"
 msgstr "Canale aggiunto al bouquet"
 
-#: ⁨utils/favorites - Copia (2).py⁩:805
-#, python-format
-msgid ""
-"-> Hierarchical export completed!\n"
-"\n"
-"-> Statistics:\n"
-"• Total channels: %d\n"
-"• Countries exported: %d\n"
-"• Files created: %d\n"
-"\n"
-"-> Structure created:\n"
-"%s\n"
-"\n"
-"Main bouquet: '%s'"
-msgstr ""
-
-#: ⁨utils/favorites - Copia (2).py⁩:918 utils/favorites.py:981
-#, python-format
-msgid "Cleared %d favorites"
-msgstr "%d preferiti cancellati"
-
-#: ⁨utils/favorites - Copia (2).py⁩:921 utils/favorites.py:984
-msgid "Error clearing favorites"
-msgstr "Errore durante la cancellazione dei preferiti"
-
-#: utils/favorites.py:805
+#: utils/favorites.py:809
 msgid "Hierarchical export completed!"
 msgstr ""
 
-#: utils/favorites.py:807
+#: utils/favorites.py:811
 msgid "Statistics:"
 msgstr ""
 
-#: utils/favorites.py:808
+#: utils/favorites.py:812
 #, fuzzy
 #| msgid "All channels"
 msgid "Total channels:"
 msgstr "Tutti i canali"
 
-#: utils/favorites.py:809
+#: utils/favorites.py:813
 #, fuzzy
 #| msgid "Countries refreshed"
 msgid "Countries exported:"
 msgstr "Paesi aggiornati"
 
-#: utils/favorites.py:810
+#: utils/favorites.py:814
 #, fuzzy
 #| msgid "files and"
 msgid "Files created:"
 msgstr "file e"
 
-#: utils/favorites.py:813
+#: utils/favorites.py:817
 msgid "Structure created:"
 msgstr ""
 
-#: utils/favorites.py:816
+#: utils/favorites.py:820
 msgid "Main bouquet:"
 msgstr ""
+
+#: utils/favorites.py:985
+#, python-format
+msgid "Cleared %d favorites"
+msgstr "%d preferiti cancellati"
+
+#: utils/favorites.py:988
+msgid "Error clearing favorites"
+msgstr "Errore durante la cancellazione dei preferiti"
 
 #: utils/settings.py:51
 msgid "Log file is empty or not found"

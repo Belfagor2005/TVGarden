@@ -101,22 +101,27 @@ class CacheManager:
             return False
 
     def _fetch_url(self, url):
-        """Fetch URL - nuovo metodo mancante"""
+        """Fetch URL - compatibile Python 2"""
         try:
             headers = {'User-Agent': 'TVGarden-Enigma2-Plugin/1.0'}
             req = Request(url, headers=headers)
 
-            with urlopen(req, timeout=15) as response:
+            response = None
+            try:
+                response = urlopen(req, timeout=15)
                 data = response.read()
 
                 try:
                     return loads(data.decode('utf-8'))
                 except:
-                    # Try gzip decompression
                     try:
                         return loads(gzip.decompress(data).decode('utf-8'))
                     except:
                         raise ValueError("Failed to decode response")
+            finally:
+                if response:
+                    response.close()
+                    
         except Exception as e:
             log.error("Error fetching %s: %s" % (url, e), module="Cache")
             raise

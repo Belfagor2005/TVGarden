@@ -425,11 +425,7 @@ class PluginConfig:
     def load_skin(self, screen_name, default_skin):
         """
         Load skin from file or use default from class
-        Args:
-            screen_name: Name of screen (e.g., "TVGardenMain")
-            default_skin: Default skin XML from class
-        Returns:
-            Skin XML string
+        Compatibile Python 2
         """
         resolution = self.get_skin_resolution()
 
@@ -437,13 +433,15 @@ class PluginConfig:
 
         if fileExists(skin_file):
             try:
-                with open(skin_file, 'r', encoding='utf-8') as f:
-                    skin_content = f.read()
+                # Python 2: NO 'encoding' parameter
+                f = open(skin_file, 'r')
+                skin_content = f.read()
+                f.close()
+                
                 log.info("Loaded skin from: %s" % skin_file, module="Config")
                 return skin_content
             except Exception as e:
                 log.error("Error loading skin: %s" % e, module="Config")
-
                 # Fallback to Class Skin
                 log.warning("Using class skin for %s due to error" % screen_name, module="Config")
                 return default_skin

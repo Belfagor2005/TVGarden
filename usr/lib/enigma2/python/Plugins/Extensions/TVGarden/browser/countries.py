@@ -67,31 +67,23 @@ class CountriesBrowser(BaseBrowser):
         self.selected_country = None
         self.current_flag_path = None
 
-        # Menu setup
         self["menu"] = MenuList([], enableWrapAround=True)
         self["menu"].onSelectionChanged.append(self.onSelectionChanged)
-
-        # Widgets
         self["status"] = Label(_("Loading countries..."))
         self["flag"] = Pixmap()
         self["key_red"] = Label(_("Back"))
         self["key_green"] = Label(_("Select"))
         self["key_yellow"] = Label(_("Refresh"))
-
-        # Actions
-        self["actions"] = ActionMap(["TVGardenActions", "OkCancelActions", "ColorActions"], {
+        self["actions"] = ActionMap(["TVGardenActions", "OkCancelActions", "ColorActions", "DirectionActions"], {
             "cancel": self.exit,
             "ok": self.select_country,
             "red": self.exit,
             "green": self.select_country,
-            "yellow": self.refresh,
             "up": self.up,
             "down": self.down,
             "left": self.left,
             "right": self.right,
         }, -2)
-
-        # Connect picload AFTER widget creation
         self.picload_conn = self.picload.PictureData.get().append(self.update_flag)
 
         self.onFirstExecBegin.append(self.load_countries)
