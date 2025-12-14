@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TVGarden\n"
-"POT-Creation-Date: 2025-12-13 19:28+0100\n"
+"POT-Creation-Date: 2025-12-13 18:37+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Warder <ciksa@seznam.cz>\n"
 "Language-Team: lululla [ekekaz@gmail.com]\n"
@@ -11,9 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.8\n"
-"X-Poedit-Basepath: ../../..\n"
+"X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-0: helpers.py\n"
+"X-Poedit-SearchPath-1: plugin.py\n"
+"X-Poedit-SearchPath-2: browser\n"
+"X-Poedit-SearchPath-3: player\n"
+"X-Poedit-SearchPath-4: utils\n"
 
 #: browser/about.py:43
 msgid "TV Garden Plugin"
@@ -213,19 +217,17 @@ msgstr "Přehrát kanál"
 msgid "Add to Favorites"
 msgstr "Přidat do oblíbených"
 
-#: browser/channels.py:153 browser/favorites.py:419
+#: browser/channels.py:153 browser/favorites.py:389
 msgid "Channel Information"
 msgstr "Informace o kanálu"
 
 #: browser/channels.py:156
 msgid "Export Current View"
-msgstr ""
+msgstr "Exportovat aktuální zobrazení"
 
 #: browser/channels.py:157 browser/channels.py:556
-#, fuzzy
-#| msgid "Settings"
 msgid "Export Settings"
-msgstr "Nastavení"
+msgstr "Exportovat nastavení"
 
 #: browser/channels.py:160
 msgid "Channel Menu"
@@ -237,28 +239,24 @@ msgid "Showing {shown} of {total} channels"
 msgstr "Zobrazeno {shown} z {total} kanálů"
 
 #: browser/channels.py:348
-#, fuzzy, python-format
-#| msgid "Found {count} playable channels"
+#, python-format
 msgid "Found %d playable channels"
-msgstr "Nalezeno {count} přehrávatelných kanálů"
+msgstr "Nalezeno %d přehrávatelných kanálů"
 
 #: browser/channels.py:351 browser/search.py:334
-#, fuzzy, python-format
-#| msgid "(skipped {count} YouTube)"
+#, python-format
 msgid "(skipped %d YouTube)"
-msgstr "(přeskočeno {count} YouTube)"
+msgstr "(přeskočeno %d YouTube)"
 
 #: browser/channels.py:354 browser/search.py:337
-#, fuzzy, python-format
-#| msgid "(filtered {count} problematic)"
+#, python-format
 msgid "(filtered %d problematic)"
-msgstr "(filtrováno {count} problematické)"
+msgstr "(filtrováno %d problematické)"
 
 #: browser/channels.py:357 browser/search.py:340
-#, fuzzy, python-format
-#| msgid "(limited to first {limit})"
+#, python-format
 msgid "(limited to first %d)"
-msgstr "(omezeno na prvních {limit})"
+msgstr "(omezeno na prvních %d)"
 
 #: browser/channels.py:369 browser/search.py:145
 msgid "Error loading channels"
@@ -266,82 +264,74 @@ msgstr "Chyba při načítání kanálů"
 
 #: browser/channels.py:543
 msgid "ENABLED"
-msgstr ""
+msgstr "POVOLEN"
 
 #: browser/channels.py:543
 msgid "DISABLED"
-msgstr ""
+msgstr "ZAKÁZÁN"
 
 #: browser/channels.py:544 browser/channels.py:545
 msgid "ON"
-msgstr ""
+msgstr "Zapnuto"
 
 #: browser/channels.py:544 browser/channels.py:545
 msgid "OFF"
-msgstr ""
+msgstr "VYPNUT"
 
 #: browser/channels.py:548
-#, fuzzy, python-format
-#| msgid "Export"
+#, python-format
 msgid "Export: %s"
-msgstr "Export"
+msgstr "Export: %s"
 
 #: browser/channels.py:549
 #, python-format
 msgid "Auto-refresh: %s"
-msgstr ""
+msgstr "Automatické obnovení: %s"
 
 #: browser/channels.py:550
 #, python-format
 msgid "Confirm before export: %s"
-msgstr ""
+msgstr "Potvrdit před exportem: %s"
 
 #: browser/channels.py:551
 msgid "Test Export (1 channel)"
-msgstr ""
+msgstr "Testovací export (1 kanál)"
 
-#: browser/channels.py:592 ⁨utils/favorites - Copia (2).py⁩:195
-#: ⁨utils/favorites - Copia (2).py⁩:781 utils/favorites.py:195
-#: utils/favorites.py:781
+#: browser/channels.py:592 utils/favorites.py:192
 msgid "No channels to export"
 msgstr "Žádné kanály k exportu"
 
 #: browser/channels.py:608
-#, fuzzy
-#| msgid "Play Channel"
 msgid "Channels"
-msgstr "Přehrát kanál"
+msgstr "Kanály"
 
 #: browser/channels.py:610
 #, python-brace-format
 msgid "Export {count} channels to bouquet '{name}'?"
-msgstr ""
+msgstr "Exportovat {count} kanálů do svazku '{name}'?"
 
 #: browser/channels.py:655
 #, python-format
 msgid "Export failed: %s"
-msgstr ""
+msgstr "Export se nezdařil: %s"
 
-#: browser/channels.py:675 browser/search.py:399
-#: ⁨utils/favorites - Copia (2).py⁩:659 utils/favorites.py:659
+#: browser/channels.py:675 browser/search.py:399 utils/favorites.py:602
 msgid "No stream URL"
 msgstr "Žádná adresa URL streamu"
 
-#: browser/channels.py:702 browser/favorites.py:252
+#: browser/channels.py:702 browser/favorites.py:243
 msgid "Unknown"
 msgstr "Neznámý"
 
-#: browser/channels.py:708 browser/favorites.py:257
-#, fuzzy, python-format
-#| msgid "Remove '{}' from favorites?"
+#: browser/channels.py:708 browser/favorites.py:248
+#, python-format
 msgid "Remove '%s' from favorites?"
-msgstr "Odstranit '{}' z oblíbených?"
+msgstr "Odebrat '%s' z oblíbených?"
 
 #: browser/channels.py:742
-#, fuzzy, python-format
-#| msgid "Stream: %s"
+#, python-format
 msgid "Stream: %s..."
-msgstr "Stream: %s"
+msgstr "Stream: %s..."
 
 #: browser/channels.py:744
 #, python-format
@@ -401,7 +391,7 @@ msgstr "Žádné oblíbené kanály"
 msgid "Error loading favorites"
 msgstr "Chyba při načítání oblíbených položek"
 
-#: browser/favorites.py:145 browser/favorites.py:333
+#: browser/favorites.py:145 browser/favorites.py:303
 msgid "No channel selected"
 msgstr "Není vybrán žádný kanál"
 
@@ -422,98 +412,72 @@ msgid "Export to Enigma2 Bouquet"
 msgstr "Exportovat do Enigma2 Bouquet"
 
 #: browser/favorites.py:153
-msgid "Export ALL Database (Single File)"
-msgstr ""
+msgid "Export ALL Database"
+msgstr "Exportovat VŠECHNY databáze"
 
 #: browser/favorites.py:154
-msgid "Export ALL Database (Multi-File)"
-msgstr ""
-
-#: browser/favorites.py:155
 msgid "Remove Bouquet from Enigma2"
 msgstr "Odebrat kytici z Enigmy2"
 
-#: browser/favorites.py:161
-#, fuzzy, python-format
-#| msgid "Options for: {}"
+#: browser/favorites.py:160
+#, python-format
 msgid "Options for: %s"
-msgstr "Možnosti pro: {}"
+msgstr "Možnosti pro: %s"
 
-#: browser/favorites.py:183
-#, fuzzy, python-format
-#| msgid "Export '{}' to Enigma2 bouquet?"
+#: browser/favorites.py:182
+#, python-format
 msgid "Export '%s' to Enigma2 bouquet?"
-msgstr "Exportovat '{}' do kytice Enigma2?"
+msgstr "Exportovat '%s' do kytice Enigma2?"
 
-#: browser/favorites.py:191
+#: browser/favorites.py:190
 msgid "Remove TV Garden bouquet from Enigma2?"
 msgstr "Odebrat kytici TV Garden z Enigmy2?"
 
-#: browser/favorites.py:199
+#: browser/favorites.py:198
 msgid "Clear ALL favorites?"
 msgstr "Vymazat VŠECHNY oblíbené?"
 
-#: browser/favorites.py:207
+#: browser/favorites.py:206
 msgid ""
 "Export ALL channels from TV Garden database?\n"
 "This may take some time."
 msgstr ""
+"Exportovat VŠECHNY kanály z databáze TV Garden?\n"
+"Může to chvíli trvat."
 
-#: browser/favorites.py:215
-msgid ""
-"Export ALL channels with multi-file structure?\n"
-"This will create smaller bouquet files for better performance."
-msgstr ""
-
-#: browser/favorites.py:270
-#, fuzzy, python-format
-#| msgid "{} favorites"
+#: browser/favorites.py:261
+#, python-format
 msgid "%d favorites"
-msgstr "{} oblíbených"
+msgstr "%d oblíbených"
 
-#: browser/favorites.py:284
-#, fuzzy
-#| msgid "Loading channels..."
+#: browser/favorites.py:275
 msgid "Loading all channels..."
-msgstr "Načítání kanálů..."
+msgstr "Načítání všech kanálů..."
 
-#: browser/favorites.py:296
-#, fuzzy
-#| msgid "Data refreshed successfully"
+#: browser/favorites.py:287
 msgid "Database exported successfully"
-msgstr "Data byla úspěšně obnovena"
+msgstr "Databáze byla úspěšně exportována"
 
-#: browser/favorites.py:298 browser/favorites.py:319
-#, fuzzy
-#| msgid "Export"
+#: browser/favorites.py:289
 msgid "Export failed"
-msgstr "Export"
+msgstr "Export neuspěl"
 
-#: browser/favorites.py:305
-msgid "Creating hierarchical structure..."
-msgstr ""
-
-#: browser/favorites.py:317
-msgid "Hierarchical export completed"
-msgstr ""
-
-#: browser/favorites.py:338
+#: browser/favorites.py:308
 msgid "No stream URL available"
 msgstr "Není k dispozici URL adresa streamu"
 
-#: browser/favorites.py:357 browser/search.py:414
+#: browser/favorites.py:327 browser/search.py:414
 msgid "Error opening player"
 msgstr "Chyba při otevírání přehrávače"
 
-#: browser/favorites.py:365
+#: browser/favorites.py:335
 msgid "No favorites to export"
 msgstr "Žádné oblíbené položky k exportu"
 
-#: browser/favorites.py:374
-#, fuzzy, python-format
-#| msgid "Export ALL {} favorites to Enigma2 bouquet?"
+#: browser/favorites.py:344
+#, python-format
 msgid "Export ALL %d favorites to Enigma2 bouquet?"
-msgstr "Exportovat VŠECHNY {} oblíbené položky do kytice Enigma2?"
+msgstr "Exportovat VŠECHNY %d oblíbené položky do kytice Enigma2?"
 
 #: browser/search.py:67
 msgid "Search:"
@@ -532,10 +496,9 @@ msgid "Clear"
 msgstr "Vymazat"
 
 #: browser/search.py:137
-#, fuzzy, python-format
-#| msgid "Press GREEN for keyboard... Ready - {} channels"
+#, python-format
 msgid "Press GREEN for keyboard... Ready - %d channels"
-msgstr "Stiskněte ZELENOU pro zobrazení klávesnice... Připraveno - {} kanálů"
+msgstr "Stiskněte ZELENOU pro zobrazení klávesnice... Připraveno - %d kanálů"
 
 #: browser/search.py:140
 msgid "No channels loaded"
@@ -555,16 +518,14 @@ msgid "Showing {shown} of {total} results"
 msgstr "Zobrazeno {shown} z {total} výsledků"
 
 #: browser/search.py:331
-#, fuzzy, python-format
-#| msgid "Found {} channels"
+#, python-format
 msgid "Found %d channels"
-msgstr "Nalezeno {} kanálů"
+msgstr "Nalezeno %d kanálů"
 
 #: browser/search.py:348
-#, fuzzy, python-format
-#| msgid "No channels found for: {}"
+#, python-format
 msgid "No channels found for: %s"
-msgstr "Nenalezeny žádné kanály pro: {}"
+msgstr "Nebyly nalezeny žádné kanály pro: %s"
 
 #: browser/search.py:422
 msgid "Removed from favorites"
@@ -609,11 +570,11 @@ msgstr "Vyhledávání kanálů podle názvu"
 #: plugin.py:206 utils/settings.py:188 utils/settings.py:216
 #: utils/settings.py:511
 msgid "Check for Updates"
-msgstr ""
+msgstr "Zkontrolovat aktualizace"
 
 #: plugin.py:206
 msgid "Check for plugin updates"
-msgstr ""
+msgstr "Zkontrolujte aktualizace pluginů"
 
 #: plugin.py:207 plugin.py:219
 msgid "Settings"
@@ -645,26 +606,23 @@ msgid ""
 "Refresh completed!\n"
 "Loaded %d countries"
 msgstr ""
+"Obnovení dokončeno!\n"
+"Načteno %d zemí"
 
 #: plugin.py:282
-#, fuzzy, python-format
-#| msgid "Refresh failed"
+#, python-format
 msgid "Refresh failed: %s"
-msgstr "Obnovení se nezdařilo"
+msgstr "Obnovení se nezdařilo: %s"
 
 #: plugin.py:305 utils/update_manager.py:57
 msgid "Update check error"
-msgstr ""
+msgstr "Chyba kontroly aktualizací"
 
-#: plugin.py:307 ⁨utils/favorites - Copia (2).py⁩:273
-#: ⁨utils/favorites - Copia (2).py⁩:640 ⁨utils/favorites - Copia (2).py⁩:688
-#: ⁨utils/favorites - Copia (2).py⁩:825 utils/favorites.py:273
-#: utils/favorites.py:640 utils/favorites.py:688 utils/favorites.py:823
-#: utils/settings.py:240
-#, fuzzy, python-format
-#| msgid "Error: {}"
+#: plugin.py:307 utils/favorites.py:270 utils/favorites.py:445
+#: utils/favorites.py:583 utils/favorites.py:631 utils/settings.py:240
+#, python-format
 msgid "Error: %s"
-msgstr "Chyba: {}"
+msgstr "Chyba: %s"
 
 #: plugin.py:358
 msgid "TV Garden"
@@ -674,157 +632,78 @@ msgstr "TV Garden"
 msgid "Access free IPTV channels from around the world"
 msgstr "Získejte přístup k bezplatným IPTV kanálům z celého světa"
 
-#: ⁨utils/favorites - Copia (2).py⁩:79 utils/favorites.py:79
+#: utils/favorites.py:76
 msgid "Already in favorites"
 msgstr "Už v oblíbených"
 
-#: ⁨utils/favorites - Copia (2).py⁩:91 utils/favorites.py:91
-#, fuzzy, python-format
-#| msgid "Added to favorites: {}"
+#: utils/favorites.py:88
+#, python-format
 msgid "Added to favorites: %s"
-msgstr "Přidáno k oblíbeným: {}"
+msgstr "Přidáno k oblíbeným: %s"
 
-#: ⁨utils/favorites - Copia (2).py⁩:94 ⁨utils/favorites - Copia (2).py⁩:109
-#: utils/favorites.py:94 utils/favorites.py:109
+#: utils/favorites.py:91 utils/favorites.py:106
 msgid "Error saving favorites"
 msgstr "Chyba ukládání oblíbených položek"
 
-#: ⁨utils/favorites - Copia (2).py⁩:106 utils/favorites.py:106
-#, fuzzy, python-format
-#| msgid "Removed from favorites: {}"
+#: utils/favorites.py:103
+#, python-format
 msgid "Removed from favorites: %s"
-msgstr "Odebráno z oblíbených: {}"
+msgstr "Odebráno z oblíbených: %s"
 
-#: ⁨utils/favorites - Copia (2).py⁩:111 utils/favorites.py:111
+#: utils/favorites.py:108
 msgid "Channel not found in favorites"
 msgstr "Kanál nebyl nalezen v oblíbených"
 
-#: ⁨utils/favorites - Copia (2).py⁩:263 ⁨utils/favorites - Copia (2).py⁩:480
-#: utils/favorites.py:263 utils/favorites.py:480
+#: utils/favorites.py:260 utils/favorites.py:431
 msgid "No valid stream URLs found"
 msgstr "Nenalezeny žádné platné adresy URL streamu"
 
-#: ⁨utils/favorites - Copia (2).py⁩:269 utils/favorites.py:269
-#, fuzzy, python-format
-#| msgid "Channel added to bouquet"
+#: utils/favorites.py:266
+#, python-format
 msgid "Exported %d channels to bouquet"
-msgstr "Kanál přidán do kytice"
+msgstr "Exportováno %d kanálů do bouquetu"
 
-#: ⁨utils/favorites - Copia (2).py⁩:286 ⁨utils/favorites - Copia (2).py⁩:701
-#: utils/favorites.py:286 utils/favorites.py:701
+#: utils/favorites.py:283
 msgid "Empty database"
-msgstr ""
+msgstr "Prázdná databáze"
 
-#: ⁨utils/favorites - Copia (2).py⁩:306 ⁨utils/favorites - Copia (2).py⁩:705
-#: utils/favorites.py:306 utils/favorites.py:705
+#: utils/favorites.py:294
 msgid "Failed to load database"
-msgstr ""
+msgstr "Nepodařilo se načíst databázi"
 
-#: ⁨utils/favorites - Copia (2).py⁩:398 ⁨utils/favorites - Copia (2).py⁩:742
-#: utils/favorites.py:398 utils/favorites.py:742
-#, fuzzy
-#| msgid "No channels found for: {}"
+#: utils/favorites.py:360
 msgid "No valid channels found in database"
-msgstr "Nenalezeny žádné kanály pro: {}"
+msgstr "V databázi nebyly nalezeny žádné platné kanály"
 
-#: ⁨utils/favorites - Copia (2).py⁩:488 utils/favorites.py:488
-#, fuzzy
-#| msgid "Export"
-msgid "Exported"
-msgstr "Export"
+#: utils/favorites.py:437
+#, python-brace-format
+msgid "Exported {count} channels from {countries} countries"
+msgstr "Exportováno {count} kanálů z {countries} zemí"
 
-#: ⁨utils/favorites - Copia (2).py⁩:490 utils/favorites.py:490
-#, fuzzy
-#| msgid "250 channels"
-msgid "channels from"
-msgstr "250 kanálů"
-
-#: ⁨utils/favorites - Copia (2).py⁩:492 utils/favorites.py:492
-#, fuzzy
-#| msgid "Countries"
-msgid "countries"
-msgstr "Země"
-
-#: ⁨utils/favorites - Copia (2).py⁩:501 utils/favorites.py:501
-#: utils/settings.py:420
-#, fuzzy
-#| msgid "Error: {}"
-msgid "Error"
-msgstr "Chyba: {}"
-
-#: ⁨utils/favorites - Copia (2).py⁩:630 utils/favorites.py:630
+#: utils/favorites.py:573
 msgid "Removed"
-msgstr ""
+msgstr "Odstraněno"
 
-#: ⁨utils/favorites - Copia (2).py⁩:632 utils/favorites.py:632
+#: utils/favorites.py:575
 msgid "files and"
-msgstr ""
+msgstr "soubory a"
 
-#: ⁨utils/favorites - Copia (2).py⁩:634 utils/favorites.py:634
+#: utils/favorites.py:577
 msgid "bouquet references"
-msgstr ""
+msgstr "odkazy na kytice"
 
-#: ⁨utils/favorites - Copia (2).py⁩:684 utils/favorites.py:684
+#: utils/favorites.py:627
 msgid "Channel added to bouquet"
 msgstr "Kanál přidán do kytice"
 
-#: ⁨utils/favorites - Copia (2).py⁩:805
+#: utils/favorites.py:639
 #, python-format
-msgid ""
-"-> Hierarchical export completed!\n"
-"\n"
-"-> Statistics:\n"
-"• Total channels: %d\n"
-"• Countries exported: %d\n"
-"• Files created: %d\n"
-"\n"
-"-> Structure created:\n"
-"%s\n"
-"\n"
-"Main bouquet: '%s'"
-msgstr ""
-
-#: ⁨utils/favorites - Copia (2).py⁩:918 utils/favorites.py:981
-#, fuzzy, python-format
-#| msgid "Cleared {} favorites"
 msgid "Cleared %d favorites"
-msgstr "Vymazáno {} oblíbených"
+msgstr "Vymazáno %d oblíbených"
 
-#: ⁨utils/favorites - Copia (2).py⁩:921 utils/favorites.py:984
+#: utils/favorites.py:642
 msgid "Error clearing favorites"
 msgstr "Chyba při mazání oblíbených položek"
-
-#: utils/favorites.py:805
-msgid "Hierarchical export completed!"
-msgstr ""
-
-#: utils/favorites.py:807
-msgid "Statistics:"
-msgstr ""
-
-#: utils/favorites.py:808
-#, fuzzy
-#| msgid "All channels"
-msgid "Total channels:"
-msgstr "Zobrazit všechny kanály"
-
-#: utils/favorites.py:809
-#, fuzzy
-#| msgid "Countries refreshed"
-msgid "Countries exported:"
-msgstr "Obnovené země"
-
-#: utils/favorites.py:810
-msgid "Files created:"
-msgstr ""
-
-#: utils/favorites.py:813
-msgid "Structure created:"
-msgstr ""
-
-#: utils/favorites.py:816
-msgid "Main bouquet:"
-msgstr ""
 
 #: utils/settings.py:51
 msgid "Log file is empty or not found"
@@ -849,7 +728,7 @@ msgstr "Nastavení možností"
 #: utils/settings.py:150
 #, python-format
 msgid "Editing: %s"
-msgstr ""
+msgstr "Upravuji: %s"
 
 #: utils/settings.py:188 utils/settings.py:208 utils/settings.py:525
 msgid "View Log File"
@@ -872,10 +751,9 @@ msgid "Log files cleared successfully"
 msgstr "Soubory protokolu byly úspěšně vymazány"
 
 #: utils/settings.py:257
-#, fuzzy, python-format
-#| msgid "Error clearing logs: {}"
+#, python-format
 msgid "Error clearing logs: %s"
-msgstr "Chyba při mazání protokolů: {}"
+msgstr "Chyba při mazání protokolů: %s"
 
 #: utils/settings.py:273
 msgid "ExtePlayer3"
@@ -926,50 +804,48 @@ msgid "Categories"
 msgstr "Kategorie"
 
 #: utils/settings.py:371
-#, fuzzy
-#| msgid "250 channels"
 msgid "50 channels"
-msgstr "250 kanálů"
+msgstr "50 kanálů"
 
 #: utils/settings.py:393
 msgid "512 KB"
-msgstr ""
+msgstr "512 kB"
 
 #: utils/settings.py:394
 msgid "1 MB"
-msgstr ""
+msgstr "1 MB"
 
 #: utils/settings.py:395
 msgid "2 MB"
-msgstr ""
+msgstr "2 MB"
 
 #: utils/settings.py:396
 msgid "4 MB"
-msgstr ""
+msgstr "4 MB"
 
 #: utils/settings.py:397
 msgid "8 MB"
-msgstr ""
+msgstr "8 MB"
 
 #: utils/settings.py:409
-#, fuzzy
-#| msgid "Press OK to clear logs"
 msgid "Press OK to check for updates"
-msgstr "Stisknutím tlačítka OK vymažete protokoly"
+msgstr "Stisknutím tlačítka OK zkontrolujete aktualizace"
 
 #: utils/settings.py:417
 msgid "Debug"
-msgstr ""
+msgstr "Režim ladění"
 
 #: utils/settings.py:419
 msgid "Warning"
 msgstr "Varování"
 
+#: utils/settings.py:420
+msgid "Error"
+msgstr "Chyba"
+
 #: utils/settings.py:421
-#, fuzzy
-#| msgid "Critical only"
 msgid "Critical"
-msgstr "Pouze kritické"
+msgstr "Kritická"
 
 #: utils/settings.py:441
 msgid "Press OK to view logs"
@@ -980,10 +856,8 @@ msgid "Press OK to clear logs"
 msgstr "Stisknutím tlačítka OK vymažete protokoly"
 
 #: utils/settings.py:455
-#, fuzzy
-#| msgid "=== Logging Settings ==="
 msgid "=== Player Settings ==="
-msgstr "=== Nastavení protokolování ==="
+msgstr "=== Nastavení přehrávače ==="
 
 #: utils/settings.py:457
 msgid "Player"
@@ -1002,10 +876,8 @@ msgid "Retries"
 msgstr "Opětovné pokusy"
 
 #: utils/settings.py:463
-#, fuzzy
-#| msgid "=== Logging Settings ==="
 msgid "=== Cache Settings ==="
-msgstr "=== Nastavení protokolování ==="
+msgstr "=== Nastavení mezipaměti ==="
 
 #: utils/settings.py:465
 msgid "Cache TTL (hours)"
@@ -1016,10 +888,8 @@ msgid "Cache Size"
 msgstr "Velikost mezipaměti"
 
 #: utils/settings.py:469
-#, fuzzy
-#| msgid "=== Logging Settings ==="
 msgid "=== Display Settings ==="
-msgstr "=== Nastavení protokolování ==="
+msgstr "=== Nastavení zobrazení ==="
 
 #: utils/settings.py:471
 msgid "Skin"
@@ -1038,10 +908,8 @@ msgid "Items per page"
 msgstr "Položek na stránku"
 
 #: utils/settings.py:477
-#, fuzzy
-#| msgid "=== Logging Settings ==="
 msgid "=== Browser Settings ==="
-msgstr "=== Nastavení protokolování ==="
+msgstr "=== Nastavení prohlížeče ==="
 
 #: utils/settings.py:479
 msgid "Max channels per country"
@@ -1052,74 +920,60 @@ msgid "Default View"
 msgstr "Výchozí zobrazení"
 
 #: utils/settings.py:483
-#, fuzzy
-#| msgid "=== Logging Settings ==="
 msgid "=== Favorites Settings ==="
-msgstr "=== Nastavení protokolování ==="
+msgstr "=== Nastavení oblíbených ==="
 
 #: utils/settings.py:485
 msgid "Max Favorites"
 msgstr "Max Oblíbené"
 
 #: utils/settings.py:488
-#, fuzzy
-#| msgid "=== Logging Settings ==="
 msgid "=== Export Settings ==="
-msgstr "=== Nastavení protokolování ==="
+msgstr "=== Nastavení exportu ==="
 
 #: utils/settings.py:490
-#, fuzzy
-#| msgid "Export"
 msgid "Enable Export"
-msgstr "Export"
+msgstr "Povolit export"
 
 #: utils/settings.py:492
 msgid "Auto-Refresh Bouquet"
-msgstr ""
+msgstr "Automaticky obnovovací kytice"
 
 #: utils/settings.py:493
 msgid "Confirm Before Export"
-msgstr ""
+msgstr "Potvrdit před exportem"
 
 #: utils/settings.py:494
-#, fuzzy
-#| msgid "Max channels per country"
 msgid "Max Channels per Bouquet"
-msgstr "Maximální počet kanálů na zemi"
+msgstr "Max. počet kanálů na svazek"
 
 #: utils/settings.py:495
 msgid "Bouquet Name Prefix"
-msgstr ""
+msgstr "Předpona názvu kytice"
 
 #: utils/settings.py:498
-#, fuzzy
-#| msgid "=== Logging Settings ==="
 msgid "=== Performance Settings ==="
-msgstr "=== Nastavení protokolování ==="
+msgstr "=== Nastavení výkonu ==="
 
 #: utils/settings.py:500
 msgid "Use Hardware Acceleration"
-msgstr ""
+msgstr "Používejte hardwarovou akceleraci"
 
 #: utils/settings.py:501
 msgid "Buffer Size"
-msgstr ""
+msgstr "Velikost vyrovnávací paměti"
 
 #: utils/settings.py:504
-#, fuzzy
-#| msgid "=== Logging Settings ==="
 msgid "=== Network Settings ==="
-msgstr "=== Nastavení protokolování ==="
+msgstr "=== Nastavení sítě ==="
 
 #: utils/settings.py:506
 msgid "User Agent"
 msgstr "Uživatelský agent"
 
 #: utils/settings.py:509
-#, fuzzy
-#| msgid "=== Logging Settings ==="
 msgid "=== Update Settings ==="
-msgstr "=== Nastavení protokolování ==="
+msgstr "=== Aktualizovat nastavení ==="
 
 #: utils/settings.py:514
 msgid "=== Logging Settings ==="
@@ -1142,49 +996,45 @@ msgid "Log Backup Files"
 msgstr "Záložní soubory protokolů"
 
 #: utils/settings.py:523
-#, fuzzy
-#| msgid "--- Log Maintenance ---"
 msgid "=== Log Maintenance ==="
 msgstr "--- Údržba protokolů ---"
 
 #: utils/update_manager.py:23
-#, fuzzy
-#| msgid "Loading favorites..."
 msgid "Checking for updates..."
-msgstr "Načítání oblíbených položek..."
+msgstr "Kontrola aktualizací..."
 
 #: utils/update_manager.py:34
 msgid "Update check failed"
-msgstr ""
+msgstr "Kontrola aktualizací selhala"
 
 #: utils/update_manager.py:36
-#, fuzzy
-#| msgid "Failed to refresh data. Check internet connection."
 msgid "Could not check for updates. Check internet connection."
-msgstr "Nepodařilo se aktualizovat data. Zkontrolujte připojení k internetu."
+msgstr "Nepodařilo se zkontrolovat aktualizace. Zkontrolujte připojení k internetu."
 
 #: utils/update_manager.py:41
-#, fuzzy
-#| msgid "No stream URL available"
 msgid "Update available!"
-msgstr "Není k dispozici URL adresa streamu"
+msgstr ""
+"{server_version} {version_server}\n"
+"{installed_version} {version}\n"
+"\n"
+"{update_available}"
 
 #: utils/update_manager.py:46
 msgid "Plugin is up to date"
-msgstr ""
+msgstr "Plugin je aktuální"
 
 #: utils/update_manager.py:48
 msgid "You have the latest version of TV Garden."
-msgstr ""
+msgstr "Máte nejnovější verzi TV Garden."
 
 #: utils/update_manager.py:59
 #, python-format
 msgid "Could not check for updates: %s"
-msgstr ""
+msgstr "Nepodařilo se zkontrolovat aktualizace: %s"
 
 #: utils/update_manager.py:73
 msgid "Update cancelled"
-msgstr ""
+msgstr "Aktualizace zrušena"
 
 #: utils/update_manager.py:75
 msgid ""
@@ -1194,12 +1044,15 @@ msgid ""
 "\n"
 "(Recommended to backup first)"
 msgstr ""
+"Je k dispozici nová verze!\n"
+"\n"
+"Aktualizovat nyní?\n"
+"\n"
+"(Doporučuje se nejprve zálohovat)"
 
 #: utils/update_manager.py:91
-#, fuzzy
-#| msgid "Data refreshed successfully"
 msgid "Update successful!"
-msgstr "Data byla úspěšně obnovena"
+msgstr "Aktualizace úspěšná!"
 
 #: utils/update_manager.py:93
 #, python-format
@@ -1208,59 +1061,41 @@ msgid ""
 "\n"
 "Restart Enigma2 now for changes to take effect."
 msgstr ""
+"%s\n"
+"\n"
+"Restartujte Enigmu2, aby se změny projevily."
 
 #: utils/update_manager.py:102
 msgid "Update failed"
 msgstr ""
+"Aktualizace selhala:\n"
+"%s"
 
 #: utils/update_manager.py:108
 msgid "Updating plugin... Please wait"
-msgstr ""
+msgstr "Aktualizace pluginu... Čekejte prosím"
 
 #: utils/update_manager.py:125
 msgid "Please restart Enigma2 manually."
-msgstr ""
+msgstr "Restartujte prosím Enigmu2 ručně."
 
 #: utils/updater.py:152
 msgid "Failed to create backup. Update cancelled."
-msgstr ""
+msgstr "Vytvoření zálohy se nezdařilo. Aktualizace zrušena."
 
 #: utils/updater.py:160
-#, fuzzy
-#| msgid "Data refreshed successfully"
 msgid "Update completed successfully!"
-msgstr "Data byla úspěšně obnovena"
+msgstr "Aktualizace byla úspěšně dokončena!"
 
 #: utils/updater.py:164
 msgid "Update failed. Restored from backup."
-msgstr ""
+msgstr "Aktualizace selhala. Obnoveno ze zálohy."
 
 #: utils/updater.py:166
 msgid "Update failed and backup restore also failed!"
-msgstr ""
+msgstr "Aktualizace selhala a obnovení zálohy se také nezdařilo!"
 
 #: utils/updater.py:175
 #, python-format
 msgid "Update error: %s"
-msgstr ""
-
-#~ msgid "--- Log Maintenance ---"
-#~ msgstr "--- Údržba protokolů ---"
-
-#~ msgid "Debug (most verbose)"
-#~ msgstr "Ladění (nejpodrobnější)"
-
-#~ msgid "Info (normal)"
-#~ msgstr "Informace (normální)"
-
-#~ msgid "Error only"
-#~ msgstr "Pouze chyba"
-
-#~ msgid "Share Channel"
-#~ msgstr "Sdílet kanál"
-
-#~ msgid "Report Issue"
-#~ msgstr "Nahlásit problém"
-
-#~ msgid "Cache and metadata have been refreshed."
-#~ msgstr "Mezipaměť a metadata byly aktualizovány."
+msgstr "Chyba aktualizace: %s"

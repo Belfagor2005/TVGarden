@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TVGarden\n"
-"POT-Creation-Date: 2025-12-13 19:30+0100\n"
+"POT-Creation-Date: 2025-12-13 18:37+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Warder <ciksa@seznam.cz>\n"
 "Language-Team: lululla [ekekaz@gmail.com]\n"
@@ -11,9 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.8\n"
-"X-Poedit-Basepath: ../../..\n"
+"X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-0: helpers.py\n"
+"X-Poedit-SearchPath-1: plugin.py\n"
+"X-Poedit-SearchPath-2: browser\n"
+"X-Poedit-SearchPath-3: player\n"
+"X-Poedit-SearchPath-4: utils\n"
 
 #: browser/about.py:43
 msgid "TV Garden Plugin"
@@ -213,17 +217,17 @@ msgstr "Play Channel"
 msgid "Add to Favorites"
 msgstr "Добавить в избранное"
 
-#: browser/channels.py:153 browser/favorites.py:419
+#: browser/channels.py:153 browser/favorites.py:389
 msgid "Channel Information"
 msgstr "Информация Канала"
 
 #: browser/channels.py:156
 msgid "Export Current View"
-msgstr ""
+msgstr "Экспорт текущего представления"
 
 #: browser/channels.py:157 browser/channels.py:556
 msgid "Export Settings"
-msgstr ""
+msgstr "Экспорт настроек"
 
 #: browser/channels.py:160
 msgid "Channel Menu"
@@ -237,22 +241,22 @@ msgstr "Отображается {shown} из {total} каналов"
 #: browser/channels.py:348
 #, python-format
 msgid "Found %d playable channels"
-msgstr ""
+msgstr "Найдено %d доступных для воспроизведения каналов"
 
 #: browser/channels.py:351 browser/search.py:334
 #, python-format
 msgid "(skipped %d YouTube)"
-msgstr ""
+msgstr "(пропущено %d YouTube)"
 
 #: browser/channels.py:354 browser/search.py:337
 #, python-format
 msgid "(filtered %d problematic)"
-msgstr ""
+msgstr "(отфильтрованный %d проблематичен)"
 
 #: browser/channels.py:357 browser/search.py:340
 #, python-format
 msgid "(limited to first %d)"
-msgstr ""
+msgstr "(ограничено первыми %d)"
 
 #: browser/channels.py:369 browser/search.py:145
 msgid "Error loading channels"
@@ -260,77 +264,74 @@ msgstr "Ошибка загрузки каналов"
 
 #: browser/channels.py:543
 msgid "ENABLED"
-msgstr ""
+msgstr "АКТИВИРОВАН"
 
 #: browser/channels.py:543
 msgid "DISABLED"
-msgstr ""
+msgstr "ВЫКЛЮЧЕНО"
 
 #: browser/channels.py:544 browser/channels.py:545
 msgid "ON"
-msgstr ""
+msgstr "ВКЛ"
 
 #: browser/channels.py:544 browser/channels.py:545
 msgid "OFF"
-msgstr ""
+msgstr "ВЫКЛ"
 
 #: browser/channels.py:548
 #, python-format
 msgid "Export: %s"
-msgstr ""
+msgstr "Экспорт: %s"
 
 #: browser/channels.py:549
 #, python-format
 msgid "Auto-refresh: %s"
-msgstr ""
+msgstr "Автоматическое обновление: %s"
 
 #: browser/channels.py:550
 #, python-format
 msgid "Confirm before export: %s"
-msgstr ""
+msgstr "Подтвердите перед экспортом: %s"
 
 #: browser/channels.py:551
 msgid "Test Export (1 channel)"
-msgstr ""
+msgstr "Тестовый экспорт (1 канал)"
 
-#: browser/channels.py:592 ⁨utils/favorites - Copia (2).py⁩:195
-#: ⁨utils/favorites - Copia (2).py⁩:781 utils/favorites.py:195
-#: utils/favorites.py:781
+#: browser/channels.py:592 utils/favorites.py:192
 msgid "No channels to export"
 msgstr "Нет каналов для экспорта"
 
 #: browser/channels.py:608
 msgid "Channels"
-msgstr ""
+msgstr "Каналы"
 
 #: browser/channels.py:610
 #, python-brace-format
 msgid "Export {count} channels to bouquet '{name}'?"
-msgstr ""
+msgstr "Экспортировать {count} каналов в букет '{name}'?"
 
 #: browser/channels.py:655
 #, python-format
 msgid "Export failed: %s"
-msgstr ""
+msgstr "Экспорт не удался: %s"
 
-#: browser/channels.py:675 browser/search.py:399
-#: ⁨utils/favorites - Copia (2).py⁩:659 utils/favorites.py:659
+#: browser/channels.py:675 browser/search.py:399 utils/favorites.py:602
 msgid "No stream URL"
 msgstr "URL потока отсутствует"
 
-#: browser/channels.py:702 browser/favorites.py:252
+#: browser/channels.py:702 browser/favorites.py:243
 msgid "Unknown"
 msgstr "Неизвестно"
 
-#: browser/channels.py:708 browser/favorites.py:257
+#: browser/channels.py:708 browser/favorites.py:248
 #, python-format
 msgid "Remove '%s' from favorites?"
-msgstr ""
+msgstr "Удалить '%s' из избранного?"
 
 #: browser/channels.py:742
 #, python-format
 msgid "Stream: %s..."
-msgstr ""
+msgstr "Stream: %s..."
 
 #: browser/channels.py:744
 #, python-format
@@ -390,7 +391,7 @@ msgstr "Нет любимых каналов"
 msgid "Error loading favorites"
 msgstr "Ошибка загрузки избранного"
 
-#: browser/favorites.py:145 browser/favorites.py:333
+#: browser/favorites.py:145 browser/favorites.py:303
 msgid "No channel selected"
 msgstr "Канал не выбран"
 
@@ -411,88 +412,72 @@ msgid "Export to Enigma2 Bouquet"
 msgstr "Экспорт в букет Enigma2"
 
 #: browser/favorites.py:153
-msgid "Export ALL Database (Single File)"
-msgstr ""
+msgid "Export ALL Database"
+msgstr "Экспорт всей базы данных"
 
 #: browser/favorites.py:154
-msgid "Export ALL Database (Multi-File)"
-msgstr ""
-
-#: browser/favorites.py:155
 msgid "Remove Bouquet from Enigma2"
 msgstr "Удалить букет из Enigma2"
 
-#: browser/favorites.py:161
+#: browser/favorites.py:160
 #, python-format
 msgid "Options for: %s"
-msgstr ""
+msgstr "Варианты для: %s"
 
-#: browser/favorites.py:183
+#: browser/favorites.py:182
 #, python-format
 msgid "Export '%s' to Enigma2 bouquet?"
-msgstr ""
+msgstr "Экспорт '%s' в букет Enigma2?"
 
-#: browser/favorites.py:191
+#: browser/favorites.py:190
 msgid "Remove TV Garden bouquet from Enigma2?"
 msgstr "Удалить пакет каналов TV Garden из Enigma2?"
 
-#: browser/favorites.py:199
+#: browser/favorites.py:198
 msgid "Clear ALL favorites?"
 msgstr "Очистить ВСЕ избранные?"
 
-#: browser/favorites.py:207
+#: browser/favorites.py:206
 msgid ""
 "Export ALL channels from TV Garden database?\n"
 "This may take some time."
 msgstr ""
+"Как экспортировать ВСЕ каналы из базы данных TV Garden?\n"
+"Это может занять некоторое время."
 
-#: browser/favorites.py:215
-msgid ""
-"Export ALL channels with multi-file structure?\n"
-"This will create smaller bouquet files for better performance."
-msgstr ""
-
-#: browser/favorites.py:270
+#: browser/favorites.py:261
 #, python-format
 msgid "%d favorites"
-msgstr ""
+msgstr "%d избранные"
 
-#: browser/favorites.py:284
+#: browser/favorites.py:275
 msgid "Loading all channels..."
-msgstr ""
+msgstr "Загрузка всех каналов..."
 
-#: browser/favorites.py:296
+#: browser/favorites.py:287
 msgid "Database exported successfully"
-msgstr ""
+msgstr "База данных успешно экспортирована"
 
-#: browser/favorites.py:298 browser/favorites.py:319
+#: browser/favorites.py:289
 msgid "Export failed"
-msgstr ""
+msgstr "Ошибка экспорта"
 
-#: browser/favorites.py:305
-msgid "Creating hierarchical structure..."
-msgstr ""
-
-#: browser/favorites.py:317
-msgid "Hierarchical export completed"
-msgstr ""
-
-#: browser/favorites.py:338
+#: browser/favorites.py:308
 msgid "No stream URL available"
 msgstr "URL трансляции недоступен"
 
-#: browser/favorites.py:357 browser/search.py:414
+#: browser/favorites.py:327 browser/search.py:414
 msgid "Error opening player"
 msgstr "Ошибка при открытии проигрывателя"
 
-#: browser/favorites.py:365
+#: browser/favorites.py:335
 msgid "No favorites to export"
 msgstr "Нет избранных для экспорта"
 
-#: browser/favorites.py:374
+#: browser/favorites.py:344
 #, python-format
 msgid "Export ALL %d favorites to Enigma2 bouquet?"
-msgstr ""
+msgstr "Экспортировать ВСЕ %d избранных в букет Enigma2?"
 
 #: browser/search.py:67
 msgid "Search:"
@@ -513,7 +498,7 @@ msgstr "Очистить"
 #: browser/search.py:137
 #, python-format
 msgid "Press GREEN for keyboard... Ready - %d channels"
-msgstr ""
+msgstr "Нажмите ЗЕЛЕНЫЙ для клавиатуры... Готово - %d каналов"
 
 #: browser/search.py:140
 msgid "No channels loaded"
@@ -535,12 +520,12 @@ msgstr "Показаны {shown} из {total} результатов"
 #: browser/search.py:331
 #, python-format
 msgid "Found %d channels"
-msgstr ""
+msgstr "Найдено %d каналов"
 
 #: browser/search.py:348
 #, python-format
 msgid "No channels found for: %s"
-msgstr ""
+msgstr "Для: %s каналы не найдены"
 
 #: browser/search.py:422
 msgid "Removed from favorites"
@@ -585,11 +570,11 @@ msgstr "Поиск каналов по названию"
 #: plugin.py:206 utils/settings.py:188 utils/settings.py:216
 #: utils/settings.py:511
 msgid "Check for Updates"
-msgstr ""
+msgstr "Проверить наличие обновлений"
 
 #: plugin.py:206
 msgid "Check for plugin updates"
-msgstr ""
+msgstr "Проверьте наличие обновлений плагина"
 
 #: plugin.py:207 plugin.py:219
 msgid "Settings"
@@ -621,24 +606,23 @@ msgid ""
 "Refresh completed!\n"
 "Loaded %d countries"
 msgstr ""
+"Обновление завершено!\n"
+"Загружено %d стран"
 
 #: plugin.py:282
 #, python-format
 msgid "Refresh failed: %s"
-msgstr ""
+msgstr "Обновление не удалось: %s"
 
 #: plugin.py:305 utils/update_manager.py:57
 msgid "Update check error"
-msgstr ""
+msgstr "Ошибка проверки обновления"
 
-#: plugin.py:307 ⁨utils/favorites - Copia (2).py⁩:273
-#: ⁨utils/favorites - Copia (2).py⁩:640 ⁨utils/favorites - Copia (2).py⁩:688
-#: ⁨utils/favorites - Copia (2).py⁩:825 utils/favorites.py:273
-#: utils/favorites.py:640 utils/favorites.py:688 utils/favorites.py:823
-#: utils/settings.py:240
+#: plugin.py:307 utils/favorites.py:270 utils/favorites.py:445
+#: utils/favorites.py:583 utils/favorites.py:631 utils/settings.py:240
 #, python-format
 msgid "Error: %s"
-msgstr ""
+msgstr "Ошибка: %s"
 
 #: plugin.py:358
 msgid "TV Garden"
@@ -648,149 +632,78 @@ msgstr "ТВ-сад"
 msgid "Access free IPTV channels from around the world"
 msgstr "Получите доступ к бесплатным IPTV-каналам со всего мира"
 
-#: ⁨utils/favorites - Copia (2).py⁩:79 utils/favorites.py:79
+#: utils/favorites.py:76
 msgid "Already in favorites"
 msgstr "Уже в избранном"
 
-#: ⁨utils/favorites - Copia (2).py⁩:91 utils/favorites.py:91
+#: utils/favorites.py:88
 #, python-format
 msgid "Added to favorites: %s"
-msgstr ""
+msgstr "Добавлено в избранное: %s"
 
-#: ⁨utils/favorites - Copia (2).py⁩:94 ⁨utils/favorites - Copia (2).py⁩:109
-#: utils/favorites.py:94 utils/favorites.py:109
+#: utils/favorites.py:91 utils/favorites.py:106
 msgid "Error saving favorites"
 msgstr "Ошибка сохранения избранного"
 
-#: ⁨utils/favorites - Copia (2).py⁩:106 utils/favorites.py:106
+#: utils/favorites.py:103
 #, python-format
 msgid "Removed from favorites: %s"
-msgstr ""
+msgstr "Удалено из избранного: %s"
 
-#: ⁨utils/favorites - Copia (2).py⁩:111 utils/favorites.py:111
+#: utils/favorites.py:108
 msgid "Channel not found in favorites"
 msgstr "Канал не найден в избранном"
 
-#: ⁨utils/favorites - Copia (2).py⁩:263 ⁨utils/favorites - Copia (2).py⁩:480
-#: utils/favorites.py:263 utils/favorites.py:480
+#: utils/favorites.py:260 utils/favorites.py:431
 msgid "No valid stream URLs found"
 msgstr "Не найдено ни одного действительного URL-адреса потока."
 
-#: ⁨utils/favorites - Copia (2).py⁩:269 utils/favorites.py:269
+#: utils/favorites.py:266
 #, python-format
 msgid "Exported %d channels to bouquet"
-msgstr ""
+msgstr "Экспортировано %d каналов в букет"
 
-#: ⁨utils/favorites - Copia (2).py⁩:286 ⁨utils/favorites - Copia (2).py⁩:701
-#: utils/favorites.py:286 utils/favorites.py:701
+#: utils/favorites.py:283
 msgid "Empty database"
-msgstr ""
+msgstr "Пустая база данных"
 
-#: ⁨utils/favorites - Copia (2).py⁩:306 ⁨utils/favorites - Copia (2).py⁩:705
-#: utils/favorites.py:306 utils/favorites.py:705
+#: utils/favorites.py:294
 msgid "Failed to load database"
-msgstr ""
+msgstr "Не удалось загрузить базу данных"
 
-#: ⁨utils/favorites - Copia (2).py⁩:398 ⁨utils/favorites - Copia (2).py⁩:742
-#: utils/favorites.py:398 utils/favorites.py:742
+#: utils/favorites.py:360
 msgid "No valid channels found in database"
-msgstr ""
+msgstr "В базе данных не найдено действительных каналов"
 
-#: ⁨utils/favorites - Copia (2).py⁩:488 utils/favorites.py:488
-#, fuzzy
-#| msgid "Export"
-msgid "Exported"
-msgstr "Экспорт"
+#: utils/favorites.py:437
+#, python-brace-format
+msgid "Exported {count} channels from {countries} countries"
+msgstr "Экспортировано {count} каналов из {countries} стран"
 
-#: ⁨utils/favorites - Copia (2).py⁩:490 utils/favorites.py:490
-#, fuzzy
-#| msgid "No channels loaded"
-msgid "channels from"
-msgstr "Каналы не загружены"
-
-#: ⁨utils/favorites - Copia (2).py⁩:492 utils/favorites.py:492
-#, fuzzy
-#| msgid "Countries"
-msgid "countries"
-msgstr "Страны"
-
-#: ⁨utils/favorites - Copia (2).py⁩:501 utils/favorites.py:501
-#: utils/settings.py:420
-msgid "Error"
-msgstr ""
-
-#: ⁨utils/favorites - Copia (2).py⁩:630 utils/favorites.py:630
+#: utils/favorites.py:573
 msgid "Removed"
-msgstr ""
+msgstr "Удалено"
 
-#: ⁨utils/favorites - Copia (2).py⁩:632 utils/favorites.py:632
+#: utils/favorites.py:575
 msgid "files and"
-msgstr ""
+msgstr "файлы и"
 
-#: ⁨utils/favorites - Copia (2).py⁩:634 utils/favorites.py:634
+#: utils/favorites.py:577
 msgid "bouquet references"
-msgstr ""
+msgstr "ссылки на букеты"
 
-#: ⁨utils/favorites - Copia (2).py⁩:684 utils/favorites.py:684
+#: utils/favorites.py:627
 msgid "Channel added to bouquet"
 msgstr "Канал добавлен в букет"
 
-#: ⁨utils/favorites - Copia (2).py⁩:805
-#, python-format
-msgid ""
-"-> Hierarchical export completed!\n"
-"\n"
-"-> Statistics:\n"
-"• Total channels: %d\n"
-"• Countries exported: %d\n"
-"• Files created: %d\n"
-"\n"
-"-> Structure created:\n"
-"%s\n"
-"\n"
-"Main bouquet: '%s'"
-msgstr ""
-
-#: ⁨utils/favorites - Copia (2).py⁩:918 utils/favorites.py:981
+#: utils/favorites.py:639
 #, python-format
 msgid "Cleared %d favorites"
-msgstr ""
+msgstr "Удалено %d избранных"
 
-#: ⁨utils/favorites - Copia (2).py⁩:921 utils/favorites.py:984
+#: utils/favorites.py:642
 msgid "Error clearing favorites"
 msgstr "Ошибка при очистке избранного"
-
-#: utils/favorites.py:805
-msgid "Hierarchical export completed!"
-msgstr ""
-
-#: utils/favorites.py:807
-msgid "Statistics:"
-msgstr ""
-
-#: utils/favorites.py:808
-#, fuzzy
-#| msgid "All channels"
-msgid "Total channels:"
-msgstr "Все каналы"
-
-#: utils/favorites.py:809
-#, fuzzy
-#| msgid "Countries refreshed"
-msgid "Countries exported:"
-msgstr "Страны обновлены"
-
-#: utils/favorites.py:810
-msgid "Files created:"
-msgstr ""
-
-#: utils/favorites.py:813
-msgid "Structure created:"
-msgstr ""
-
-#: utils/favorites.py:816
-msgid "Main bouquet:"
-msgstr ""
 
 #: utils/settings.py:51
 msgid "Log file is empty or not found"
@@ -815,7 +728,7 @@ msgstr "Задать настройки"
 #: utils/settings.py:150
 #, python-format
 msgid "Editing: %s"
-msgstr ""
+msgstr "Редактирование: %s"
 
 #: utils/settings.py:188 utils/settings.py:208 utils/settings.py:525
 msgid "View Log File"
@@ -835,12 +748,12 @@ msgstr "Журналы очищены"
 
 #: utils/settings.py:250
 msgid "Log files cleared successfully"
-msgstr "Журналы успешно очищены"
+msgstr "Журналы событий успешно очищены"
 
 #: utils/settings.py:257
 #, python-format
 msgid "Error clearing logs: %s"
-msgstr ""
+msgstr "Ошибка очистки журналов: %s"
 
 #: utils/settings.py:273
 msgid "ExtePlayer3"
@@ -892,43 +805,47 @@ msgstr "Категории"
 
 #: utils/settings.py:371
 msgid "50 channels"
-msgstr ""
+msgstr "50 каналов"
 
 #: utils/settings.py:393
 msgid "512 KB"
-msgstr ""
+msgstr "512 КБ"
 
 #: utils/settings.py:394
 msgid "1 MB"
-msgstr ""
+msgstr "1 МБ"
 
 #: utils/settings.py:395
 msgid "2 MB"
-msgstr ""
+msgstr "2 МБ"
 
 #: utils/settings.py:396
 msgid "4 MB"
-msgstr ""
+msgstr "4 МБ"
 
 #: utils/settings.py:397
 msgid "8 MB"
-msgstr ""
+msgstr "8 МБ"
 
 #: utils/settings.py:409
 msgid "Press OK to check for updates"
-msgstr ""
+msgstr "Нажмите ОК, чтобы проверить наличие обновлений"
 
 #: utils/settings.py:417
 msgid "Debug"
-msgstr ""
+msgstr "Отладка"
 
 #: utils/settings.py:419
 msgid "Warning"
 msgstr "Предупреждение"
 
+#: utils/settings.py:420
+msgid "Error"
+msgstr "Ошибка"
+
 #: utils/settings.py:421
 msgid "Critical"
-msgstr ""
+msgstr "Критический"
 
 #: utils/settings.py:441
 msgid "Press OK to view logs"
@@ -940,7 +857,7 @@ msgstr "Нажмите ОК, чтобы очистить журналы"
 
 #: utils/settings.py:455
 msgid "=== Player Settings ==="
-msgstr ""
+msgstr "=== Настройки плеера ==="
 
 #: utils/settings.py:457
 msgid "Player"
@@ -960,7 +877,7 @@ msgstr "Повторы"
 
 #: utils/settings.py:463
 msgid "=== Cache Settings ==="
-msgstr ""
+msgstr "=== Настройки кэша ==="
 
 #: utils/settings.py:465
 msgid "Cache TTL (hours)"
@@ -972,7 +889,7 @@ msgstr "Размер кэша"
 
 #: utils/settings.py:469
 msgid "=== Display Settings ==="
-msgstr ""
+msgstr "=== Настройки дисплея ==="
 
 #: utils/settings.py:471
 msgid "Skin"
@@ -992,7 +909,7 @@ msgstr "Элементов на странице"
 
 #: utils/settings.py:477
 msgid "=== Browser Settings ==="
-msgstr ""
+msgstr "=== Настройки браузера ==="
 
 #: utils/settings.py:479
 msgid "Max channels per country"
@@ -1004,7 +921,7 @@ msgstr "Вид по умолчанию"
 
 #: utils/settings.py:483
 msgid "=== Favorites Settings ==="
-msgstr ""
+msgstr "=== Настройки избранного ==="
 
 #: utils/settings.py:485
 msgid "Max Favorites"
@@ -1012,43 +929,43 @@ msgstr "Максимальное количество избранных"
 
 #: utils/settings.py:488
 msgid "=== Export Settings ==="
-msgstr ""
+msgstr "=== Настройки экспорта ==="
 
 #: utils/settings.py:490
 msgid "Enable Export"
-msgstr ""
+msgstr "Включить экспорт"
 
 #: utils/settings.py:492
 msgid "Auto-Refresh Bouquet"
-msgstr ""
+msgstr "Букет с автоматическим обновлением"
 
 #: utils/settings.py:493
 msgid "Confirm Before Export"
-msgstr ""
+msgstr "Подтвердите перед экспортом"
 
 #: utils/settings.py:494
 msgid "Max Channels per Bouquet"
-msgstr ""
+msgstr "Максимальное количество каналов в одном букете"
 
 #: utils/settings.py:495
 msgid "Bouquet Name Prefix"
-msgstr ""
+msgstr "Префикс названия букета"
 
 #: utils/settings.py:498
 msgid "=== Performance Settings ==="
-msgstr ""
+msgstr "=== Настройки производительности ==="
 
 #: utils/settings.py:500
 msgid "Use Hardware Acceleration"
-msgstr ""
+msgstr "Используйте аппаратное ускорение"
 
 #: utils/settings.py:501
 msgid "Buffer Size"
-msgstr ""
+msgstr "Размер буфера"
 
 #: utils/settings.py:504
 msgid "=== Network Settings ==="
-msgstr ""
+msgstr "=== Настройки сети ==="
 
 #: utils/settings.py:506
 msgid "User Agent"
@@ -1056,7 +973,7 @@ msgstr "Агент пользователя"
 
 #: utils/settings.py:509
 msgid "=== Update Settings ==="
-msgstr ""
+msgstr "=== Обновить настройки ==="
 
 #: utils/settings.py:514
 msgid "=== Logging Settings ==="
@@ -1080,40 +997,44 @@ msgstr "Файлы резервного копирования журналов"
 
 #: utils/settings.py:523
 msgid "=== Log Maintenance ==="
-msgstr ""
+msgstr "--- Ведение журнала ---"
 
 #: utils/update_manager.py:23
 msgid "Checking for updates..."
-msgstr ""
+msgstr "Проверка наличия обновлений..."
 
 #: utils/update_manager.py:34
 msgid "Update check failed"
-msgstr ""
+msgstr "Проверка обновления не удалась"
 
 #: utils/update_manager.py:36
 msgid "Could not check for updates. Check internet connection."
-msgstr ""
+msgstr "Не удалось проверить наличие обновлений. Проверьте подключение к интернету."
 
 #: utils/update_manager.py:41
 msgid "Update available!"
 msgstr ""
+"{server_version} {version_server}\n"
+"{installed_version} {version}\n"
+"\n"
+"{update_available}"
 
 #: utils/update_manager.py:46
 msgid "Plugin is up to date"
-msgstr ""
+msgstr "Плагин обновлен"
 
 #: utils/update_manager.py:48
 msgid "You have the latest version of TV Garden."
-msgstr ""
+msgstr "У вас установлена последняя версия TV Garden."
 
 #: utils/update_manager.py:59
 #, python-format
 msgid "Could not check for updates: %s"
-msgstr ""
+msgstr "Не удалось проверить наличие обновлений: %s"
 
 #: utils/update_manager.py:73
 msgid "Update cancelled"
-msgstr ""
+msgstr "Обновление отменено"
 
 #: utils/update_manager.py:75
 msgid ""
@@ -1123,10 +1044,15 @@ msgid ""
 "\n"
 "(Recommended to backup first)"
 msgstr ""
+"Доступна новая версия!\n"
+"\n"
+"Обновить сейчас?\n"
+"\n"
+"(Рекомендуется сначала сделать резервную копию)"
 
 #: utils/update_manager.py:91
 msgid "Update successful!"
-msgstr ""
+msgstr "Обновление успешно завершено!"
 
 #: utils/update_manager.py:93
 #, python-format
@@ -1135,57 +1061,39 @@ msgid ""
 "\n"
 "Restart Enigma2 now for changes to take effect."
 msgstr ""
+"%s\n"
+"\n"
+"Перезапустите Enigma2 сейчас, чтобы изменения вступили в силу."
 
 #: utils/update_manager.py:102
 msgid "Update failed"
-msgstr ""
+msgstr "Сбой обновления"
 
 #: utils/update_manager.py:108
 msgid "Updating plugin... Please wait"
-msgstr ""
+msgstr "Обновление плагина... Пожалуйста, подождите"
 
 #: utils/update_manager.py:125
 msgid "Please restart Enigma2 manually."
-msgstr ""
+msgstr "Пожалуйста, перезапустите Enigma2 вручную."
 
 #: utils/updater.py:152
 msgid "Failed to create backup. Update cancelled."
-msgstr ""
+msgstr "Не удалось создать резервную копию. Обновление отменено."
 
 #: utils/updater.py:160
 msgid "Update completed successfully!"
-msgstr ""
+msgstr "Обновление успешно завершено!"
 
 #: utils/updater.py:164
 msgid "Update failed. Restored from backup."
-msgstr ""
+msgstr "Обновление не удалось. Восстановлено из резервной копии."
 
 #: utils/updater.py:166
 msgid "Update failed and backup restore also failed!"
-msgstr ""
+msgstr "Обновление не удалось, восстановление резервной копии также не удалось!"
 
 #: utils/updater.py:175
 #, python-format
 msgid "Update error: %s"
-msgstr ""
-
-#~ msgid "--- Log Maintenance ---"
-#~ msgstr "--- Ведение журнала ---"
-
-#~ msgid "Debug (most verbose)"
-#~ msgstr "Отладка (самый подробный режим)"
-
-#~ msgid "Info (normal)"
-#~ msgstr "Информация (обычная)"
-
-#~ msgid "Cache and metadata have been refreshed."
-#~ msgstr "Кэш и метаданные обновлены."
-
-#~ msgid "Failed to refresh data. Check internet connection."
-#~ msgstr "Не удалось обновить данные. Проверьте подключение к интернету."
-
-#~ msgid "Share Channel"
-#~ msgstr "Поделится Каналом"
-
-#~ msgid "Report Issue"
-#~ msgstr "Сообщить о проблеме"
+msgstr "Ошибка обновления: %s"
