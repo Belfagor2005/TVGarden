@@ -4,14 +4,15 @@
 # wget -q --no-check-certificate "https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/installer.sh" -O - | /bin/sh
 
 version='1.5'
-changelog = (
-    'New option: "Export ALL Database (Multi-File)"\n'
-    'Retained: "Export ALL Database (Single File)" for compatibility\n'
-    'Choice: User decides between speed (multi-file) or simplicity (single-file)\n'
-    'Limitation: Max 500 channels per file\n'
-    'Advantage: Enigma2 loads each file quickly\n'
-    'Navigation: Intuitive hierarchical structure\n'
-)
+echo "TVGarden Version: $version"
+echo "Changelog:"
+echo "- New option: 'Export ALL Database (Multi-File)'"
+echo "- Retained: 'Export ALL Database (Single File)' for compatibility"
+echo "- Choice: User decides between speed (multi-file) or simplicity (single-file)"
+echo "- Limitation: Max 500 channels per file"
+echo "- Advantage: Enigma2 loads each file quickly"
+echo "- Navigation: Intuitive hierarchical structure"
+echo ""
 
 TMPPATH=/tmp/TVGarden-install
 FILEPATH=/tmp/TVGarden-main.tar.gz
