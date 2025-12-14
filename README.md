@@ -14,12 +14,30 @@
 
 ## 📺 Screenshots
 
-<img src="https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/screen/screen1.png" width="32%">
-<img src="https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/screen/screen2.png" width="32%">
-<img src="https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/screen/screen3.png" width="32%">
-<img src="https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/screen/screen4.png" width="32%">
-<img src="https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/screen/screen5.png" width="32%">
-<img src="https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/screen/screen6.png" width="32%">
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/screen/screen1.png" height="220">
+    </td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/screen/screen2.png" height="220">
+    </td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/screen/screen3.png" height="220">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/screen/screen4.png" height="220">
+    </td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/screen/screen5.png" height="220">
+    </td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/screen/screen6.png" height="220">
+    </td>
+  </tr>
+</table>
 
 ---
 
