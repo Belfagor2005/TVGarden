@@ -101,21 +101,13 @@ class ChannelsBrowser(BaseBrowser):
             title = "Channels - %s" % category_name
         self.setTitle(title)
 
-        self.export_enabled = True
-        self.auto_refresh_bouquet = False
-        self.confirm_before_export = True
-
         self._load_export_settings()
 
         self["menu"] = MenuList([])
         self["status"] = Label(_("Loading channels..."))
         self["logo"] = Pixmap()
 
-        if self.export_enabled:
-            self["key_blue"] = Label(_("Export"))
-        else:
-            self["key_blue"] = Label(_("Info"))
-
+        self["key_blue"] = Label("")
         self["key_red"] = Label(_("Back"))
         self["key_green"] = Label(_("Play"))
         self["key_yellow"] = Label(_("Favorite"))
@@ -126,7 +118,8 @@ class ChannelsBrowser(BaseBrowser):
             "red": self.exit,
             "green": self.play_channel,
             "yellow": self.toggle_favorite,
-            "blue": self.show_info,
+            # "blue": self.show_info,
+            "blue": self.export_current_view if self.menu_channels else lambda: None,
             "up": self.up,
             "down": self.down,
             "left": self.left,
@@ -152,9 +145,9 @@ class ChannelsBrowser(BaseBrowser):
             (_("Add to Favorites"), "favorite"),
             (_("Channel Information"), "info"),
         ]
-        if self.export_enabled and self.menu_channels:
+
+        if self.menu_channels:
             menu.append((_("Export Current View"), "export_current"))
-            menu.append((_("Export Settings"), "export_settings"))
 
         self.session.openWithCallback(self.menu_callback, ChoiceBox,
                                       title=_("Channel Menu"), list=menu)
@@ -170,8 +163,6 @@ class ChannelsBrowser(BaseBrowser):
                 self.show_info()
             elif choice[1] == "export_current":
                 self.export_current_view()
-            elif choice[1] == "export_settings":
-                self.export_settings_menu()
 
     def load_channels(self):
         """Load channels for current context (country or category)"""
@@ -179,19 +170,47 @@ class ChannelsBrowser(BaseBrowser):
             config = get_config()
             max_channels = config.get("max_channels", 500)
 
+            # Cache settings
+            cache_enabled = config.get("cache_enabled", True)
+            force_refresh_browsing = config.get("force_refresh_browsing", False)
+
             channels = []
             if self.country_code:
                 log.debug("Loading country channels: %s" % self.country_code, module="Channels")
-                channels = self.cache.get_country_channels(self.country_code)
+                # Use cache with config
+                if hasattr(self.cache, 'get_country_channels'):
+                    try:
+                        channels = self.cache.get_country_channels(
+                            self.country_code,
+                            force_refresh=force_refresh_browsing
+                        )
+                    except TypeError:
+                        # Method doesn't support force_refresh parameter
+                        channels = self.cache.get_country_channels(self.country_code)
+                else:
+                    channels = []
+
             elif self.category_id:
                 log.debug("Loading category channels: %s" % self.category_id, module="Channels")
-                channels = self.cache.get_category_channels(self.category_id)
+                # Use cache with config
+                if hasattr(self.cache, 'get_category_channels'):
+                    try:
+                        channels = self.cache.get_category_channels(
+                            self.category_id,
+                            force_refresh=force_refresh_browsing
+                        )
+                    except TypeError:
+                        # Method doesn't support force_refresh parameter
+                        channels = self.cache.get_category_channels(self.category_id)
+                else:
+                    channels = []
             else:
                 log.error("ERROR: No country_code or category_id!", module="Channels")
                 return
 
             log.debug("Total channels received: %d" % len(channels), module="Channels")
             log.debug("Max channels limit: %d (0=all)" % max_channels, module="Channels")
+            log.debug("Cache enabled: %s, Force refresh: %s" % (cache_enabled, force_refresh_browsing), module="Channels")
 
             # Save the ORIGINAL channels
             self.channels = channels
@@ -329,6 +348,12 @@ class ChannelsBrowser(BaseBrowser):
                 log.debug("✓ Added: %s" % name, module="Channels")
 
             self["menu"].setList(menu_items)
+
+            if menu_items:
+                self["key_blue"].setText(_("Export"))
+            else:
+                self["key_blue"].setText("")
+
             self["menu"].onSelectionChanged.append(self.onSelectionChanged)
             if menu_items:
                 selected_idx = menu_items[0][1]
@@ -337,7 +362,13 @@ class ChannelsBrowser(BaseBrowser):
                     log.debug("First channel: %s" % self.current_channel['name'], module="Channels")
                     self.update_channel_selection(0)
 
-            # Build status message
+            # Build status message with cache info
+            cache_info = ""
+            if force_refresh_browsing:
+                cache_info = _(" [Fresh data]")
+            elif not cache_enabled:
+                cache_info = _(" [Cache disabled]")
+
             if max_channels > 0 and len(channels) > max_channels:
                 msg = _("Showing {shown} of {total} channels")
                 status_text = msg.format(
@@ -346,6 +377,9 @@ class ChannelsBrowser(BaseBrowser):
                 )
             else:
                 status_text = _("Found %d playable channels") % valid_count
+
+            # Add cache info
+            status_text += cache_info
 
             if youtube_count > 0:
                 status_text += " " + _("(skipped %d YouTube)") % youtube_count
@@ -361,6 +395,8 @@ class ChannelsBrowser(BaseBrowser):
             log.info("Playable: %d, Skipped YouTube: %d, Filtered problematic: %d, Config limit: %d, Skipped by limit: %d" %
                      (valid_count, youtube_count, problematic_count, max_channels, skipped_count),
                      module="Channels")
+
+            log.info("Cache status: enabled=%s, force_refresh=%s" % (cache_enabled, force_refresh_browsing), module="Channels")
 
         except Exception as e:
             log.error("load_channels failed: %s" % e, module="Channels")
@@ -518,7 +554,7 @@ class ChannelsBrowser(BaseBrowser):
                     if success:
                         channels = cache.get_country_channels(country_code)
                         if channels:
-                            all_channels.extend(channels[:10])  # Limit to 10 per country
+                            all_channels.extend(channels[:10])  # Limit to 10 for country
 
                 if all_channels:
                     self.export_to_bouquet(all_channels, "all_countries")
@@ -529,109 +565,42 @@ class ChannelsBrowser(BaseBrowser):
             return False, "Error generating country bouquets: %s" % str(e)
 
     def _load_export_settings(self):
-        """Load export settings from config"""
+        """Load ONLY the export settings actually used in channels browser"""
         try:
             config = get_config()
-            self.export_enabled = config.get("export_enabled", True)
-            self.auto_refresh_bouquet = config.get("auto_refresh_bouquet", False)
-            self.confirm_before_export = config.get("confirm_before_export", True)
             self.max_channels_for_bouquet = config.get("max_channels_for_bouquet", 100)
             self.bouquet_name_prefix = config.get("bouquet_name_prefix", "TVGarden")
-
-            log.debug("Export settings loaded from config", module="Channels")
-
+            log.debug("Local export settings loaded", module="Channels")
         except Exception as e:
-            self.export_enabled = True
-            self.auto_refresh_bouquet = False
-            self.confirm_before_export = True
             self.max_channels_for_bouquet = 100
             self.bouquet_name_prefix = "TVGarden"
             log.error("Error loading export settings: %s" % e, module="Channels")
 
-    def _save_export_settings(self):
-        """Save export settings to config"""
-        try:
-            config = get_config()
-            config.set("export_enabled", self.export_enabled)
-            config.set("auto_refresh_bouquet", self.auto_refresh_bouquet)
-            config.set("confirm_before_export", self.confirm_before_export)
-            config.set("max_channels_for_bouquet", self.max_channels_for_bouquet)
-            config.set("bouquet_name_prefix", self.bouquet_name_prefix)
-            config.save_config()
-
-            log.debug("Export settings saved to config", module="Channels")
-
-        except Exception as e:
-            log.error("Error saving export settings: %s" % e, module="Channels")
-
-    def export_settings_menu(self):
-        """Export Settings Menu"""
-        export_status = _("ENABLED") if self.export_enabled else _("DISABLED")
-        refresh_status = _("ON") if self.auto_refresh_bouquet else _("OFF")
-        confirm_status = _("ON") if self.confirm_before_export else _("OFF")
-
-        menu = [
-            (_("Export: %s") % export_status, "toggle_export"),
-            (_("Auto-refresh: %s") % refresh_status, "toggle_refresh"),
-            (_("Confirm before export: %s") % confirm_status, "toggle_confirm"),
-            (_("Test Export (1 channel)"), "test_export"),
-            (_("Back"), "back"),
-        ]
-
-        self.session.openWithCallback(self.export_settings_callback, ChoiceBox,
-                                      title=_("Export Settings"), list=menu)
-
-    def export_settings_callback(self, choice):
-        """Manages settings menu selection"""
-        if not choice:
-            return
-
-        if choice[1] == "toggle_export":
-            self.export_enabled = not self.export_enabled
-            if self.export_enabled:
-                self["key_blue"] = Label(_("Export"))
-            else:
-                self["key_blue"] = Label(_("Info"))
-
-            self._save_export_settings()
-            self.export_settings_menu()
-
-        elif choice[1] == "toggle_refresh":
-            self.auto_refresh_bouquet = not self.auto_refresh_bouquet
-            self._save_export_settings()
-            self.export_settings_menu()
-
-        elif choice[1] == "toggle_confirm":
-            self.confirm_before_export = not self.confirm_before_export
-            self._save_export_settings()
-            self.export_settings_menu()
-
-        elif choice[1] == "test_export":
-            self._test_export_function()
-
-        elif choice[1] == "back":
-            self.channel_menu()
-
     def export_current_view(self):
-        """Export current country/category channels"""
+        """Export CURRENTLY VISIBLE channels to bouquet"""
         if not self.menu_channels:
             self.session.open(MessageBox, _("No channels to export"),
                               MessageBox.TYPE_INFO, timeout=2)
             return
 
-        # If confirmation is disabled, export directly
-        if not self.confirm_before_export:
-            self.execute_export()
+        if not self.menu_channels:
+            self["key_blue"].setText("")
+            self.session.open(MessageBox, _("No channels to export"),
+                              MessageBox.TYPE_INFO, timeout=2)
             return
 
-        # Otherwise ask for confirmation
         if self.country_name:
             display_name = self.country_name
+            safe_name = self.country_code.lower() if self.country_code else "country"
         elif self.category_name:
             base_name = self.category_name.split(' (')[0] if ' (' in self.category_name else self.category_name
             display_name = base_name
+            safe_name = ''.join(c for c in base_name.lower() if c.isalnum() or c == '_')[:30]
         else:
             display_name = _("Channels")
+            safe_name = "channels"
+
+        bouquet_name = "%s_%s" % (self.bouquet_name_prefix.lower(), safe_name)
 
         msg = _("Export {count} channels to bouquet '{name}'?").format(
             count=len(self.menu_channels),
@@ -639,33 +608,19 @@ class ChannelsBrowser(BaseBrowser):
         )
 
         self.session.openWithCallback(
-            lambda r: self.execute_export() if r else None,
+            lambda r: self.execute_export(bouquet_name, display_name) if r else None,
             MessageBox,
             msg,
             MessageBox.TYPE_YESNO
         )
 
-    def execute_export(self):
+    def execute_export(self, bouquet_name, display_name):
         """Perform actual export"""
         try:
-            # Determine if it's a country or category
-            if self.country_code:
-                success, msg = self.fav_manager.generate_country_bouquet(
-                    self.country_code,
-                    self.menu_channels
-                )
-            elif self.category_id:
-                safe_name = self.category_name.split(' (')[0] if ' (' in self.category_name else self.category_name
-                safe_name = ''.join(c for c in safe_name if c.isalnum() or c in (' ', '-', '_')).replace(' ', '_')[:30]
-                success, msg = self.fav_manager.export_to_bouquet(
-                    self.menu_channels,
-                    "category_%s" % safe_name.lower()
-                )
-            else:
-                success, msg = self.fav_manager.export_to_bouquet(
-                    self.menu_channels,
-                    "tvgarden_channels"
-                )
+            success, msg = self.fav_manager.export_to_bouquet(
+                self.menu_channels,
+                bouquet_name
+            )
 
             self.session.open(
                 MessageBox,

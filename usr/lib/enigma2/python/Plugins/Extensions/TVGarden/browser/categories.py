@@ -16,7 +16,7 @@ from ..helpers import log
 from .base import BaseBrowser
 from .channels import ChannelsBrowser
 from ..utils.cache import CacheManager
-from ..utils.config import PluginConfig
+from ..utils.config import PluginConfig, get_config
 from .. import _
 
 
@@ -102,25 +102,10 @@ class CategoriesBrowser(BaseBrowser):
             "up": self.up,
             "down": self.down,
         }, -2)
-
-        log.debug("ActionMap configured", module="Categories")
-        log.debug("self['actions']: %s" % self['actions'], module="Categories")
-        self.test_key_press = False
-        self.timer = eTimer()
-        try:
-            self.timer_conn = self.timer.timeout.connect(self.testOK)
-        except AttributeError:
-            self.timer.callback.append(self.testOK)
-        self.timer.start(3000, True)
         self.onFirstExecBegin.append(self.load_categories)
 
-    def testOK(self):
-        """Test method called by timer"""
-        log.debug("testOK() called!", module="Categories")
-        self.select_category()
-
     def load_categories(self):
-        """Load categories list - show only names"""
+        """Load categories list"""
         menu_items = []
         for category in CATEGORIES:
             # Show name only - we'll get count when selected
@@ -139,9 +124,25 @@ class CategoriesBrowser(BaseBrowser):
             log.debug("Selected: %s (%s)" % (category_id, category_name), module="Categories")
 
             try:
-                # Load data
+                # Get cache configuration
+                config = get_config()
+                # cache_enabled = config.get("cache_enabled", True)
+                force_refresh_browsing = config.get("force_refresh_browsing", False)
+                
+                # Load data with cache config
                 log.debug("Calling cache.get_category_channels('%s')" % category_id, module="Categories")
-                data = self.cache.get_category_channels(category_id)
+                
+                if hasattr(self.cache, 'get_category_channels') and callable(self.cache.get_category_channels):
+                    # If the method supports force_refresh
+                    try:
+                        data = self.cache.get_category_channels(category_id, force_refresh=force_refresh_browsing)
+                    except TypeError:
+                        # If it doesn't support the parameter, use default
+                        data = self.cache.get_category_channels(category_id)
+                else:
+                    # Fallback
+                    data = []
+                
                 log.debug("Data received, type: %s" % type(data), module="Categories")
 
                 # Full log for the first 500 characters
@@ -184,13 +185,25 @@ class CategoriesBrowser(BaseBrowser):
                 traceback.print_exc()
 
     def refresh(self):
-        """Refresh categories - clear cache"""
-        self["status"].setText(_("Refreshing cache..."))
+        """Refresh categories - clear cache or force refresh"""
+        self["status"].setText(_("Refreshing..."))
         try:
-            self.cache.clear_all()
-            self["status"].setText(_("Cache cleared"))
-        except:
+            config = get_config()
+            refresh_method = config.get("refresh_method", "clear_cache")  # "clear_cache" o "force_refresh"
+            
+            if refresh_method == "clear_cache":
+                self.cache.clear_all()
+                self["status"].setText(_("Cache cleared"))
+                log.info("Cache cleared manually", module="Categories")
+            else:
+                # Set force_refresh for next navigation
+                # You may want to set a temporary flag
+                self["status"].setText(_("Next load will use fresh data"))
+                log.info("Force refresh enabled for next load", module="Categories")
+                
+        except Exception as e:
             self["status"].setText(_("Refresh failed"))
+            log.error("Error in refresh: %s" % e, module="Categories")
 
     def exit(self):
         """Exit browser"""

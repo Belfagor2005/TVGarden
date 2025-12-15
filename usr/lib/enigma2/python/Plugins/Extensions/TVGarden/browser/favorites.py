@@ -151,7 +151,7 @@ class FavoritesBrowser(BaseBrowser):
             (_("Clear All Favorites"), "clear_all"),
             (_("Export to Enigma2 Bouquet"), "export_single"),
             (_("Export ALL Database (Single File)"), "export_all_database"),
-            (_("Export ALL Database (Multi-File)"), "export_all_hierarchical"),  # NEW OPTION
+            (_("Export ALL Database (Multi-File)"), "export_all_hierarchical"),
             (_("Remove Bouquet from Enigma2"), "remove_bouquet"),
         ]
 
@@ -358,7 +358,7 @@ class FavoritesBrowser(BaseBrowser):
                               MessageBox.TYPE_ERROR)
 
     def export_bouquet(self):
-        """Export all favorites to Enigma2 bouquet - with MessageBox"""
+        """Export all favorites to Enigma2 bouquet"""
         if not self.menu_channels:
             self.session.open(
                 MessageBox,
@@ -419,7 +419,7 @@ class FavoritesBrowser(BaseBrowser):
                 TextBox,
                 text=info_text,
                 title=_("Channel Information"),
-                pigless=True
+                # pigless=True
             )
 
         except Exception as e:

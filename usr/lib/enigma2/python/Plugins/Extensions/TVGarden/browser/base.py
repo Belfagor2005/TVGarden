@@ -13,6 +13,9 @@ from Components.MenuList import MenuList
 from Components.ActionMap import ActionMap
 from .. import _
 
+# import warnings
+# warnings.filterwarnings("ignore", category=RuntimeWarning, message="Skin is missing element")
+
 
 class BaseBrowser(Screen):
     """Base class for all browser screens"""

@@ -124,8 +124,3 @@ class UpdateManager:
                 session.open(MessageBox,
                              _("Please restart Enigma2 manually."),
                              MessageBox.TYPE_INFO)
-
-
-# def check_for_updates(session, status_label=None):
-    # """Simple wrapper function for backward compatibility"""
-    # updater = PluginUpdater()

@@ -9,10 +9,11 @@ from __future__ import print_function
 import time
 import hashlib
 import gzip
-from os.path import join, exists, getmtime
+from os.path import join, exists, getmtime, getsize
 from os import listdir, remove, makedirs
-from json import load, loads, dump
+from json import load, loads, dump, dumps
 from sys import version_info
+from .config import get_config
 
 if version_info[0] == 3:
     from urllib.request import urlopen, Request
@@ -56,11 +57,20 @@ class CacheManager:
 
     def __init__(self):
         self.cache_dir = "/tmp/tvgarden_cache"
-        self.cache_data = {}
+
+        # DEBUG: Verify directory
+        log.debug(
+            "Cache directory: %s, exists: %s" % (self.cache_dir, exists(self.cache_dir)),
+            module="Cache"
+        )
 
         if not exists(self.cache_dir):
             makedirs(self.cache_dir)
 
+        files = listdir(self.cache_dir)
+        log.debug("Files in cache: %s" % files, module="Cache")
+
+        self.cache_data = {}
         self._load_cache()
         log.info("Initialized at %s" % self.cache_dir, module="Cache")
 
@@ -94,6 +104,50 @@ class CacheManager:
             log.error("Error saving memory cache: %s" % e, module="Cache")
             return False
 
+    def get_cache_info(self):
+        """Get detailed cache information"""
+        try:
+            files = []
+            try:
+                files = listdir(self.cache_dir)
+            except Exception as e:
+                log.error("Cannot list cache dir: %s" % str(e), module="Cache")
+                return {'error': str(e)}
+
+            # Filter real cache files (exclude logs)
+            cache_files = []
+            for f in files:
+                # Include .gz files and .json cache files (not logs)
+                if (f.endswith('.gz') or
+                        (f.endswith('.json') and f not in ['memory_cache.json', 'tvgarden.log'])):
+                    cache_files.append(f)
+
+            # Calculate total size
+            total_size = 0
+            for f in cache_files:
+                file_path = join(self.cache_dir, f)
+                try:
+                    total_size += getsize(file_path)
+                except:
+                    pass
+
+            info = {
+                'total_files': len(cache_files),
+                'cache_files': cache_files[:10],
+                'total_size_kb': total_size / 1024.0,
+                'cache_dir': self.cache_dir,
+                'memory_entries': len(self.cache_data)
+            }
+
+            log.debug("Cache info: %d files, %.1fKB" % (
+                len(cache_files), total_size / 1024.0
+            ), module="Cache")
+            return info
+
+        except Exception as e:
+            log.error("Error getting cache info: %s" % str(e), module="Cache")
+            return {'error': str(e)}
+
     def _get_cache_key(self, url):
         """Generate cache key from URL"""
         return hashlib.md5(url.encode()).hexdigest()
@@ -111,69 +165,137 @@ class CacheManager:
         return file_age < ttl
 
     def _get_cached(self, cache_key):
-        """Get data from cache - Python 2/3 compatible"""
+        """Get data from cache"""
         cache_path = self._get_cache_path(cache_key)
         if exists(cache_path):
             try:
-                # Python 2/3 compatible gzip reading
-                f = None
-                try:
-                    f = gzip.open(cache_path, 'rb')  # 'rb' non 'rt' per Python 2
-                    data = f.read()
-                    return loads(data.decode('utf-8'))
-                finally:
-                    if f:
-                        f.close()
+                with gzip.open(cache_path, 'rb') as f:
+                    compressed_data = f.read()
+
+                json_str = compressed_data.decode('utf-8')
+
+                # Parse JSON
+                return loads(json_str)
+
             except Exception as e:
                 log.error("Error reading %s: %s" % (cache_key, e), module="Cache")
         return None
 
     def _set_cached(self, cache_key, data):
-        """Save data to cache - Python 2/3 compatible"""
+        """Save data to cache"""
         cache_path = self._get_cache_path(cache_key)
         try:
-            # Python 2/3 compatible gzip writing
-            f = None
             try:
-                f = gzip.open(cache_path, 'wb')  # 'wb' non 'wt' per Python 2
-                dump(data, f)
-                return True
-            finally:
-                if f:
-                    f.close()
+                text_type = unicode  # Python 2
+            except NameError:
+                text_type = str      # Python 3
+
+            json_str = dumps(data, ensure_ascii=False)
+
+            if isinstance(json_str, text_type):
+                json_str = json_str.encode('utf-8')
+
+            with gzip.open(cache_path, 'wb') as f:
+                f.write(json_str)
+
+            return True
+
         except Exception as e:
             log.error("Error saving %s: %s" % (cache_key, e), module="Cache")
             return False
 
     def _fetch_url(self, url):
-        """Fetch URL - Python 2 compatible"""
+        """Fetch URL"""
         try:
             headers = {'User-Agent': 'TVGarden-Enigma2/1.0'}
             req = Request(url, headers=headers)
+            config = get_config()
+            timeout = config.get("connection_timeout", 15)
+
+            log.debug("Fetching URL: %s (timeout: %ss)" % (url, timeout), module="Cache")
 
             response = None
             try:
-                # Python 2: NO 'with' statement
-                response = urlopen(req, timeout=15)
-                data = response.read()
+                response = urlopen(req, timeout=timeout)
+
+                # === CRITICAL FIX FOR PYTHON 2 ===
+                # 1. First, check HTTP status code
+                if hasattr(response, 'getcode'):
+                    http_code = response.getcode()
+                    log.debug("HTTP Status Code: %d" % http_code, module="Cache")
+
+                    if http_code != 200:
+                        log.error("HTTP Error %d for URL: %s" % (http_code, url), module="Cache")
+                        # Try to read error body if available
+                        try:
+                            error_body = response.read()
+                            if isinstance(error_body, bytes):
+                                log.debug("Error body: %s" % error_body[:100], module="Cache")
+                        except:
+                            pass
+                        raise Exception("HTTP Error %d" % http_code)
+
+                # 2. Read response data
+                raw_data = response.read()
+                log.debug(
+                    "Raw data type: %s, length: %d"
+                    % (type(raw_data), len(raw_data) if raw_data else 0),
+                    module="Cache"
+                )
+
+                # 3. IF raw_data is int → THIS IS AN HTTP ERROR IN PYTHON 2
+                if isinstance(raw_data, int):
+                    http_code = raw_data
+                    log.error(
+                        "PYTHON 2 BUG: response.read() returned int %d for URL: %s"
+                        % (http_code, url),
+                        module="Cache"
+                    )
+                    raise Exception("HTTP Error %d (Python 2 bug)" % http_code)
+
+                # 4. Convert to bytes if needed
+                if isinstance(raw_data, str):  # Python 2 string
+                    raw_data = raw_data.encode('utf-8')
+
+                if not isinstance(raw_data, bytes):
+                    log.error(
+                        "Invalid data type: %s for URL: %s"
+                        % (type(raw_data), url),
+                        module="Cache"
+                    )
+                    raise Exception("Invalid response type")
+                # === END FIX ===
+
+                # raw_data is now guaranteed to be bytes
+                data = raw_data
+
+                # DEBUG: show first part of the data
+                if len(data) > 0:
+                    log.debug("First 100 chars: %s" % data[:100], module="Cache")
 
                 # Try to decode as JSON
                 try:
-                    return loads(data.decode('utf-8'))
-                except:
+                    json_data = loads(data.decode('utf-8'))
+                    log.debug(
+                        "Successfully decoded JSON, type: %s" % type(json_data),
+                        module="Cache"
+                    )
+                    return json_data
+                except Exception as json_error:
+                    log.debug("JSON decode failed: %s" % json_error, module="Cache")
                     # Try gzip decompression
                     try:
                         return loads(gzip.decompress(data).decode('utf-8'))
                     except:
-                        # Try direct decode if it's text
+                        # Fallback: return decoded text
                         return data.decode('utf-8', errors='ignore')
+
             finally:
-                # Always close connection
                 if response:
                     response.close()
 
         except Exception as e:
-            log.error("Error fetching %s: %s" % (url, e), module="Cache")
+            log.error("Error fetching %s: %s" % (url, str(e)), module="Cache")
             raise
 
     def fetch_url(self, url, force_refresh=False, ttl=3600):
@@ -181,16 +303,26 @@ class CacheManager:
         cache_key = self._get_cache_key(url)
         cache_path = self._get_cache_path(cache_key)
 
+        log.debug("Fetch URL: %s" % url, module="Cache")
+        log.debug("Cache key: %s" % cache_key, module="Cache")
+        log.debug("Force refresh: %s" % force_refresh, module="Cache")
+
         if not force_refresh and self._is_cache_valid(cache_path, ttl):
             try:
+                log.debug("Using CACHED data for: %s" % url, module="Cache")
                 return self._get_cached(cache_key)
             except:
+                log.debug("Cache read failed, fetching fresh", module="Cache")
                 pass
 
         try:
+            log.debug("Fetching FRESH data for: %s" % url, module="Cache")
             result = self._fetch_url(url)
+
             # Cache the result
+            log.debug("Saving to cache: %s" % cache_key, module="Cache")
             self._set_cached(cache_key, result)
+
             return result
         except Exception as e:
             log.error("Error in fetch_url: %s" % e, module="Cache")
@@ -221,7 +353,6 @@ class CacheManager:
                 return self.cache_data[cache_key]
 
             # Download file list from GitHub directory
-            # Python 2 compatible - NO 'with' statement
             response = None
             try:
                 response = urlopen(categories_url, timeout=10)
@@ -250,39 +381,42 @@ class CacheManager:
             # Fallback to hardcoded list
             return self._get_default_categories()
 
-    def get_category_channels(self, category_id, force_refresh=False):
-        """Get channels for a specific category, handling multiple JSON formats."""
-        cache_key = "cat_%s" % category_id
-        channels = self._get_cached(cache_key)
+    def get_country_channels(self, country_code, force_refresh=False):
+        """Get channels for specific country"""
+        try:
+            url = get_country_url(country_code)
+            log.debug("Fetching country %s (force_refresh=%s)" % (country_code, force_refresh), module="Cache")
+            result = self.fetch_url(url, force_refresh)
+            log.debug("Fetch successful, type: %s" % type(result), module="Cache")
+            return result
+        except Exception as e:
+            log.error("ERROR fetching country %s: %s" % (country_code, e), module="Cache")
+            return []
 
-        if channels is not None and not force_refresh:
-            return channels
+    def get_category_channels(self, category_id, force_refresh=False):
+        """Get channels for a specific category"""
+        cache_key = "cat_%s" % category_id
+
+        if not force_refresh:
+            cached_data = self._get_cached(cache_key)
+            if cached_data is not None:
+                log.debug("Using CACHED data for category: %s" % category_id, module="Cache")
+                return cached_data
 
         try:
             url = get_category_url(category_id)
-            log.debug("Fetching category %s from %s" % (category_id, url), module="Cache")
+            log.debug("Fetching FRESH data for category: %s" % category_id, module="Cache")
             data = self._fetch_url(url)
-            log.debug("Raw data type for %s: %s" % (category_id, type(data)), module="Cache")
 
-            # Handle both possible formats
+            # Process data
+            channels = []
             if isinstance(data, list):
-                # Format: Direct list of channels
                 channels = data
-                log.debug("Data is list with %d items" % len(channels), module="Cache")
             elif isinstance(data, dict):
-                # Format: Object with a key containing the list
-                log.debug("Data is dict with keys: %s" % list(data.keys()), module="Cache")
                 for key in ['channels', 'items', 'streams', 'list']:
                     if key in data and isinstance(data[key], list):
                         channels = data[key]
-                        log.debug("Found '%s' key with %d items" % (key, len(channels)), module="Cache")
                         break
-                else:
-                    channels = []
-                    log.debug("No known list key found", module="Cache")
-            else:
-                channels = []
-                log.debug("Unexpected format: %s" % type(data), module="Cache")
 
             log.debug("Extracted %d channels for %s" % (len(channels), category_id), module="Cache")
 
@@ -295,20 +429,6 @@ class CacheManager:
             import traceback
             traceback.print_exc()
         return []
-
-    def get_country_channels(self, country_code, force_refresh=False):
-        """Get channels for specific country"""
-        try:
-            url = get_country_url(country_code)
-            log.debug("Fetching country %s" % country_code, module="Cache")
-
-            result = self.fetch_url(url, force_refresh)
-            log.debug("Fetch successful, type: %s" % type(result), module="Cache")
-
-            return result
-        except Exception as e:
-            log.error("ERROR fetching country %s: %s" % (country_code, e), module="Cache")
-            return []
 
     def get_countries_metadata(self, force_refresh=False):
         """Get countries metadata"""
@@ -330,9 +450,12 @@ class CacheManager:
         return True
 
     def get_size(self):
-        """Get cache size in items"""
-        count = 0
-        for file in listdir(self.cache_dir):
-            if file.endswith('.json.gz'):
-                count += 1
-        return count
+        """Get cache size in items - Use get_cache_info"""
+        try:
+            info = self.get_cache_info()
+            if 'error' in info:
+                return 0
+            return info.get('total_files', 0)
+        except Exception as e:
+            log.error("Error in get_size: %s" % str(e), module="Cache")
+            return 0

@@ -12,9 +12,7 @@ from re import sub, search
 from os import makedirs
 from os.path import join, exists
 from sys import version_info
-# from enigma import eTimer
-# from Screens.MessageBox import MessageBox
-# from Screens.Screen import Screen
+
 from ..helpers import log
 from .. import _, PLUGIN_VERSION, PLUGIN_PATH, USER_AGENT
 

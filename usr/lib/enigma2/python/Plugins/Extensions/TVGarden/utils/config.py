@@ -36,35 +36,34 @@ class PluginConfig:
         # ============ DEFAULT CONFIGURATION ============
         self.defaults = {
             # ============ PLAYER SETTINGS ============
-            "player": "exteplayer3",             # "auto", "exteplayer3", "gstplayer"
-            "timeout": 10,                       # Connection timeout in seconds
-            "retries": 3,                        # Connection retry attempts
-            "volume": 80,                        # Default volume 0-100
+            "player": "auto",                    # "auto", "exteplayer3", "gstplayer" - CHANGED TO AUTO
 
             # ============ DISPLAY SETTINGS ============
-            "skin": "auto",                      # "auto", "hd", "fhd", "wqhd"
+            # "skin": "auto",                      # "auto", "hd", "fhd", "wqhd", "sd"
             "show_flags": True,                  # Show country flags
             "show_logos": True,                  # Show channel logos
             "show_info": True,                   # Show channel info
-            "items_per_page": 20,                # Items per browser page
 
             # ============ BROWSER SETTINGS ============
-            "max_channels": 500,                 # Max channels per country (0=all)
-            "sort_by": "name",                   # Sort channels by
-            "default_view": "countries",         # "countries", "categories", "favorites"
+            "max_channels": 500,                 # Max channels for country (0=all)
+            "sort_by": "name",                   # Sort channels by "name", "country", "category"
+            "default_view": "countries",         # "countries", "categories", "favorites", "search"
+            "refresh_method": "clear_cache",     # "clear_cache" or "force_refresh"
 
             # ============ CACHE SETTINGS ============
             "cache_enabled": True,               # Enable caching
             "cache_ttl": 3600,                   # Cache time-to-live in seconds (1 hour)
-            "cache_size": 100,                   # Maximum cache items
-            "auto_refresh": True,                # Automatic cache refresh
+            "cache_size": 500,                   # Maximum cache items - INCREASED
+            "auto_refresh": False,               # Automatic cache refresh - CHANGED TO FALSE
+            "force_refresh_export": False,       # Force refresh when exporting (False = use cache)
+            "force_refresh_browsing": False,     # Force refresh when browsing
 
             # ============ EXPORT SETTINGS ============
-            "export_enabled": True,              # Enable bouquet export
-            "auto_refresh_bouquet": False,       # Auto-refresh bouquet
-            "confirm_before_export": True,       # Confirm before exporting
-            "max_channels_for_bouquet": 100,     # Max channels for bouquet
+            "list_position": "bottom",           # "top" or "bottom" - bouquet position in Enigma2
             "bouquet_name_prefix": "TVGarden",   # Bouquet name prefix
+            "export_enabled": True,              # Enable bouquet export
+            "max_channels_for_bouquet": 500,     # Max channels for bouquet
+            "max_channels_for_sub_bouquet": 500, # Max channels for sub bouquet
 
             # ============ NETWORK SETTINGS ============
             "user_agent": USER_AGENT,
@@ -75,8 +74,6 @@ class PluginConfig:
             # ============ LOGGING SETTINGS ============
             "log_level": "INFO",                 # "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"
             "log_to_file": True,                 # Log to file
-            "log_max_size": 1048576,             # Max log file size in bytes (1MB)
-            "log_backup_count": 3,               # Number of backup log files
 
             # ============ UPDATE SETTINGS ============
             "auto_update": True,                 # Automatic updates
@@ -86,26 +83,42 @@ class PluginConfig:
             "last_update_check": 0,              # Timestamp of last update check
 
             # ============ FAVORITES SETTINGS ============
-            "max_favorites": 100,                # Maximum favorites allowed
             "auto_add_favorite": False,          # Automatically add watched to favorites
 
             # ============ PERFORMANCE SETTINGS ============
             "use_hardware_acceleration": True,   # Use hardware acceleration
-            "buffer_size": 2048,                 # Buffer size in KB
+            "buffer_size": 2048,                 # Buffer size in KB (2MB)
+            "memory_optimization": True,         # Enable memory optimization
+
+            # ============ SEARCH SETTINGS ============
+            "search_max_results": 200,           # Max results in search
 
             # ============ DEBUG/DEVELOPMENT ============
             "debug_mode": False,                 # Enable debug mode
+            "test_mode": False,                  # Enable test features
+            "developer_mode": False,             # Developer options
 
             # ============ LAST SESSION ============
             "last_country": None,
             "last_category": None,
             "last_channel": None,
-            "last_volume": 80,
+            "last_search": "",
+            "last_export_type": "single_file",   # "single_file" or "multi_file"
 
             # ============ STATISTICS ============
             "stats_enabled": True,
             "watch_time": 0,                     # Total watch time in seconds
             "channels_watched": 0,               # Number of channels watched
+            "exports_count": 0,                  # Number of bouquet exports
+            "favorites_added": 0,                # Number of favorites added
+            "cache_hits": 0,                     # Number of cache hits
+            "cache_misses": 0,                   # Number of cache misses
+
+            # ============ ADVANCED SETTINGS ============
+            "config_version": 2,                 # Configuration version for migrations
+            "first_run": True,                   # First run flag
+            "accepted_eula": False,              # EULA accepted flag
+            "telemetry": False,                  # Anonymous usage statistics
         }
 
         self.config = self.load_config()
@@ -162,47 +175,20 @@ class PluginConfig:
             return False
 
     def validate_config(self, config):
-        """Validate and fix configuration values"""
+        """Validate and fix configuration values - UPDATED"""
         validated_config = config.copy()
 
-        # Ensure volume is between 0-100
-        if 'volume' in validated_config:
+        # Ensure max_channels is valid
+        if 'max_channels' in validated_config:
             try:
-                volume = int(validated_config['volume'])
-                if volume < 0:
-                    volume = 0
-                elif volume > 100:
-                    volume = 100
-                validated_config['volume'] = volume
-            except (ValueError, TypeError):
-                validated_config['volume'] = 80
-
-        # Ensure timeout is reasonable
-        if 'timeout' in validated_config:
-            try:
-                timeout = int(validated_config['timeout'])
-                if timeout < 5:
-                    timeout = 5
-                elif timeout > 60:
-                    timeout = 60
-                validated_config['timeout'] = timeout
-            except (ValueError, TypeError):
-                validated_config['timeout'] = 10
-
-        # Ensure max_channels_for_bouquet is valid
-        if 'max_channels_for_bouquet' in validated_config:
-            try:
-                val = int(validated_config['max_channels_for_bouquet'])
+                val = int(validated_config['max_channels'])
                 if val < 0:
-                    val = 100
-                validated_config['max_channels_for_bouquet'] = val
+                    val = 0  # 0 = all channels
+                elif val > 5000:
+                    val = 5000
+                validated_config['max_channels'] = val
             except (ValueError, TypeError):
-                validated_config['max_channels_for_bouquet'] = 100
-
-        # Ensure skin is valid
-        valid_skins = ['auto', 'hd', 'fhd', 'wqhd', 'sd']
-        if validated_config.get('skin') not in valid_skins:
-            validated_config['skin'] = 'auto'
+                validated_config['max_channels'] = 500
 
         # Ensure player is valid
         valid_players = ['exteplayer3', 'gstplayer', 'auto']
@@ -214,41 +200,22 @@ class PluginConfig:
         if validated_config.get('log_level') not in valid_log_levels:
             validated_config['log_level'] = 'INFO'
 
+        # Ensure default_view is valid
+        valid_views = ['countries', 'categories', 'favorites', 'search']
+        if validated_config.get('default_view') not in valid_views:
+            validated_config['default_view'] = 'countries'
+
         # Ensure buffer_size is reasonable
         if 'buffer_size' in validated_config:
             try:
                 buffer_size = int(validated_config['buffer_size'])
-                if buffer_size < 512:
-                    buffer_size = 512
-                elif buffer_size > 8192:
-                    buffer_size = 8192
+                if buffer_size < 256:
+                    buffer_size = 256
+                elif buffer_size > 16384:
+                    buffer_size = 16384
                 validated_config['buffer_size'] = buffer_size
             except (ValueError, TypeError):
                 validated_config['buffer_size'] = 2048
-
-        # Ensure log_max_size is reasonable
-        if 'log_max_size' in validated_config:
-            try:
-                val = int(validated_config['log_max_size'])
-                if val < 102400:  # Min 100KB
-                    val = 102400
-                elif val > 10485760:  # Max 10MB
-                    val = 10485760
-                validated_config['log_max_size'] = val
-            except (ValueError, TypeError):
-                validated_config['log_max_size'] = 1048576  # 1MB default
-
-        # Ensure log_backup_count is reasonable
-        if 'log_backup_count' in validated_config:
-            try:
-                val = int(validated_config['log_backup_count'])
-                if val < 1:
-                    val = 1
-                elif val > 10:
-                    val = 10
-                validated_config['log_backup_count'] = val
-            except (ValueError, TypeError):
-                validated_config['log_backup_count'] = 3
 
         # Ensure connection_timeout is reasonable
         if 'connection_timeout' in validated_config:
@@ -256,23 +223,11 @@ class PluginConfig:
                 timeout = int(validated_config['connection_timeout'])
                 if timeout < 10:
                     timeout = 10
-                elif timeout > 120:
-                    timeout = 120
+                elif timeout > 300:
+                    timeout = 300
                 validated_config['connection_timeout'] = timeout
             except (ValueError, TypeError):
                 validated_config['connection_timeout'] = 30
-
-        # Ensure cache_ttl is reasonable
-        if 'cache_ttl' in validated_config:
-            try:
-                val = int(validated_config['cache_ttl'])
-                if val < 60:  # Min 1 minute
-                    val = 60
-                elif val > 86400:  # Max 24 hours
-                    val = 86400
-                validated_config['cache_ttl'] = val
-            except (ValueError, TypeError):
-                validated_config['cache_ttl'] = 3600
 
         # Ensure cache_size is reasonable
         if 'cache_size' in validated_config:
@@ -280,13 +235,127 @@ class PluginConfig:
                 val = int(validated_config['cache_size'])
                 if val < 10:
                     val = 10
-                elif val > 1000:
-                    val = 1000
+                elif val > 5000:
+                    val = 5000
                 validated_config['cache_size'] = val
             except (ValueError, TypeError):
-                validated_config['cache_size'] = 100
+                validated_config['cache_size'] = 500
+
+        # Ensure search_max_results is reasonable
+        if 'search_max_results' in validated_config:
+            try:
+                val = int(validated_config['search_max_results'])
+                if val < 10:
+                    val = 10
+                elif val > 1000:
+                    val = 1000
+                validated_config['search_max_results'] = val
+            except (ValueError, TypeError):
+                validated_config['search_max_results'] = 200
+
+        # Ensure list_position is valid
+        if 'list_position' in validated_config:
+            if validated_config['list_position'] not in ['top', 'bottom']:
+                validated_config['list_position'] = 'bottom'
+
+        # Ensure refresh_method is valid
+        if 'refresh_method' in validated_config:
+            if validated_config['refresh_method'] not in ['clear_cache', 'force_refresh']:
+                validated_config['refresh_method'] = 'clear_cache'
+
+        # Ensure boolean values are actually boolean
+        boolean_keys = [
+            'show_flags', 'show_logos', 'cache_enabled',
+            'force_refresh_export', 'force_refresh_browsing',
+            'export_enabled', 'log_to_file',
+            'use_hardware_acceleration', 'memory_optimization',
+            'debug_mode',
+        ]
+
+        for key in boolean_keys:
+            if key in validated_config:
+                if not isinstance(validated_config[key], bool):
+                    validated_config[key] = bool(validated_config[key])
+
+        # Ensure string values are strings
+        string_keys = [
+            'player', 'log_level', 'default_view',
+            'bouquet_name_prefix', 'user_agent', 'update_channel',
+            'refresh_method', 'last_country', 'last_category', 'last_channel',
+            'last_search', 'list_position'
+        ]
+
+        for key in string_keys:
+            if key in validated_config and validated_config[key] is not None:
+                value = validated_config[key]
+                try:
+                    validated_config[key] = str(value)
+                except:
+                    validated_config[key] = ''
+
+        numeric_keys = [
+            'max_channels', 'max_channels_for_bouquet',
+            'max_channels_for_sub_bouquet', 'connection_timeout',
+            'buffer_size', 'search_max_results', 'watch_time',
+            'exports_count', 'cache_size', 'config_version',
+        ]
+
+        for key in numeric_keys:
+            if key in validated_config:
+                try:
+                    validated_config[key] = int(validated_config[key])
+                except (ValueError, TypeError):
+                    if key in self.defaults:
+                        validated_config[key] = self.defaults[key]
 
         return validated_config
+
+    def _migrate_config_v2(self, config):
+        """Migrate from config version 1 to 2 - SEMPLIFICATA"""
+        log.info("Migrating config from version 1 to 2", module="Config")
+
+        old_keys_to_remove = [
+            'timeout', 'download_timeout', 'bouquet_auto_reload',
+            'search_case_sensitive', 'skin', 'auto_update', 'update_channel',
+            'update_check_interval', 'notify_on_update', 'auto_add_favorite',
+            'show_info', 'sort_by', 'cache_ttl', 'auto_refresh',
+            'use_proxy', 'proxy_url', 'favorites_autosave', 'max_favorites',
+            'test_mode', 'developer_mode', 'last_export_type',
+            'favorites_added', 'cache_hits', 'cache_misses', 'stats_enabled',
+            'first_run', 'accepted_eula', 'telemetry'
+        ]
+        
+        for key in old_keys_to_remove:
+            if key in config:
+                del config[key]
+
+        new_keys_v2 = {
+            'refresh_method': 'clear_cache',
+            'list_position': 'bottom',
+            'memory_optimization': True,
+            'search_max_results': 200,
+            'last_search': '',
+            'exports_count': 0,
+            'config_version': 2,
+            'max_channels_for_sub_bouquet': 500
+        }
+
+        for key, default in new_keys_v2.items():
+            if key not in config:
+                config[key] = default
+
+        if 'cache_size' in config and config['cache_size'] < 500:
+            config['cache_size'] = 500
+
+        if 'max_channels_for_bouquet' in config and config['max_channels_for_bouquet'] < 500:
+            config['max_channels_for_bouquet'] = 500
+
+        if 'force_refresh' in config:
+            config['force_refresh_export'] = config['force_refresh']
+            config['force_refresh_browsing'] = config['force_refresh']
+            del config['force_refresh']
+
+        return config
 
     def restore_backup(self):
         """Restore configuration from backup"""
@@ -381,7 +450,6 @@ class PluginConfig:
         player = self.get('player', 'auto')
         if player == 'auto':
             try:
-                # Python 2/3 compatible subprocess
                 import subprocess
 
                 # Check for exteplayer3
@@ -440,7 +508,6 @@ class PluginConfig:
     def load_skin(self, screen_name, default_skin):
         """
         Load skin from file or use default from class
-        Python 2 compatible version
         """
         resolution = self.get_skin_resolution()
         skin_file = join(PLUGIN_PATH, "skins", resolution, "%s.xml" % screen_name)
@@ -449,7 +516,6 @@ class PluginConfig:
 
         if fileExists(skin_file):
             try:
-                # Python 2 compatible - manual file handling
                 f = None
                 try:
                     f = open(skin_file, 'r')

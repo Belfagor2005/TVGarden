@@ -5,7 +5,6 @@
 ###########################################################
 #                                                         #
 #  TV Garden Plugin for Enigma2                           #
-#  Version: 1.4                                           #
 #  Created by Enigma2 Developer Lulualla                  #
 #  Based on TV Garden Project by Lululla                  #
 #  Data Source: Belfagor2005 fork                         #
@@ -30,29 +29,31 @@
 #  • Hardware acceleration for H.264/H.265                #
 #  • Configurable buffer size (512KB-8MB)                 #
 #  • Smart player selection (Auto/ExtePlayer3/GStreamer)  #
-#  • Connection timeout & retry system                    #
 #  • Memory efficient (~50MB RAM usage)                   #
 #                                                         #
 #  BOUQUET EXPORT SYSTEM:                                 #
 #  • Export favorites to native Enigma2 bouquets          #
 #  • Configurable bouquet name prefix                     #
-#  • Max channels per bouquet limit                       #
+#  • Max channels for bouquet limit                       #
+#  • Max channels per sub-bouquet limit (Hierarchical)    #
 #  • Auto-refresh bouquet option                          #
-#  • Single/Bulk export capabilities                      #
+#  • Confirm before export option                         #
+#  • Single / Multi-file (Hierarchical) export            #
 #  • Requires Enigma2 restart after export                #
 #                                                         #
 #  CONFIGURATION SYSTEM:                                  #
-#  • 47+ configurable parameters                          #
+#  • 20+ configurable parameters                          #
 #  • Organized settings categories:                       #
-#    - Player: Volume, Timeout, Retries                   #
-#    - Display: Skin, Flags, Logos, Items per page        #
+#    - Player: Player engine selection                    #
+#    - Display: Show flags, Show logos                    #
 #    - Browser: Max channels, Default view                #
-#    - Cache: TTL, Size, Auto-refresh                     #
-#    - Export: Enabled, Auto-refresh, Max channels        #
-#    - Network: User agent, Connection timeout            #
-#    - Logging: Level, File logging, Size, Backups        #
-#    - Performance: HW acceleration, Buffer size          #
-#    - Updates: Auto-update, Channel, Interval            #
+#    - Cache: Enable/Disable, Size, Refresh method        #
+#    - Export: Enable/Disable, Max channels, Prefix       #
+#    - Network: User agent, Connection & Download timeout #
+#    - Logging: Level, File logging                       #
+#    - Performance: HW acceleration, Buffer size, Memory  #
+#    - Search: Max results                                #
+#    - Bouquet Management: Auto-reload after export       #
 #                                                         #
 #  KEY CONTROLS:                                          #
 #  [ BROWSER ]                                            #
@@ -80,7 +81,7 @@
 #  • Python 2.7+ compatible (Enigma2 optimized)           #
 #  • Player engines: GStreamer / ExtePlayer3 / Auto       #
 #  • HLS stream support with adaptive bitrate             #
-#  • Automatic cache management                           #
+#  • Smart cache management with force refresh options    #
 #  • Configuration backup & restore                       #
 #  • Skin system with resolution detection                #
 #  • Bouquet integration with Enigma2 EPG                 #
@@ -89,7 +90,7 @@
 #  • 50,000+ channels available                           #
 #  • ~70% stream compatibility rate                       #
 #  • <5 sec loading time (cached)                         #
-#  • 47 configuration parameters                          #
+#  • 20+ configuration parameters                         #
 #  • 150+ countries supported                             #
 #  • 29 content categories                                #
 #                                                         #
@@ -104,8 +105,8 @@
 #  NOTE: This plugin is for educational purposes only.    #
 #  Please respect content rights and usage policies.      #
 #                                                         #
-#  Last Updated: 2025-12-13                               #
-#  Performance Update: HW acceleration + buffer control   #
+#  Last Updated: 2025-12-17                               #
+#  Code Review & Cleanup: Configurations consolidated     #
 ###########################################################
 """
 
@@ -121,7 +122,7 @@ from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
 
 from . import _, PLUGIN_VERSION, PLUGIN_ICON  # , PLUGIN_NAME, PLUGIN_PATH
-from .helpers import log, simple_log
+from .helpers import log, simple_log, get_metadata_url
 from .browser.about import TVGardenAbout
 from .browser.countries import CountriesBrowser
 from .browser.categories import CategoriesBrowser
@@ -209,24 +210,28 @@ class TVGardenMain(Screen):
         ]
 
         self["menu"] = MenuList(self.menu_items)
-        self["status"] = Label(
-            "TV Garden v.%s | Cache: %d items" % (PLUGIN_VERSION, self.cache.get_size())
-        )
-
         self["key_red"] = Label(_("Exit"))
         self["key_green"] = Label(_("Select"))
         self["key_yellow"] = Label(_("Refresh"))
         self["key_blue"] = Label(_("Settings"))
 
-        self["actions"] = ActionMap(["TVGardenActions", "ColorActions", "SetupActions", "MenuActions"], {
+        self["actions"] = ActionMap(["OkCancelActions", "ColorActions"], {
             "cancel": self.exit,
             "ok": self.select_item,
             "red": self.exit,
             "green": self.select_item,
             "yellow": self.refresh_data,
             "blue": self.open_settings,
-            "menu": self.open_settings,
         }, -2)
+
+        test_url = get_metadata_url()
+        try:
+            data = self.cache.fetch_url(test_url, force_refresh=False)
+            log.info("✓ Cache test OK: %s, %d items" % (type(data), len(data) if data else 0), module="Test")
+            self.update_cache_status()
+        except Exception as e:
+            log.error("✗ Cache test failed: %s" % str(e), module="Test")
+            self["status"].setText("TV Garden v.%s | Cache error" % PLUGIN_VERSION)
 
     def select_item(self):
         """Handle menu item selection"""
@@ -258,20 +263,46 @@ class TVGardenMain(Screen):
         from .utils.settings import TVGardenSettings
         self.session.open(TVGardenSettings)
 
+    def update_cache_status(self):
+        """Update widget status with current cache info"""
+        try:
+            cache_info = self.cache.get_cache_info()
+
+            if 'error' not in cache_info:
+                cache_count = cache_info.get('total_files', 0)
+                cache_size_kb = cache_info.get('total_size_kb', 0)
+
+                if cache_count > 0:
+                    new_status = "TV Garden v.%s | Cache: %d files (%.1fKB)" % (
+                        PLUGIN_VERSION, cache_count, cache_size_kb
+                    )
+                else:
+                    new_status = "TV Garden v.%s | Cache: empty" % PLUGIN_VERSION
+            else:
+                new_status = "TV Garden v.%s | Cache error" % PLUGIN_VERSION
+
+            self["status"].setText(new_status)
+            log.debug("Cache status updated: %s" % new_status, module="Main")
+
+        except Exception as e:
+            log.error("Error updating cache status: %s" % str(e), module="Main")
+            self["status"].setText("TV Garden v.%s | Status error" % PLUGIN_VERSION)
+
     def refresh_data(self):
-        """Refresh cache and metadata - VERSIONE CORRETTA"""
+        """Refresh cache and metadata"""
         self["status"].setText(_("Refreshing data..."))
 
         try:
+            # Clear cache
             self.cache.clear_all()
 
+            # Force refresh countries metadata
             countries_data = self.cache.get_countries_metadata(force_refresh=True)
 
-            cache_size = self.cache.get_size()
+            # Update status using the same method
+            self.update_cache_status()
 
-            new_status = "TV Garden v.%s | Cache: %d items" % (PLUGIN_VERSION, cache_size)
-            self["status"].setText(new_status)
-
+            # Show completion message
             self.session.open(
                 MessageBox,
                 _("Refresh completed!\nLoaded %d countries") % len(countries_data),
@@ -284,22 +315,20 @@ class TVGardenMain(Screen):
             log.error("Refresh error: %s" % str(e), module="Main")
 
     def check_for_updates(self):
-        """Check for plugin updates - VERSIONE CENTRALIZZATA"""
+        """Check for plugin updates"""
         log.debug("check_for_updates called from main menu", module="Main")
-
-        # Test diretto per vedere se il problema è in UpdateManager
         try:
             log.debug("Creating UpdateManager instance...", module="Main")
             updater = PluginUpdater()
             log.debug("PluginUpdater created successfully", module="Main")
 
-            # Test diretto della funzione
             latest = updater.get_latest_version()
             log.debug("Direct test - Latest version: %s" % latest, module="Main")
 
-            # Ora usa UpdateManager
+            # UpdateManager
             UpdateManager.check_for_updates(self.session, self["status"])
 
+            self.update_cache_status()
         except Exception as e:
             log.error("Direct test error: %s" % e, module="Main")
             self["status"].setText(_("Update check error"))
@@ -326,7 +355,7 @@ class TVGardenMain(Screen):
             PERFORMANCE:
             • HW Acceleration for H.264/H.265
             • Buffer: 512KB-8MB configurable
-            • Max 500 channels per file
+            • Max 500 channels for file
 
             STATUS: OPERATIONAL | EXPORT: Dual Mode
             """ % (PLUGIN_VERSION, self.cache.get_size())
@@ -344,6 +373,7 @@ class TVGardenMain(Screen):
     def exit(self):
         """Exit plugin"""
         self.cache.clear_all()
+        self.update_cache_status()
         self.close()
 
 
@@ -360,39 +390,48 @@ def main(session, **kwargs):
     except Exception as e:
         import traceback
         import time
-        import codecs
 
-        log_path = "/tmp/tvgarden_crash.log"
-        f = None
         try:
-            f = codecs.open(log_path, "a", "utf-8")
-            f.write("=" * 50 + "\n")
-            f.write(time.ctime() + "\n")
-            f.write("CRASH on init TVGardenMain\n")
-            f.write(str(e) + "\n")
-            f.write(traceback.format_exc())
-            f.write("\n" + "=" * 50 + "\n")
-        finally:
-            if f:
-                f.close()
+            from .helpers import log
+            log.error("TVGarden Crash: %s" % str(e), module="Main")
+            log.error(traceback.format_exc(), module="Main")
+        except ImportError:
+            # Fallback se log non è disponibile
+            print("[TVGarden CRASH]: %s" % str(e))
+            traceback.print_exc()
 
-        # Tenta almeno di mostrare un messaggio di errore
-        from Screens.MessageBox import MessageBox
-        error_msg = "TVGarden Crash: " + str(e)
-        session.open(MessageBox, error_msg, MessageBox.TYPE_ERROR)
+        # Scrivi sempre il crash log
+        log_path = "/tmp/tvgarden_crash.log"
+        try:
+            with open(log_path, "a") as f:
+                f.write("=" * 50 + "\n")
+                f.write(time.ctime() + "\n")
+                f.write("CRASH on init TVGardenMain\n")
+                f.write(str(e) + "\n")
+                f.write(traceback.format_exc())
+                f.write("\n" + "=" * 50 + "\n")
+        except:
+            pass
+
         return None
 
 
 def Plugins(**kwargs):
     """Plugin descriptor list"""
     from Plugins.Plugin import PluginDescriptor
-    from .utils.config import get_config
-    config = get_config()
-    log_level = config.get("log_level", "INFO")
-    log_to_file = config.get("log_to_file", True)
-    log.set_level(log_level)
-    log.enable_file_logging(log_to_file)
-    log.info("TV Garden Plugin started", "Main")
+    try:
+        from .utils.config import get_config
+        config = get_config()
+        log_level = config.get("log_level", "INFO")
+        log_to_file = config.get("log_to_file", True)
+
+        from .helpers import log
+        log.set_level(log_level)
+        log.enable_file_logging(log_to_file)
+        log.info("TV Garden Plugin started", "Main")
+
+    except Exception as e:
+        print("[TVGarden] Plugin loading - log init failed: %s" % str(e))
 
     description = _("Access free IPTV channels from around the world")
     plugin_descriptor = PluginDescriptor(
@@ -403,7 +442,6 @@ def Plugins(**kwargs):
         fnc=main
     )
 
-    # Also add to extensions menu
     extensions_descriptor = PluginDescriptor(
         name="TV Garden",
         description=description,

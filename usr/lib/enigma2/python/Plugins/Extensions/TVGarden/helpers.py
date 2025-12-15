@@ -15,7 +15,7 @@ from enigma import getDesktop
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS, fileExists
 import codecs
 
-from . import PLUGIN_NAME, PLUGIN_PATH, USER_AGENT
+from . import PLUGIN_NAME, PLUGIN_PATH
 
 
 # Helper to load skin
@@ -30,7 +30,6 @@ def load_skin_file(skin_name):
     # Read skin content
     if fileExists(skin_file):
         try:
-            # Python 2: NO encoding parameter
             f = None
             try:
                 f = codecs.open(skin_file, 'r', 'utf-8')
@@ -264,83 +263,6 @@ def is_valid_stream_url(url):
     return False
 
 
-# ============ DEFAULT CONFIG ============
-# helpers.py - DEFAULT_CONFIG aggiornato
-
-DEFAULT_CONFIG = {
-    # Player settings
-    "player": "exteplayer3",             # "auto", "exteplayer3", "gstplayer"
-    "timeout": 10,                       # Connection timeout in seconds
-    "retries": 3,                        # Connection retry attempts
-    "volume": 80,                        # Default volume 0-100
-
-    # Display settings
-    "skin": "auto",                      # "auto", "hd", "fhd", "wqhd"
-    "show_flags": True,                  # Show country flags
-    "show_logos": True,                  # Show channel logos
-    "show_info": True,                   # Show channel info
-    "items_per_page": 20,                # Items per browser page
-
-    # Browser settings
-    "max_channels": 500,                 # Max channels per country (0=all)
-    "sort_by": "name",                   # Sort channels by
-    "default_view": "countries",         # "countries", "categories", "favorites"
-
-    # Cache settings
-    "cache_enabled": True,               # Enable caching
-    "cache_ttl": 3600,                   # Cache time-to-live in seconds (1 hour)
-    "cache_size": 100,                   # Maximum cache items
-    "auto_refresh": True,                # Automatic cache refresh
-
-    # Export settings
-    "export_enabled": True,              # Enable bouquet export
-    "auto_refresh_bouquet": False,       # Auto-refresh bouquet
-    "confirm_before_export": True,       # Confirm before exporting
-    "max_channels_for_bouquet": 100,     # Max channels per bouquet
-    "bouquet_name_prefix": "TVGarden",   # Bouquet name prefix
-
-    # Network settings
-    "user_agent": USER_AGENT,
-    "use_proxy": False,
-    "proxy_url": "",
-    "connection_timeout": 30,            # Network connection timeout
-
-    # Logging settings
-    "log_level": "INFO",                 # "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"
-    "log_to_file": True,                 # Log to file
-    "log_max_size": 1048576,             # Max log file size in bytes (1MB)
-    "log_backup_count": 3,               # Number of backup log files
-
-    # Update settings
-    "auto_update": True,                 # Automatic updates
-    "update_channel": "stable",          # "stable", "beta", "dev"
-    "update_check_interval": 86400,      # Check for updates every 24 hours
-    "notify_on_update": True,            # Notify when updates available
-    "last_update_check": 0,              # Timestamp of last update check
-
-    # Favorites
-    "max_favorites": 100,                # Maximum favorites allowed
-    "auto_add_favorite": False,          # Automatically add watched to favorites
-
-    # Performance
-    "use_hardware_acceleration": True,   # Use hardware acceleration
-    "buffer_size": 2048,                 # Buffer size in KB
-
-    # Debug/Development
-    "debug_mode": False,                 # Enable debug mode
-
-    # Last session
-    "last_country": None,
-    "last_category": None,
-    "last_channel": None,
-    "last_volume": 80,
-
-    # Statistics
-    "stats_enabled": True,
-    "watch_time": 0,                     # Total watch time in seconds
-    "channels_watched": 0,               # Number of channels watched
-}
-
 # ============ LOGGING ============
 LOG_PATH_DIR = "/tmp/tvgarden_cache"
 LOG_PATH = join(LOG_PATH_DIR, "tvgarden.log")
@@ -402,7 +324,7 @@ class TVGardenLog:
 
     @classmethod
     def log(cls, message, level=INFO, module=""):
-        """Enhanced logging function - Python 2/3 compatible"""
+        """Enhanced logging function"""
 
         # Filter by level
         if not cls._should_log(level):
@@ -421,7 +343,7 @@ class TVGardenLog:
             reset = cls.COLORS.get('END', '')
             print("%s%s%s" % (color, full_message, reset), file=stderr)
 
-        # File output - Python 2/3 compatible
+        # File output
         if cls._log_to_file:
             try:
                 import codecs
@@ -487,7 +409,7 @@ class TVGardenLog:
 
     @classmethod
     def get_log_contents(cls, max_lines=100):
-        """Get last N lines from log file - Python 2/3 compatible"""
+        """Get last N lines from log file"""
         try:
             if exists(LOG_PATH):
                 import codecs

@@ -102,7 +102,7 @@ class TvInfoBarShowHide():
                 self.hide_help_overlay()
             else:
                 self.show_help_overlay()
-        
+
         self.toggleShow()
 
     def __onShow(self):
@@ -420,7 +420,7 @@ class TVGardenPlayer(InfoBarBase, InfoBarSeek, InfoBarAudioSelection, InfoBarNot
         return any(sign in url_lower for sign in warning_signs)
 
     def show_stream_warning(self, channel_name):
-        """Show warning about potentially problematic stream - Python 2/3 compatible"""
+        """Show warning about potentially problematic stream"""
         message = (
             "Warning: %s\n\n"
             "This stream might use encryption or DRM that is not supported by your receiver.\n\n"

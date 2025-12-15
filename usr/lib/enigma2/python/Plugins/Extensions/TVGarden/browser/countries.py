@@ -21,7 +21,7 @@ from ..helpers import log
 from .base import BaseBrowser
 from .channels import ChannelsBrowser
 from ..utils.cache import CacheManager
-from ..utils.config import PluginConfig
+from ..utils.config import PluginConfig, get_config
 
 
 if version_info[0] == 3:
@@ -60,7 +60,6 @@ class CountriesBrowser(BaseBrowser):
         self.session = session
         self.cache = CacheManager()
 
-        # Initialize before widgets
         self.countries = []
         self.picload = ePicLoad()
         self.picload_conn = None
@@ -157,7 +156,22 @@ class CountriesBrowser(BaseBrowser):
     def load_countries(self):
         """Load countries list from TV Garden repository"""
         try:
-            metadata = self.cache.get_countries_metadata()
+            # Get cache configuration
+            config = get_config()
+            cache_enabled = config.get("cache_enabled", True)
+            force_refresh_browsing = config.get("force_refresh_browsing", False)
+
+            # Load metadata with cache config
+            if hasattr(self.cache, 'get_countries_metadata'):
+                try:
+                    metadata = self.cache.get_countries_metadata(force_refresh=force_refresh_browsing)
+                except TypeError:
+                    # If the method does not support force_refresh
+                    metadata = self.cache.get_countries_metadata()
+            else:
+                # Fallback
+                metadata = {}
+
             log.debug("Metadata received: %d countries" % len(metadata), module="Countries")
 
             self.countries = []
@@ -182,7 +196,14 @@ class CountriesBrowser(BaseBrowser):
             self["menu"].setList(menu_items)
 
             if menu_items:
-                self["status"].setText(_("Select a country"))
+                cache_info = ""
+                if force_refresh_browsing:
+                    cache_info = _(" [Fresh data]")
+                elif not cache_enabled:
+                    cache_info = _(" [Cache disabled]")
+
+                self["status"].setText(_("Select a country") + cache_info)
+
                 # Load initial flag with delay
                 self.timer = eTimer()
                 try:
@@ -198,6 +219,32 @@ class CountriesBrowser(BaseBrowser):
             log.error("Error: %s" % e, module="Countries")
             import traceback
             traceback.print_exc()
+
+    def refresh(self):
+        """Refresh countries list"""
+        self["status"].setText(_("Refreshing..."))
+        try:
+            config = get_config()
+            refresh_method = config.get("refresh_method", "clear_cache")  # "clear_cache" o "force_refresh"
+
+            if refresh_method == "clear_cache":
+                # Pulisce tutta la cache
+                self.cache.clear_all()
+                log.info("Cache cleared manually", module="Countries")
+                self["status"].setText(_("Cache cleared"))
+            else:
+                # Set force refresh for next call
+                # Here you may want to set a temporary flag
+                # For now, force refresh
+                if hasattr(self.cache, 'clear_all'):
+                    self.cache.clear_all()  # Clear come fallback
+                self["status"].setText(_("Will load fresh data next time"))
+
+            self.load_countries()
+
+        except Exception as e:
+            self["status"].setText(_("Refresh failed"))
+            log.error("Refresh error: %s" % e, module="Countries")
 
     def load_initial_flag(self):
         """Load first flag after a short delay"""
@@ -215,10 +262,8 @@ class CountriesBrowser(BaseBrowser):
         if 0 <= index < len(self.countries):
             self.selected_country = self.countries[index]
 
-            # Clear previous flag immediately
-            self["flag"].hide()
-
             # Load new flag with proper error handling
+            self["flag"].hide()
             flag_code = self.selected_country['code'].lower()
             flag_url = "https://flagcdn.com/w80/%s.png" % flag_code
 
@@ -239,7 +284,7 @@ class CountriesBrowser(BaseBrowser):
             self.flag_timer.start(50, True)
 
     def download_flag_safe(self, url, country_code):
-        """Safe flag download with memory management - Python 2/3 compatible"""
+        """Safe flag download with memory management"""
         try:
             # Cleanup old temp file
             if self.current_flag_path and exists(self.current_flag_path):
@@ -248,13 +293,13 @@ class CountriesBrowser(BaseBrowser):
                 except:
                     pass
 
-            # Download flag - Python 2 compatible
+            # Download flag
             req = Request(url, headers={'User-Agent': 'TVGarden-Enigma2/1.0'})
             response = None
             flag_data = None
             try:
                 response = urlopen(req, timeout=3)
-                if response.getcode() == 200:  # .getcode() per Python 2
+                if response.getcode() == 200:
                     flag_data = response.read()
             finally:
                 if response:
@@ -265,11 +310,9 @@ class CountriesBrowser(BaseBrowser):
                 self.load_default_flag()
                 return
 
-            # Save to temp file - Python 2 compatible
+            # Save to temp file
             try:
                 from os import close
-
-                # Python 2: mkstemp invece di NamedTemporaryFile con suffix
                 temp_fd, temp_path = tempfile.mkstemp(suffix='.png')
                 close(temp_fd)  # Chiudi il file descriptor
 
@@ -341,7 +384,6 @@ class CountriesBrowser(BaseBrowser):
     def load_default_flag(self):
         """Load a default/placeholder flag"""
         try:
-            # Try to use a simple embedded flag or skip
             self["flag"].hide()
         except:
             pass
@@ -375,23 +417,10 @@ class CountriesBrowser(BaseBrowser):
             except:
                 pass
 
-        # Open the channel browser
         self.session.open(ChannelsBrowser,
                           country_code=self.selected_country['code'],
                           country_name=self.selected_country['name'])
 
-    def refresh(self):
-        """Refresh countries list"""
-        self["status"].setText(_("Refreshing..."))
-        try:
-            self.cache.clear_all()
-            self.load_countries()
-            self["status"].setText(_("Countries refreshed"))
-        except Exception as e:
-            self["status"].setText(_("Refresh failed"))
-            log.error("Refresh error: %s" % e, module="Countries")
-
-    # Navigation methods - simplified
     def up(self):
         self["menu"].up()
 

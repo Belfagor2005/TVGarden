@@ -10,11 +10,12 @@ from Screens.Screen import Screen
 from Components.Label import Label
 from Components.ActionMap import ActionMap
 from Components.ScrollLabel import ScrollLabel
-
+from os import listdir
+from os.path import exists, join, getsize
 from ..helpers import log
 from .. import _, PLUGIN_VERSION
 from ..utils.cache import CacheManager
-from ..utils.config import PluginConfig
+from ..utils.config import PluginConfig, get_config
 
 
 class TVGardenAbout(Screen):
@@ -66,6 +67,7 @@ class TVGardenAbout(Screen):
         try:
             # Get stats
             cache = CacheManager()
+
             # Try to get countries count
             countries_count = "Loading..."
             try:
@@ -76,12 +78,47 @@ class TVGardenAbout(Screen):
 
             # Get cache info
             cache_info = "Active"
-            # cache_size = "N/A"
+            # cache_size = 0
+            cache_files = 0
 
-            # Build about text
+            try:
+                # cache_size = cache.get_size()  # Numbers of file
+                cache_dir = cache.cache_dir
+
+                # Calculate total size
+                total_size = 0
+                if exists(cache_dir):
+                    for file in listdir(cache_dir):
+                        if file.endswith('.gz'):
+                            cache_files += 1
+                            file_path = join(cache_dir, file)
+                            if exists(file_path):
+                                total_size += getsize(file_path)
+
+                # Format the size
+                if total_size > 0:
+                    if total_size < 1024 * 1024:  # Less than 1MB
+                        cache_size_str = "%d KB" % (total_size // 1024)
+                    else:
+                        cache_size_str = "%.1f MB" % (total_size / (1024 * 1024))
+                    cache_info = "%d files, %s" % (cache_files, cache_size_str)
+                else:
+                    cache_info = "Empty"
+
+            except Exception as e:
+                log.debug("Could not get cache size: %s" % e, module="About")
+                cache_info = "Active"
+
+            # Get config for cache settings
+            config = get_config()
+            cache_enabled = config.get("cache_enabled", True)
+
+            # Build about text with cache details
             about_text = self.generate_about_text(
                 countries_count=countries_count,
-                cache_info=cache_info
+                cache_info=cache_info,
+                cache_enabled=cache_enabled,
+                # cache_ttl=ttl_str
             )
 
             self["scrolltext"].setText(about_text)
@@ -99,7 +136,8 @@ class TVGardenAbout(Screen):
             log.error("Error loading content: %s" % e, module="About")
             self["scrolltext"].setText(_("Error loading information"))
 
-    def generate_about_text(self, countries_count="150+", cache_info="Active"):
+    def generate_about_text(self, countries_count="150+", cache_info="Active",
+                            cache_enabled=True):
         """Generate formatted about text"""
         return """
             ═══════════════════════════════════════════════
@@ -114,7 +152,7 @@ class TVGardenAbout(Screen):
             • Global Coverage: %s Countries
             • Content Variety: 29 Categories
             • Channel Library: 50,000+ Streams
-            • Real-time Search with Virtual Keyboard
+            • Real-time Search with Virtual Keyboard (Case-insensitive)
             • Smart Caching System: %s
             • Auto-Skin Detection (HD/FHD/WQHD)
             • Favorites Management with Bouquet Export
@@ -126,109 +164,74 @@ class TVGardenAbout(Screen):
             ━━━━━━━━━━━━━━━━━━ NEW: HIERARCHICAL BOUQUET EXPORT ━━━━━━━━━━━━━━━━━━
             • SINGLE-FILE EXPORT: All channels in one bouquet (traditional)
             • MULTI-FILE EXPORT: Hierarchical structure for better performance
-            • SMART SPLITTING: Countries with ≤500 channels → single file
-            • AUTO-PARTITION: Countries with >500 channels → multiple files
+            • SMART SPLITTING: Configurable max channels per sub-bouquet
             • CONTAINER SYSTEM: Parent bouquet with sub-bouquet references
             • ENHANCED PERFORMANCE: Faster loading, no Enigma2 slowdown
             • COMPATIBLE: Works with all Enigma2 receivers
 
+            ━━━━━━━━━━━━━━━━━━ CACHE SYSTEM ━━━━━━━━━━━━━━━━━━
+            • CONFIGURABLE CACHE: Enable/Disable via Settings
+            • FORCE REFRESH OPTIONS:
+              - Force refresh on browsing
+              - Force refresh on export
+            • MEMORY + DISK CACHE: Dual-layer for performance
+            • CACHE SIZE: Configurable limit (10-5000 items)
+
             ━━━━━━━━━━━━━━━━━ PERFORMANCE SETTINGS ━━━━━━━━━━━━━━━━━━
             • Hardware Acceleration Toggle (On/Off)
             • Buffer Size Control: 512KB, 1MB, 2MB, 4MB, 8MB
-            • Smart HW Accel Detection (H.264, H.265, MPEG-2/4)
-            • Automatic Format Detection for Optimization
+            • Smart HW Accel Detection (H.264, H.265)
             • Player Selection: Auto, ExtePlayer3, GStreamer
+            • Memory Optimization Option
 
             ━━━━━━━━━━━━━━━━━ KEY CONTROLS ━━━━━━━━━━━━━━━━━━
             [ BROWSER ]
-              OK / GREEN      > Play Selected Channel
-              EXIT / RED      < Back / Exit
-              YELLOW          [ ] Context Menu (Remove/Export)
-              BLUE            [X] Export Favorites to Bouquet
-              MENU            [ ] Context Menu
+              OK/GREEN      > Play Selected Channel
+              EXIT/RED      < Back / Exit
+              YELLOW        [ ] Context Menu (Remove/Export)
+              BLUE          [X] Export Favorites to Bouquet
 
             [ FAVORITES BROWSER ]
-              OK / GREEN      > Play Selected Channel
-              EXIT / RED      < Back / Exit
-              YELLOW          [ ] Options (Remove/Info/Export)
-              BLUE            [X] Export ALL to Enigma2 Bouquet
-              UP/DOWN         ^/v Navigate Channels
-
-            [ YELLOW BUTTON OPTIONS MENU ]
-              View Channel Info      - Detailed channel information
-              Remove from Favorites  - Remove selected channel
-              Clear All Favorites    - Clear all favorite channels
-              Export to Enigma2 Bouquet - Export single channel
-              Export ALL Database (Single File) - All channels in one bouquet
-              Export ALL Database (Multi-File)  - New hierarchical structure
-              Remove Bouquet from Enigma2 - Complete bouquet removal
+              OK/GREEN      > Play Selected Channel
+              EXIT/RED      < Back / Exit
+              YELLOW        [ ] Options (Remove/Info/Export)
+              BLUE          [X] Export ALL to Enigma2 Bouquet
 
             [ PLAYER ]
-              CHANNEL +/-     ^/v Zap Between Channels
-              OK              [i] Show Channel Info + Performance Stats
-              RED             [*] Toggle Favorite
-              GREEN           [#] Show Channel List
-              EXIT            [X] Close Player
+              CHANNEL +/-   ^/v Zap Between Channels
+              OK            [i] Show Channel Info + Performance Stats
+              EXIT          [X] Close Player
 
-            ━━━━━━━━━━━━━━━━━ BOUQUET EXPORT SYSTEM ━━━━━━━━━━━━━━━━━━
-            • EXPORT OPTIONS:
-              - Single channel export (via Options menu)
-              - All favorites export (Blue button in Favorites)
-              - Complete database export - SINGLE FILE
-              - Complete database export - MULTI-FILE (NEW!)
-
-            • BOUQUET STRUCTURE:
-              SINGLE-FILE: userbouquet.tvgarden_TVGarden_Favorites.tv
-              MULTI-FILE:  userbouquet.tvgarden_complete_container.tv (parent)
-                           subbouquet.tvgarden_italy.tv (child - ≤500 channels)
-                           subbouquet.tvgarden_us_part1.tv (child - >500 channels)
-
-            • AUTOMATIC INTEGRATION:
-              - Added to bouquets.tv automatically
-              - Tag-based identification (tvgarden)
-              - Auto-reload after export
-              - Preserves existing bouquet order
-
-            • REMOVAL SYSTEM:
-              - Removes ALL bouquet files with .tvgarden_ tag
-              - Cleans bouquets.tv references
-              - Preserves other bouquet files
-              - Automatic reload after removal
-
-            ━━━━━━━━━━━━━━━━━ SEARCH FEATURES ━━━━━━━━━━━━━━━━━━
-            • Instant Results While Typing
-            • Virtual Keyboard Support
-            • Search in Names & Descriptions
-            • Multi-language Search
-            • Configurable Result Limits (100-1000 channels)
-            • Smart Filtering (YouTube/DRM skipped)
+            ━━━━━━━━━━━━━━━━━ CONFIGURATION SYSTEM ━━━━━━━━━━━━━━━━━━
+            • 20+ Configurable Parameters
+            • Player Settings: Player engine selection
+            • Display Settings: Show flags, Show logos
+            • Browser Settings: Max channels, Default view, Sort by
+            • Cache Settings: Enable, Size, Force Refresh options
+            • Export Settings: Enable, Max channels, Name prefix, List position
+            • Network Settings: User agent, Connection & Download timeout
+            • Logging Settings: Level, File logging
+            • Performance Settings: HW acceleration, Buffer size, Memory opt.
+            • Search Settings: Max results
+            • Bouquet Management: Auto-reload after export
 
             ━━━━━━━━━━━━━━━━━ TECHNICAL SPECS ━━━━━━━━━━━━━━━━━━
             • Python 2.7+ Compatible (Enigma2 Optimized)
             • Memory Efficient (~50MB RAM)
             • Player Engines: GStreamer / ExtePlayer3 / Auto
-            • Connection Timeout & Retry System (3-10 attempts)
-            • Automatic Cache Management (TTL: 1-24 hours)
+            • Smart Cache Management with configurable refresh
             • Advanced Logging System (DEBUG to CRITICAL)
-            • Log File Management with Rotation & Size Limits
             • Skin System with Resolution Detection
             • Bouquet Integration with Enigma2 EPG
-            • 47 Configurable Parameters via Settings Screen
-            • Configuration Backup & Restore System
 
-            ━━━━━━━━━━━━━━━━━ CONFIGURATION SYSTEM ━━━━━━━━━━━━━━━━━━
-            • Player Settings: Player, Volume, Timeout, Retries
-            • Display Settings: Skin, Flags, Logos, Items per Page
-            • Browser Settings: Max Channels, Default View
-            • Cache Settings: TTL, Size, Auto-refresh
-            • Export Settings: Enabled, Auto-refresh, Max Channels
-            • Network Settings: User Agent, Connection Timeout
-            • Logging Settings: Level, File Logging, Size, Backups
-            • Performance Settings: HW Acceleration, Buffer Size
-            • Update Settings: Auto-update, Channel, Interval
-            • Session Settings: Last Viewed, Watch Time, Statistics
+            ━━━━━━━━━━━━━━━━━ STATISTICS ━━━━━━━━━━━━━━━━━━
+            • 50,000+ channels available
+            • ~70%% stream compatibility rate
+            • <5 sec loading time (cached)
+            • 150+ countries supported
+            • 29 content categories
 
-            ━━━━━━━━━━━━━━━━━ DATA SOURCE ━━━━━━━━━━━━━━━━━━━━
+            ━━━━━━━━━━━━━━━━━ DATA SOURCE ━━━━━━━━━━━━━━━━━━
             TV Garden Channel List Project
             Maintained by Belfagor2005
 
@@ -236,45 +239,19 @@ class TVGardenAbout(Screen):
             • Original Concept: Lululla
             • Data Source: Belfagor2005
             • Plugin Development: TV Garden Team
-            • Bouquet Export Feature: Community Request
-            • Performance Optimization: Recent Update
-            • Hierarchical Export: Inspired by Vavoo Plugin Architecture
-            • Testing Community: Enigma2 Users Worldwide
+            • Enigma2 Community for Testing & Feedback
 
-            ━━━━━━━━━━━━━━━━━ PERFORMANCE TIPS ━━━━━━━━━━━━━━━━━━━━
-            RECOMMENDED SETTINGS FOR SMOOTH PLAYBACK:
+            ━━━━━━━━━━━━━━━━━ TIPS ━━━━━━━━━━━━━━━━━━━━
+            RECOMMENDED SETTINGS:
             1. Buffer Size: 2MB-4MB for stable connections
             2. HW Acceleration: ON for H.264/H.265 streams
-            3. Connection Timeout: 10-15 seconds
-            4. Max Channels per Country: 250-500 for faster loading
-            5. Cache TTL: 4-8 hours for balance
+            3. Max Channels per Country: 250-500 for faster loading
+            4. Cache: ON for normal use, OFF for testing
 
-            BOUQUET EXPORT TIPS:
-            1. SINGLE-FILE EXPORT: Best for small channel lists (<1000 channels)
-            2. MULTI-FILE EXPORT: Recommended for complete database export
-            3. File location: /etc/enigma2/
-            4. Tag pattern: *.tvgarden_* (for easy identification)
-            5. Parent container: userbouquet.tvgarden_complete_container.tv
-            6. Child bouquets: subbouquet.tvgarden_[country].tv
-
-            HIERARCHICAL STRUCTURE BENEFITS:
-            • FASTER LOADING: Each file has max 500 channels
-            • BETTER ORGANIZATION: Countries separated in individual files
-            • EASY NAVIGATION: Parent container provides overview
-            • OPTIMAL PERFORMANCE: No Enigma2 slowdown with large lists
-
-            LOGGING & TROUBLESHOOTING:
-            • Log Level: INFO for normal use, DEBUG for troubleshooting
-            • Log to File: ON for persistent logs
-            • Max Log Size: 1MB-5MB recommended
-            • View logs via Settings → "View Log File"
-            • Clear logs via Settings → "Clear Log Files Now"
-
-            TROUBLESHOOTING BOUQUET EXPORT:
-            1. If bouquets don't appear: Restart Enigma2
-            2. To remove all bouquets: Use "Remove Bouquet" option
-            3. Check file permissions in /etc/enigma2/
-            4. Verify bouquets.tv contains TV Garden references
+            BOUQUET EXPORT:
+            • Single-File: Best for <1000 channels
+            • Multi-File: Recommended for complete database
+            • Files: /etc/enigma2/*.tvgarden_*
 
             For support, bug reports or feature requests,
             please visit the GitHub repository.

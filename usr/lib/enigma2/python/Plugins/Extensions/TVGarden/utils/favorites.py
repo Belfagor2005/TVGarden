@@ -184,7 +184,7 @@ class FavoritesManager:
                     url_encoded = stream_url.replace(":", "%3a")
                     name_encoded = name.replace(":", "%3a")
 
-                    # ONE service line per channel
+                    # ONE service line for channel
                     service_line = '#SERVICE 4097:0:1:0:0:0:0:0:0:0:%s:%s\n' % (url_encoded, name_encoded)
                     f.write(service_line)
                     f.write('#DESCRIPTION %s\n' % name)
@@ -196,7 +196,7 @@ class FavoritesManager:
             return False
 
     def export_to_bouquet(self, channels=None, bouquet_name=None):
-        """Export channels to an Enigma2 bouquet file - FIXED VERSION"""
+        """Export channels to an Enigma2 bouquet file"""
         try:
             if channels is None:
                 channels = self.favorites
@@ -230,10 +230,10 @@ class FavoritesManager:
                     channels_by_country[country] = []
                 channels_by_country[country].append(channel)
 
-            # 2. Write the bouquet file - SIMPLIFIED
+            # 2. Write the bouquet file
             try:
                 f = open(userbouquet_file, "w")
-                
+
                 # Write header
                 f.write("#NAME TV Garden Favorites by Lululla\n")
                 f.write("#SERVICE 1:64:0:0:0:0:0:0:0:0::--- | TV Garden Favorites by Lululla | ---\n")
@@ -244,7 +244,7 @@ class FavoritesManager:
                 # 3. Write countries and channels
                 for country in sorted(channels_by_country.keys()):
                     country_channels = channels_by_country[country]
-                    
+
                     if not country_channels:
                         continue
 
@@ -270,7 +270,7 @@ class FavoritesManager:
 
                         valid_count += 1
 
-                f.close()  # Chiudi il file normalmente
+                f.close()
 
             except Exception as e:
                 log.error("Error writing bouquet file: %s" % e, module="Favorites")
@@ -324,7 +324,6 @@ class FavoritesManager:
                     channels_by_country[country] = []
                 channels_by_country[country].append(channel)
 
-            # Python 2 compatible file writing
             try:
                 f = open(userbouquet_file, "w")
                 try:
@@ -390,11 +389,21 @@ class FavoritesManager:
         """Export ALL channels from TV Garden database"""
         try:
             cache = CacheManager()
+            config = get_config()
+
             log.info("Starting export of ALL channels from database", module="Favorites")
             all_channels_url = get_all_channels_url()
 
             try:
-                all_channels_data = cache.fetch_url(all_channels_url, force_refresh=True)
+                # Read from settings
+                cache_enabled = config.get("cache_enabled", True)
+                force_refresh_export = config.get("force_refresh_export", False)
+
+                if cache_enabled:
+                    all_channels_data = cache.fetch_url(all_channels_url, force_refresh=force_refresh_export)
+                else:
+                    # Cache disabled, always fresh
+                    all_channels_data = cache._fetch_url(all_channels_url)
 
                 if not all_channels_data:
                     return False, _("Empty database")
@@ -595,7 +604,6 @@ class FavoritesManager:
             self._add_to_bouquets_tv(tag, bouquet_name)
             self._reload_bouquets()
 
-            # SAFE E2 MESSAGE (no format, no placeholders)
             message = (
                 _("Exported") + " " +
                 str(valid_count) + " " +
@@ -613,7 +621,7 @@ class FavoritesManager:
             return False, _("Error") + ": " + str(e)
 
     def _reload_bouquets(self):
-        """Reload bouquets in Enigma2 - ENHANCED"""
+        """Reload bouquets in Enigma2"""
         try:
             from enigma import eDVBDB
             db = eDVBDB.getInstance()
@@ -638,7 +646,7 @@ class FavoritesManager:
                 return False
 
     def _add_to_bouquets_tv(self, tag, bouquet_name):
-        """Add bouquet reference to bouquets.tv - SAFE VERSION"""
+        """Add bouquet reference to bouquets.tv"""
         try:
             bouquet_tv_file = "/etc/enigma2/bouquets.tv"
             bouquet_line = '#SERVICE 1:7:1:0:0:0:0:0:0:0:FROM BOUQUET "userbouquet.%s_%s.tv" ORDER BY bouquet\n' % (tag, bouquet_name)
@@ -797,14 +805,22 @@ class FavoritesManager:
             return False, _("Error: %s") % str(e)
 
     def export_all_channels_hierarchical(self, bouquet_name=None):
-        """Export ALL channels with Vavoo-style hierarchical structure"""
+        """Export ALL channels with hierarchical structure"""
         try:
             cache = CacheManager()
+            config = get_config()
+
             log.info("Starting hierarchical export of ALL channels", module="Favorites")
             all_channels_url = get_all_channels_url()
 
             try:
-                all_channels_data = cache.fetch_url(all_channels_url, force_refresh=True)
+                cache_enabled = config.get("cache_enabled", True)
+                force_refresh = config.get("force_refresh_export", False)
+
+                if cache_enabled:
+                    all_channels_data = cache.fetch_url(all_channels_url, force_refresh=force_refresh)
+                else:
+                    all_channels_data = cache._fetch_url(all_channels_url)
 
                 if not all_channels_data:
                     return False, _("Empty database")
@@ -912,16 +928,13 @@ class FavoritesManager:
 
             message = (
                 _("Hierarchical export completed!") + "\n\n" +
-
                 _("Statistics:") + "\n" +
                 _("Total channels:") + " " + str(total_channels) + "\n" +
                 _("Countries exported:") + " " + str(len(exported_countries)) + "\n" +
                 _("Files created:") + " " +
                 str(sum(len(c['subs']) for c in exported_countries)) + "\n\n" +
-
                 _("Structure created:") + "\n" +
                 country_list + "\n\n" +
-
                 _("Main bouquet:") + " '" + container_info['name'] + "'"
             )
 
@@ -933,11 +946,12 @@ class FavoritesManager:
 
     def _create_country_sub_bouquets(self, country, channels, tag, bouquet_type):
         """Create sub-bouquets for a single country (only split if >500 channels)"""
-        MAX_CHANNELS_PER_SUB = 500
-        sub_bouquets = []
-
-        # If the country has <= 500 channels, create a SINGLE file without "part"
-        if len(channels) <= MAX_CHANNELS_PER_SUB:
+        config = get_config()
+        max_channels_for_sub = config.get("max_channels_for_sub_bouquet", 500)
+        sub_bouquets = [] 
+        
+        # Usa max_channels_for_sub invece di 500 hardcoded
+        if len(channels) <= max_channels_for_sub:
             # Create safe filename
             safe_country = country.lower().replace(' ', '_').replace('-', '_')
 
@@ -982,13 +996,13 @@ class FavoritesManager:
         # If the country has > 500 channels, split into parts
         else:
             num_chunks = (
-                (len(channels) + MAX_CHANNELS_PER_SUB - 1) //
-                MAX_CHANNELS_PER_SUB
+                (len(channels) + max_channels_for_sub - 1) //
+                max_channels_for_sub
             )
 
             for chunk_num in range(num_chunks):
-                start_idx = chunk_num * MAX_CHANNELS_PER_SUB
-                end_idx = start_idx + MAX_CHANNELS_PER_SUB
+                start_idx = chunk_num * max_channels_for_sub
+                end_idx = start_idx + max_channels_for_sub
                 chunk = channels[start_idx:end_idx]
 
                 # Create safe filename

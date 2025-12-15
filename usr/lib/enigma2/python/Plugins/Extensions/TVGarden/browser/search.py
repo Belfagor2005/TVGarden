@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 TV Garden Plugin - SearchBrowser
-Live search like Vavoo
+Live search
 Data Source: TV Garden Project
 """
 from __future__ import print_function
@@ -100,9 +100,14 @@ class SearchBrowser(BaseBrowser):
         self.all_channels = []
 
         try:
+            # Get cache configuration
+            config = get_config()
+            # cache_enabled = config.get("cache_enabled", True)
+            force_refresh_browsing = config.get("force_refresh_browsing", False)
+
             # 1. FIRST try using all-channels.json
             log.debug("Trying all-channels.json...", module="Search")
-            all_channels_data = self.cache.get_category_channels("all-channels")
+            all_channels_data = self.cache.get_category_channels("all-channels", force_refresh=force_refresh_browsing)
 
             if all_channels_data:
                 self.all_channels = all_channels_data
@@ -121,7 +126,7 @@ class SearchBrowser(BaseBrowser):
                         continue
 
                     try:
-                        channels = self.cache.get_category_channels(cat_id)
+                        channels = self.cache.get_category_channels(cat_id, force_refresh=force_refresh_browsing)
                         if channels:
                             for channel in channels:
                                 channel['category'] = category['name']
@@ -215,7 +220,7 @@ class SearchBrowser(BaseBrowser):
 
         # Get configurable limit
         config = get_config()
-        max_channels = config.get("max_channels", 500)
+        max_channels = config.get("search_max_results", 500)
 
         log.debug("Using max_channels limit: %d" % max_channels, module="Search")
 

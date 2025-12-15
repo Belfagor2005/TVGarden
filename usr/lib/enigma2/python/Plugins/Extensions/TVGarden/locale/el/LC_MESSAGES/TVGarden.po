@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TVGarden\n"
-"POT-Creation-Date: 2025-12-13 19:36+0100\n"
+"POT-Creation-Date: 2025-12-15 21:02+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: giorbak\n"
@@ -11,35 +11,40 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.8\n"
-"X-Poedit-Basepath: ..\n"
+"X-Poedit-Basepath: ../../..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: helpers.py\n"
-"X-Poedit-SearchPath-1: plugin.py\n"
-"X-Poedit-SearchPath-2: browser\n"
-"X-Poedit-SearchPath-3: player\n"
-"X-Poedit-SearchPath-4: utils\n"
+"X-Poedit-SearchPath-0: .\n"
 
-#: browser/about.py:43
+#: browser/about.py:44
 msgid "TV Garden Plugin"
 msgstr "Πρόσθετο TV Garden"
 
-#: browser/about.py:46 utils/settings.py:56
+#: browser/about.py:47 utils/settings.py:56
 msgid "Close"
 msgstr "Κλείσιμο"
 
-#: browser/about.py:61
+#: browser/about.py:62
 msgid "About TV Garden"
 msgstr "Σχετικά με το TV Garden"
 
-#: browser/about.py:100
+#: browser/about.py:137
 msgid "Error loading information"
 msgstr "Σφάλμα φόρτωσης πληροφοριών"
+
+#: browser/base.py:103
+msgid "No items"
+msgstr ""
+
+#: browser/base.py:107
+#, python-brace-format
+msgid "Item {} of {}"
+msgstr ""
 
 #: browser/categories.py:28
 msgid "Animation"
 msgstr "Κινούμενα σχέδια"
 
-#: browser/categories.py:29 utils/settings.py:272 utils/settings.py:308
+#: browser/categories.py:29 utils/settings.py:288
 msgid "Auto"
 msgstr "Αυτόματη"
 
@@ -155,220 +160,185 @@ msgstr "Καιρός"
 msgid "Loading categories..."
 msgstr "Φόρτωση κατηγοριών..."
 
-#: browser/categories.py:95 browser/channels.py:119 browser/channels.py:552
-#: browser/countries.py:77 browser/favorites.py:63 browser/search.py:71
-#: utils/settings.py:118
+#: browser/categories.py:95 browser/channels.py:111 browser/countries.py:73
+#: browser/favorites.py:63 browser/search.py:71 utils/settings.py:118
 msgid "Back"
 msgstr "Πίσω"
 
-#: browser/categories.py:96 browser/countries.py:78 plugin.py:217
+#: browser/categories.py:96 browser/countries.py:74 plugin.py:217
 msgid "Select"
 msgstr "Επιλογή"
 
-#: browser/categories.py:130
+#: browser/categories.py:115
 msgid "Select a category"
 msgstr "Επιλέξτε μια κατηγορία"
 
-#: browser/categories.py:177
+#: browser/categories.py:178
 msgid "No channels in this category"
 msgstr "Δεν υπάρχουν κανάλια σε αυτή την κατηγορία"
 
-#: browser/categories.py:181
+#: browser/categories.py:182
 msgid "Error loading category"
 msgstr "Σφάλμα φόρτωσης κατηγορίας"
 
-#: browser/categories.py:188
-msgid "Refreshing cache..."
-msgstr "Ανανέωση προσωρινής μνήμης..."
+#: browser/categories.py:189 browser/countries.py:225
+msgid "Refreshing..."
+msgstr "Ανανέωση..."
 
-#: browser/categories.py:191
+#: browser/categories.py:196 browser/countries.py:234
 msgid "Cache cleared"
 msgstr "Η προσωρινή μνήμη εκκαθαρίστηκε"
 
-#: browser/categories.py:193 browser/countries.py:376
+#: browser/categories.py:201
+msgid "Next load will use fresh data"
+msgstr ""
+
+#: browser/categories.py:205 browser/countries.py:246
 msgid "Refresh failed"
 msgstr "Αποτυχία ανανέωσης"
 
-#: browser/channels.py:111
+#: browser/channels.py:107
 msgid "Loading channels..."
 msgstr "Φόρτωση καναλιών..."
 
-#: browser/channels.py:115 browser/channels.py:566 browser/favorites.py:66
-msgid "Export"
-msgstr "Εξαγωγή"
-
-#: browser/channels.py:117 browser/channels.py:568 utils/settings.py:418
-msgid "Info"
-msgstr "Πληροφορίες"
-
-#: browser/channels.py:120 browser/favorites.py:64
+#: browser/channels.py:112 browser/favorites.py:64
 msgid "Play"
 msgstr "Αναπαραγωγή"
 
-#: browser/channels.py:121 browser/search.py:73
+#: browser/channels.py:113 browser/search.py:73
 msgid "Favorite"
 msgstr "Αγαπημένα"
 
-#: browser/channels.py:151
+#: browser/channels.py:144
 msgid "Play Channel"
 msgstr "Αναπαραγωγή καναλιού"
 
-#: browser/channels.py:152
+#: browser/channels.py:145
 msgid "Add to Favorites"
 msgstr "Προσθήκη στα αγαπημένα"
 
-#: browser/channels.py:153 browser/favorites.py:419
+#: browser/channels.py:146 browser/favorites.py:421
 msgid "Channel Information"
 msgstr "Πληροφορίες καναλιού"
 
-#: browser/channels.py:156
+#: browser/channels.py:150
 msgid "Export Current View"
 msgstr "Εξαγωγή τρέχουσας προβολής"
 
-#: browser/channels.py:157 browser/channels.py:556
-msgid "Export Settings"
-msgstr "Ρυθμίσεις εξαγωγής"
-
-#: browser/channels.py:160
+#: browser/channels.py:153
 msgid "Channel Menu"
 msgstr "Μενού καναλιών"
 
-#: browser/channels.py:342
+#: browser/channels.py:353 browser/favorites.py:66
+msgid "Export"
+msgstr "Εξαγωγή"
+
+#: browser/channels.py:368 browser/countries.py:201
+msgid " [Fresh data]"
+msgstr ""
+
+#: browser/channels.py:370 browser/countries.py:203
+msgid " [Cache disabled]"
+msgstr ""
+
+#: browser/channels.py:373
 #, python-brace-format
 msgid "Showing {shown} of {total} channels"
 msgstr "Εμφάνιση {shown} από {total} κανάλια"
 
-#: browser/channels.py:348
+#: browser/channels.py:379
 #, python-format
 msgid "Found %d playable channels"
 msgstr "Βρέθηκαν %d κανάλια με δυνατότητα αναπαραγωγής"
 
-#: browser/channels.py:351 browser/search.py:334
+#: browser/channels.py:385 browser/search.py:339
 #, python-format
 msgid "(skipped %d YouTube)"
 msgstr "(παραλείφθηκαν %d YouTube)"
 
-#: browser/channels.py:354 browser/search.py:337
+#: browser/channels.py:388 browser/search.py:342
 #, python-format
 msgid "(filtered %d problematic)"
 msgstr "(φιλτράρισμα %d προβληματικών)"
 
-#: browser/channels.py:357 browser/search.py:340
+#: browser/channels.py:391 browser/search.py:345
 #, python-format
 msgid "(limited to first %d)"
 msgstr "(περιορισμός στα πρώτα %d)"
 
-#: browser/channels.py:369 browser/search.py:145
+#: browser/channels.py:405 browser/search.py:150
 msgid "Error loading channels"
 msgstr "Σφάλμα φόρτωσης καναλιών"
 
-#: browser/channels.py:543
-msgid "ENABLED"
-msgstr "ΕΝΕΡΓΟΠΟΙΗΜΕΝΟ"
-
-#: browser/channels.py:543
-msgid "DISABLED"
-msgstr "ΑΠΕΝΕΡΓΟΠΟΙΗΜΕΝΟ"
-
-#: browser/channels.py:544 browser/channels.py:545
-msgid "ON"
-msgstr "ON"
-
-#: browser/channels.py:544 browser/channels.py:545
-msgid "OFF"
-msgstr "OFF"
-
-#: browser/channels.py:548
-#, python-format
-msgid "Export: %s"
-msgstr "Εξαγωγή: %s"
-
-#: browser/channels.py:549
-#, python-format
-msgid "Auto-refresh: %s"
-msgstr "Αυτόματη ανανέωση: %s"
-
-#: browser/channels.py:550
-#, python-format
-msgid "Confirm before export: %s"
-msgstr "Επιβεβαίωση πριν την εξαγωγή: %s"
-
-#: browser/channels.py:551
-msgid "Test Export (1 channel)"
-msgstr "Δοκιμαστική εξαγωγή (1 κανάλι)"
-
-#: browser/channels.py:592 utils/favorites.py:195 utils/favorites.py:781
+#: browser/channels.py:582 browser/channels.py:588 utils/favorites.py:205
+#: utils/favorites.py:299 utils/favorites.py:906
 msgid "No channels to export"
 msgstr "Δεν υπάρχουν κανάλια για εξαγωγή"
 
-#: browser/channels.py:608
+#: browser/channels.py:600
 msgid "Channels"
 msgstr "Κανάλια"
 
-#: browser/channels.py:610
+#: browser/channels.py:605
 #, python-brace-format
 msgid "Export {count} channels to bouquet '{name}'?"
 msgstr "Να γίνει εξαγωγή {count} καναλιών στο μπουκέτο '{name}';"
 
-#: browser/channels.py:655
+#: browser/channels.py:636
 #, python-format
 msgid "Export failed: %s"
 msgstr "Η εξαγωγή απέτυχε: %s"
 
-#: browser/channels.py:675 browser/search.py:399 utils/favorites.py:659
+#: browser/channels.py:656 browser/search.py:404 utils/favorites.py:776
 msgid "No stream URL"
 msgstr "Δεν υπάρχει URL ροής"
 
-#: browser/channels.py:702 browser/favorites.py:252
+#: browser/channels.py:683 browser/favorites.py:252
 msgid "Unknown"
 msgstr "Άγνωστο"
 
-#: browser/channels.py:708 browser/favorites.py:257
+#: browser/channels.py:689 browser/favorites.py:257
 #, python-format
 msgid "Remove '%s' from favorites?"
 msgstr "Να γίνει αφαίρεση του '%s' από τα αγαπημένα;"
 
-#: browser/channels.py:742
+#: browser/channels.py:723
 #, python-format
 msgid "Stream: %s..."
 msgstr "Ροή: %s..."
 
-#: browser/channels.py:744
+#: browser/channels.py:725
 #, python-format
 msgid "Stream: %s"
 msgstr "Ροή: %s"
 
-#: browser/countries.py:75
+#: browser/countries.py:71
 msgid "Loading countries..."
 msgstr "Φόρτωση χωρών..."
 
-#: browser/countries.py:79 plugin.py:218
+#: browser/countries.py:75 plugin.py:218
 msgid "Refresh"
 msgstr "Ανανέωση"
 
-#: browser/countries.py:193
+#: browser/countries.py:205
 msgid "Select a country"
 msgstr "Επιλέξτε μια χώρα"
 
-#: browser/countries.py:202
+#: browser/countries.py:215
 msgid "No countries with channels found"
 msgstr "Δεν βρέθηκαν χώρες με κανάλια"
 
-#: browser/countries.py:205
+#: browser/countries.py:218
 msgid "Error loading countries"
 msgstr "Σφάλμα φόρτωσης χωρών"
 
-#: browser/countries.py:344
+#: browser/countries.py:241
+msgid "Will load fresh data next time"
+msgstr ""
+
+#: browser/countries.py:401
 msgid "No country selected"
 msgstr "Δεν επιλέχθηκε χώρα"
-
-#: browser/countries.py:370
-msgid "Refreshing..."
-msgstr "Ανανέωση..."
-
-#: browser/countries.py:374
-msgid "Countries refreshed"
-msgstr "Οι χώρες ανανεώθηκαν"
 
 #: browser/favorites.py:62
 msgid "Loading favorites..."
@@ -486,7 +456,7 @@ msgstr "Η ιεραρχική εξαγωγή ολοκληρώθηκε"
 msgid "No stream URL available"
 msgstr "Δεν υπάρχει διαθέσιμο URL ροής"
 
-#: browser/favorites.py:357 browser/search.py:414
+#: browser/favorites.py:357 browser/search.py:419
 msgid "Error opening player"
 msgstr "Σφάλμα ανοίγματος προγράμματος αναπαραγωγής"
 
@@ -503,7 +473,7 @@ msgstr "Να γίνει εξαγωγή ΟΛΩΝ των %d αγαπημένων �
 msgid "Search:"
 msgstr "Αναζήτηση:"
 
-#: browser/search.py:70 browser/search.py:171
+#: browser/search.py:70 browser/search.py:176
 msgid "Press GREEN for keyboard..."
 msgstr "Πατήστε το ΠΡΑΣΙΝΟ για πληκτρολόγιο..."
 
@@ -515,100 +485,100 @@ msgstr "Πληκτρολόγιο"
 msgid "Clear"
 msgstr "Εκκαθάριση"
 
-#: browser/search.py:137
+#: browser/search.py:142
 #, python-format
 msgid "Press GREEN for keyboard... Ready - %d channels"
 msgstr "Πατήστε το ΠΡΑΣΙΝΟ για πληκτρολόγιο... Έτοιμο - %d κανάλια"
 
-#: browser/search.py:140
+#: browser/search.py:145
 msgid "No channels loaded"
 msgstr "Δεν φορτώθηκαν κανάλια"
 
-#: browser/search.py:152
+#: browser/search.py:157
 msgid "Search Channels"
 msgstr "Αναζήτηση καναλιών"
 
-#: browser/search.py:161
+#: browser/search.py:166
 msgid "Searching..."
 msgstr "Αναζήτηση..."
 
-#: browser/search.py:325
+#: browser/search.py:330
 #, python-brace-format
 msgid "Showing {shown} of {total} results"
 msgstr "Εμφάνιση {shown} από {total} αποτελέσματα"
 
-#: browser/search.py:331
+#: browser/search.py:336
 #, python-format
 msgid "Found %d channels"
 msgstr "Βρέθηκαν %d κανάλια"
 
-#: browser/search.py:348
+#: browser/search.py:353
 #, python-format
 msgid "No channels found for: %s"
 msgstr "Δεν βρέθηκαν κανάλια για: %s"
 
-#: browser/search.py:422
+#: browser/search.py:427
 msgid "Removed from favorites"
 msgstr "Αφαιρέθηκε από τα αγαπημένα"
 
-#: browser/search.py:425
+#: browser/search.py:430
 msgid "Added to favorites"
 msgstr "Προστέθηκε στα αγαπημένα"
 
-#: plugin.py:202
+#: plugin.py:203
 msgid "Browse by Country"
 msgstr "Περιήγηση ανά χώρα"
 
-#: plugin.py:202
+#: plugin.py:203
 msgid "Browse channels by country"
 msgstr "Περιήγηση καναλιών ανά χώρα"
 
-#: plugin.py:203
+#: plugin.py:204
 msgid "Browse by Category"
 msgstr "Περιήγηση ανά κατηγορία"
 
-#: plugin.py:203
+#: plugin.py:204
 msgid "Browse channels by category"
 msgstr "Περιήγηση καναλιών ανά κατηγορία"
 
-#: plugin.py:204 utils/settings.py:345
+#: plugin.py:205 utils/settings.py:342
 msgid "Favorites"
 msgstr "Αγαπημένα"
 
-#: plugin.py:204
+#: plugin.py:205
 msgid "Your favorite channels"
 msgstr "Τα αγαπημένα σας κανάλια"
 
-#: plugin.py:205
+#: plugin.py:206
 msgid "Search"
 msgstr "Αναζήτηση"
 
-#: plugin.py:205
+#: plugin.py:206
 msgid "Search channels by name"
 msgstr "Αναζήτηση καναλιών βάσει ονόματος"
 
-#: plugin.py:206 utils/settings.py:188 utils/settings.py:216
-#: utils/settings.py:511
+#: plugin.py:207 utils/settings.py:204 utils/settings.py:232
+#: utils/settings.py:551
 msgid "Check for Updates"
 msgstr "Έλεγχος για ενημερώσεις"
 
-#: plugin.py:206
+#: plugin.py:207
 msgid "Check for plugin updates"
 msgstr "Έλεγχος για ενημερώσεις του πρόσθετου"
 
-#: plugin.py:207 plugin.py:219
+#: plugin.py:208 plugin.py:219
 msgid "Settings"
 msgstr "Ρυθμίσεις"
 
-#: plugin.py:207
+#: plugin.py:208
 msgid "Plugin settings and configuration"
 msgstr "Ρυθμίσεις και παραμετροποίηση του πρόσθετου"
 
-#: plugin.py:208
+#: plugin.py:209
 msgid "About"
 msgstr "Σχετικά"
 
-#: plugin.py:208
+#: plugin.py:209
 msgid "About TV Garden plugin"
 msgstr "Σχετικά με το πρόσθετο TV Garden"
 
@@ -616,11 +586,11 @@ msgstr "Σχετικά με το πρόσθετο TV Garden"
 msgid "Exit"
 msgstr "Έξοδος"
 
-#: plugin.py:263
+#: plugin.py:297
 msgid "Refreshing data..."
 msgstr "Ανανέωση δεδομένων..."
 
-#: plugin.py:277
+#: plugin.py:312
 #, python-format
 msgid ""
 "Refresh completed!\n"
@@ -629,138 +599,144 @@ msgstr ""
 "Η ανανέωση ολοκληρώθηκε!\n"
 "Φορτώθηκαν %d χώρες"
 
-#: plugin.py:282
+#: plugin.py:317
 #, python-format
 msgid "Refresh failed: %s"
 msgstr "Η ανανέωση απέτυχε: %s"
 
-#: plugin.py:305 utils/update_manager.py:57
+#: plugin.py:338 utils/update_manager.py:57
 msgid "Update check error"
 msgstr "Σφάλμα ελέγχου ενημέρωσης"
 
-#: plugin.py:307 utils/favorites.py:273 utils/favorites.py:640
-#: utils/favorites.py:688 utils/favorites.py:823 utils/settings.py:240
+#: plugin.py:340 utils/favorites.py:290 utils/favorites.py:386
+#: utils/favorites.py:757 utils/favorites.py:805 utils/favorites.py:945
+#: utils/settings.py:256
 #, python-format
 msgid "Error: %s"
 msgstr "Σφάλμα: %s"
 
-#: plugin.py:358
+#: plugin.py:387
 msgid "TV Garden"
 msgstr "TV Garden"
 
-#: plugin.py:394
+#: plugin.py:431
 msgid "Access free IPTV channels from around the world"
 msgstr "Πρόσβαση σε δωρεάν IPTV κανάλια από όλο τον κόσμο"
 
-#: utils/favorites.py:79
+#: utils/favorites.py:89
 msgid "Already in favorites"
 msgstr "Ήδη στα αγαπημένα"
 
-#: utils/favorites.py:91
+#: utils/favorites.py:101
 #, python-format
 msgid "Added to favorites: %s"
 msgstr "Προστέθηκε στα αγαπημένα: %s"
 
-#: utils/favorites.py:94 utils/favorites.py:109
+#: utils/favorites.py:104 utils/favorites.py:119
 msgid "Error saving favorites"
 msgstr "Σφάλμα αποθήκευσης αγαπημένων"
 
-#: utils/favorites.py:106
+#: utils/favorites.py:116
 #, python-format
 msgid "Removed from favorites: %s"
 msgstr "Αφαιρέθηκε από τα αγαπημένα: %s"
 
-#: utils/favorites.py:111
+#: utils/favorites.py:121
 msgid "Channel not found in favorites"
 msgstr "Το κανάλι δεν βρέθηκε στα αγαπημένα"
 
-#: utils/favorites.py:263 utils/favorites.py:480
+#: utils/favorites.py:277 utils/favorites.py:373
+#, python-format
+msgid "Error writing file: %s"
+msgstr ""
+
+#: utils/favorites.py:280 utils/favorites.py:376 utils/favorites.py:601
 msgid "No valid stream URLs found"
 msgstr "Δεν βρέθηκαν έγκυρα URL ροής"
 
-#: utils/favorites.py:269
+#: utils/favorites.py:286 utils/favorites.py:382
 #, python-format
 msgid "Exported %d channels to bouquet"
 msgstr "Έγινε εξαγωγή %d καναλιών σε μπουκέτο"
 
-#: utils/favorites.py:286 utils/favorites.py:701
+#: utils/favorites.py:409 utils/favorites.py:826
 msgid "Empty database"
 msgstr "Κενή βάση δεδομένων"
 
-#: utils/favorites.py:306 utils/favorites.py:705
+#: utils/favorites.py:429 utils/favorites.py:830
 msgid "Failed to load database"
 msgstr "Αποτυχία φόρτωσης βάσης δεδομένων"
 
-#: utils/favorites.py:398 utils/favorites.py:742
+#: utils/favorites.py:521 utils/favorites.py:867
 msgid "No valid channels found in database"
 msgstr "Δεν βρέθηκαν έγκυρα κανάλια στη βάση δεδομένων"
 
-#: utils/favorites.py:488
+#: utils/favorites.py:608
 msgid "Exported"
 msgstr "Εξήχθησαν"
 
-#: utils/favorites.py:490
+#: utils/favorites.py:610
 msgid "channels from"
 msgstr "κανάλια από"
 
-#: utils/favorites.py:492
+#: utils/favorites.py:612
 msgid "countries"
 msgstr "χώρες"
 
-#: utils/favorites.py:501 utils/settings.py:420
+#: utils/favorites.py:621 utils/settings.py:456
 msgid "Error"
 msgstr "Σφάλμα"
 
-#: utils/favorites.py:630
+#: utils/favorites.py:747
 msgid "Removed"
 msgstr "Αφαιρέθηκαν"
 
-#: utils/favorites.py:632
+#: utils/favorites.py:749
 msgid "files and"
 msgstr "αρχεία και"
 
-#: utils/favorites.py:634
+#: utils/favorites.py:751
 msgid "bouquet references"
 msgstr "αναφορές καναλιών"
 
-#: utils/favorites.py:684
+#: utils/favorites.py:801
 msgid "Channel added to bouquet"
 msgstr "Το κανάλι προστέθηκε στο μπουκέτο"
 
-#: utils/favorites.py:805
+#: utils/favorites.py:930
 msgid "Hierarchical export completed!"
 msgstr "Η ιεραρχική εξαγωγή ολοκληρώθηκε!"
 
-#: utils/favorites.py:807
+#: utils/favorites.py:931
 msgid "Statistics:"
 msgstr "Στατιστικά:"
 
-#: utils/favorites.py:808
+#: utils/favorites.py:932
 msgid "Total channels:"
 msgstr "Συνολικά κανάλια:"
 
-#: utils/favorites.py:809
+#: utils/favorites.py:933
 msgid "Countries exported:"
 msgstr "Χώρες που εξήχθησαν:"
 
-#: utils/favorites.py:810
+#: utils/favorites.py:934
 msgid "Files created:"
 msgstr "Αρχεία που δημιουργήθηκαν:"
 
-#: utils/favorites.py:813
+#: utils/favorites.py:936
 msgid "Structure created:"
 msgstr "Δομή που δημιουργήθηκε:"
 
-#: utils/favorites.py:816
+#: utils/favorites.py:938
 msgid "Main bouquet:"
 msgstr "Κύριο μπουκέτο:"
 
-#: utils/favorites.py:981
+#: utils/favorites.py:1104
 #, python-format
 msgid "Cleared %d favorites"
 msgstr "Εκκαθαρίστηκαν %d αγαπημένα"
 
-#: utils/favorites.py:984
+#: utils/favorites.py:1107
 msgid "Error clearing favorites"
 msgstr "Σφάλμα εκκαθάρισης αγαπημένων"
 
@@ -780,279 +756,283 @@ msgstr "Ρυθμίσεις TV Garden"
 msgid "Save"
 msgstr "Αποθήκευση"
 
-#: utils/settings.py:120 utils/settings.py:148 utils/settings.py:152
+#: utils/settings.py:120 utils/settings.py:164 utils/settings.py:168
 msgid "Set options"
 msgstr "Ορίστε τις επιλογές"
 
-#: utils/settings.py:150
+#: utils/settings.py:166
 #, python-format
 msgid "Editing: %s"
 msgstr "Επεξεργασία: %s"
 
-#: utils/settings.py:188 utils/settings.py:208 utils/settings.py:525
+#: utils/settings.py:204 utils/settings.py:224 utils/settings.py:545
 msgid "View Log File"
 msgstr "Προβολή αρχείου καταγραφής"
 
-#: utils/settings.py:188 utils/settings.py:212 utils/settings.py:526
+#: utils/settings.py:204 utils/settings.py:228 utils/settings.py:546
 msgid "Clear Log Files Now"
 msgstr "Εκκαθάριση αρχείων καταγραφής"
 
-#: utils/settings.py:236
+#: utils/settings.py:252
 msgid "Are you sure you want to clear all log files?"
 msgstr "Είστε σίγουροι ότι θέλετε να εκκαθαρίσετε όλα τα αρχεία καταγραφής;"
 
-#: utils/settings.py:247
+#: utils/settings.py:263
 msgid "Logs cleared"
 msgstr "Τα αρχεία καταγραφής εκκαθαρίστηκαν"
 
-#: utils/settings.py:250
+#: utils/settings.py:266
 msgid "Log files cleared successfully"
 msgstr "Τα αρχεία καταγραφής εκκαθαρίστηκαν με επιτυχία"
 
-#: utils/settings.py:257
+#: utils/settings.py:273
 #, python-format
 msgid "Error clearing logs: %s"
 msgstr "Σφάλμα εκκαθάρισης αρχείων καταγραφής: %s"
 
-#: utils/settings.py:273
+#: utils/settings.py:289
 msgid "ExtePlayer3"
 msgstr "ExtePlayer3"
 
-#: utils/settings.py:274
+#: utils/settings.py:290
 msgid "GStreamer"
 msgstr "GStreamer"
 
-#: utils/settings.py:309
-msgid "HD"
-msgstr "HD"
-
-#: utils/settings.py:310
-msgid "FHD"
-msgstr "FHD"
-
-#: utils/settings.py:311
-msgid "WQHD"
-msgstr "WQHD"
-
-#: utils/settings.py:332 utils/settings.py:372
+#: utils/settings.py:317 utils/settings.py:328 utils/settings.py:371
 msgid "100 channels"
 msgstr "100 κανάλια"
 
-#: utils/settings.py:333 utils/settings.py:373
+#: utils/settings.py:318 utils/settings.py:329 utils/settings.py:372
 msgid "250 channels"
 msgstr "250 κανάλια"
 
-#: utils/settings.py:334 utils/settings.py:374
+#: utils/settings.py:319 utils/settings.py:330 utils/settings.py:373
 msgid "500 channels"
 msgstr "500 κανάλια"
 
-#: utils/settings.py:335 utils/settings.py:375
+#: utils/settings.py:320 utils/settings.py:331 utils/settings.py:374
 msgid "1000 channels"
 msgstr "1000 κανάλια"
 
-#: utils/settings.py:336 utils/settings.py:376
+#: utils/settings.py:321 utils/settings.py:375
 msgid "All channels"
 msgstr "Όλα τα κανάλια"
 
-#: utils/settings.py:343
+#: utils/settings.py:332
+msgid "2000 channels"
+msgstr ""
+
+#: utils/settings.py:333
+msgid "5000 channels"
+msgstr ""
+
+#: utils/settings.py:340
 msgid "Countries"
 msgstr "Χώρες"
 
-#: utils/settings.py:344
+#: utils/settings.py:341
 msgid "Categories"
 msgstr "Κατηγορίες"
 
-#: utils/settings.py:371
+#: utils/settings.py:370
 msgid "50 channels"
 msgstr "50 κανάλια"
 
-#: utils/settings.py:393
+#: utils/settings.py:387
+msgid "Top"
+msgstr ""
+
+#: utils/settings.py:388
+msgid "Bottom"
+msgstr ""
+
+#: utils/settings.py:400
 msgid "512 KB"
 msgstr "512 KB"
 
-#: utils/settings.py:394
+#: utils/settings.py:401
 msgid "1 MB"
 msgstr "1 MB"
 
-#: utils/settings.py:395
+#: utils/settings.py:402
 msgid "2 MB"
 msgstr "2 MB"
 
-#: utils/settings.py:396
+#: utils/settings.py:403
 msgid "4 MB"
 msgstr "4 MB"
 
-#: utils/settings.py:397
+#: utils/settings.py:404
 msgid "8 MB"
 msgstr "8 MB"
 
-#: utils/settings.py:409
-msgid "Press OK to check for updates"
-msgstr "Πατήστε OK για έλεγχο ενημερώσεων"
+#: utils/settings.py:444
+msgid "Clear Cache"
+msgstr ""
 
-#: utils/settings.py:417
+#: utils/settings.py:445
+msgid "Force Refresh"
+msgstr ""
+
+#: utils/settings.py:453
 msgid "Debug"
 msgstr "Αποσφαλμάτωση"
 
-#: utils/settings.py:419
+#: utils/settings.py:454
+msgid "Info"
+msgstr "Πληροφορίες"
+
+#: utils/settings.py:455
 msgid "Warning"
 msgstr "Προειδοποίηση"
 
-#: utils/settings.py:421
+#: utils/settings.py:457
 msgid "Critical"
 msgstr "Κρίσιμα"
 
-#: utils/settings.py:441
+#: utils/settings.py:467
+msgid "Press OK to check for updates"
+msgstr "Πατήστε OK για έλεγχο ενημερώσεων"
+
+#: utils/settings.py:472
 msgid "Press OK to view logs"
 msgstr "Πατήστε OK για προβολή καταγραφών"
 
-#: utils/settings.py:446
+#: utils/settings.py:477
 msgid "Press OK to clear logs"
 msgstr "Πατήστε OK για εκκαθάριση καταγραφών"
 
-#: utils/settings.py:455
-msgid "=== Player Settings ==="
-msgstr "=== Ρυθμίσεις προγράμματος αναπαραγωγής ==="
-
-#: utils/settings.py:457
-msgid "Player"
-msgstr "Πρόγραμμα αναπαραγωγής"
-
-#: utils/settings.py:458
-msgid "Volume"
-msgstr "Ένταση"
-
-#: utils/settings.py:459
-msgid "Timeout (seconds)"
-msgstr "Χρόνος αναμονής (δευτερόλεπτα)"
-
-#: utils/settings.py:460
-msgid "Retries"
-msgstr "Επαναλήψεις"
-
-#: utils/settings.py:463
-msgid "=== Cache Settings ==="
-msgstr "=== Ρυθμίσεις προσωρινής μνήμης ==="
-
-#: utils/settings.py:465
-msgid "Cache TTL (hours)"
-msgstr "Διάρκεια προσωρινής μνήμης (ώρες)"
-
-#: utils/settings.py:466
-msgid "Cache Size"
-msgstr "Μέγεθος προσωρινής μνήμης"
-
-#: utils/settings.py:469
-msgid "=== Display Settings ==="
-msgstr "=== Ρυθμίσεις εμφάνισης ==="
-
-#: utils/settings.py:471
-msgid "Skin"
-msgstr "Εμφάνιση"
-
-#: utils/settings.py:472
-msgid "Show Flags"
-msgstr "Εμφάνιση σημαιών"
-
-#: utils/settings.py:473
-msgid "Show Logos"
-msgstr "Εμφάνιση λογότυπων"
-
-#: utils/settings.py:474
-msgid "Items per page"
-msgstr "Στοιχεία ανά σελίδα"
-
-#: utils/settings.py:477
+#: utils/settings.py:486
 msgid "=== Browser Settings ==="
 msgstr "=== Ρυθμίσεις προγράμματος περιήγησης ==="
 
-#: utils/settings.py:479
-msgid "Max channels per country"
-msgstr "Μέγιστος αριθμός καναλιών ανά χώρα"
-
-#: utils/settings.py:480
+#: utils/settings.py:488
 msgid "Default View"
 msgstr "Προεπιλεγμένη προβολή"
 
-#: utils/settings.py:483
-msgid "=== Favorites Settings ==="
-msgstr "=== Ρυθμίσεις αγαπημένων ==="
+#: utils/settings.py:489
+msgid "Max channels for country"
+msgstr ""
 
-#: utils/settings.py:485
-msgid "Max Favorites"
-msgstr "Μέγιστος αριθμός αγαπημένων"
+#: utils/settings.py:490
+msgid "Show Flags"
+msgstr "Εμφάνιση σημαιών"
 
-#: utils/settings.py:488
+#: utils/settings.py:491
+msgid "Show Logos"
+msgstr "Εμφάνιση λογότυπων"
+
+#: utils/settings.py:494
+msgid "=== Player Settings ==="
+msgstr "=== Ρυθμίσεις προγράμματος αναπαραγωγής ==="
+
+#: utils/settings.py:496
+msgid "Player"
+msgstr "Πρόγραμμα αναπαραγωγής"
+
+#: utils/settings.py:499
 msgid "=== Export Settings ==="
 msgstr "=== Ρυθμίσεις εξαγωγής ==="
 
-#: utils/settings.py:490
+#: utils/settings.py:501
 msgid "Enable Export"
 msgstr "Ενεργοποίηση εξαγωγής"
 
-#: utils/settings.py:492
-msgid "Auto-Refresh Bouquet"
-msgstr "Αυτόματη ανανέωση μπουκέτου"
+#: utils/settings.py:503
+msgid "List Position"
+msgstr ""
 
-#: utils/settings.py:493
-msgid "Confirm Before Export"
-msgstr "Επιβεβαίωση πριν την εξαγωγή"
-
-#: utils/settings.py:494
-msgid "Max Channels per Bouquet"
-msgstr "Μέγιστος αριθμός καναλιών ανά μπουκέτο"
-
-#: utils/settings.py:495
+#: utils/settings.py:504
 msgid "Bouquet Name Prefix"
 msgstr "Πρόθεμα ονόματος μπουκέτου"
 
-#: utils/settings.py:498
+#: utils/settings.py:505
+msgid "Max Channels for Bouquet"
+msgstr ""
+
+#: utils/settings.py:506
+msgid "Max Channels for Sub-Bouquet"
+msgstr ""
+
+#: utils/settings.py:509
 msgid "=== Performance Settings ==="
 msgstr "=== Ρυθμίσεις απόδοσης ==="
 
-#: utils/settings.py:500
+#: utils/settings.py:511
+msgid "Memory Optimization"
+msgstr ""
+
+#: utils/settings.py:512
 msgid "Use Hardware Acceleration"
 msgstr "Χρήση επιτάχυνσης υλικού"
 
-#: utils/settings.py:501
+#: utils/settings.py:513
 msgid "Buffer Size"
 msgstr "Μέγεθος προσωρινής αποθήκευσης"
 
-#: utils/settings.py:504
+#: utils/settings.py:516
 msgid "=== Network Settings ==="
 msgstr "=== Ρυθμίσεις δικτύου ==="
 
-#: utils/settings.py:506
+#: utils/settings.py:518
 msgid "User Agent"
 msgstr "Παράγοντας χρήστη"
 
-#: utils/settings.py:509
-msgid "=== Update Settings ==="
-msgstr "=== Ρυθμίσεις ενημέρωσης ==="
+#: utils/settings.py:519
+msgid "Connection Timeout"
+msgstr ""
 
-#: utils/settings.py:514
+#: utils/settings.py:522
+msgid "=== Cache Settings ==="
+msgstr "=== Ρυθμίσεις προσωρινής μνήμης ==="
+
+#: utils/settings.py:524
+msgid "Enable Cache"
+msgstr ""
+
+#: utils/settings.py:527
+msgid "Cache Size"
+msgstr "Μέγεθος προσωρινής μνήμης"
+
+#: utils/settings.py:528
+msgid "Refresh Method"
+msgstr ""
+
+#: utils/settings.py:529
+msgid "Force Refresh on Browsing"
+msgstr ""
+
+#: utils/settings.py:530
+msgid "Force Refresh on Export"
+msgstr ""
+
+#: utils/settings.py:533
+msgid "=== Search Settings ==="
+msgstr ""
+
+#: utils/settings.py:535
+msgid "Max Search Results"
+msgstr ""
+
+#: utils/settings.py:538
 msgid "=== Logging Settings ==="
 msgstr "=== Ρυθμίσεις καταγραφής ==="
 
-#: utils/settings.py:516
+#: utils/settings.py:540
 msgid "Log Level"
 msgstr "Επίπεδο καταγραφής"
 
-#: utils/settings.py:517
+#: utils/settings.py:541
 msgid "Log to File"
 msgstr "Καταγραφή σε αρχείο"
 
-#: utils/settings.py:519
-msgid "Max Log Size (MB)"
-msgstr "Μέγιστο μέγεθος αρχείου καταγραφής (MB)"
-
-#: utils/settings.py:520
-msgid "Log Backup Files"
-msgstr "Αρχεία αντιγράφων ασφαλείας καταγραφής"
-
-#: utils/settings.py:523
+#: utils/settings.py:543
 msgid "=== Log Maintenance ==="
 msgstr "=== Συντήρηση καταγραφής ==="
+
+#: utils/settings.py:549
+msgid "=== Update Settings ==="
+msgstr "=== Ρυθμίσεις ενημέρωσης ==="
 
 #: utils/update_manager.py:23
 msgid "Checking for updates..."
@@ -1128,23 +1108,107 @@ msgstr "Ενημέρωση του πρόσθετου... Παρακαλώ περ�
 msgid "Please restart Enigma2 manually."
 msgstr "Παρακαλώ επανεκκινήστε το Enigma2 χειροκίνητα."
 
-#: utils/updater.py:152
+#: utils/updater.py:155
 msgid "Failed to create backup. Update cancelled."
 msgstr "Αποτυχία δημιουργίας αντιγράφου ασφαλείας. Η ενημέρωση ακυρώθηκε."
 
-#: utils/updater.py:160
+#: utils/updater.py:163
 msgid "Update completed successfully!"
 msgstr "Η ενημέρωση ολοκληρώθηκε με επιτυχία!"
 
-#: utils/updater.py:164
+#: utils/updater.py:167
 msgid "Update failed. Restored from backup."
 msgstr "Η ενημέρωση απέτυχε. Η επαναφορά από το αντίγραφο ασφαλείας ολοκληρώθηκε."
 
-#: utils/updater.py:166
+#: utils/updater.py:169
 msgid "Update failed and backup restore also failed!"
 msgstr "Η ενημέρωση απέτυχε και η επαναφορά αντιγράφου ασφαλείας επίσης απέτυχε!"
 
-#: utils/updater.py:175
+#: utils/updater.py:178
 #, python-format
 msgid "Update error: %s"
 msgstr "Σφάλμα ενημέρωσης: %s"
+
+#~ msgid "Export Settings"
+#~ msgstr "Ρυθμίσεις εξαγωγής"
+
+#~ msgid "ENABLED"
+#~ msgstr "ΕΝΕΡΓΟΠΟΙΗΜΕΝΟ"
+
+#~ msgid "DISABLED"
+#~ msgstr "ΑΠΕΝΕΡΓΟΠΟΙΗΜΕΝΟ"
+
+#~ msgid "ON"
+#~ msgstr "ON"
+
+#~ msgid "OFF"
+#~ msgstr "OFF"
+
+#, python-format
+#~ msgid "Export: %s"
+#~ msgstr "Εξαγωγή: %s"
+
+#, python-format
+#~ msgid "Auto-refresh: %s"
+#~ msgstr "Αυτόματη ανανέωση: %s"
+
+#, python-format
+#~ msgid "Confirm before export: %s"
+#~ msgstr "Επιβεβαίωση πριν την εξαγωγή: %s"
+
+#~ msgid "Test Export (1 channel)"
+#~ msgstr "Δοκιμαστική εξαγωγή (1 κανάλι)"
+
+#~ msgid "HD"
+#~ msgstr "HD"
+
+#~ msgid "FHD"
+#~ msgstr "FHD"
+
+#~ msgid "WQHD"
+#~ msgstr "WQHD"
+
+#~ msgid "Volume"
+#~ msgstr "Ένταση"
+
+#~ msgid "Timeout (seconds)"
+#~ msgstr "Χρόνος αναμονής (δευτερόλεπτα)"
+
+#~ msgid "Retries"
+#~ msgstr "Επαναλήψεις"
+
+#~ msgid "=== Display Settings ==="
+#~ msgstr "=== Ρυθμίσεις εμφάνισης ==="
+
+#~ msgid "Skin"
+#~ msgstr "Εμφάνιση"
+
+#~ msgid "Items per page"
+#~ msgstr "Στοιχεία ανά σελίδα"
+
+#~ msgid "=== Favorites Settings ==="
+#~ msgstr "=== Ρυθμίσεις αγαπημένων ==="
+
+#~ msgid "Max Favorites"
+#~ msgstr "Μέγιστος αριθμός αγαπημένων"
+
+#~ msgid "Auto-Refresh Bouquet"
+#~ msgstr "Αυτόματη ανανέωση μπουκέτου"
+
+#~ msgid "Confirm Before Export"
+#~ msgstr "Επιβεβαίωση πριν την εξαγωγή"
+
+#~ msgid "Cache TTL (hours)"
+#~ msgstr "Διάρκεια προσωρινής μνήμης (ώρες)"
+
+#~ msgid "Max Log Size (MB)"
+#~ msgstr "Μέγιστο μέγεθος αρχείου καταγραφής (MB)"
+
+#~ msgid "Log Backup Files"
+#~ msgstr "Αρχεία αντιγράφων ασφαλείας καταγραφής"
+
+#~ msgid "Refreshing cache..."
+#~ msgstr "Ανανέωση προσωρινής μνήμης..."
+
+#~ msgid "Countries refreshed"
+#~ msgstr "Οι χώρες ανανεώθηκαν"
