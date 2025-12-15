@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TVGarden\n"
-"POT-Creation-Date: 2025-12-15 21:02+0100\n"
+"POT-Creation-Date: 2025-12-15 21:01+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: giorbak\n"
@@ -11,9 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.8\n"
-"X-Poedit-Basepath: ../../..\n"
+"X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-0: helpers.py\n"
+"X-Poedit-SearchPath-1: plugin.py\n"
+"X-Poedit-SearchPath-2: browser\n"
+"X-Poedit-SearchPath-3: player\n"
+"X-Poedit-SearchPath-4: utils\n"
 
 #: browser/about.py:44
 msgid "TV Garden Plugin"
@@ -33,12 +37,12 @@ msgstr "Σφάλμα φόρτωσης πληροφοριών"
 
 #: browser/base.py:103
 msgid "No items"
-msgstr ""
+msgstr "Δεν υπάρχουν στοιχεία"
 
 #: browser/base.py:107
 #, python-brace-format
 msgid "Item {} of {}"
-msgstr ""
+msgstr "Στοιχείο {} από {}"
 
 #: browser/categories.py:28
 msgid "Animation"
@@ -191,7 +195,7 @@ msgstr "Η προσωρινή μνήμη εκκαθαρίστηκε"
 
 #: browser/categories.py:201
 msgid "Next load will use fresh data"
-msgstr ""
+msgstr "Η επόμενη φόρτωση θα χρησιμοποιήσει φρέσκα δεδομένα"
 
 #: browser/categories.py:205 browser/countries.py:246
 msgid "Refresh failed"
@@ -235,11 +239,11 @@ msgstr "Εξαγωγή"
 
 #: browser/channels.py:368 browser/countries.py:201
 msgid " [Fresh data]"
-msgstr ""
+msgstr " [Φρέσκα δεδομένα]"
 
 #: browser/channels.py:370 browser/countries.py:203
 msgid " [Cache disabled]"
-msgstr ""
+msgstr " [Η προσωρινή μνήμη είναι απενεργοποιημένη]"
 
 #: browser/channels.py:373
 #, python-brace-format
@@ -334,7 +338,7 @@ msgstr "Σφάλμα φόρτωσης χωρών"
 
 #: browser/countries.py:241
 msgid "Will load fresh data next time"
-msgstr ""
+msgstr "Την επόμενη φορά θα φορτωθούν φρέσκα δεδομένα"
 
 #: browser/countries.py:401
 msgid "No country selected"
@@ -648,7 +652,7 @@ msgstr "Το κανάλι δεν βρέθηκε στα αγαπημένα"
 #: utils/favorites.py:277 utils/favorites.py:373
 #, python-format
 msgid "Error writing file: %s"
-msgstr ""
+msgstr "Σφάλμα κατά την εγγραφή αρχείου: %s"
 
 #: utils/favorites.py:280 utils/favorites.py:376 utils/favorites.py:601
 msgid "No valid stream URLs found"
@@ -820,11 +824,11 @@ msgstr "Όλα τα κανάλια"
 
 #: utils/settings.py:332
 msgid "2000 channels"
-msgstr ""
+msgstr "2000 κανάλια"
 
 #: utils/settings.py:333
 msgid "5000 channels"
-msgstr ""
+msgstr "5000 κανάλια"
 
 #: utils/settings.py:340
 msgid "Countries"
@@ -840,11 +844,11 @@ msgstr "50 κανάλια"
 
 #: utils/settings.py:387
 msgid "Top"
-msgstr ""
+msgstr "Πάνω"
 
 #: utils/settings.py:388
 msgid "Bottom"
-msgstr ""
+msgstr "Κάτω"
 
 #: utils/settings.py:400
 msgid "512 KB"
@@ -868,11 +872,11 @@ msgstr "8 MB"
 
 #: utils/settings.py:444
 msgid "Clear Cache"
-msgstr ""
+msgstr "Εκκαθάριση προσωρινής μνήμης"
 
 #: utils/settings.py:445
 msgid "Force Refresh"
-msgstr ""
+msgstr "Αναγκαστική ανανέωση"
 
 #: utils/settings.py:453
 msgid "Debug"
@@ -912,7 +916,7 @@ msgstr "Προεπιλεγμένη προβολή"
 
 #: utils/settings.py:489
 msgid "Max channels for country"
-msgstr ""
+msgstr "Μέγιστος αριθμός καναλιών για χώρα"
 
 #: utils/settings.py:490
 msgid "Show Flags"
@@ -940,7 +944,7 @@ msgstr "Ενεργοποίηση εξαγωγής"
 
 #: utils/settings.py:503
 msgid "List Position"
-msgstr ""
+msgstr "Θέση λίστας"
 
 #: utils/settings.py:504
 msgid "Bouquet Name Prefix"
@@ -948,11 +952,11 @@ msgstr "Πρόθεμα ονόματος μπουκέτου"
 
 #: utils/settings.py:505
 msgid "Max Channels for Bouquet"
-msgstr ""
+msgstr "Μέγιστος αριθμός καναλιών για μπουκέτο"
 
 #: utils/settings.py:506
 msgid "Max Channels for Sub-Bouquet"
-msgstr ""
+msgstr "Μέγιστος αριθμός καναλιών για υπο-μπουκέτο"
 
 #: utils/settings.py:509
 msgid "=== Performance Settings ==="
@@ -960,7 +964,7 @@ msgstr "=== Ρυθμίσεις απόδοσης ==="
 
 #: utils/settings.py:511
 msgid "Memory Optimization"
-msgstr ""
+msgstr "Βελτιστοποίηση μνήμης"
 
 #: utils/settings.py:512
 msgid "Use Hardware Acceleration"
@@ -980,7 +984,7 @@ msgstr "Παράγοντας χρήστη"
 
 #: utils/settings.py:519
 msgid "Connection Timeout"
-msgstr ""
+msgstr "Χρονικό όριο σύνδεσης"
 
 #: utils/settings.py:522
 msgid "=== Cache Settings ==="
@@ -988,7 +992,7 @@ msgstr "=== Ρυθμίσεις προσωρινής μνήμης ==="
 
 #: utils/settings.py:524
 msgid "Enable Cache"
-msgstr ""
+msgstr "Ενεργοποίηση προσωρινής μνήμης"
 
 #: utils/settings.py:527
 msgid "Cache Size"
@@ -996,23 +1000,23 @@ msgstr "Μέγεθος προσωρινής μνήμης"
 
 #: utils/settings.py:528
 msgid "Refresh Method"
-msgstr ""
+msgstr "Μέθοδος ανανέωσης"
 
 #: utils/settings.py:529
 msgid "Force Refresh on Browsing"
-msgstr ""
+msgstr "Αναγκαστική ανανέωση κατά την περιήγηση"
 
 #: utils/settings.py:530
 msgid "Force Refresh on Export"
-msgstr ""
+msgstr "Αναγκαστική ανανέωση κατά την εξαγωγή"
 
 #: utils/settings.py:533
 msgid "=== Search Settings ==="
-msgstr ""
+msgstr "=== Ρυθμίσεις αναζήτησης ==="
 
 #: utils/settings.py:535
 msgid "Max Search Results"
-msgstr ""
+msgstr "Μέγιστος αριθμός αποτελεσμάτων αναζήτησης"
 
 #: utils/settings.py:538
 msgid "=== Logging Settings ==="
@@ -1128,87 +1132,3 @@ msgstr "Η ενημέρωση απέτυχε και η επαναφορά αντ
 #, python-format
 msgid "Update error: %s"
 msgstr "Σφάλμα ενημέρωσης: %s"
-
-#~ msgid "Export Settings"
-#~ msgstr "Ρυθμίσεις εξαγωγής"
-
-#~ msgid "ENABLED"
-#~ msgstr "ΕΝΕΡΓΟΠΟΙΗΜΕΝΟ"
-
-#~ msgid "DISABLED"
-#~ msgstr "ΑΠΕΝΕΡΓΟΠΟΙΗΜΕΝΟ"
-
-#~ msgid "ON"
-#~ msgstr "ON"
-
-#~ msgid "OFF"
-#~ msgstr "OFF"
-
-#, python-format
-#~ msgid "Export: %s"
-#~ msgstr "Εξαγωγή: %s"
-
-#, python-format
-#~ msgid "Auto-refresh: %s"
-#~ msgstr "Αυτόματη ανανέωση: %s"
-
-#, python-format
-#~ msgid "Confirm before export: %s"
-#~ msgstr "Επιβεβαίωση πριν την εξαγωγή: %s"
-
-#~ msgid "Test Export (1 channel)"
-#~ msgstr "Δοκιμαστική εξαγωγή (1 κανάλι)"
-
-#~ msgid "HD"
-#~ msgstr "HD"
-
-#~ msgid "FHD"
-#~ msgstr "FHD"
-
-#~ msgid "WQHD"
-#~ msgstr "WQHD"
-
-#~ msgid "Volume"
-#~ msgstr "Ένταση"
-
-#~ msgid "Timeout (seconds)"
-#~ msgstr "Χρόνος αναμονής (δευτερόλεπτα)"
-
-#~ msgid "Retries"
-#~ msgstr "Επαναλήψεις"
-
-#~ msgid "=== Display Settings ==="
-#~ msgstr "=== Ρυθμίσεις εμφάνισης ==="
-
-#~ msgid "Skin"
-#~ msgstr "Εμφάνιση"
-
-#~ msgid "Items per page"
-#~ msgstr "Στοιχεία ανά σελίδα"
-
-#~ msgid "=== Favorites Settings ==="
-#~ msgstr "=== Ρυθμίσεις αγαπημένων ==="
-
-#~ msgid "Max Favorites"
-#~ msgstr "Μέγιστος αριθμός αγαπημένων"
-
-#~ msgid "Auto-Refresh Bouquet"
-#~ msgstr "Αυτόματη ανανέωση μπουκέτου"
-
-#~ msgid "Confirm Before Export"
-#~ msgstr "Επιβεβαίωση πριν την εξαγωγή"
-
-#~ msgid "Cache TTL (hours)"
-#~ msgstr "Διάρκεια προσωρινής μνήμης (ώρες)"
-
-#~ msgid "Max Log Size (MB)"
-#~ msgstr "Μέγιστο μέγεθος αρχείου καταγραφής (MB)"
-
-#~ msgid "Log Backup Files"
-#~ msgstr "Αρχεία αντιγράφων ασφαλείας καταγραφής"
-
-#~ msgid "Refreshing cache..."
-#~ msgstr "Ανανέωση προσωρινής μνήμης..."
-
-#~ msgid "Countries refreshed"
-#~ msgstr "Οι χώρες ανανεώθηκαν"
