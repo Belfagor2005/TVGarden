@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TVGarden\n"
-"POT-Creation-Date: 2025-12-15 21:02+0100\n"
-"PO-Revision-Date: 2025-12-15 21:03+0100\n"
+"POT-Creation-Date: 2025-12-16 14:01+0100\n"
+"PO-Revision-Date: 2025-12-16 14:01+0100\n"
 "Last-Translator: Orlandox\n"
 "Language-Team: Orlandox [www.huoltovalikko.com]\n"
 "Language: fi\n"
@@ -33,12 +33,12 @@ msgstr "Virhe ladattaessa tietoja"
 
 #: browser/base.py:103
 msgid "No items"
-msgstr ""
+msgstr "Ei kohteita"
 
 #: browser/base.py:107
 #, python-brace-format
 msgid "Item {} of {}"
-msgstr ""
+msgstr "Kohde {} / {}"
 
 #: browser/categories.py:28
 msgid "Animation"
@@ -165,7 +165,7 @@ msgstr "Ladataan kategorioita..."
 msgid "Back"
 msgstr "Takaisin"
 
-#: browser/categories.py:96 browser/countries.py:74 plugin.py:217
+#: browser/categories.py:96 browser/countries.py:74 plugin.py:214
 msgid "Select"
 msgstr "Valitse"
 
@@ -191,7 +191,7 @@ msgstr "Välimuisti tyhjennetty"
 
 #: browser/categories.py:201
 msgid "Next load will use fresh data"
-msgstr ""
+msgstr "Seuraava lataus käyttää uutta dataa"
 
 #: browser/categories.py:205 browser/countries.py:246
 msgid "Refresh failed"
@@ -235,11 +235,11 @@ msgstr "Vie"
 
 #: browser/channels.py:368 browser/countries.py:201
 msgid " [Fresh data]"
-msgstr ""
+msgstr " [Tuoretta dataa]"
 
 #: browser/channels.py:370 browser/countries.py:203
 msgid " [Cache disabled]"
-msgstr ""
+msgstr " [Välimuisti pois käytöstä]"
 
 #: browser/channels.py:373
 #, python-brace-format
@@ -316,7 +316,7 @@ msgstr "Striimi: %s"
 msgid "Loading countries..."
 msgstr "Ladataan maita..."
 
-#: browser/countries.py:75 plugin.py:218
+#: browser/countries.py:75 plugin.py:215
 msgid "Refresh"
 msgstr "Virkistä"
 
@@ -334,7 +334,7 @@ msgstr "Virhe ladattaessa maita"
 
 #: browser/countries.py:241
 msgid "Will load fresh data next time"
-msgstr ""
+msgstr "Ladataan tuoreet tiedot seuraavalla kerralla"
 
 #: browser/countries.py:401
 msgid "No country selected"
@@ -567,7 +567,7 @@ msgstr "Tarkista päivitykset"
 msgid "Check for plugin updates"
 msgstr "Tarkista lisäosan päivitykset"
 
-#: plugin.py:208 plugin.py:219
+#: plugin.py:208 plugin.py:216
 msgid "Settings"
 msgstr "Asetukset"
 
@@ -583,15 +583,15 @@ msgstr "Tietoja"
 msgid "About TV Garden plugin"
 msgstr "Tietoja TV Garden -lisäosasta"
 
-#: plugin.py:216
+#: plugin.py:213
 msgid "Exit"
 msgstr "Poistu"
 
-#: plugin.py:297
+#: plugin.py:293
 msgid "Refreshing data..."
 msgstr "Virkistetään dataa..."
 
-#: plugin.py:312
+#: plugin.py:308
 #, python-format
 msgid ""
 "Refresh completed!\n"
@@ -600,27 +600,27 @@ msgstr ""
 "Virkistys valmis!\n"
 "Ladattiin %d maata"
 
-#: plugin.py:317
+#: plugin.py:313
 #, python-format
 msgid "Refresh failed: %s"
 msgstr "Virkistys epäonnistui: %s"
 
-#: plugin.py:338 utils/update_manager.py:57
+#: plugin.py:334 utils/update_manager.py:57
 msgid "Update check error"
 msgstr "Päivitysvirhe"
 
-#: plugin.py:340 utils/favorites.py:290 utils/favorites.py:386
+#: plugin.py:336 utils/favorites.py:290 utils/favorites.py:386
 #: utils/favorites.py:757 utils/favorites.py:805 utils/favorites.py:945
 #: utils/settings.py:256
 #, python-format
 msgid "Error: %s"
 msgstr "Virhe: %s"
 
-#: plugin.py:387
+#: plugin.py:383
 msgid "TV Garden"
 msgstr "TV Garden"
 
-#: plugin.py:431
+#: plugin.py:436
 msgid "Access free IPTV channels from around the world"
 msgstr "Käytä ilmaisia ​​IPTV-kanavia ympäri maailmaa"
 
@@ -649,7 +649,7 @@ msgstr "Kanavaa ei löytynyt suosikeista"
 #: utils/favorites.py:277 utils/favorites.py:373
 #, python-format
 msgid "Error writing file: %s"
-msgstr ""
+msgstr "Virhe tiedoston kirjoituksessa: %s"
 
 #: utils/favorites.py:280 utils/favorites.py:376 utils/favorites.py:601
 msgid "No valid stream URLs found"
@@ -820,14 +820,12 @@ msgid "All channels"
 msgstr "Kaikki kanavat"
 
 #: utils/settings.py:332
-#| msgid "1000 channels"
 msgid "2000 channels"
-msgstr ""
+msgstr "2000 kanavaa"
 
 #: utils/settings.py:333
-#| msgid "500 channels"
 msgid "5000 channels"
-msgstr ""
+msgstr "5000 kanavaa"
 
 #: utils/settings.py:340
 msgid "Countries"
@@ -843,11 +841,11 @@ msgstr "50 kanavaa"
 
 #: utils/settings.py:387
 msgid "Top"
-msgstr ""
+msgstr "Ylimpänä"
 
 #: utils/settings.py:388
 msgid "Bottom"
-msgstr ""
+msgstr "Alinpana"
 
 #: utils/settings.py:400
 msgid "512 KB"
@@ -871,11 +869,11 @@ msgstr "8 MB"
 
 #: utils/settings.py:444
 msgid "Clear Cache"
-msgstr ""
+msgstr "Tyhjennä välimuisti"
 
 #: utils/settings.py:445
 msgid "Force Refresh"
-msgstr ""
+msgstr "Pakota virkistys"
 
 #: utils/settings.py:453
 msgid "Debug"
@@ -914,9 +912,8 @@ msgid "Default View"
 msgstr "Oletusnäkymä"
 
 #: utils/settings.py:489
-#| msgid "Max channels per country"
 msgid "Max channels for country"
-msgstr ""
+msgstr "Max kanavat maalle"
 
 #: utils/settings.py:490
 msgid "Show Flags"
@@ -944,21 +941,19 @@ msgstr "Salli vienti"
 
 #: utils/settings.py:503
 msgid "List Position"
-msgstr ""
+msgstr "Suosikkilistan paikka"
 
 #: utils/settings.py:504
 msgid "Bouquet Name Prefix"
 msgstr "Suosikkilistan nimen etuliite"
 
 #: utils/settings.py:505
-#| msgid "Max Channels per Bouquet"
 msgid "Max Channels for Bouquet"
-msgstr ""
+msgstr "Max kanavat suosikkilistalle"
 
 #: utils/settings.py:506
-#| msgid "Max Channels per Bouquet"
 msgid "Max Channels for Sub-Bouquet"
-msgstr ""
+msgstr "Max kanavat ali-suosikkilistalle"
 
 #: utils/settings.py:509
 msgid "=== Performance Settings ==="
@@ -966,7 +961,7 @@ msgstr "=== Suorituskykyasetukset ==="
 
 #: utils/settings.py:511
 msgid "Memory Optimization"
-msgstr ""
+msgstr "Muistin optimointi"
 
 #: utils/settings.py:512
 msgid "Use Hardware Acceleration"
@@ -986,7 +981,7 @@ msgstr "Käyttäjäagentti"
 
 #: utils/settings.py:519
 msgid "Connection Timeout"
-msgstr ""
+msgstr "Yhteyden aikakatkaisu"
 
 #: utils/settings.py:522
 msgid "=== Cache Settings ==="
@@ -994,7 +989,7 @@ msgstr "=== Välimuistin asetukset ==="
 
 #: utils/settings.py:524
 msgid "Enable Cache"
-msgstr ""
+msgstr "Välimuisti käytössä"
 
 #: utils/settings.py:527
 msgid "Cache Size"
@@ -1002,23 +997,23 @@ msgstr "Välimuistin koko"
 
 #: utils/settings.py:528
 msgid "Refresh Method"
-msgstr ""
+msgstr "Virkistysmenetelmä"
 
 #: utils/settings.py:529
 msgid "Force Refresh on Browsing"
-msgstr ""
+msgstr "Pakota virkistys selattaessa"
 
 #: utils/settings.py:530
 msgid "Force Refresh on Export"
-msgstr ""
+msgstr "Pakota virkistys vietäessä"
 
 #: utils/settings.py:533
 msgid "=== Search Settings ==="
-msgstr ""
+msgstr "===Etsinnän asetukset ==="
 
 #: utils/settings.py:535
 msgid "Max Search Results"
-msgstr ""
+msgstr "Max hakutulokset"
 
 #: utils/settings.py:538
 msgid "=== Logging Settings ==="
