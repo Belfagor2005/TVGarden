@@ -17,9 +17,9 @@ from Components.ActionMap import ActionMap
 from sys import version_info
 
 from .. import _
-from ..helpers import log
 from .base import BaseBrowser
 from .channels import ChannelsBrowser
+from ..helpers import log
 from ..utils.cache import CacheManager
 from ..utils.config import PluginConfig, get_config
 
@@ -44,7 +44,7 @@ class CountriesBrowser(BaseBrowser):
             <widget source="key_yellow" render="Label" position="315,650" zPosition="1" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend"/>
             <widget name="menu" position="28,116" size="680,474" scrollbarMode="showOnDemand" backgroundColor="#16213e"/>
             <widget name="status" position="603,643" size="648,50" font="Regular; 22" halign="center" foregroundColor="#3333ff" transparent="1" alphatest="blend"/>
-            <widget name="flag" position="751,468" size="190,120" alphatest="blend"/>
+            <widget name="flag" position="751,468" size="190,120" alphatest="blend" scale="1"/>
             <eLabel backgroundColor="#001a2336" cornerRadius="30" position="5,639" size="1270,60" zPosition="-80"/>
             <eLabel name="" position="24,101" size="694,502" zPosition="-1" cornerRadius="18" backgroundColor="#00171a1c" foregroundColor="#00171a1c"/>
             <widget source="session.VideoPicture" render="Pig" position="739,140" zPosition="19" size="520,308" backgroundColor="transparent" transparent="0" cornerRadius="14"/>
@@ -228,7 +228,7 @@ class CountriesBrowser(BaseBrowser):
             refresh_method = config.get("refresh_method", "clear_cache")  # "clear_cache" o "force_refresh"
 
             if refresh_method == "clear_cache":
-                # Pulisce tutta la cache
+                # Clean all cache
                 self.cache.clear_all()
                 log.info("Cache cleared manually", module="Countries")
                 self["status"].setText(_("Cache cleared"))
@@ -314,7 +314,7 @@ class CountriesBrowser(BaseBrowser):
             try:
                 from os import close
                 temp_fd, temp_path = tempfile.mkstemp(suffix='.png')
-                close(temp_fd)  # Chiudi il file descriptor
+                close(temp_fd)
 
                 f = None
                 try:
@@ -417,9 +417,11 @@ class CountriesBrowser(BaseBrowser):
             except:
                 pass
 
-        self.session.open(ChannelsBrowser,
-                          country_code=self.selected_country['code'],
-                          country_name=self.selected_country['name'])
+        self.session.open(
+            ChannelsBrowser,
+            country_code=str(self.selected_country.get('code', '')),
+            country_name=str(self.selected_country.get('name', ''))
+        )
 
     def up(self):
         self["menu"].up()
