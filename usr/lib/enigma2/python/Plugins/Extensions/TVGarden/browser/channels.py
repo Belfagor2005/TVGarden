@@ -6,14 +6,13 @@ List and play IPTV channels
 Based on TV Garden Project
 """
 from __future__ import print_function
+
 import tempfile
 from os import unlink
+from os.path import exists
 from sys import stderr, version_info
-from enigma import (
-    ePicLoad,
-    eServiceReference,
-)
-from Components.Label import Label
+from enigma import ePicLoad, eServiceReference
+from Components.Sources.StaticText import StaticText
 from Components.Pixmap import Pixmap
 from Components.MenuList import MenuList
 from Screens.ChoiceBox import ChoiceBox
@@ -58,18 +57,21 @@ class ChannelsBrowser(BaseBrowser):
             <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/greenbutton.png" position="176,688" size="140,6" zPosition="1" transparent="1" alphatest="blend" />
             <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/yellowbutton.png" position="314,688" size="140,6" zPosition="1" transparent="1" alphatest="blend" />
             <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/bluebutton.png" position="458,688" size="140,6" zPosition="1" transparent="1" alphatest="blend" />
-            <ePixmap name="" position="0,0" size="1280,720" zPosition="-1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/images/hd/background.png" scale="1" alphatest="blend" />
+            <!--
+            <ePixmap name="" position="0,0" size="1280,720" alphatest="blend" zPosition="-1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/images/hd/background.png" scale="1" />
+            -->
+            <widget name="background" position="0,0" size="1280,720" backgroundColor="#1a1a2e" />
             <ePixmap name="" position="1039,531" size="200,80" zPosition="1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/logo.png" scale="1" transparent="1" alphatest="blend"/>
-            <widget source="key_red" render="Label" position="33,649" zPosition="1" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend" />
-            <widget source="key_green" render="Label" position="174,650" zPosition="1" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend" />
-            <widget source="key_yellow" render="Label" position="315,650" zPosition="1" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend" />
-            <widget source="key_blue" render="Label" position="455,650" zPosition="1" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend" />
+            <widget name="key_red" position="33,649" zPosition="1" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend"/>
+            <widget name="key_green" position="174,650" zPosition="1" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend"/>
+            <widget name="key_yellow" position="315,650" zPosition="1" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend"/>
+            <widget name="key_blue" position="455,650" zPosition="1" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend"/>
             <widget name="menu" position="28,116" size="680,474" scrollbarMode="showOnDemand" backgroundColor="#16213e" />
             <widget name="status" position="603,643" size="648,50" font="Regular; 22" halign="center" foregroundColor="#3333ff" transparent="1" alphatest="blend" />
             <widget name="logo" position="45,37" size="80,50" alphatest="blend" />
-            <eLabel backgroundColor="#001a2336" cornerRadius="30" position="5,639" size="1270,60" zPosition="-80" />
-            <eLabel name="" position="24,101" size="694,502" zPosition="-1" cornerRadius="18" backgroundColor="#00171a1c" foregroundColor="#00171a1c" />
-            <widget source="session.VideoPicture" render="Pig" position="739,140" zPosition="19" size="520,308" backgroundColor="transparent" transparent="0" cornerRadius="14" />
+            <eLabel backgroundColor="#001a2336" position="5,639" size="1270,60" zPosition="-80" />
+            <eLabel name="" position="24,101" size="694,502" zPosition="-1" backgroundColor="#00171a1c" foregroundColor="#00171a1c" />
+            <widget source="session.VideoPicture" render="Pig" position="739,140" zPosition="19" size="520,308" backgroundColor="transparent" transparent="0" />
         </screen>
     """
 
@@ -96,21 +98,22 @@ class ChannelsBrowser(BaseBrowser):
 
         title = ""
         if country_name:
-            title = "Channels - %s" % country_name
+            title = "Channels - %s" % str(country_name)
         elif category_name:
-            title = "Channels - %s" % category_name
+            title = "Channels - %s" % str(category_name)
+
         self.setTitle(title)
 
         self._load_export_settings()
 
         self["menu"] = MenuList([])
-        self["status"] = Label(_("Loading channels..."))
+        self["status"] = StaticText(_("Loading channels..."))
         self["logo"] = Pixmap()
 
-        self["key_blue"] = Label("")
-        self["key_red"] = Label(_("Back"))
-        self["key_green"] = Label(_("Play"))
-        self["key_yellow"] = Label(_("Favorite"))
+        self["key_red"] = StaticText(_("Back"))
+        self["key_green"] = StaticText(_("Play"))
+        self["key_yellow"] = StaticText(_("Favorite"))
+        self["key_blue"] = StaticText("")
 
         self["actions"] = ActionMap(["TVGardenActions", "OkCancelActions", "ColorActions"], {
             "cancel": self.exit,
@@ -128,7 +131,13 @@ class ChannelsBrowser(BaseBrowser):
         }, -2)
 
         self.picload = ePicLoad()
-        self.picload.PictureData.get().append(self.update_logo)
+
+        if exists('/var/lib/dpkg/info'):
+            # DreamOS
+            self.picload_conn = self.picload.PictureData.connect(self.update_logo)
+        else:
+            self.picload_conn = self.picload.PictureData.get().append(self.update_logo)
+
         self.onFirstExecBegin.append(self.load_channels)
         # self.onLayoutFinish.append(self.refresh)
 
@@ -324,20 +333,16 @@ class ChannelsBrowser(BaseBrowser):
 
                 # 8. Build channel object
                 channel_data = {
-                    "name": name,
+                    "name": str(name or ""),
                     "url": stream_url_to_use,
                     "stream_url": stream_url_to_use,
-                    "logo": (
-                        channel.get("logo")
-                        or channel.get("icon")
-                        or channel.get("image")
-                    ),
-                    "id": channel.get("nanoid", "ch_%d" % idx),
-                    "description": channel.get("description", ""),
-                    "group": channel.get("group", ""),
-                    "language": channel.get("language", ""),
-                    "country": channel.get("country", ""),
-                    "found_in": found_in,
+                    "logo": channel.get("logo") or channel.get("icon") or channel.get("image"),
+                    "id": str(channel.get("nanoid", "ch_%d" % idx)),
+                    "description": str(channel.get("description", "")),
+                    "group": str(channel.get("group", "")),
+                    "language": str(channel.get("language", "")),
+                    "country": str(channel.get("country", "")),
+                    "found_in": str(found_in),
                     "original_index": idx,
                     "is_youtube": False,
                 }
@@ -466,16 +471,19 @@ class ChannelsBrowser(BaseBrowser):
 
             # Load with ePicLoad
             self.picload.setPara((80, 50, 1, 1, False, 1, "#00000000"))
-            result = self.picload.startDecode(temp_path)
 
-            if result != 0:
-                log.error("Logo decode failed for: %s" % url, module="Channels")
+            if exists('/var/lib/dpkg/info'):
+                # DreamOS
+                self.picload.startDecode(temp_path, 0, 0, False)
+            else:
+                # Python2 images
+                self.picload.startDecode(temp_path)
 
-            # Cleanup temp file
             try:
                 unlink(temp_path)
             except:
                 pass
+
 
         except Exception as e:
             log.error("Error downloading logo: %s" % e, module="Channels")

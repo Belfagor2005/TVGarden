@@ -113,15 +113,14 @@
 from __future__ import absolute_import, print_function
 from os.path import dirname
 from sys import path
-
 from Components.ActionMap import ActionMap
-from Components.Label import Label
 from Components.MenuList import MenuList
-
+from Components.Sources.StaticText import StaticText
 from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
 
-from . import _, PLUGIN_VERSION, PLUGIN_ICON  # , PLUGIN_NAME, PLUGIN_PATH
+from . import _, PLUGIN_VERSION, PLUGIN_ICON
+# , PLUGIN_NAME, PLUGIN_PATH
 from .helpers import log, simple_log, get_metadata_url
 from .browser.about import TVGardenAbout
 from .browser.countries import CountriesBrowser
@@ -176,15 +175,17 @@ class TVGardenMain(Screen):
             <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/paypal.png" position="877,460" size="130,130" scale="1" transparent="1" alphatest="blend"/>
             <ePixmap name="" position="0,0" size="1280,720" zPosition="-1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/images/hd/background.png" scale="1" alphatest="blend"/>
             <ePixmap name="" position="1039,531" size="200,80" zPosition="1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/logo.png" scale="1" transparent="1" alphatest="blend"/>
-            <widget source="key_red" render="Label" position="33,649" zPosition="1" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend"/>
-            <widget source="key_green" render="Label" position="174,650" zPosition="1" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend"/>
-            <widget source="key_yellow" render="Label" position="315,650" zPosition="1" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend"/>
-            <widget source="key_blue" render="Label" position="455,650" zPosition="1" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend"/>
+
+            <widget name="key_red" position="33,649" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend"/>
+            <widget name="key_green" position="174,650" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend"/>
+            <widget name="key_yellow" position="315,650" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend"/>
+            <widget name="key_blue" position="455,650" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend"/>
+
             <widget name="menu" position="28,116" size="680,474" scrollbarMode="showOnDemand" backgroundColor="#16213e"/>
             <widget name="status" position="603,643" size="648,50" font="Regular; 22" halign="center" foregroundColor="#3333ff" transparent="1" alphatest="blend"/>
-            <eLabel backgroundColor="#001a2336" cornerRadius="30" position="5,639" size="1270,60" zPosition="-80"/>
-            <eLabel name="" position="24,101" size="694,502" zPosition="-1" cornerRadius="18" backgroundColor="#00171a1c" foregroundColor="#00171a1c"/>
-            <widget source="session.VideoPicture" render="Pig" position="739,140" zPosition="19" size="520,308" backgroundColor="transparent" transparent="0" cornerRadius="14"/>
+            <eLabel backgroundColor="#001a2336" position="5,639" size="1270,60" zPosition="-80"/>
+            <eLabel name="" position="24,101" size="694,502" zPosition="-1" backgroundColor="#00171a1c" foregroundColor="#00171a1c"/>
+            <widget source="session.VideoPicture" render="Pig" position="739,140" zPosition="19" size="520,308" backgroundColor="transparent" transparent="0"/>
         </screen>
         """
 
@@ -196,7 +197,7 @@ class TVGardenMain(Screen):
 
         Screen.__init__(self, session)
         self.session = session
-        self["status"] = Label("TV Garden %s | Ready" % PLUGIN_VERSION)
+        self["status"] = StaticText("TV Garden %s | Ready" % PLUGIN_VERSION)
 
         self.cache = CacheManager()
         self.menu_items = [
@@ -204,16 +205,16 @@ class TVGardenMain(Screen):
             (_("Browse by Category"), "categories", _("Browse channels by category")),
             (_("Favorites"), "favorites", _("Your favorite channels")),
             (_("Search"), "search", _("Search channels by name")),
-            (_("Check for Updates"), "updates", _("Check for plugin updates")),
             (_("Settings"), "settings", _("Plugin settings and configuration")),
+            (_("Check for Updates"), "updates", _("Check for plugin updates")),
             (_("About"), "about", _("About TV Garden plugin"))
         ]
 
         self["menu"] = MenuList(self.menu_items)
-        self["key_red"] = Label(_("Exit"))
-        self["key_green"] = Label(_("Select"))
-        self["key_yellow"] = Label(_("Refresh"))
-        self["key_blue"] = Label(_("Settings"))
+        self["key_red"] = StaticText(_("Exit"))
+        self["key_green"] = StaticText(_("Select"))
+        self["key_yellow"] = StaticText(_("Refresh"))
+        self["key_blue"] = StaticText(_("Settings"))
 
         self["actions"] = ActionMap(["OkCancelActions", "ColorActions"], {
             "cancel": self.exit,
@@ -332,9 +333,6 @@ class TVGardenMain(Screen):
         except Exception as e:
             log.error("Direct test error: %s" % e, module="Main")
             self["status"].setText(_("Update check error"))
-            self.session.open(MessageBox,
-                              _("Error: %s") % str(e),
-                              MessageBox.TYPE_ERROR)
 
     def show_about_fallback(self):
         about_text = """

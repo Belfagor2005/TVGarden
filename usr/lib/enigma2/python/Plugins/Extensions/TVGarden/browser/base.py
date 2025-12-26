@@ -8,13 +8,11 @@ Based on TV Garden Project
 from __future__ import print_function
 from enigma import eTimer
 from Screens.Screen import Screen
-from Components.Label import Label
+from Components.Sources.StaticText import StaticText
 from Components.MenuList import MenuList
 from Components.ActionMap import ActionMap
-from .. import _
 
-# import warnings
-# warnings.filterwarnings("ignore", category=RuntimeWarning, message="Skin is missing element")
+from .. import _
 
 
 class BaseBrowser(Screen):
@@ -33,7 +31,7 @@ class BaseBrowser(Screen):
         self.items_per_page = 10
 
         self["menu"] = MenuList([])
-        self["status"] = Label("")
+        self["status"] = StaticText("")
 
         self["actions"] = ActionMap(["TVGardenActions", "DirectionActions", "OkCancelActions"], {
             "cancel": self.exit,

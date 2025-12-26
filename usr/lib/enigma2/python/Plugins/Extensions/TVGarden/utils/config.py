@@ -10,10 +10,11 @@ from os.path import join, exists
 from os import makedirs, chmod
 from json import load, dump
 from Tools.Directories import fileExists
-import shutil
+from shutil import copy2
+
 from .. import USER_AGENT
-from ..helpers import log
 from .. import PLUGIN_PATH
+from ..helpers import log
 
 
 class PluginConfig:
@@ -36,89 +37,89 @@ class PluginConfig:
         # ============ DEFAULT CONFIGURATION ============
         self.defaults = {
             # ============ PLAYER SETTINGS ============
-            "player": "auto",                    # "auto", "exteplayer3", "gstplayer" - CHANGED TO AUTO
+            "player": "auto",                       # "auto", "exteplayer3", "gstplayer" - CHANGED TO AUTO
 
             # ============ DISPLAY SETTINGS ============
-            # "skin": "auto",                      # "auto", "hd", "fhd", "wqhd", "sd"
-            "show_flags": True,                  # Show country flags
-            "show_logos": True,                  # Show channel logos
-            "show_info": True,                   # Show channel info
+            # "skin": "auto",                       # "auto", "hd", "fhd", "wqhd", "sd"
+            "show_flags": True,                     # Show country flags
+            "show_logos": True,                     # Show channel logos
+            "show_info": True,                      # Show channel info
 
             # ============ BROWSER SETTINGS ============
-            "max_channels": 500,                 # Max channels for country (0=all)
-            "sort_by": "name",                   # Sort channels by "name", "country", "category"
-            "default_view": "countries",         # "countries", "categories", "favorites", "search"
-            "refresh_method": "clear_cache",     # "clear_cache" or "force_refresh"
+            "max_channels": 500,                    # Max channels for country (0=all)
+            "sort_by": "name",                      # Sort channels by "name", "country", "category"
+            "default_view": "countries",            # "countries", "categories", "favorites", "search"
+            "refresh_method": "clear_cache",        # "clear_cache" or "force_refresh"
 
             # ============ CACHE SETTINGS ============
-            "cache_enabled": True,               # Enable caching
-            "cache_ttl": 3600,                   # Cache time-to-live in seconds (1 hour)
-            "cache_size": 500,                   # Maximum cache items - INCREASED
-            "auto_refresh": False,               # Automatic cache refresh - CHANGED TO FALSE
-            "force_refresh_export": False,       # Force refresh when exporting (False = use cache)
-            "force_refresh_browsing": False,     # Force refresh when browsing
+            "cache_enabled": True,                  # Enable caching
+            "cache_ttl": 3600,                      # Cache time-to-live in seconds (1 hour)
+            "cache_size": 500,                      # Maximum cache items - INCREASED
+            "auto_refresh": False,                  # Automatic cache refresh - CHANGED TO FALSE
+            "force_refresh_export": False,          # Force refresh when exporting (False = use cache)
+            "force_refresh_browsing": False,        # Force refresh when browsing
 
             # ============ EXPORT SETTINGS ============
-            "list_position": "bottom",           # "top" or "bottom" - bouquet position in Enigma2
-            "bouquet_name_prefix": "TVGarden",   # Bouquet name prefix
-            "export_enabled": True,              # Enable bouquet export
-            "max_channels_for_bouquet": 500,     # Max channels for bouquet
-            "max_channels_for_sub_bouquet": 500, # Max channels for sub bouquet
+            "list_position": "bottom",              # "top" or "bottom" - bouquet position in Enigma2
+            "bouquet_name_prefix": "TVGarden",      # Bouquet name prefix
+            "export_enabled": True,                 # Enable bouquet export
+            "max_channels_for_bouquet": 500,        # Max channels for bouquet
+            "max_channels_for_sub_bouquet": 500,    # Max channels for sub bouquet
 
             # ============ NETWORK SETTINGS ============
             "user_agent": USER_AGENT,
             "use_proxy": False,
             "proxy_url": "",
-            "connection_timeout": 30,            # Network connection timeout
+            "connection_timeout": 30,               # Network connection timeout
 
             # ============ LOGGING SETTINGS ============
-            "log_level": "INFO",                 # "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"
-            "log_to_file": True,                 # Log to file
+            "log_level": "INFO",                    # "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"
+            "log_to_file": True,                    # Log to file
 
             # ============ UPDATE SETTINGS ============
-            "auto_update": True,                 # Automatic updates
-            "update_channel": "stable",          # "stable", "beta", "dev"
-            "update_check_interval": 86400,      # Check for updates every 24 hours
-            "notify_on_update": True,            # Notify when updates available
-            "last_update_check": 0,              # Timestamp of last update check
+            "auto_update": True,                    # Automatic updates
+            "update_channel": "stable",             # "stable", "beta", "dev"
+            "update_check_interval": 86400,         # Check for updates every 24 hours
+            "notify_on_update": True,               # Notify when updates available
+            "last_update_check": 0,                 # Timestamp of last update check
 
             # ============ FAVORITES SETTINGS ============
-            "auto_add_favorite": False,          # Automatically add watched to favorites
+            "auto_add_favorite": False,             # Automatically add watched to favorites
 
             # ============ PERFORMANCE SETTINGS ============
-            "use_hardware_acceleration": True,   # Use hardware acceleration
-            "buffer_size": 2048,                 # Buffer size in KB (2MB)
-            "memory_optimization": True,         # Enable memory optimization
+            "use_hardware_acceleration": True,      # Use hardware acceleration
+            "buffer_size": 2048,                    # Buffer size in KB (2MB)
+            "memory_optimization": True,            # Enable memory optimization
 
             # ============ SEARCH SETTINGS ============
-            "search_max_results": 200,           # Max results in search
+            "search_max_results": 200,              # Max results in search
 
             # ============ DEBUG/DEVELOPMENT ============
-            "debug_mode": False,                 # Enable debug mode
-            "test_mode": False,                  # Enable test features
-            "developer_mode": False,             # Developer options
+            "debug_mode": False,                    # Enable debug mode
+            "test_mode": False,                     # Enable test features
+            "developer_mode": False,                # Developer options
 
             # ============ LAST SESSION ============
             "last_country": None,
             "last_category": None,
             "last_channel": None,
             "last_search": "",
-            "last_export_type": "single_file",   # "single_file" or "multi_file"
+            "last_export_type": "single_file",      # "single_file" or "multi_file"
 
             # ============ STATISTICS ============
             "stats_enabled": True,
-            "watch_time": 0,                     # Total watch time in seconds
-            "channels_watched": 0,               # Number of channels watched
-            "exports_count": 0,                  # Number of bouquet exports
-            "favorites_added": 0,                # Number of favorites added
-            "cache_hits": 0,                     # Number of cache hits
-            "cache_misses": 0,                   # Number of cache misses
+            "watch_time": 0,                        # Total watch time in seconds
+            "channels_watched": 0,                  # Number of channels watched
+            "exports_count": 0,                     # Number of bouquet exports
+            "favorites_added": 0,                   # Number of favorites added
+            "cache_hits": 0,                        # Number of cache hits
+            "cache_misses": 0,                      # Number of cache misses
 
             # ============ ADVANCED SETTINGS ============
-            "config_version": 2,                 # Configuration version for migrations
-            "first_run": True,                   # First run flag
-            "accepted_eula": False,              # EULA accepted flag
-            "telemetry": False,                  # Anonymous usage statistics
+            "config_version": 2,                    # Configuration version for migrations
+            "first_run": True,                      # First run flag
+            "accepted_eula": False,                 # EULA accepted flag
+            "telemetry": False,                     # Anonymous usage statistics
         }
 
         self.config = self.load_config()
@@ -153,7 +154,7 @@ class PluginConfig:
             # Create backup before saving
             if fileExists(self.config_file):
                 try:
-                    shutil.copy2(self.config_file, self.backup_file)
+                    copy2(self.config_file, self.backup_file)
                     log.debug("Created backup: %s" % self.backup_file, module="Config")
                 except Exception as e:
                     log.warning("Could not create backup: %s" % e, module="Config")
@@ -509,28 +510,24 @@ class PluginConfig:
         """
         Load skin from file or use default from class
         """
+        if exists('/var/lib/dpkg/status'):
+            log.info("Python2 image detected, using class skin for %s" % screen_name, module="Config")
+            return default_skin
+        
         resolution = self.get_skin_resolution()
         skin_file = join(PLUGIN_PATH, "skins", resolution, "%s.xml" % screen_name)
-
-        log.debug("Looking for skin: %s" % skin_file, module="Config")
-
+        
         if fileExists(skin_file):
             try:
-                f = None
-                try:
-                    f = open(skin_file, 'r')
+                with open(skin_file, 'r') as f:
                     skin_content = f.read()
-                    log.info("Loaded skin from: %s (%d chars)" % (skin_file, len(skin_content)), module="Config")
-                    return skin_content
-                finally:
-                    if f:
-                        f.close()
+                log.info("Loaded skin from: %s" % skin_file, module="Config")
+                return skin_content
             except Exception as e:
-                log.error("Error loading skin %s: %s" % (skin_file, e), module="Config")
-                log.warning("Using class skin for %s due to error" % screen_name, module="Config")
+                log.error("Error loading XML skin: %s" % e, module="Config")
                 return default_skin
         else:
-            log.warning("Skin file not found: %s, using class skin for %s" % (skin_file, screen_name), module="Config")
+            log.warning("XML skin not found for %s, using class skin" % screen_name, module="Config")
             return default_skin
 
     def get_skin_path(self):

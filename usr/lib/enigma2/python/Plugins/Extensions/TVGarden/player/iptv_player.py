@@ -75,6 +75,7 @@ class TvInfoBarShowHide():
         except BaseException:
             self.hideTimer.callback.append(self.doTimerHide)
         self.hideTimer.start(5000, True)
+
         self.onShow.append(self.__onShow)
         self.onHide.append(self.__onHide)
 
@@ -87,7 +88,11 @@ class TvInfoBarShowHide():
 
         if not hasattr(self, 'help_timer'):
             self.help_timer = eTimer()
-            self.help_timer.callback.append(self.hide_help_overlay)
+            try:
+                self.help_timer_conn = self.help_timer.timeout.connect(
+                    self.hide_help_overlay)
+            except BaseException:
+                self.help_timer.callback.append(self.hide_help_overlay)
 
         self.help_timer.start(5000, True)
 

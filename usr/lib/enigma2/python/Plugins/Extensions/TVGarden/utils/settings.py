@@ -10,7 +10,7 @@ from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
 from Screens.TextBox import TextBox
 from Components.ActionMap import ActionMap
-from Components.Label import Label
+from Components.Sources.StaticText import StaticText
 from Components.ConfigList import ConfigListScreen
 from Components.config import (
     ConfigInteger,
@@ -31,12 +31,15 @@ class LogViewerScreen(TextBox):
     skin = """
         <screen name="LogViewerScreen" position="center,center" size="1280,720" title="TV Garden Logs" backgroundColor="#1a1a2e" flags="wfNoBorder">
             <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/redbutton.png" position="32,688" size="140,6" alphatest="blend" zPosition="1" transparent="1" />
+            <!--
             <ePixmap name="" position="0,0" size="1280,720" alphatest="blend" zPosition="-1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/images/hd/background.png" scale="1" />
+            -->
+            <widget name="background" position="0,0" size="1280,720" backgroundColor="#1a1a2e" />
             <ePixmap name="" position="1041,628" size="200,80" alphatest="blend" zPosition="1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/logo.png" scale="1" transparent="1" />
-            <widget source="key_red" render="Label" position="33,649" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" transparent="1" />
+            <widget name="key_red" position="33,649" zPosition="1" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend"/>
             <widget name="text" position="28,45" size="1220,570" font="Console;24" itemHeight="50" backgroundColor="#16213e" transparent="0" />
-            <eLabel backgroundColor="#001a2336" cornerRadius="30" position="5,639" size="1270,60" zPosition="-80" />
-            <eLabel name="" position="19,36" size="1235,585" zPosition="-1" cornerRadius="18" backgroundColor="#00171a1c" foregroundColor="#00171a1c" />
+            <eLabel backgroundColor="#001a2336" position="5,639" size="1270,60" zPosition="-80" />
+            <eLabel name="" position="19,36" size="1235,585" zPosition="-1" backgroundColor="#00171a1c" foregroundColor="#00171a1c" />
         </screen>
     """
 
@@ -53,7 +56,7 @@ class LogViewerScreen(TextBox):
         # Initialize TextBox with log contents
         TextBox.__init__(self, session, text=log_contents, title=_("TV Garden Logs"))
 
-        self["key_red"] = Label(_("Close"))
+        self["key_red"] = StaticText(_("Close"))
         self["actions"] = ActionMap(
             [
                 "SetupActions",
@@ -93,15 +96,18 @@ class TVGardenSettings(ConfigListScreen, Screen):
         <screen name="TVGardenSettings" position="center,center" size="1280,720" title="TV Garden Settings" backgroundColor="#1a1a2e" flags="wfNoBorder">
             <ePixmap pixmap="skin_default/buttons/red.png" position="33,650" size="140,40" alphatest="blend" />
             <ePixmap pixmap="skin_default/buttons/green.png" position="174,650" size="140,40" alphatest="blend" />
+            <!--
             <ePixmap name="" position="0,0" size="1280,720" alphatest="blend" zPosition="-1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/images/hd/background.png" scale="1" />
-            <ePixmap name="" position="1039,531" size="200,80" alphatest="blend" zPosition="1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/logo.png" scale="1" transparent="1"/>
-            <widget source="key_red" render="Label" position="33,649" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" transparent="1" />
-            <widget source="key_green" render="Label" position="174,650" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" transparent="1" />
+            -->
+            <widget name="background" position="0,0" size="1280,720" backgroundColor="#1a1a2e" />
+            <ePixmap name="" position="1039,531" size="200,80" alphatest="blend" zPosition="1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/logo.png" scale="1" transparent="1" />
+            <widget name="key_red" position="33,649" zPosition="1" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend" />
+            <widget name="key_green" position="174,650" zPosition="1" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend" />
             <widget name="config" position="28,116" size="680,474" scrollbarMode="showOnDemand" backgroundColor="#16213e" />
             <widget name="status" position="603,643" size="648,50" font="Regular; 22" halign="center" foregroundColor="#3333ff" transparent="1" />
-            <eLabel backgroundColor="#001a2336" cornerRadius="30" position="5,639" size="1270,60" zPosition="-80" />
-            <eLabel name="" position="24,101" size="694,502" zPosition="-1" cornerRadius="18" backgroundColor="#00171a1c" foregroundColor="#00171a1c" />
-            <widget source="session.VideoPicture" render="Pig" position="739,140" zPosition="19" size="520,308" backgroundColor="transparent" transparent="0" cornerRadius="14" />
+            <eLabel backgroundColor="#001a2336" position="5,639" size="1270,60" zPosition="-80" />
+            <eLabel name="" position="24,101" size="694,502" zPosition="-1" backgroundColor="#00171a1c" foregroundColor="#00171a1c" />
+            <widget source="session.VideoPicture" render="Pig" position="739,140" zPosition="19" size="520,308" backgroundColor="transparent" transparent="0" />
         </screen>
     """
 
@@ -115,9 +121,9 @@ class TVGardenSettings(ConfigListScreen, Screen):
         self.setup_title = (_("TV Garden Settings"))
         self.list = []
         ConfigListScreen.__init__(self, self.list, session=session, on_change=self.changedEntry)
-        self["key_red"] = Label(_("Back"))
-        self["key_green"] = Label(_("Save"))
-        self["status"] = Label(_("Set options"))
+        self["key_red"] = StaticText(_("Back"))
+        self["key_green"] = StaticText(_("Save"))
+        self["status"] = StaticText(_("Set options"))
         self["actions"] = ActionMap(
             ["SetupActions", "ColorActions", "DirectionActions"],
             {
@@ -665,59 +671,103 @@ class TVGardenSettings(ConfigListScreen, Screen):
         self.apply_logging_settings()
 
         self.close(True)
-    def keyUp(self):
-        """Up arrow - navigate skipping separators."""
-        # Save current position
-        # current_index = self["config"].getCurrentIndex()
-
-        # Navigate up
-        ConfigListScreen.keyUp(self)
-
-        # Check if we are on a separator
-        current = self["config"].getCurrent()
-        if current:
-            display_name = current[0]
-            config_item = current[1]
-
-            # If it's a separator, skip another item up
-            if "===" in display_name or isinstance(config_item, ConfigNothing):
-                # If not already at the top, move up one more
-                if self["config"].getCurrentIndex() > 0:
-                    self["config"].instance.moveSelection(self["config"].instance.moveUp)
-
-        self.updateStatus()
 
     def keyDown(self):
         """Down arrow - navigate skipping separators."""
-        # Save current position
         # current_index = self["config"].getCurrentIndex()
         list_length = len(self["config"].list)
-
-        # Navigate down
-        ConfigListScreen.keyDown(self)
-
+        
+        # Navigate down using moveSelection
+        self["config"].instance.moveSelection(self["config"].instance.moveDown)
+        
         # Check if we are on a separator
         current = self["config"].getCurrent()
         if current:
             display_name = current[0]
             config_item = current[1]
-
+            
             # If it's a separator, skip another item down
             if "===" in display_name or isinstance(config_item, ConfigNothing):
                 # If not already at the bottom, move down one more
                 if self["config"].getCurrentIndex() < list_length - 1:
                     self["config"].instance.moveSelection(self["config"].instance.moveDown)
-
+        
         self.updateStatus()
+
+    def keyUp(self):
+        """Up arrow - navigate skipping separators."""
+        # Navigate up using moveSelection
+        # current_index = self["config"].getCurrentIndex()
+        list_length = len(self["config"].list)
+        self["config"].instance.moveSelection(self["config"].instance.moveUp)
+        
+        # Check if we are on a separator
+        current = self["config"].getCurrent()
+        if current:
+            display_name = current[0]
+            config_item = current[1]
+            
+            # If it's a separator, skip another item down
+            if "===" in display_name or isinstance(config_item, ConfigNothing):
+                # If not already at the bottom, move down one more
+                if self["config"].getCurrentIndex() < list_length - 1:
+                    self["config"].instance.moveSelection(self["config"].instance.moveUp)
+        
+        self.updateStatus()
+
+    # def keyUp(self):
+        # """Up arrow - navigate skipping separators."""
+        # # Save current position
+        # # current_index = self["config"].getCurrentIndex()
+
+        # # Navigate up
+        # ConfigListScreen.keyUp(self)
+
+        # # Check if we are on a separator
+        # current = self["config"].getCurrent()
+        # if current:
+            # display_name = current[0]
+            # config_item = current[1]
+
+            # # If it's a separator, skip another item up
+            # if "===" in display_name or isinstance(config_item, ConfigNothing):
+                # # If not already at the top, move up one more
+                # if self["config"].getCurrentIndex() > 0:
+                    # self["config"].instance.moveSelection(self["config"].instance.moveUp)
+
+        # self.updateStatus()
+
+    # def keyDown(self):
+        # """Down arrow - navigate skipping separators."""
+        # # Save current position
+        # # current_index = self["config"].getCurrentIndex()
+        # list_length = len(self["config"].list)
+
+        # # Navigate down
+        # ConfigListScreen.keyDown(self)
+
+        # # Check if we are on a separator
+        # current = self["config"].getCurrent()
+        # if current:
+            # display_name = current[0]
+            # config_item = current[1]
+
+            # # If it's a separator, skip another item down
+            # if "===" in display_name or isinstance(config_item, ConfigNothing):
+                # # If not already at the bottom, move down one more
+                # if self["config"].getCurrentIndex() < list_length - 1:
+                    # self["config"].instance.moveSelection(self["config"].instance.moveDown)
+
+        # self.updateStatus()
 
     def keyLeft(self):
         """Left arrow - navigation only."""
-        ConfigListScreen.keyLeft(self)
+        # ConfigListScreen.keyLeft(self)
         self.updateStatus()
 
     def keyRight(self):
         """Right arrow - navigation only."""
-        ConfigListScreen.keyRight(self)
+        # ConfigListScreen.keyRight(self)
         self.updateStatus()
 
     def cancel(self):

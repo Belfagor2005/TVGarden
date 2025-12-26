@@ -6,15 +6,14 @@ Browse 29 categories of IPTV channels
 Based on TV Garden Project
 """
 from __future__ import print_function
-from enigma import eTimer
-from Components.Label import Label
+from Components.Sources.StaticText import StaticText
 from Components.Pixmap import Pixmap
 from Components.MenuList import MenuList
 from Components.ActionMap import ActionMap
 
-from ..helpers import log
 from .base import BaseBrowser
 from .channels import ChannelsBrowser
+from ..helpers import log
 from ..utils.cache import CacheManager
 from ..utils.config import PluginConfig, get_config
 from .. import _
@@ -64,16 +63,19 @@ class CategoriesBrowser(BaseBrowser):
         <screen name="CategoriesBrowser" position="center,center" size="1280,720" title="TV Garden" backgroundColor="#1a1a2e" flags="wfNoBorder">
             <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/redbutton.png" position="32,688" size="140,6" zPosition="1" transparent="1" alphatest="blend" />
             <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/greenbutton.png" position="176,688" size="140,6" zPosition="1" transparent="1" alphatest="blend" />
-            <ePixmap name="" position="0,0" size="1280,720" zPosition="-1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/images/hd/background.png" scale="1" alphatest="blend" />
+            <!--
+            <ePixmap name="" position="0,0" size="1280,720" alphatest="blend" zPosition="-1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/images/hd/background.png" scale="1" />
+            -->
+            <widget name="background" position="0,0" size="1280,720" backgroundColor="#1a1a2e" />
             <ePixmap name="" position="1039,531" size="200,80" zPosition="1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/logo.png" scale="1" transparent="1" alphatest="blend"/>
-            <widget source="key_red" render="Label" position="33,649" zPosition="1" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend" />
-            <widget source="key_green" render="Label" position="174,650" zPosition="1" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend"/>
+            <widget name="key_red" position="33,649" zPosition="1" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend"/>
+            <widget name="key_green" position="174,650" zPosition="1" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend"/>
             <widget name="menu" position="28,116" size="680,474" scrollbarMode="showOnDemand" backgroundColor="#16213e" />
             <widget name="status" position="603,643" size="648,50" font="Regular; 22" halign="center" foregroundColor="#3333ff" transparent="1" alphatest="blend" />
             <widget name="icon" position="45,37" size="50,50" alphatest="blend" />
-            <eLabel backgroundColor="#001a2336" cornerRadius="30" position="5,639" size="1270,60" zPosition="-80" />
-            <eLabel name="" position="24,101" size="694,502" zPosition="-1" cornerRadius="18" backgroundColor="#00171a1c" foregroundColor="#00171a1c" />
-            <widget source="session.VideoPicture" render="Pig" position="739,140" zPosition="19" size="520,308" backgroundColor="transparent" transparent="0" cornerRadius="14" />
+            <eLabel backgroundColor="#001a2336" position="5,639" size="1270,60" zPosition="-80" />
+            <eLabel name="" position="24,101" size="694,502" zPosition="-1" backgroundColor="#00171a1c" foregroundColor="#00171a1c" />
+            <widget source="session.VideoPicture" render="Pig" position="739,140" zPosition="19" size="520,308" backgroundColor="transparent" transparent="0" />
         </screen>
     """
 
@@ -90,10 +92,10 @@ class CategoriesBrowser(BaseBrowser):
         self.selected_category = None
 
         self["menu"] = MenuList([])
-        self["status"] = Label(_("Loading categories..."))
+        self["status"] = StaticText(_("Loading categories..."))
         self["icon"] = Pixmap()
-        self["key_red"] = Label(_("Back"))
-        self["key_green"] = Label(_("Select"))
+        self["key_red"] = StaticText(_("Back"))
+        self["key_green"] = StaticText(_("Select"))
         self["actions"] = ActionMap(["TVGardenActions", "OkCancelActions", "ColorActions"], {
             "cancel": self.exit,
             "ok": self.select_category,

@@ -5,15 +5,16 @@ TV Garden Plugin - About Screen
 Shows plugin information, credits and version
 """
 from __future__ import print_function
-from enigma import eTimer
-from Screens.Screen import Screen
-from Components.Label import Label
-from Components.ActionMap import ActionMap
-from Components.ScrollLabel import ScrollLabel
 from os import listdir
 from os.path import exists, join, getsize
-from ..helpers import log
+from enigma import eTimer
+from Screens.Screen import Screen
+from Components.Sources.StaticText import StaticText
+from Components.ActionMap import ActionMap
+from Components.ScrollLabel import ScrollLabel
+
 from .. import _, PLUGIN_VERSION
+from ..helpers import log
 from ..utils.cache import CacheManager
 from ..utils.config import PluginConfig, get_config
 
@@ -24,14 +25,17 @@ class TVGardenAbout(Screen):
             <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/redbutton.png" position="32,688" size="140,6" zPosition="1" transparent="1" alphatest="blend"/>
             <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/kofi.png" position="740,460" size="130,130" scale="1" transparent="1" alphatest="blend"/>
             <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/paypal.png" position="877,460" size="130,130" scale="1" transparent="1" alphatest="blend"/>
-            <ePixmap name="" position="0,0" size="1280,720" zPosition="-1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/images/hd/background.png" scale="1" alphatest="blend"/>
+            <!--
+            <ePixmap name="" position="0,0" size="1280,720" alphatest="blend" zPosition="-1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/images/hd/background.png" scale="1" />
+            -->
+            <widget name="background" position="0,0" size="1280,720" backgroundColor="#1a1a2e" />
             <ePixmap name="" position="1039,531" size="200,80" zPosition="1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/logo.png" scale="1" transparent="1" alphatest="blend"/>
-            <widget source="key_red" render="Label" position="33,649" zPosition="1" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend"/>
+            <widget name="key_red" position="33,649" zPosition="1" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend"/>
             <widget name="scrolltext" position="28,116" size="680,474" font="Regular;22" halign="left" valign="top" foregroundColor="#e0e0e0" transparent="1"/>
             <widget name="version" position="603,643" size="648,50" font="Regular; 22" halign="center" foregroundColor="#3333ff" transparent="1" alphatest="blend"/>
-            <eLabel backgroundColor="#001a2336" cornerRadius="30" position="5,639" size="1270,60" zPosition="-80"/>
-            <eLabel name="" position="24,101" size="694,502" zPosition="-1" cornerRadius="18" backgroundColor="#00171a1c" foregroundColor="#00171a1c"/>
-            <widget source="session.VideoPicture" render="Pig" position="739,140" zPosition="19" size="520,308" backgroundColor="transparent" transparent="0" cornerRadius="14"/>
+            <eLabel backgroundColor="#001a2336" size="1270,60" zPosition="-80"/>
+            <eLabel name="" position="24,101" size="694,502" zPosition="-1" backgroundColor="#00171a1c" foregroundColor="#00171a1c"/>
+            <widget source="session.VideoPicture" render="Pig" position="739,140" zPosition="19" size="520,308" backgroundColor="transparent" transparent="0" />
         </screen>
     """
 
@@ -41,10 +45,10 @@ class TVGardenAbout(Screen):
         self.skin = dynamic_skin
 
         Screen.__init__(self, session)
-        self["title"] = Label(_("TV Garden Plugin"))
+        self["title"] = StaticText(_("TV Garden Plugin"))
         self["scrolltext"] = ScrollLabel()
-        self["version"] = Label("")
-        self["key_red"] = Label(_("Close"))
+        self["version"] = StaticText("")
+        self["key_red"] = StaticText(_("Close"))
         self["actions"] = ActionMap(["TVGardenActions", "DirectionActions", "ColorActions", "OkCancelActions"], {
             "cancel": self.close,
             "exit": self.close,

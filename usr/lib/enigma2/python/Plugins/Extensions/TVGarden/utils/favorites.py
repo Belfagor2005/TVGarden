@@ -12,6 +12,7 @@ from os.path import exists, join
 from json import load, dump
 from hashlib import md5
 from shutil import copy2
+
 from ..helpers import log, get_all_channels_url
 from ..utils.config import get_config
 from ..utils.cache import CacheManager
@@ -948,8 +949,9 @@ class FavoritesManager:
         """Create sub-bouquets for a single country (only split if >500 channels)"""
         config = get_config()
         max_channels_for_sub = config.get("max_channels_for_sub_bouquet", 500)
-        sub_bouquets = [] 
-        
+
+        sub_bouquets = []
+
         # Usa max_channels_for_sub invece di 500 hardcoded
         if len(channels) <= max_channels_for_sub:
             # Create safe filename

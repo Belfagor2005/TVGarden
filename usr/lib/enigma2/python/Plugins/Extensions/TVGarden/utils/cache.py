@@ -13,6 +13,7 @@ from os.path import join, exists, getmtime, getsize
 from os import listdir, remove, makedirs
 from json import load, loads, dump, dumps
 from sys import version_info
+
 from .config import get_config
 
 if version_info[0] == 3:
@@ -382,15 +383,96 @@ class CacheManager:
             return self._get_default_categories()
 
     def get_country_channels(self, country_code, force_refresh=False):
-        """Get channels for specific country"""
+        """Get channels for specific country - WORKING VERSION"""
         try:
             url = get_country_url(country_code)
             log.debug("Fetching country %s (force_refresh=%s)" % (country_code, force_refresh), module="Cache")
-            result = self.fetch_url(url, force_refresh)
-            log.debug("Fetch successful, type: %s" % type(result), module="Cache")
-            return result
+
+            # 1. Fetch the raw JSON data
+            raw_result = self.fetch_url(url, force_refresh)
+
+            # DEBUG: Show what we received
+            log.debug("RAW RESULT TYPE: %s" % type(raw_result), module="Cache")
+
+            if raw_result is None:
+                log.error("NULL result for %s" % country_code, module="Cache")
+                return []
+
+            # 2. CASE 1: Already a list of channels (old structure)
+            if isinstance(raw_result, list):
+                log.info("✓ Direct list: %d channels for %s" % (len(raw_result), country_code), module="Cache")
+                return raw_result
+
+            # 3. CASE 2: Dictionary (new structure)
+            if isinstance(raw_result, dict):
+                # Log all keys for debugging
+                dict_keys = list(raw_result.keys())
+                log.debug("Dict keys: %s" % dict_keys[:10], module="Cache")
+
+                # STRATEGY 1: Look for country code in keys (case insensitive)
+                country_code_upper = country_code.upper()
+                country_code_lower = country_code.lower()
+
+                country_data = None
+                found_key = None
+
+                # Try exact match first
+                if country_code_upper in raw_result:
+                    country_data = raw_result[country_code_upper]
+                    found_key = country_code_upper
+                elif country_code_lower in raw_result:
+                    country_data = raw_result[country_code_lower]
+                    found_key = country_code_lower
+                else:
+                    # Try case-insensitive search
+                    for key in dict_keys:
+                        if isinstance(key, str) and key.upper() == country_code_upper:
+                            country_data = raw_result[key]
+                            found_key = key
+                            break
+
+                if not country_data:
+                    log.error("Country '%s' not found in keys: %s" % (country_code, dict_keys), module="Cache")
+                    return []
+
+                log.debug("Found country data under key: '%s'" % found_key, module="Cache")
+                log.debug("Country data type: %s" % type(country_data), module="Cache")
+
+                # 3A: Country data is already a list of channels
+                if isinstance(country_data, list):
+                    log.info("✓ Country data is list: %d channels for %s" % (len(country_data), country_code), module="Cache")
+                    return country_data
+
+                # 3B: Country data is a dict, extract channels from it
+                if isinstance(country_data, dict):
+                    # Look for channels in common field names
+                    channel_fields = ['channels', 'items', 'streams', 'data']
+
+                    for field in channel_fields:
+                        if field in country_data:
+                            field_data = country_data[field]
+                            if isinstance(field_data, list):
+                                log.info("✓ Found %d channels in field '%s' for %s" %
+                                         (len(field_data), field, country_code), module="Cache")
+                                return field_data
+
+                    # No channels found in expected fields
+                    log.error("No 'channels' field found for %s. Available keys: %s" %
+                              (country_code, list(country_data.keys())), module="Cache")
+                    return []
+
+                # 3C: Unexpected type
+                log.error("Unexpected country data type for %s: %s" % (country_code, type(country_data)), module="Cache")
+                return []
+
+            # 4. CASE 3: Unexpected type
+            log.error("Unexpected raw result type for %s: %s" % (country_code, type(raw_result)), module="Cache")
+            return []
+
         except Exception as e:
-            log.error("ERROR fetching country %s: %s" % (country_code, e), module="Cache")
+            log.error("ERROR in get_country_channels for %s: %s" % (country_code, str(e)), module="Cache")
+            import traceback
+            traceback.print_exc()
             return []
 
     def get_category_channels(self, category_id, force_refresh=False):

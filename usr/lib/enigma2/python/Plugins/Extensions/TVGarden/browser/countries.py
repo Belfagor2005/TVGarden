@@ -9,8 +9,9 @@ from __future__ import print_function
 import tempfile
 from os import unlink
 from os.path import exists
+# from Components.Sources.StaticText import StaticText
 from Components.Label import Label
-from enigma import ePicLoad, eTimer
+from enigma import eTimer, loadPNG  # ,ePicLoad
 from Components.Pixmap import Pixmap
 from Components.MenuList import MenuList
 from Components.ActionMap import ActionMap
@@ -37,17 +38,20 @@ class CountriesBrowser(BaseBrowser):
             <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/redbutton.png" position="32,688" size="140,6" zPosition="1" transparent="1" alphatest="blend"/>
             <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/greenbutton.png" position="176,688" size="140,6" zPosition="1" transparent="1" alphatest="blend"/>
             <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/yellowbutton.png" position="314,688" size="140,6" zPosition="1" transparent="1" alphatest="blend"/>
-            <ePixmap name="" position="0,0" size="1280,720" zPosition="-1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/images/hd/background.png" scale="1" alphatest="blend"/>
+            <!--
+            <ePixmap name="" position="0,0" size="1280,720" alphatest="blend" zPosition="-1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/images/hd/background.png" scale="1" />
+            -->
+            <widget name="background" position="0,0" size="1280,720" backgroundColor="#1a1a2e" />
             <ePixmap name="" position="1039,531" size="200,80" zPosition="1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/logo.png" scale="1" transparent="1" alphatest="blend"/>
-            <widget source="key_red" render="Label" position="33,649" zPosition="1" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend"/>
-            <widget source="key_green" render="Label" position="174,650" zPosition="1" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend"/>
-            <widget source="key_yellow" render="Label" position="315,650" zPosition="1" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend"/>
+            <widget name="key_red" position="33,649" zPosition="1" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend"/>
+            <widget name="key_green" position="174,650" zPosition="1" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend"/>
+            <widget name="key_yellow" position="315,650" zPosition="1" size="140,40" font="Regular;20" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend"/>
             <widget name="menu" position="28,116" size="680,474" scrollbarMode="showOnDemand" backgroundColor="#16213e"/>
             <widget name="status" position="603,643" size="648,50" font="Regular; 22" halign="center" foregroundColor="#3333ff" transparent="1" alphatest="blend"/>
             <widget name="flag" position="751,468" size="190,120" alphatest="blend" scale="1"/>
-            <eLabel backgroundColor="#001a2336" cornerRadius="30" position="5,639" size="1270,60" zPosition="-80"/>
-            <eLabel name="" position="24,101" size="694,502" zPosition="-1" cornerRadius="18" backgroundColor="#00171a1c" foregroundColor="#00171a1c"/>
-            <widget source="session.VideoPicture" render="Pig" position="739,140" zPosition="19" size="520,308" backgroundColor="transparent" transparent="0" cornerRadius="14"/>
+            <eLabel backgroundColor="#001a2336" position="5,639" size="1270,60" zPosition="-80"/>
+            <eLabel name="" position="24,101" size="694,502" zPosition="-1" backgroundColor="#00171a1c" foregroundColor="#00171a1c"/>
+            <widget source="session.VideoPicture" render="Pig" position="739,140" zPosition="19" size="520,308" backgroundColor="transparent" transparent="0" />
         </screen>
     """
 
@@ -61,11 +65,10 @@ class CountriesBrowser(BaseBrowser):
         self.cache = CacheManager()
 
         self.countries = []
-        self.picload = ePicLoad()
-        self.picload_conn = None
         self.selected_country = None
         self.current_flag_path = None
 
+        log.info("Flags enabled using loadPNG method", module="Countries")
         self["menu"] = MenuList([], enableWrapAround=True)
         self["menu"].onSelectionChanged.append(self.onSelectionChanged)
         self["status"] = Label(_("Loading countries..."))
@@ -83,7 +86,6 @@ class CountriesBrowser(BaseBrowser):
             "left": self.left,
             "right": self.right,
         }, -2)
-        self.picload_conn = self.picload.PictureData.get().append(self.update_flag)
 
         self.onFirstExecBegin.append(self.load_countries)
         self.onClose.append(self.cleanup)
@@ -129,18 +131,25 @@ class CountriesBrowser(BaseBrowser):
         if hasattr(self, 'picload_conn') and self.picload_conn:
             try:
                 if self.picload and hasattr(self.picload, 'PictureData'):
-                    if self.picload.PictureData and self.picload.PictureData.get():
-                        self.picload.PictureData.get().remove(self.picload_conn)
+                    if exists('/var/lib/dpkg/info'):
+                        # DreamOS
+                        self.picload.PictureData.disconnect(self.picload_conn)
+                    else:
+                        # Python3 images
+                        if self.picload.PictureData and self.picload.PictureData.get():
+                            self.picload.PictureData.get().remove(self.picload_conn)
             except Exception as e:
-                log.debug("Error removing picload callback: {}".format(e), module="Countries")
+                log.debug(
+                    "Error removing picload callback: {}".format(e),
+                    module="Countries"
+                )
             finally:
                 self.picload_conn = None
 
         # Cleanup picload
         if hasattr(self, 'picload') and self.picload:
             try:
-                # Force internal cleanup of ePicLoad
-                self.picload.__dict__.clear()
+                pass
             except:
                 pass
             finally:
@@ -265,7 +274,15 @@ class CountriesBrowser(BaseBrowser):
             # Load new flag with proper error handling
             self["flag"].hide()
             flag_code = self.selected_country['code'].lower()
+
+            # DEBUG: mostra info
+            log.debug("=" * 50, module="Countries")
+            log.debug("SELECTED COUNTRY: %s (%s)" %
+                      (self.selected_country['name'], flag_code), module="Countries")
+            log.debug("Channels: %d" % self.selected_country['channels'], module="Countries")
+
             flag_url = "https://flagcdn.com/w80/%s.png" % flag_code
+            log.debug("Flag URL: %s" % flag_url, module="Countries")
 
             # Use a timer to prevent rapid consecutive loads
             if hasattr(self, 'flag_timer'):
@@ -281,105 +298,207 @@ class CountriesBrowser(BaseBrowser):
                     lambda: self.download_flag_safe(flag_url, flag_code)
                 )
 
-            self.flag_timer.start(50, True)
+            self.flag_timer.start(100, True)
 
     def download_flag_safe(self, url, country_code):
-        """Safe flag download with memory management"""
+        """Load flag using PROPER loadPNG pattern"""
         try:
-            # Cleanup old temp file
-            if self.current_flag_path and exists(self.current_flag_path):
-                try:
-                    unlink(self.current_flag_path)
-                except:
-                    pass
-
+            # Hide first
+            self["flag"].hide()
+            
+            log.debug("Loading flag for: %s" % country_code, module="Countries")
+            
             # Download flag
             req = Request(url, headers={'User-Agent': 'TVGarden-Enigma2/1.0'})
             response = None
             flag_data = None
             try:
-                response = urlopen(req, timeout=3)
+                response = urlopen(req, timeout=5)
                 if response.getcode() == 200:
                     flag_data = response.read()
+                    log.debug("Downloaded %d bytes" % len(flag_data), module="Countries")
+                else:
+                    log.warning("HTTP %d for flag %s" % (response.getcode(), country_code), module="Countries")
+                    return
             finally:
                 if response:
                     response.close()
 
             if not flag_data:
                 log.warning("No data for flag %s" % country_code, module="Countries")
-                self.load_default_flag()
                 return
 
-            # Save to temp file
-            try:
-                from os import close
-                temp_fd, temp_path = tempfile.mkstemp(suffix='.png')
-                close(temp_fd)
+            # Save temporarily
+            import os
+            temp_fd, temp_path = tempfile.mkstemp(suffix='.png')
+            os.close(temp_fd)
+            
+            with open(temp_path, 'wb') as f:
+                f.write(flag_data)
+            
+            log.debug("Saved to temp file: %s" % temp_path, module="Countries")
 
-                f = None
-                try:
-                    f = open(temp_path, 'wb')
-                    f.write(flag_data)
-                finally:
-                    if f:
-                        f.close()
-
-                self.current_flag_path = temp_path
-            except Exception as e:
-                log.error("Error creating temp file: %s" % e, module="Countries")
-                self.load_default_flag()
-                return
-
-            # Get ACTUAL widget size from skin
-            try:
-                # Get widget position and size
-                flag_widget = self["flag"]
-                widget_size = flag_widget.instance.size()
-                widget_width = widget_size.width()
-                widget_height = widget_size.height()
-
-                log.debug("Widget size: %dx%d for %s" % (widget_width, widget_height, country_code), module="Countries")
-
-                # Use actual widget size or default
-                width = widget_width if widget_width > 0 else 80
-                height = widget_height if widget_height > 0 else 50
-
-            except:
-                # Fallback to default size
-                width, height = 80, 50
-                log.debug("Using default size for %s" % country_code, module="Countries")
-
-            # Load with ePicLoad - Use actual widget size
-            # Parameters: (width, height, scaletype, aspectratio, resize, alphablend, background_color)
-            self.picload.setPara((
-                width,       # widget width
-                height,      # widget height
-                1,           # scaletype: 0=No scale, 1=Scale, 2=Keep aspect, 3=Center
-                1,           # aspectratio: 0=ignore, 1=keep
-                False,       # resize: True=resize image to fit
-                1,           # alphablend: 0=no, 1=yes
-                "#00000000"  # transparent background
-            ))
-
-            # Try sync decode
-            result = self.picload.startDecode(temp_path, 0, 0, False)
-
-            if result == 0:  # Success
-                ptr = self.picload.getData()
-                if ptr:
-                    self["flag"].instance.setPixmap(ptr)
-                    self["flag"].show()
-                    log.debug("Flag displayed %dx%d for %s" % (width, height, country_code), module="Countries")
+            # 1. Check if file exists
+            # 2. Encode for Python 2 if needed
+            # 3. Load with loadPNG
+            # 4. Set pixmap
+            # 5. Set scale
+            # 6. Show
+            
+            if exists(temp_path):
+                # Handle Python 2/3 encoding
+                if exists('/var/lib/dpkg/info'):
+                    png_path = temp_path.encode('utf-8')
                 else:
-                    log.warning("No pixmap data for %s" % country_code, module="Countries")
-                    self.load_default_flag()
-            else:
-                log.warning("Decode failed for %s" % country_code, module="Countries")
-                self.load_default_flag()
+                    png_path = temp_path
+                
+                try:
+                    pixmap = loadPNG(png_path)
+                    
+                    if pixmap:
+                        # Set to widget - CORRECT pattern
+                        self["flag"].instance.setPixmap(pixmap)
+                        self["flag"].instance.setScale(1)
+                        self["flag"].instance.show()
+                        log.info("✓ Flag displayed for %s" % country_code, module="Countries")
+                    else:
+                        log.warning("loadPNG returned None for %s" % country_code, module="Countries")
+                        
+                except ImportError as e:
+                    log.error("loadPNG not available: %s" % e, module="Countries")
+                except Exception as e:
+                    log.error("loadPNG error: %s" % e, module="Countries")
+                    import traceback
+                    traceback.print_exc()
 
+            # Cleanup
+            try:
+                os.unlink(temp_path)
+            except:
+                pass
+                
         except Exception as e:
-            log.error("Error downloading flag %s: %s" % (country_code, e), module="Countries")
-            self.load_default_flag()
+            log.error("Flag error %s: %s" % (country_code, e), module="Countries")
+            import traceback
+            traceback.print_exc()
+        
+        # Hide if all failed
+        self["flag"].hide()
+
+    # def download_flag_safe(self, url, country_code):
+        # """Load flag using loadPNG (ACTIVE VERSION)"""
+        # try:
+            # self["flag"].hide()
+
+            # log.debug("Loading flag for: %s" % country_code, module="Countries")
+
+            # # Download flag
+            # req = Request(url, headers={'User-Agent': 'TVGarden-Enigma2/1.0'})
+            # response = None
+            # flag_data = None
+            # try:
+                # response = urlopen(req, timeout=5)
+                # if response.getcode() == 200:
+                    # flag_data = response.read()
+                    # log.debug("Downloaded %d bytes" % len(flag_data), module="Countries")
+                # else:
+                    # log.warning("HTTP %d for %s" % (response.getcode(), country_code), module="Countries")
+                    # return
+            # finally:
+                # if response:
+                    # response.close()
+
+            # if not flag_data:
+                # log.warning("No data for flag %s" % country_code, module="Countries")
+                # return
+
+            # # Save to temp file
+            # from os import close
+            # temp_fd, temp_path = tempfile.mkstemp(suffix='.png')
+            # close(temp_fd)
+
+            # with open(temp_path, 'wb') as f:
+                # f.write(flag_data)
+
+            # log.debug("Saved to: %s" % temp_path, module="Countries")
+
+            # try:
+                # log.debug("Attempting loadPNG...", module="Countries")
+
+                # ptr = loadPNG(temp_path)
+
+                # if ptr:
+                    # log.debug("loadPNG SUCCESS for %s" % country_code, module="Countries")
+
+                    # # Scala a dimensioni ragionevoli
+                    # try:
+                        # # Dimensione dal widget
+                        # flag_widget = self["flag"]
+                        # widget_size = flag_widget.instance.size()
+
+                        # # Usa dimensioni dello skin o default
+                        # if widget_size.width() > 0 and widget_size.height() > 0:
+                            # width = widget_size.width()
+                            # height = widget_size.height()
+                        # else:
+                            # # Default per HD skin
+                            # width, height = 190, 120
+
+                        # # Scala se possibile
+                        # if hasattr(ptr, 'scale'):
+                            # try:
+                                # ptr.scale(width, height)
+                                # log.debug("Scaled to %dx%d" % (width, height), module="Countries")
+                            # except:
+                                # pass
+
+                    # except Exception as size_error:
+                        # log.debug("Size error: %s" % size_error, module="Countries")
+                        # # Continua comunque
+
+                    # # Mostra la bandiera
+                    # self["flag"].instance.setPixmap(ptr)
+                    # self["flag"].show()
+
+                    # log.info("✓ Flag displayed for %s" % country_code, module="Countries")
+                    # return True
+
+                # else:
+                    # log.warning("loadPNG returned None for %s" % country_code, module="Countries")
+
+            # except ImportError as e:
+                # log.error("loadPNG not available: %s" % e, module="Countries")
+            # except Exception as e:
+                # log.error("loadPNG error: %s" % e, module="Countries")
+
+            # # Se loadPNG fallisce, prova loadJPG
+            # try:
+                # from enigma import loadJPG
+                # log.debug("Trying loadJPG as fallback...", module="Countries")
+
+                # ptr = loadJPG(temp_path)
+                # if ptr:
+                    # self["flag"].instance.setPixmap(ptr)
+                    # self["flag"].show()
+                    # log.info("✓ Flag via loadJPG for %s" % country_code, module="Countries")
+                    # return True
+            # except:
+                # pass
+
+            # # Pulizia
+            # try:
+                # unlink(temp_path)
+            # except:
+                # pass
+
+        # except Exception as e:
+            # log.error("Flag error %s: %s" % (country_code, e), module="Countries")
+            # import traceback
+            # traceback.print_exc()
+
+        # # Se tutto fallisce, nascondi
+        # self["flag"].hide()
+        # return False
 
     def load_default_flag(self):
         """Load a default/placeholder flag"""

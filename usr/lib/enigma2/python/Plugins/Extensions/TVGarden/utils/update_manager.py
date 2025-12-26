@@ -6,6 +6,7 @@ Centralized update functions using existing updater.py
 """
 from __future__ import print_function
 from Screens.MessageBox import MessageBox
+
 from .updater import PluginUpdater
 from ..helpers import log
 from .. import _
@@ -17,17 +18,17 @@ class UpdateManager:
     @staticmethod
     def check_for_updates(session, status_label=None):
         """Check for updates - unified function for both plugin and settings"""
-        log.debug("UpdateManager.check_for_updates called", module="UpdateManager")
+        print("UpdateManager.check_for_updates called")
 
         if status_label:
             status_label.setText(_("Checking for updates..."))
 
         try:
             updater = PluginUpdater()
-            log.debug("PluginUpdater created successfully", module="UpdateManager")
+            print("PluginUpdater created successfully")
 
             def update_callback(result):
-                log.debug("update_callback received result: %s" % result, module="UpdateManager")
+                print("update_callback received result: %s" % result)
 
                 if result is None:
                     if status_label:
@@ -45,14 +46,14 @@ class UpdateManager:
                     if status_label:
                         status_label.setText(_("Plugin is up to date"))
                     session.open(MessageBox,
-                                 _("You have the latest version of TV Garden."),
+                                 _("You have the latest version of Calendar."),
                                  MessageBox.TYPE_INFO)
 
-            log.debug("Calling updater.check_update()", module="UpdateManager")
+            print("Calling updater.check_update()")
             updater.check_update(update_callback)
 
         except Exception as e:
-            log.error("Error in check_for_updates: %s" % str(e), module="UpdateManager")
+            print("Error in check_for_updates: %s" % str(e))
             if status_label:
                 status_label.setText(_("Update check error"))
             session.open(MessageBox,
