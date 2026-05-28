@@ -351,8 +351,8 @@ class ChannelsBrowser(BaseBrowser):
                     continue
 
                 # 6. CRITICAL FILTER: skip known problematic hosts/protocols
-                stream_lower = stream_url.lower()
                 """
+                stream_lower = stream_url.lower()
                 problematic_patterns = [
                     "moveonjoy.com",  # caused crashes in logs
                     # ".mpd",           # DASH DRM
