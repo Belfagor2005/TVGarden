@@ -3,9 +3,10 @@
 # TV Garden Installer for Enigma2
 # wget -q --no-check-certificate "https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/installer.sh" -O - | /bin/sh
 
-version='2.3'
+version='2.4'
 echo "TVGarden Version: $version"
 echo "Changelog:"
+echo "- Fix Problematic Channels"
 echo "- Fix Setup Config"
 echo "- Fix: Export Favorite."
 echo "- Alph.. Order Channels"

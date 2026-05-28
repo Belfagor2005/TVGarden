@@ -352,11 +352,11 @@ class ChannelsBrowser(BaseBrowser):
 
                 # 6. CRITICAL FILTER: skip known problematic hosts/protocols
                 stream_lower = stream_url.lower()
-
+                """
                 problematic_patterns = [
                     "moveonjoy.com",  # caused crashes in logs
-                    ".mpd",           # DASH DRM
-                    "/dash/",         # DASH stream
+                    # ".mpd",           # DASH DRM
+                    # "/dash/",         # DASH stream
                     "drm",
                     "widevine",       # DRM: Widevine
                     "playready",      # DRM: PlayReady
@@ -379,7 +379,7 @@ class ChannelsBrowser(BaseBrowser):
 
                 if is_problematic:
                     continue
-
+                """
                 # 7. Prefer HTTP over HTTPS (more stable on Enigma2)
                 stream_url_to_use = stream_url
 

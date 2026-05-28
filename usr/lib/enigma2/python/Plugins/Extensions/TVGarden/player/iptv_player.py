@@ -571,10 +571,30 @@ class TVGardenPlayer(
                 player_type, module="Player")
 
         # Check if the URL may be problematic
-        if self.is_problematic_stream(stream_url):
+        # Check whether a stream URL may cause playback issues.
+        """
+        def is_problematic_stream(url):
+            
+            url_lower = url.lower()
+
+            # Warning signs that usually indicate problematic streams
+            warning_signs = [
+                "moveonjoy.com",   # Site known to cause crashes
+                "akamaihd.net",    # Often uses DRM
+                "drm",
+                "widevine",
+                "playready",
+                ".mpd",
+                "/dash/",
+                "encryption",
+                "key",
+                "license"
+            ]
+        
+        if is_problematic_stream(stream_url):
             log.warning("Stream might be problematic", module="Player")
             self.show_stream_warning(channel_name)
-
+        """
         self.stream_running = True
         self.eof_count = 0
 

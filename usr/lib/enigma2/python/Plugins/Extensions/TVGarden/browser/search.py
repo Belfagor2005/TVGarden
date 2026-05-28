@@ -498,11 +498,19 @@ class SearchBrowser(BaseBrowser):
             # 8. Skip problematic patterns (same as channels.py)
             stream_lower = stream_url.lower()
             problematic_patterns = [
-                "moveonjoy.com", ".mpd", "/dash/", "drm", "widevine",
-                "playready", "fairplay", "keydelivery", "license.",
-                "encryption", "akamaihd.net", "level3.net"
+                "moveonjoy.com",  # caused crashes in logs
+                # ".mpd",           # DASH DRM
+                # "/dash/",         # DASH stream
+                "drm",
+                "widevine",       # DRM: Widevine
+                "playready",      # DRM: PlayReady
+                "fairplay",       # DRM: Apple FairPlay
+                "keydelivery",
+                "license.",
+                "encryption",
+                "akamaihd.net",   # often DRM
+                "level3.net"      # problematic CDN
             ]
-
             is_problematic = False
             for pattern in problematic_patterns:
                 if pattern in stream_lower:
