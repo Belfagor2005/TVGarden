@@ -33,28 +33,34 @@ except ImportError as e:
 
     def get_metadata_url():
         # Updated to famelack-data
-        # return "https://raw.githubusercontent.com/Belfagor2005/famelack-data/refs/heads/main/tv/raw/countries_metadata.json"
+        # return
+        # "https://raw.githubusercontent.com/Belfagor2005/famelack-data/refs/heads/main/tv/raw/countries_metadata.json"
         return "https://raw.githubusercontent.com/OwnerPlugins/famelack-data/refs/heads/main/tv/raw/countries_metadata.json"
 
     def get_country_url(code):
         # Updated to famelack-data
-        # return "https://raw.githubusercontent.com/Belfagor2005/famelack-data/main/tv/raw/countries/%s.json" % code.lower()
+        # return
+        # "https://raw.githubusercontent.com/Belfagor2005/famelack-data/main/tv/raw/countries/%s.json"
+        # % code.lower()
         return "https://raw.githubusercontent.com/OwnerPlugins/famelack-data/refs/heads/main/tv/raw/countries/%s.json" % code.lower()
-
 
     def get_category_url(cat_id):
         # Updated to famelack-data
-        # return "https://raw.githubusercontent.com/Belfagor2005/famelack-data/main/tv/raw/categories/%s.json" % cat_id
+        # return
+        # "https://raw.githubusercontent.com/Belfagor2005/famelack-data/main/tv/raw/categories/%s.json"
+        # % cat_id
         return "https://raw.githubusercontent.com/OwnerPlugins/famelack-data/refs/heads/main/tv/raw/categories/%s.json" % cat_id
 
     def get_categories_url():
         # Updated to famelack-data (GitHub API to list directory)
-        # return "https://api.github.com/repos/Belfagor2005/famelack-data/contents/tv/raw/categories"
+        # return
+        # "https://api.github.com/repos/Belfagor2005/famelack-data/contents/tv/raw/categories"
         return "https://api.github.com/repos/OwnerPlugins/famelack-data/contents/tv/raw/categories"
 
     def get_all_channels_url():
         # Updated to famelack-data
-        # return "https://raw.githubusercontent.com/Belfagor2005/famelack-data/refs/heads/main/tv/raw/categories/all.json"
+        # return
+        # "https://raw.githubusercontent.com/Belfagor2005/famelack-data/refs/heads/main/tv/raw/categories/all.json"
         return "https://raw.githubusercontent.com/OwnerPlugins/famelack-data/refs/heads/main/tv/raw/categories/all.json"
 
 

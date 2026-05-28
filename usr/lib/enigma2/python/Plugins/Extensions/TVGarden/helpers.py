@@ -261,7 +261,7 @@ def is_valid_stream_url(url):
     # url_lower = url.lower()
     # for pattern in supported_patterns:
         # if pattern in url_lower:
-            # return True
+        # return True
 
     if url.startswith(('http://', 'https://')):
         return True

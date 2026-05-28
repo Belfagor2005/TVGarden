@@ -574,7 +574,7 @@ class TVGardenPlayer(
         # Check whether a stream URL may cause playback issues.
         """
         def is_problematic_stream(url):
-            
+
             url_lower = url.lower()
 
             # Warning signs that usually indicate problematic streams
@@ -590,7 +590,7 @@ class TVGardenPlayer(
                 "key",
                 "license"
             ]
-        
+
         if is_problematic_stream(stream_url):
             log.warning("Stream might be problematic", module="Player")
             self.show_stream_warning(channel_name)
