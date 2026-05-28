@@ -20,775 +20,832 @@ msgstr ""
 "X-Poedit-SearchPath-4: utils\n"
 
 msgid "%d favorite channels"
-msgstr ""
+msgstr "%d chaînes préférées"
 
 msgid "%d favorites"
-msgstr ""
+msgstr "%d favoris"
 
 msgid "(filtered %d problematic)"
-msgstr ""
+msgstr "(filtré %d problématique)"
 
 msgid "(limited to first %d)"
-msgstr ""
+msgstr "(limité au premier %d)"
 
 msgid "(skipped %d YouTube)"
-msgstr ""
+msgstr "(%d YouTube ignoré)"
 
 msgid "1 MB"
-msgstr ""
+msgstr "1 Mo"
+
+msgid "10 results"
+msgstr "10 résultats"
 
 msgid "100 channels"
-msgstr ""
+msgstr "100 chaînes"
+
+msgid "100 results"
+msgstr "100 résultats"
 
 msgid "1000 channels"
-msgstr ""
+msgstr "1000 chaînes"
+
+msgid "1000 results"
+msgstr "1000 résultats"
 
 msgid "2 MB"
-msgstr ""
+msgstr "2 Mo"
 
 msgid "2000 channels"
-msgstr ""
+msgstr "2000 chaînes"
 
 msgid "250 channels"
-msgstr ""
+msgstr "250 chaînes"
+
+msgid "250 results"
+msgstr "250 résultats"
+
+msgid "2500 results"
+msgstr "2500 résultats"
 
 msgid "4 MB"
-msgstr ""
+msgstr "4 Mo"
+
+msgid "4000 results"
+msgstr "4000 résultats"
 
 msgid "50 channels"
-msgstr ""
+msgstr "50 chaînes"
+
+msgid "50 results"
+msgstr "50 résultats"
 
 msgid "500 channels"
-msgstr ""
+msgstr "500 chaînes"
+
+msgid "500 results"
+msgstr "500 résultats"
 
 msgid "5000 channels"
-msgstr ""
+msgstr "5000 chaînes"
+
+msgid "5000 results"
+msgstr "5000 résultats"
 
 msgid "512 KB"
-msgstr ""
+msgstr "512 Ko"
 
 msgid "8 MB"
-msgstr ""
+msgstr "8 Mo"
 
 msgid "=== Browser Settings ==="
-msgstr ""
+msgstr "=== Paramètres du navigateur ==="
 
 msgid "=== Cache Settings ==="
-msgstr ""
+msgstr "=== Paramètres du cache ==="
 
 msgid "=== Export Settings ==="
-msgstr ""
+msgstr "=== Exporter les paramètres ==="
 
 msgid "=== Log Maintenance ==="
-msgstr ""
+msgstr "=== Maintenance du journal ==="
 
 msgid "=== Logging Settings ==="
-msgstr ""
+msgstr "=== Paramètres de journalisation ==="
 
 msgid "=== Network Settings ==="
-msgstr ""
+msgstr "=== Paramètres réseau ==="
 
 msgid "=== Performance Settings ==="
-msgstr ""
+msgstr "=== Paramètres de performances ==="
 
 msgid "=== Player Settings ==="
-msgstr ""
+msgstr "=== Paramètres du lecteur ==="
 
 msgid "=== Search Settings ==="
-msgstr ""
+msgstr "=== Paramètres de recherche ==="
 
 msgid "=== Update Settings ==="
-msgstr ""
+msgstr "=== Mettre à jour les paramètres ==="
 
 msgid "About"
-msgstr ""
+msgstr "À propos"
 
 msgid "About TV Garden"
-msgstr ""
+msgstr "À propos de Jardin TV"
 
 msgid "About TV Garden plugin"
-msgstr ""
+msgstr "À propos du plugin TV Garden"
 
 msgid "Access free IPTV channels from around the world"
-msgstr ""
+msgstr "Accédez aux chaînes IPTV gratuites du monde entier"
 
 msgid "Add to Favorites"
-msgstr ""
+msgstr "Ajouter aux favoris"
 
 msgid "Added to favorites"
-msgstr ""
+msgstr "Ajouté aux favoris"
 
 msgid "Added to favorites: %s"
-msgstr ""
+msgstr "Ajouté aux favoris : %s"
 
 msgid "All channels"
-msgstr ""
+msgstr "Toutes les chaînes"
+
+msgid "All results"
+msgstr "Tous les résultats"
 
 msgid "Already in favorites"
-msgstr ""
+msgstr "Déjà dans les favoris"
 
 msgid "Animation"
 msgstr ""
 
 msgid "Are you sure you want to clear all log files?"
-msgstr ""
+msgstr "Êtes-vous sûr de vouloir effacer tous les fichiers journaux ?"
 
 msgid "Auto"
 msgstr ""
 
 msgid "Back"
-msgstr ""
+msgstr "Dos"
 
 msgid "Bottom"
-msgstr ""
+msgstr "Bas"
 
 msgid "Bouquet Name Prefix"
-msgstr ""
+msgstr "Préfixe du nom du bouquet"
 
 msgid "Browse by Category"
-msgstr ""
+msgstr "Parcourir par catégorie"
 
 msgid "Browse by Country"
-msgstr ""
+msgstr "Parcourir par pays"
 
 msgid "Browse channels by category"
-msgstr ""
+msgstr "Parcourir les chaînes par catégorie"
 
 msgid "Browse channels by country"
-msgstr ""
+msgstr "Parcourir les chaînes par pays"
 
 msgid "Buffer Size"
-msgstr ""
+msgstr "Taille du tampon"
 
 msgid "Business"
-msgstr ""
+msgstr "Entreprise"
 
 msgid "CH+/CH- = Change | OK = Toggle | STOP = Exit | by Lululla"
-msgstr ""
+msgstr "CH+/CH- = Changement | OK = Basculer | STOP = Sortie | par Lululla"
 
 msgid "Cache Size"
-msgstr ""
+msgstr "Taille du cache"
 
 msgid "Cache cleared"
-msgstr ""
+msgstr "Cache vidé"
 
 msgid "Categories"
-msgstr ""
+msgstr "Catégories"
 
 msgid "Channel Information"
-msgstr ""
+msgstr "Informations sur la chaîne"
 
 msgid "Channel Menu"
-msgstr ""
+msgstr "Menu des chaînes"
 
 msgid "Channel added to bouquet"
-msgstr ""
+msgstr "Chaîne ajoutée au bouquet"
 
 msgid "Channel not found in favorites"
-msgstr ""
+msgstr "Chaîne introuvable dans les favoris"
 
 msgid "Channels"
-msgstr ""
+msgstr "Canaux"
 
 msgid "Check for Updates"
-msgstr ""
+msgstr "Vérifier les mises à jour"
 
 msgid "Check for plugin updates"
-msgstr ""
+msgstr "Vérifier les mises à jour du plugin"
 
 msgid "Checking for updates..."
-msgstr ""
+msgstr "Vérification des mises à jour..."
 
 msgid "Classic"
-msgstr ""
+msgstr "Classique"
 
 msgid "Clear"
-msgstr ""
+msgstr "Clair"
 
 msgid "Clear ALL favorites?"
-msgstr ""
+msgstr "Effacer TOUS les favoris ?"
 
 msgid "Clear All Favorites"
-msgstr ""
+msgstr "Effacer tous les favoris"
 
 msgid "Clear Cache"
-msgstr ""
+msgstr "Vider le cache"
 
 msgid "Clear Log Files Now"
-msgstr ""
+msgstr "Effacer les fichiers journaux maintenant"
 
 msgid "Cleared %d favorites"
-msgstr ""
+msgstr "%d favoris effacés"
 
 msgid "Close"
-msgstr ""
+msgstr "Fermer"
 
 msgid "Comedy"
-msgstr ""
+msgstr "Comédie"
 
 msgid "Connection Timeout"
-msgstr ""
+msgstr "Délai de connexion"
 
 msgid "Cooking"
-msgstr ""
+msgstr "Cuisson"
 
 msgid "Could not check for updates. Check internet connection."
-msgstr ""
+msgstr "Impossible de vérifier les mises à jour. Vérifiez la connexion Internet."
 
 msgid "Could not check for updates: %s"
-msgstr ""
+msgstr "Impossible de vérifier les mises à jour : %s"
 
 msgid "Countries"
-msgstr ""
+msgstr "Pays"
 
 msgid "Countries exported:"
-msgstr ""
+msgstr "Pays exportés :"
 
 msgid "Creating hierarchical structure..."
-msgstr ""
+msgstr "Création d'une structure hiérarchique..."
 
 msgid "Critical"
-msgstr ""
+msgstr "Critique"
 
 msgid "Culture"
 msgstr ""
 
 msgid "Database exported successfully"
-msgstr ""
+msgstr "Base de données exportée avec succès"
 
 msgid "Debug"
-msgstr ""
+msgstr "Déboguer"
 
 msgid "Default View"
-msgstr ""
+msgstr "Vue par défaut"
 
 msgid "Documentary"
-msgstr ""
+msgstr "Documentaire"
 
 msgid "Editing: %s"
-msgstr ""
+msgstr "Modification : %s"
 
 msgid "Education"
-msgstr ""
+msgstr "Éducation"
 
 msgid "Empty database"
-msgstr ""
+msgstr "Base de données vide"
 
 msgid "Enable Cache"
-msgstr ""
+msgstr "Activer le cache"
 
 msgid "Enable Export"
-msgstr ""
+msgstr "Activer l'exportation"
 
 msgid "Entertainment"
-msgstr ""
+msgstr "Divertissement"
 
 msgid "Error"
-msgstr ""
+msgstr "Erreur"
 
 msgid "Error clearing favorites"
-msgstr ""
+msgstr "Erreur lors de la suppression des favoris"
 
 msgid "Error clearing logs: %s"
-msgstr ""
+msgstr "Erreur lors de la suppression des journaux : %s"
 
 msgid "Error loading category"
-msgstr ""
+msgstr "Erreur de chargement de la catégorie"
 
 msgid "Error loading channels"
-msgstr ""
+msgstr "Erreur lors du chargement des chaînes"
+
+msgid "Error loading channels: %s"
+msgstr "Erreur lors du chargement des chaînes : %s"
 
 msgid "Error loading countries"
-msgstr ""
+msgstr "Erreur lors du chargement des pays"
 
 msgid "Error loading favorites"
-msgstr ""
+msgstr "Erreur lors du chargement des favoris"
 
 msgid "Error loading information"
-msgstr ""
+msgstr "Erreur de chargement des informations"
 
 msgid "Error opening player"
-msgstr ""
+msgstr "Erreur lors de l'ouverture du lecteur"
 
 msgid "Error saving favorites"
-msgstr ""
+msgstr "Erreur lors de l'enregistrement des favoris"
 
 msgid "Error writing file: %s"
-msgstr ""
+msgstr "Erreur d'écriture du fichier : %s"
 
 msgid "Error: %s"
-msgstr ""
+msgstr "Erreur : %s"
 
 msgid "Exit"
-msgstr ""
+msgstr "Sortie"
 
 msgid "Export"
-msgstr ""
+msgstr "Exporter"
 
 msgid "Export '%s' to Enigma2 bouquet?"
-msgstr ""
+msgstr "Exporter '%s' vers le bouquet Enigma2 ?"
 
 msgid "Export ALL %d favorites to Enigma2 bouquet?"
-msgstr ""
+msgstr "Exporter TOUS %d favoris vers le bouquet Enigma2 ?"
 
 msgid "Export ALL Database (Multi-File)"
-msgstr ""
+msgstr "Exporter TOUTE la base de données (multi-fichiers)"
 
 msgid "Export ALL Database (Single File)"
-msgstr ""
+msgstr "Exporter TOUTE la base de données (fichier unique)"
 
 msgid "Export Current View"
-msgstr ""
+msgstr "Exporter la vue actuelle"
+
+msgid "Export error: %s"
+msgstr "Erreur d'exportation : %s"
 
 msgid "Export failed"
-msgstr ""
+msgstr "Échec de l'exportation"
 
 msgid "Export failed: %s"
-msgstr ""
+msgstr "Échec de l'exportation : %s"
 
 msgid "Export to Enigma2 Bouquet"
-msgstr ""
+msgstr "Exporter vers le bouquet Enigma2"
 
 msgid "Export {count} channels to bouquet '{name}'?"
-msgstr ""
+msgstr "Exporter {count} chaînes vers le bouquet "{name}" ?"
 
 msgid "Exported"
-msgstr ""
+msgstr "Exporté"
+
+msgid "Exported %d channels to %s"
+msgstr "%d chaînes exportées vers %s"
+
+msgid "Exported %d channels to '%s'"
+msgstr "%d chaînes exportées vers '%s'"
 
 msgid "Exported %d channels to bouquet"
-msgstr ""
+msgstr "%d chaînes exportées vers le bouquet"
 
 msgid "ExtePlayer3"
 msgstr ""
 
 msgid "Failed to create backup. Update cancelled."
-msgstr ""
+msgstr "Échec de la création d'une sauvegarde. Mise à jour annulée."
 
 msgid "Failed to load database"
-msgstr ""
+msgstr "Échec du chargement de la base de données"
 
 msgid "Family"
-msgstr ""
+msgstr "Famille"
 
 msgid "Favorite"
-msgstr ""
+msgstr "Préféré"
 
 msgid "Favorites"
-msgstr ""
+msgstr "Favoris"
 
 msgid "Files created:"
 msgstr ""
 
 msgid "Force Refresh"
-msgstr ""
+msgstr "Forcer l'actualisation"
 
 msgid "Force Refresh on Browsing"
-msgstr ""
+msgstr "Forcer l'actualisation lors de la navigation"
 
 msgid "Force Refresh on Export"
-msgstr ""
+msgstr "Forcer l'actualisation à l'exportation"
 
 msgid "Found %d channels"
 msgstr ""
 
 msgid "Found %d playable channels"
-msgstr ""
+msgstr "%d chaînes jouables trouvées"
 
 msgid "GStreamer"
 msgstr ""
 
 msgid "General"
-msgstr ""
+msgstr "Général"
 
 msgid "Hierarchical export completed"
-msgstr ""
+msgstr "Exportation hiérarchique terminée"
 
 msgid "Hierarchical export completed!"
-msgstr ""
+msgstr "Exportation hiérarchique terminée !"
 
 msgid "History"
-msgstr ""
+msgstr "Histoire"
 
 msgid "Hobby"
-msgstr ""
+msgstr "Passe-temps"
 
 msgid "Info"
-msgstr ""
+msgstr "Informations"
 
 msgid "Item {} of {}"
-msgstr ""
+msgstr "Article {} sur {}"
 
 msgid "Keyboard"
-msgstr ""
+msgstr "Clavier"
 
 msgid "Kids"
-msgstr ""
+msgstr "Enfants"
 
 msgid "Legislative"
-msgstr ""
+msgstr "Législatif"
 
 msgid "Lifestyle"
-msgstr ""
+msgstr "Mode de vie"
 
 msgid "List Position"
-msgstr ""
+msgstr "Position dans la liste"
+
+msgid "Loading all channels in background..."
+msgstr "Chargement de toutes les chaînes en arrière-plan..."
 
 msgid "Loading all channels..."
-msgstr ""
+msgstr "Chargement de toutes les chaînes..."
+
+msgid "Loading already in progress..."
+msgstr "Chargement déjà en cours..."
 
 msgid "Loading categories..."
-msgstr ""
+msgstr "Chargement des catégories..."
 
 msgid "Loading channels..."
-msgstr ""
+msgstr "Chargement des chaînes..."
 
 msgid "Loading countries..."
-msgstr ""
+msgstr "Chargement des pays..."
+
+msgid "Loading countries: %s (%d/%d)"
+msgstr "Pays de chargement : %s (%d/%d)"
 
 msgid "Loading favorites..."
-msgstr ""
+msgstr "Chargement des favoris..."
+
+msgid "Loading... %d channels so far"
+msgstr "Chargement... %d chaînes jusqu'à présent"
 
 msgid "Local"
-msgstr ""
+msgstr "Locale"
 
 msgid "Log Level"
-msgstr ""
+msgstr "Niveau de journalisation"
 
 msgid "Log file is empty or not found"
-msgstr ""
+msgstr "Le fichier journal est vide ou introuvable"
 
 msgid "Log files cleared successfully"
-msgstr ""
+msgstr "Fichiers journaux effacés avec succès"
 
 msgid "Log to File"
-msgstr ""
+msgstr "Se connecter au fichier"
 
 msgid "Logs cleared"
-msgstr ""
+msgstr "Journaux effacés"
 
 msgid "Main bouquet:"
-msgstr ""
+msgstr "Bouquet principal :"
 
 msgid "Max Channels for Bouquet"
-msgstr ""
+msgstr "Nombre maximum de canaux pour le bouquet"
 
 msgid "Max Channels for Sub-Bouquet"
-msgstr ""
+msgstr "Nombre maximum de canaux pour le sous-bouquet"
 
 msgid "Max Search Results"
-msgstr ""
+msgstr "Résultats de recherche maximum"
 
 msgid "Max channels for country"
-msgstr ""
+msgstr "Nombre maximum de chaînes par pays"
 
 msgid "Memory Optimization"
-msgstr ""
+msgstr "Optimisation de la mémoire"
 
 msgid "Movies"
-msgstr ""
+msgstr "Films"
 
 msgid "Music"
-msgstr ""
+msgstr "Musique"
 
 msgid "News"
-msgstr ""
+msgstr "Nouvelles"
 
 msgid "Next load will use fresh data"
-msgstr ""
+msgstr "Le prochain chargement utilisera de nouvelles données"
 
 msgid "No channel selected"
-msgstr ""
+msgstr "Aucune chaîne sélectionnée"
 
 msgid "No channels found for: %s"
-msgstr ""
+msgstr "Aucune chaîne trouvée pour : %s"
 
 msgid "No channels in this category"
-msgstr ""
+msgstr "Aucune chaîne dans cette catégorie"
 
 msgid "No channels loaded"
-msgstr ""
+msgstr "Aucune chaîne chargée"
 
 msgid "No channels to export"
-msgstr ""
+msgstr "Aucune chaîne à exporter"
 
 msgid "No countries with channels found"
-msgstr ""
+msgstr "Aucun pays avec des chaînes trouvé"
 
 msgid "No country selected"
-msgstr ""
+msgstr "Aucun pays sélectionné"
 
 msgid "No favorite channels"
-msgstr ""
+msgstr "Aucune chaîne favorite"
 
 msgid "No favorites to export"
-msgstr ""
+msgstr "Aucun favori à exporter"
 
 msgid "No items"
-msgstr ""
+msgstr "Aucun article"
 
 msgid "No stream URL"
-msgstr ""
+msgstr "Aucune URL de flux"
 
 msgid "No stream URL available"
-msgstr ""
+msgstr "Aucune URL de flux disponible"
 
 msgid "No valid channels found in database"
-msgstr ""
+msgstr "Aucune chaîne valide trouvée dans la base de données"
 
 msgid "No valid stream URLs found"
-msgstr ""
+msgstr "Aucune URL de flux valide trouvée"
+
+msgid "No valid streams found"
+msgstr "Aucun flux valide trouvé"
 
 msgid "Options"
-msgstr ""
+msgstr "Possibilités"
 
 msgid "Options for: %s"
-msgstr ""
+msgstr "Options pour : %s"
 
 msgid "Play"
-msgstr ""
+msgstr "Jouer"
 
 msgid "Play Channel"
-msgstr ""
+msgstr "Lire la chaîne"
 
 msgid "Player"
-msgstr ""
+msgstr "Joueur"
 
 msgid "Please restart Enigma2 manually."
-msgstr ""
+msgstr "Veuillez redémarrer Enigma2 manuellement."
 
 msgid "Plugin is up to date"
-msgstr ""
+msgstr "Le plugin est à jour"
 
 msgid "Plugin settings and configuration"
-msgstr ""
+msgstr "Paramètres et configuration du plugin"
 
 msgid "Politics"
-msgstr ""
+msgstr "Politique"
 
 msgid "Press GREEN for keyboard..."
-msgstr ""
-
-msgid "Press GREEN for keyboard... Ready - %d channels"
-msgstr ""
+msgstr "Appuyez sur VERT pour le clavier..."
 
 msgid "Press OK to check for updates"
-msgstr ""
+msgstr "Appuyez sur OK pour vérifier les mises à jour"
 
 msgid "Press OK to clear logs"
-msgstr ""
+msgstr "Appuyez sur OK pour effacer les journaux"
 
 msgid "Press OK to view logs"
-msgstr ""
+msgstr "Appuyez sur OK pour afficher les journaux"
+
+msgid "Ready - %d channels"
+msgstr "Prêt – %d chaînes"
 
 msgid "Refresh"
-msgstr ""
+msgstr "Rafraîchir"
 
 msgid "Refresh Method"
-msgstr ""
+msgstr "Méthode d'actualisation"
 
 msgid "Refresh failed"
-msgstr ""
+msgstr "Échec de l'actualisation"
 
 msgid "Refresh failed: %s"
-msgstr ""
+msgstr "Échec de l'actualisation : %s"
 
 msgid "Refreshing data..."
-msgstr ""
+msgstr "Actualisation des données..."
 
 msgid "Refreshing..."
-msgstr ""
+msgstr "Rafraîchissant..."
 
 msgid "Religious"
-msgstr ""
+msgstr "Religieux"
 
 msgid "Remove '%s' from favorites?"
-msgstr ""
+msgstr "Supprimer « %s » des favoris ?"
 
 msgid "Remove Bouquet from Enigma2"
-msgstr ""
+msgstr "Supprimer le bouquet d'Enigma2"
 
 msgid "Remove TV Garden bouquet from Enigma2?"
-msgstr ""
+msgstr "Supprimer le bouquet TV Garden d'Enigma2 ?"
 
 msgid "Remove from Favorites"
-msgstr ""
+msgstr "Supprimer des favoris"
 
 msgid "Removed"
-msgstr ""
+msgstr "Supprimé"
 
 msgid "Removed from favorites"
-msgstr ""
+msgstr "Supprimé des favoris"
 
 msgid "Removed from favorites: %s"
-msgstr ""
+msgstr "Supprimé des favoris : %s"
 
 msgid "Save"
-msgstr ""
+msgstr "Sauvegarder"
 
 msgid "Science"
 msgstr ""
 
 msgid "Search"
-msgstr ""
+msgstr "Recherche"
 
 msgid "Search Channels"
-msgstr ""
+msgstr "Rechercher des chaînes"
 
 msgid "Search channels by name"
-msgstr ""
+msgstr "Rechercher des chaînes par nom"
 
 msgid "Search:"
-msgstr ""
+msgstr "Recherche:"
 
 msgid "Searching..."
-msgstr ""
+msgstr "Recherche..."
 
 msgid "Select"
-msgstr ""
+msgstr "Sélectionner"
 
 msgid "Select a category"
-msgstr ""
+msgstr "Sélectionnez une catégorie"
 
 msgid "Select a country"
-msgstr ""
+msgstr "Sélectionnez un pays"
 
 msgid "Series"
-msgstr ""
+msgstr "Série"
 
 msgid "Set options"
-msgstr ""
+msgstr "Définir les options"
 
 msgid "Settings"
-msgstr ""
+msgstr "Paramètres"
 
 msgid "Shop"
-msgstr ""
+msgstr "Boutique"
 
 msgid "Show Flags"
-msgstr ""
+msgstr "Afficher les drapeaux"
 
 msgid "Show Logos"
-msgstr ""
+msgstr "Afficher les logos"
 
 msgid "Showing all %d channels"
-msgstr ""
+msgstr "Afficher toutes les %d chaînes"
 
 msgid "Showing {shown} of {total} channels"
-msgstr ""
+msgstr "Affichage de {shown} sur {total} chaînes"
 
 msgid "Showing {shown} of {total} results"
-msgstr ""
+msgstr "Affichage de {shown} sur {total} résultats"
 
 msgid "Sports"
-msgstr ""
+msgstr "Sportif"
 
 msgid "Statistics:"
-msgstr ""
+msgstr "Statistiques:"
 
 msgid "Stream: %s"
-msgstr ""
+msgstr "Flux : %s"
 
 msgid "Stream: %s..."
-msgstr ""
+msgstr "Flux : %s..."
 
 msgid "Structure created:"
-msgstr ""
+msgstr "Structure créée :"
 
 msgid "TV Garden"
-msgstr ""
+msgstr "Jardin de télévision"
 
 msgid "TV Garden Logs"
-msgstr ""
+msgstr "Bûches de jardin TV"
 
 msgid "TV Garden Settings"
-msgstr ""
+msgstr "Paramètres du jardin TV"
 
 msgid "Top"
-msgstr ""
+msgstr "Haut"
 
 msgid "Total channels:"
-msgstr ""
+msgstr "Nombre total de chaînes :"
 
 msgid "Travel"
-msgstr ""
+msgstr "Voyage"
 
 msgid "Unknown"
-msgstr ""
+msgstr "Inconnu"
 
 msgid "Update available!"
-msgstr ""
+msgstr "Mise à jour disponible !"
 
 msgid "Update cancelled"
-msgstr ""
+msgstr "Mise à jour annulée"
 
 msgid "Update check error"
-msgstr ""
+msgstr "Erreur de vérification de mise à jour"
 
 msgid "Update check failed"
-msgstr ""
+msgstr "La vérification de la mise à jour a échoué"
 
 msgid "Update completed successfully!"
-msgstr ""
+msgstr "Mise à jour terminée avec succès !"
 
 msgid "Update error: %s"
-msgstr ""
+msgstr "Erreur de mise à jour : %s"
 
 msgid "Update failed"
-msgstr ""
+msgstr "La mise à jour a échoué"
 
 msgid "Update failed and backup restore also failed!"
-msgstr ""
+msgstr "La mise à jour a échoué et la restauration de la sauvegarde a également échoué !"
 
 msgid "Update failed. Restored from backup."
-msgstr ""
+msgstr "La mise à jour a échoué. Restauré à partir d'une sauvegarde."
 
 msgid "Update successful!"
-msgstr ""
+msgstr "Mise à jour réussie !"
 
 msgid "Updating plugin... Please wait"
-msgstr ""
+msgstr "Mise à jour du plugin... Veuillez patienter"
 
 msgid "Use Hardware Acceleration"
-msgstr ""
+msgstr "Utiliser l'accélération matérielle"
 
 msgid "User Agent"
-msgstr ""
+msgstr "Agent utilisateur"
 
 msgid "View Channel Info"
-msgstr ""
+msgstr "Afficher les informations sur la chaîne"
 
 msgid "View Log File"
-msgstr ""
+msgstr "Afficher le fichier journal"
 
 msgid "Warning"
-msgstr ""
+msgstr "Avertissement"
 
 msgid "Weather"
-msgstr ""
+msgstr "Météo"
 
 msgid "Will load fresh data next time"
-msgstr ""
+msgstr "Chargera de nouvelles données la prochaine fois"
 
 msgid "You have the latest version of TVGarden."
-msgstr ""
+msgstr "Vous disposez de la dernière version de TVGarden."
 
 msgid "Your favorite channels"
-msgstr ""
+msgstr "Vos chaînes préférées"
 
 msgid "[Cache disabled]"
-msgstr ""
+msgstr "[Cache désactivé]"
 
 msgid "[Fresh data]"
-msgstr ""
+msgstr "[Données fraîches]"
 
 msgid "bouquet references"
-msgstr ""
+msgstr "références de bouquets"
 
 msgid "channels from"
-msgstr ""
+msgstr "chaînes de"
 
 msgid "countries"
-msgstr ""
+msgstr "pays"
 
 msgid "files and"
-msgstr ""
+msgstr "fichiers et"

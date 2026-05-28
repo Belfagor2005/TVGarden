@@ -33,10 +33,21 @@ msgstr "(пропущено %d YouTube)"
 msgid "1 MB"
 msgstr "1 МБ"
 
+msgid "10 results"
+msgstr "10 результатов"
+
 msgid "100 channels"
 msgstr "100 каналов"
 
+#, fuzzy
+msgid "100 results"
+msgstr "100 каналов"
+
 msgid "1000 channels"
+msgstr "1000 каналов"
+
+#, fuzzy
+msgid "1000 results"
 msgstr "1000 каналов"
 
 msgid "2 MB"
@@ -49,17 +60,38 @@ msgstr "1000 каналов"
 msgid "250 channels"
 msgstr "250 каналов"
 
+#, fuzzy
+msgid "250 results"
+msgstr "250 каналов"
+
+msgid "2500 results"
+msgstr "2500 результатов"
+
 msgid "4 MB"
 msgstr "4 МБ"
 
+msgid "4000 results"
+msgstr "4000 результатов"
+
 msgid "50 channels"
 msgstr "50 каналов"
+
+msgid "50 results"
+msgstr "50 результатов"
 
 msgid "500 channels"
 msgstr "500 каналов"
 
 #, fuzzy
+msgid "500 results"
+msgstr "500 каналов"
+
+#, fuzzy
 msgid "5000 channels"
+msgstr "500 каналов"
+
+#, fuzzy
+msgid "5000 results"
 msgstr "500 каналов"
 
 msgid "512 KB"
@@ -93,7 +125,7 @@ msgid "=== Player Settings ==="
 msgstr "=== Настройки плеера ==="
 
 msgid "=== Search Settings ==="
-msgstr ""
+msgstr "=== Настройки поиска ==="
 
 msgid "=== Update Settings ==="
 msgstr "=== Обновить настройки ==="
@@ -122,6 +154,10 @@ msgstr "Добавлено в избранное: %s"
 msgid "All channels"
 msgstr "Все каналы"
 
+#, fuzzy
+msgid "All results"
+msgstr "Все каналы"
+
 msgid "Already in favorites"
 msgstr "Уже в избранном"
 
@@ -138,7 +174,7 @@ msgid "Back"
 msgstr "Назад"
 
 msgid "Bottom"
-msgstr ""
+msgstr "Нижний"
 
 msgid "Bouquet Name Prefix"
 msgstr "Префикс названия букета"
@@ -162,7 +198,7 @@ msgid "Business"
 msgstr "Бизнес"
 
 msgid "CH+/CH- = Change | OK = Toggle | STOP = Exit | by Lululla"
-msgstr ""
+msgstr "CH+/CH- = Изменить | ОК = Переключить | СТОП = Выход | от Лулуллы"
 
 msgid "Cache Size"
 msgstr "Размер кэша"
@@ -210,7 +246,7 @@ msgid "Clear All Favorites"
 msgstr "Очистить все избранное"
 
 msgid "Clear Cache"
-msgstr ""
+msgstr "Очистить кэш"
 
 msgid "Clear Log Files Now"
 msgstr "Очистить файлы журналов сейчас"
@@ -225,7 +261,7 @@ msgid "Comedy"
 msgstr "Комедия"
 
 msgid "Connection Timeout"
-msgstr ""
+msgstr "Тайм-аут соединения"
 
 msgid "Cooking"
 msgstr "Готовка"
@@ -240,10 +276,10 @@ msgid "Countries"
 msgstr "Страны"
 
 msgid "Countries exported:"
-msgstr ""
+msgstr "Страны экспорта:"
 
 msgid "Creating hierarchical structure..."
-msgstr ""
+msgstr "Создание иерархической структуры..."
 
 msgid "Critical"
 msgstr "Критический"
@@ -273,7 +309,7 @@ msgid "Empty database"
 msgstr "Пустая база данных"
 
 msgid "Enable Cache"
-msgstr ""
+msgstr "Включить кеш"
 
 msgid "Enable Export"
 msgstr "Включить экспорт"
@@ -296,6 +332,10 @@ msgstr "Ошибка загрузки категории"
 msgid "Error loading channels"
 msgstr "Ошибка загрузки каналов"
 
+#, fuzzy
+msgid "Error loading channels: %s"
+msgstr "Ошибка загрузки каналов"
+
 msgid "Error loading countries"
 msgstr "Ошибка загрузки стран"
 
@@ -312,7 +352,7 @@ msgid "Error saving favorites"
 msgstr "Ошибка сохранения избранного"
 
 msgid "Error writing file: %s"
-msgstr ""
+msgstr "Ошибка записи файла: %s"
 
 msgid "Error: %s"
 msgstr "Ошибка: %s"
@@ -330,13 +370,17 @@ msgid "Export ALL %d favorites to Enigma2 bouquet?"
 msgstr "Экспортировать ВСЕ %d избранных в букет Enigma2?"
 
 msgid "Export ALL Database (Multi-File)"
-msgstr ""
+msgstr "Экспортировать ВСЮ базу данных (многофайловую)"
 
 msgid "Export ALL Database (Single File)"
-msgstr ""
+msgstr "Экспортировать ВСЮ базу данных (один файл)"
 
 msgid "Export Current View"
 msgstr "Экспорт текущего представления"
+
+#, fuzzy
+msgid "Export error: %s"
+msgstr "Экспорт: %s"
 
 msgid "Export failed"
 msgstr "Ошибка экспорта"
@@ -351,7 +395,15 @@ msgid "Export {count} channels to bouquet '{name}'?"
 msgstr "Экспортировать {count} каналов в букет '{name}'?"
 
 msgid "Exported"
-msgstr ""
+msgstr "Экспортировано"
+
+#, fuzzy
+msgid "Exported %d channels to %s"
+msgstr "Экспортировано %d каналов в букет"
+
+#, fuzzy
+msgid "Exported %d channels to '%s'"
+msgstr "Экспортировано %d каналов в букет"
 
 msgid "Exported %d channels to bouquet"
 msgstr "Экспортировано %d каналов в букет"
@@ -375,16 +427,16 @@ msgid "Favorites"
 msgstr "Избранное"
 
 msgid "Files created:"
-msgstr ""
+msgstr "Созданы файлы:"
 
 msgid "Force Refresh"
-msgstr ""
+msgstr "Принудительное обновление"
 
 msgid "Force Refresh on Browsing"
-msgstr ""
+msgstr "Принудительное обновление при просмотре"
 
 msgid "Force Refresh on Export"
-msgstr ""
+msgstr "Принудительное обновление при экспорте"
 
 msgid "Found %d channels"
 msgstr "Найдено %d каналов"
@@ -399,10 +451,10 @@ msgid "General"
 msgstr "Общие"
 
 msgid "Hierarchical export completed"
-msgstr ""
+msgstr "Иерархический экспорт завершен"
 
 msgid "Hierarchical export completed!"
-msgstr ""
+msgstr "Иерархический экспорт завершен!"
 
 msgid "History"
 msgstr "История"
@@ -414,7 +466,7 @@ msgid "Info"
 msgstr "Информация"
 
 msgid "Item {} of {}"
-msgstr ""
+msgstr "Товар {} из {}"
 
 msgid "Keyboard"
 msgstr "Клавиатура"
@@ -429,10 +481,18 @@ msgid "Lifestyle"
 msgstr "Образ жизни"
 
 msgid "List Position"
-msgstr ""
+msgstr "Позиция в списке"
+
+#, fuzzy
+msgid "Loading all channels in background..."
+msgstr "Загрузка всех каналов..."
 
 msgid "Loading all channels..."
 msgstr "Загрузка всех каналов..."
+
+#, fuzzy
+msgid "Loading already in progress..."
+msgstr "Загрузка категорий ..."
 
 msgid "Loading categories..."
 msgstr "Загрузка категорий ..."
@@ -443,8 +503,16 @@ msgstr "Загрузка каналов..."
 msgid "Loading countries..."
 msgstr "Загрузка стран..."
 
+#, fuzzy
+msgid "Loading countries: %s (%d/%d)"
+msgstr "Загрузка стран..."
+
 msgid "Loading favorites..."
 msgstr "Загрузка избранного..."
+
+#, fuzzy
+msgid "Loading... %d channels so far"
+msgstr "Загрузка каналов..."
 
 msgid "Local"
 msgstr "Локальный"
@@ -465,7 +533,7 @@ msgid "Logs cleared"
 msgstr "Журналы очищены"
 
 msgid "Main bouquet:"
-msgstr ""
+msgstr "Основной букет:"
 
 #, fuzzy
 msgid "Max Channels for Bouquet"
@@ -476,14 +544,14 @@ msgid "Max Channels for Sub-Bouquet"
 msgstr "Максимальное количество каналов в одном букете"
 
 msgid "Max Search Results"
-msgstr ""
+msgstr "Максимальное количество результатов поиска"
 
 #, fuzzy
 msgid "Max channels for country"
 msgstr "Максимальное количество каналов на страну"
 
 msgid "Memory Optimization"
-msgstr ""
+msgstr "Оптимизация памяти"
 
 msgid "Movies"
 msgstr "Фильмы"
@@ -495,7 +563,7 @@ msgid "News"
 msgstr "Новости"
 
 msgid "Next load will use fresh data"
-msgstr ""
+msgstr "Следующая загрузка будет использовать свежие данные."
 
 msgid "No channel selected"
 msgstr "Канал не выбран"
@@ -525,7 +593,7 @@ msgid "No favorites to export"
 msgstr "Нет избранных для экспорта"
 
 msgid "No items"
-msgstr ""
+msgstr "Нет товаров"
 
 msgid "No stream URL"
 msgstr "URL потока отсутствует"
@@ -537,6 +605,10 @@ msgid "No valid channels found in database"
 msgstr "В базе данных не найдено действительных каналов"
 
 msgid "No valid stream URLs found"
+msgstr "Не найдено ни одного действительного URL-адреса потока."
+
+#, fuzzy
+msgid "No valid streams found"
 msgstr "Не найдено ни одного действительного URL-адреса потока."
 
 msgid "Options"
@@ -569,9 +641,6 @@ msgstr "Политика"
 msgid "Press GREEN for keyboard..."
 msgstr "Нажмите ЗЕЛЕНУЮ кнопку для включения клавиатуры..."
 
-msgid "Press GREEN for keyboard... Ready - %d channels"
-msgstr "Нажмите ЗЕЛЕНЫЙ для клавиатуры... Готово - %d каналов"
-
 msgid "Press OK to check for updates"
 msgstr "Нажмите ОК, чтобы проверить наличие обновлений"
 
@@ -581,11 +650,15 @@ msgstr "Нажмите ОК, чтобы очистить журналы"
 msgid "Press OK to view logs"
 msgstr "Нажмите ОК, чтобы просмотреть журналы"
 
+#, fuzzy
+msgid "Ready - %d channels"
+msgstr "Найдено %d каналов"
+
 msgid "Refresh"
 msgstr "Обновить"
 
 msgid "Refresh Method"
-msgstr ""
+msgstr "Обновить метод"
 
 msgid "Refresh failed"
 msgstr "Обновление не удалось"
@@ -685,7 +758,7 @@ msgid "Sports"
 msgstr "Виды спорта"
 
 msgid "Statistics:"
-msgstr ""
+msgstr "Статистика:"
 
 msgid "Stream: %s"
 msgstr "Поток: %s"
@@ -694,7 +767,7 @@ msgid "Stream: %s..."
 msgstr "Stream: %s..."
 
 msgid "Structure created:"
-msgstr ""
+msgstr "Создана структура:"
 
 msgid "TV Garden"
 msgstr "ТВ-сад"
@@ -706,10 +779,10 @@ msgid "TV Garden Settings"
 msgstr "Настройки телевизионного сада"
 
 msgid "Top"
-msgstr ""
+msgstr "Вершина"
 
 msgid "Total channels:"
-msgstr ""
+msgstr "Всего каналов:"
 
 msgid "Travel"
 msgstr "Путешествия"
@@ -718,7 +791,7 @@ msgid "Unknown"
 msgstr "Неизвестно"
 
 msgid "Update available!"
-msgstr ""
+msgstr "Доступно обновление!"
 "{server_version} {version_server}\n"
 "{installed_version} {version}\n"
 "\n"
@@ -773,7 +846,7 @@ msgid "Weather"
 msgstr "Погода"
 
 msgid "Will load fresh data next time"
-msgstr ""
+msgstr "В следующий раз загрузю свежие данные"
 
 #, fuzzy
 msgid "You have the latest version of TVGarden."
@@ -794,13 +867,16 @@ msgid "bouquet references"
 msgstr "ссылки на букеты"
 
 msgid "channels from"
-msgstr ""
+msgstr "каналы из"
 
 msgid "countries"
-msgstr ""
+msgstr "страны"
 
 msgid "files and"
 msgstr "файлы и"
+
+#~ msgid "Press GREEN for keyboard... Ready - %d channels"
+#~ msgstr "Нажмите ЗЕЛЕНЫЙ для клавиатуры... Готово - %d каналов"
 
 #~ msgid "TV Garden Plugin"
 #~ msgstr "TV Garden Плагин"
@@ -819,10 +895,6 @@ msgstr "файлы и"
 
 #~ msgid "OFF"
 #~ msgstr "ВЫКЛ"
-
-#, python-format
-#~ msgid "Export: %s"
-#~ msgstr "Экспорт: %s"
 
 #, python-format
 #~ msgid "Auto-refresh: %s"

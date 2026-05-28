@@ -37,10 +37,21 @@ msgstr "(παραλείφθηκαν %d YouTube)"
 msgid "1 MB"
 msgstr "1 MB"
 
+msgid "10 results"
+msgstr "10 αποτελέσματα"
+
 msgid "100 channels"
 msgstr "100 κανάλια"
 
+#, fuzzy
+msgid "100 results"
+msgstr "100 κανάλια"
+
 msgid "1000 channels"
+msgstr "1000 κανάλια"
+
+#, fuzzy
+msgid "1000 results"
 msgstr "1000 κανάλια"
 
 msgid "2 MB"
@@ -52,16 +63,37 @@ msgstr "2000 κανάλια"
 msgid "250 channels"
 msgstr "250 κανάλια"
 
+#, fuzzy
+msgid "250 results"
+msgstr "250 κανάλια"
+
+msgid "2500 results"
+msgstr "2500 αποτελέσματα"
+
 msgid "4 MB"
 msgstr "4 MB"
+
+msgid "4000 results"
+msgstr "4000 αποτελέσματα"
 
 msgid "50 channels"
 msgstr "50 κανάλια"
 
+msgid "50 results"
+msgstr "50 αποτελέσματα"
+
 msgid "500 channels"
 msgstr "500 κανάλια"
 
+#, fuzzy
+msgid "500 results"
+msgstr "500 κανάλια"
+
 msgid "5000 channels"
+msgstr "5000 κανάλια"
+
+#, fuzzy
+msgid "5000 results"
 msgstr "5000 κανάλια"
 
 msgid "512 KB"
@@ -124,6 +156,10 @@ msgstr "Προστέθηκε στα αγαπημένα: %s"
 msgid "All channels"
 msgstr "Όλα τα κανάλια"
 
+#, fuzzy
+msgid "All results"
+msgstr "Όλα τα κανάλια"
+
 msgid "Already in favorites"
 msgstr "Ήδη στα αγαπημένα"
 
@@ -164,7 +200,7 @@ msgid "Business"
 msgstr "Επιχειρήσεις"
 
 msgid "CH+/CH- = Change | OK = Toggle | STOP = Exit | by Lululla"
-msgstr ""
+msgstr "CH+/CH- = Αλλαγή | OK = Εναλλαγή | STOP = Έξοδος | από τον Lululla"
 
 msgid "Cache Size"
 msgstr "Μέγεθος προσωρινής μνήμης"
@@ -298,6 +334,10 @@ msgstr "Σφάλμα φόρτωσης κατηγορίας"
 msgid "Error loading channels"
 msgstr "Σφάλμα φόρτωσης καναλιών"
 
+#, fuzzy
+msgid "Error loading channels: %s"
+msgstr "Σφάλμα φόρτωσης καναλιών"
+
 msgid "Error loading countries"
 msgstr "Σφάλμα φόρτωσης χωρών"
 
@@ -340,6 +380,10 @@ msgstr "Εξαγωγή ΟΛΗΣ της βάσης δεδομένων (ένα α�
 msgid "Export Current View"
 msgstr "Εξαγωγή τρέχουσας προβολής"
 
+#, fuzzy
+msgid "Export error: %s"
+msgstr "Σφάλμα ενημέρωσης: %s"
+
 msgid "Export failed"
 msgstr "Η εξαγωγή απέτυχε"
 
@@ -354,6 +398,14 @@ msgstr "Να γίνει εξαγωγή {count} καναλιών στο μπου�
 
 msgid "Exported"
 msgstr "Εξήχθησαν"
+
+#, fuzzy
+msgid "Exported %d channels to %s"
+msgstr "Έγινε εξαγωγή %d καναλιών σε μπουκέτο"
+
+#, fuzzy
+msgid "Exported %d channels to '%s'"
+msgstr "Έγινε εξαγωγή %d καναλιών σε μπουκέτο"
 
 msgid "Exported %d channels to bouquet"
 msgstr "Έγινε εξαγωγή %d καναλιών σε μπουκέτο"
@@ -433,8 +485,16 @@ msgstr "Τρόπος ζωής"
 msgid "List Position"
 msgstr "Θέση λίστας"
 
+#, fuzzy
+msgid "Loading all channels in background..."
+msgstr "Φόρτωση όλων των καναλιών..."
+
 msgid "Loading all channels..."
 msgstr "Φόρτωση όλων των καναλιών..."
+
+#, fuzzy
+msgid "Loading already in progress..."
+msgstr "Φόρτωση κατηγοριών..."
 
 msgid "Loading categories..."
 msgstr "Φόρτωση κατηγοριών..."
@@ -445,8 +505,16 @@ msgstr "Φόρτωση καναλιών..."
 msgid "Loading countries..."
 msgstr "Φόρτωση χωρών..."
 
+#, fuzzy
+msgid "Loading countries: %s (%d/%d)"
+msgstr "Φόρτωση χωρών..."
+
 msgid "Loading favorites..."
 msgstr "Φόρτωση αγαπημένων..."
+
+#, fuzzy
+msgid "Loading... %d channels so far"
+msgstr "Φόρτωση καναλιών..."
 
 msgid "Local"
 msgstr "Τοπικά"
@@ -538,6 +606,10 @@ msgstr "Δεν βρέθηκαν έγκυρα κανάλια στη βάση δε
 msgid "No valid stream URLs found"
 msgstr "Δεν βρέθηκαν έγκυρα URL ροής"
 
+#, fuzzy
+msgid "No valid streams found"
+msgstr "Δεν βρέθηκαν έγκυρα URL ροής"
+
 msgid "Options"
 msgstr "Επιλογές"
 
@@ -568,9 +640,6 @@ msgstr "Πολιτική"
 msgid "Press GREEN for keyboard..."
 msgstr "Πατήστε το ΠΡΑΣΙΝΟ για πληκτρολόγιο..."
 
-msgid "Press GREEN for keyboard... Ready - %d channels"
-msgstr "Πατήστε το ΠΡΑΣΙΝΟ για πληκτρολόγιο... Έτοιμο - %d κανάλια"
-
 msgid "Press OK to check for updates"
 msgstr "Πατήστε OK για έλεγχο ενημερώσεων"
 
@@ -579,6 +648,10 @@ msgstr "Πατήστε OK για εκκαθάριση καταγραφών"
 
 msgid "Press OK to view logs"
 msgstr "Πατήστε OK για προβολή καταγραφών"
+
+#, fuzzy
+msgid "Ready - %d channels"
+msgstr "Βρέθηκαν %d κανάλια"
 
 msgid "Refresh"
 msgstr "Ανανέωση"
@@ -796,6 +869,9 @@ msgstr "χώρες"
 
 msgid "files and"
 msgstr "αρχεία και"
+
+#~ msgid "Press GREEN for keyboard... Ready - %d channels"
+#~ msgstr "Πατήστε το ΠΡΑΣΙΝΟ για πληκτρολόγιο... Έτοιμο - %d κανάλια"
 
 #~ msgid "TV Garden Plugin"
 #~ msgstr "Πρόσθετο TV Garden"

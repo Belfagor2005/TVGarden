@@ -1,0 +1,841 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: enigma 2\n"
+"PO-Revision-Date: 2026-05-27 21:51+0000\n"
+"Last-Translator:  <EMAIL@ADDRESS>\n"
+"Language-Team: Georgian <(nothing)>\n"
+"Language: ka\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "%d favorite channels"
+msgstr "%d საყვარელი არხი"
+
+msgid "%d favorites"
+msgstr "%d რჩეული"
+
+msgid "(filtered %d problematic)"
+msgstr "(გაფილტრული %d პრობლემური)"
+
+msgid "(limited to first %d)"
+msgstr "(შეზღუდულია პირველი %d)"
+
+msgid "(skipped %d YouTube)"
+msgstr "(გამოტოვებულია %d YouTube)"
+
+msgid "1 MB"
+msgstr "1 მბ"
+
+msgid "10 results"
+msgstr "10 შედეგი"
+
+msgid "100 channels"
+msgstr "100 არხი"
+
+msgid "100 results"
+msgstr "100 შედეგი"
+
+msgid "1000 channels"
+msgstr "1000 არხი"
+
+msgid "1000 results"
+msgstr "1000 შედეგი"
+
+msgid "2 MB"
+msgstr "2 მბ"
+
+msgid "2000 channels"
+msgstr "2000 არხი"
+
+msgid "250 channels"
+msgstr "250 არხი"
+
+msgid "250 results"
+msgstr "250 შედეგი"
+
+msgid "2500 results"
+msgstr "2500 შედეგი"
+
+msgid "4 MB"
+msgstr "4 მბ"
+
+msgid "4000 results"
+msgstr "4000 შედეგი"
+
+msgid "50 channels"
+msgstr "50 არხი"
+
+msgid "50 results"
+msgstr "50 შედეგი"
+
+msgid "500 channels"
+msgstr "500 არხი"
+
+msgid "500 results"
+msgstr "500 შედეგი"
+
+msgid "5000 channels"
+msgstr "5000 არხი"
+
+msgid "5000 results"
+msgstr "5000 შედეგი"
+
+msgid "512 KB"
+msgstr "512 კბ"
+
+msgid "8 MB"
+msgstr "8 მბ"
+
+msgid "=== Browser Settings ==="
+msgstr "=== ბრაუზერის პარამეტრები ==="
+
+msgid "=== Cache Settings ==="
+msgstr "=== ქეშის პარამეტრები ==="
+
+msgid "=== Export Settings ==="
+msgstr "=== ექსპორტის პარამეტრები ==="
+
+msgid "=== Log Maintenance ==="
+msgstr "=== ჟურნალის მოვლა ==="
+
+msgid "=== Logging Settings ==="
+msgstr "=== ჟურნალის პარამეტრები ==="
+
+msgid "=== Network Settings ==="
+msgstr "=== ქსელის პარამეტრები ==="
+
+msgid "=== Performance Settings ==="
+msgstr "=== შესრულების პარამეტრები ==="
+
+msgid "=== Player Settings ==="
+msgstr "=== მოთამაშის პარამეტრები ==="
+
+msgid "=== Search Settings ==="
+msgstr "=== ძებნის პარამეტრები ==="
+
+msgid "=== Update Settings ==="
+msgstr "=== პარამეტრების განახლება ==="
+
+msgid "About"
+msgstr "შესახებ"
+
+msgid "About TV Garden"
+msgstr "ტელევიზიის ბაღის შესახებ"
+
+msgid "About TV Garden plugin"
+msgstr "TV Garden მოდულის შესახებ"
+
+msgid "Access free IPTV channels from around the world"
+msgstr "წვდომა უფასო IPTV არხებზე მთელი მსოფლიოდან"
+
+msgid "Add to Favorites"
+msgstr "რჩეულებში დამატება"
+
+msgid "Added to favorites"
+msgstr "დამატებულია რჩეულებში"
+
+msgid "Added to favorites: %s"
+msgstr "დამატებულია რჩეულებში: %s"
+
+msgid "All channels"
+msgstr "ყველა არხი"
+
+msgid "All results"
+msgstr "ყველა შედეგი"
+
+msgid "Already in favorites"
+msgstr "უკვე ფავორიტებში"
+
+msgid "Animation"
+msgstr "ანიმაცია"
+
+msgid "Are you sure you want to clear all log files?"
+msgstr "დარწმუნებული ხართ, რომ გსურთ ყველა ჟურნალის ფაილის გასუფთავება?"
+
+msgid "Auto"
+msgstr "ავტო"
+
+msgid "Back"
+msgstr "უკან"
+
+msgid "Bottom"
+msgstr "ქვედა"
+
+msgid "Bouquet Name Prefix"
+msgstr "თაიგულის სახელის პრეფიქსი"
+
+msgid "Browse by Category"
+msgstr "კატეგორიის მიხედვით დათვალიერება"
+
+msgid "Browse by Country"
+msgstr "დათვალიერება ქვეყნების მიხედვით"
+
+msgid "Browse channels by category"
+msgstr "დაათვალიერეთ არხები კატეგორიის მიხედვით"
+
+msgid "Browse channels by country"
+msgstr "არხების დათვალიერება ქვეყნების მიხედვით"
+
+msgid "Buffer Size"
+msgstr "ბუფერის ზომა"
+
+msgid "Business"
+msgstr "ბიზნესი"
+
+msgid "CH+/CH- = Change | OK = Toggle | STOP = Exit | by Lululla"
+msgstr "CH+/CH- = შეცვლა | OK = გადართვა | STOP = გასვლა | ლულულას მიერ"
+
+msgid "Cache Size"
+msgstr "ქეშის ზომა"
+
+msgid "Cache cleared"
+msgstr "ქეში გასუფთავდა"
+
+msgid "Categories"
+msgstr "კატეგორიები"
+
+msgid "Channel Information"
+msgstr "არხის ინფორმაცია"
+
+msgid "Channel Menu"
+msgstr "არხის მენიუ"
+
+msgid "Channel added to bouquet"
+msgstr "არხი დაემატა თაიგულს"
+
+msgid "Channel not found in favorites"
+msgstr "არხი არ მოიძებნა რჩეულებში"
+
+msgid "Channels"
+msgstr "არხები"
+
+msgid "Check for Updates"
+msgstr "შეამოწმეთ განახლებები"
+
+msgid "Check for plugin updates"
+msgstr "შეამოწმეთ მოდულების განახლებები"
+
+msgid "Checking for updates..."
+msgstr "მიმდინარეობს განახლებების შემოწმება..."
+
+msgid "Classic"
+msgstr "კლასიკური"
+
+msgid "Clear"
+msgstr "წმინდა"
+
+msgid "Clear ALL favorites?"
+msgstr "გაასუფთავო ყველა რჩეული?"
+
+msgid "Clear All Favorites"
+msgstr "ყველა რჩეულის გასუფთავება"
+
+msgid "Clear Cache"
+msgstr "ქეშის გასუფთავება"
+
+msgid "Clear Log Files Now"
+msgstr "წაშალეთ ჟურნალის ფაილები ახლავე"
+
+msgid "Cleared %d favorites"
+msgstr "გასუფთავდა %d რჩეული"
+
+msgid "Close"
+msgstr "დახურვა"
+
+msgid "Comedy"
+msgstr "კომედია"
+
+msgid "Connection Timeout"
+msgstr "კავშირის დრო ამოიწურა"
+
+msgid "Cooking"
+msgstr "სამზარეულო"
+
+msgid "Could not check for updates. Check internet connection."
+msgstr "განახლებების შემოწმება ვერ მოხერხდა. შეამოწმეთ ინტერნეტ კავშირი."
+
+msgid "Could not check for updates: %s"
+msgstr "განახლებების შემოწმება ვერ მოხერხდა: %s"
+
+msgid "Countries"
+msgstr "ქვეყნები"
+
+msgid "Countries exported:"
+msgstr "ექსპორტირებული ქვეყნები:"
+
+msgid "Creating hierarchical structure..."
+msgstr "იერარქიული სტრუქტურის შექმნა..."
+
+msgid "Critical"
+msgstr "კრიტიკული"
+
+msgid "Culture"
+msgstr "კულტურა"
+
+msgid "Database exported successfully"
+msgstr "მონაცემთა ბაზის ექსპორტი წარმატებით განხორციელდა"
+
+msgid "Debug"
+msgstr "გამართვა"
+
+msgid "Default View"
+msgstr "ნაგულისხმევი ხედი"
+
+msgid "Documentary"
+msgstr "დოკუმენტური"
+
+msgid "Editing: %s"
+msgstr "რედაქტირება: %s"
+
+msgid "Education"
+msgstr "განათლება"
+
+msgid "Empty database"
+msgstr "ცარიელი მონაცემთა ბაზა"
+
+msgid "Enable Cache"
+msgstr "ქეშის ჩართვა"
+
+msgid "Enable Export"
+msgstr "ექსპორტის ჩართვა"
+
+msgid "Entertainment"
+msgstr "გასართობი"
+
+msgid "Error"
+msgstr "შეცდომა"
+
+msgid "Error clearing favorites"
+msgstr "რჩეულების გასუფთავების შეცდომა"
+
+msgid "Error clearing logs: %s"
+msgstr "ჟურნალის გასუფთავების შეცდომა: %s"
+
+msgid "Error loading category"
+msgstr "შეცდომა კატეგორიის ჩატვირთვისას"
+
+msgid "Error loading channels"
+msgstr "შეცდომა არხების ჩატვირთვისას"
+
+msgid "Error loading channels: %s"
+msgstr "შეცდომა არხების ჩატვირთვისას: %s"
+
+msgid "Error loading countries"
+msgstr "შეცდომა ქვეყნების ჩატვირთვისას"
+
+msgid "Error loading favorites"
+msgstr "რჩეულების ჩატვირთვის შეცდომა"
+
+msgid "Error loading information"
+msgstr "შეცდომა ინფორმაციის ჩატვირთვისას"
+
+msgid "Error opening player"
+msgstr "მოთამაშის გახსნის შეცდომა"
+
+msgid "Error saving favorites"
+msgstr "შეცდომა რჩეულების შენახვისას"
+
+msgid "Error writing file: %s"
+msgstr "შეცდომა ფაილის დაწერისას: %s"
+
+msgid "Error: %s"
+msgstr "შეცდომა: %s"
+
+msgid "Exit"
+msgstr "გასვლა"
+
+msgid "Export"
+msgstr "ექსპორტი"
+
+msgid "Export '%s' to Enigma2 bouquet?"
+msgstr "გსურთ „%s“-ის ექსპორტი Enigma2 ბუკეტში?"
+
+msgid "Export ALL %d favorites to Enigma2 bouquet?"
+msgstr "გსურთ ყველა %d რჩეულის ექსპორტი Enigma2-ის თაიგულში?"
+
+msgid "Export ALL Database (Multi-File)"
+msgstr "ყველა მონაცემთა ბაზის ექსპორტი (მრავალფაილი)"
+
+msgid "Export ALL Database (Single File)"
+msgstr "ყველა მონაცემთა ბაზის ექსპორტი (ერთი ფაილი)"
+
+msgid "Export Current View"
+msgstr "მიმდინარე ხედის ექსპორტი"
+
+msgid "Export error: %s"
+msgstr "ექსპორტის შეცდომა: %s"
+
+msgid "Export failed"
+msgstr "ექსპორტი ვერ მოხერხდა"
+
+msgid "Export failed: %s"
+msgstr "ექსპორტი ვერ მოხერხდა: %s"
+
+msgid "Export to Enigma2 Bouquet"
+msgstr "ექსპორტი Enigma2 ბუკეტში"
+
+msgid "Export {count} channels to bouquet '{name}'?"
+msgstr "გსურთ {count} არხის ექსპორტი "{name}" ბუკეტში?"
+
+msgid "Exported"
+msgstr "ექსპორტირებული"
+
+msgid "Exported %d channels to %s"
+msgstr "%d არხი ექსპორტირებულია %s-ში"
+
+msgid "Exported %d channels to '%s'"
+msgstr "ექსპორტირებულია %d არხი „%s“-ში"
+
+msgid "Exported %d channels to bouquet"
+msgstr "%d არხი ექსპორტირებულია ბუკეტში"
+
+msgid "ExtePlayer3"
+msgstr ""
+
+msgid "Failed to create backup. Update cancelled."
+msgstr "სარეზერვო ასლის შექმნა ვერ მოხერხდა. განახლება გაუქმდა."
+
+msgid "Failed to load database"
+msgstr "მონაცემთა ბაზის ჩატვირთვა ვერ მოხერხდა"
+
+msgid "Family"
+msgstr "ოჯახი"
+
+msgid "Favorite"
+msgstr "საყვარელი"
+
+msgid "Favorites"
+msgstr "რჩეულები"
+
+msgid "Files created:"
+msgstr "შექმნილი ფაილები:"
+
+msgid "Force Refresh"
+msgstr "იძულებითი განახლება"
+
+msgid "Force Refresh on Browsing"
+msgstr "იძულებითი განახლება დათვალიერებისას"
+
+msgid "Force Refresh on Export"
+msgstr "განახლების იძულება ექსპორტზე"
+
+msgid "Found %d channels"
+msgstr "ნაპოვნია %d არხი"
+
+msgid "Found %d playable channels"
+msgstr "ნაპოვნია %d დასაკრავი არხი"
+
+msgid "GStreamer"
+msgstr ""
+
+msgid "General"
+msgstr "გენერალი"
+
+msgid "Hierarchical export completed"
+msgstr "იერარქიული ექსპორტი დასრულდა"
+
+msgid "Hierarchical export completed!"
+msgstr "იერარქიული ექსპორტი დასრულდა!"
+
+msgid "History"
+msgstr "ისტორია"
+
+msgid "Hobby"
+msgstr "ჰობი"
+
+msgid "Info"
+msgstr "ინფორმაცია"
+
+msgid "Item {} of {}"
+msgstr "ერთეული {} / {}-დან"
+
+msgid "Keyboard"
+msgstr "კლავიატურა"
+
+msgid "Kids"
+msgstr "ბავშვები"
+
+msgid "Legislative"
+msgstr "საკანონმდებლო"
+
+msgid "Lifestyle"
+msgstr "ცხოვრების წესი"
+
+msgid "List Position"
+msgstr "სიის პოზიცია"
+
+msgid "Loading all channels in background..."
+msgstr "იტვირთება ყველა არხი ფონზე..."
+
+msgid "Loading all channels..."
+msgstr "ყველა არხის ჩატვირთვა..."
+
+msgid "Loading already in progress..."
+msgstr "იტვირთება უკვე მიმდინარეობს..."
+
+msgid "Loading categories..."
+msgstr "იტვირთება კატეგორიები..."
+
+msgid "Loading channels..."
+msgstr "არხების ჩატვირთვა..."
+
+msgid "Loading countries..."
+msgstr "იტვირთება ქვეყნები..."
+
+msgid "Loading countries: %s (%d/%d)"
+msgstr "იტვირთება ქვეყნები: %s (%d/%d)"
+
+msgid "Loading favorites..."
+msgstr "ფავორიტების ჩატვირთვა..."
+
+msgid "Loading... %d channels so far"
+msgstr "იტვირთება... %d არხი ჯერჯერობით"
+
+msgid "Local"
+msgstr "ადგილობრივი"
+
+msgid "Log Level"
+msgstr "ჟურნალის დონე"
+
+msgid "Log file is empty or not found"
+msgstr "ჟურნალის ფაილი ცარიელია ან ვერ მოიძებნა"
+
+msgid "Log files cleared successfully"
+msgstr "ჟურნალის ფაილები წარმატებით გასუფთავდა"
+
+msgid "Log to File"
+msgstr "შესვლა ფაილში"
+
+msgid "Logs cleared"
+msgstr "ჟურნალები გასუფთავდა"
+
+msgid "Main bouquet:"
+msgstr "მთავარი თაიგული:"
+
+msgid "Max Channels for Bouquet"
+msgstr "მაქს არხები ბუკეტისთვის"
+
+msgid "Max Channels for Sub-Bouquet"
+msgstr "მაქს არხები ქვეთაიგულისთვის"
+
+msgid "Max Search Results"
+msgstr "მაქსიმალური ძიების შედეგები"
+
+msgid "Max channels for country"
+msgstr "მაქსიმალური არხები ქვეყნისთვის"
+
+msgid "Memory Optimization"
+msgstr "მეხსიერების ოპტიმიზაცია"
+
+msgid "Movies"
+msgstr "ფილმები"
+
+msgid "Music"
+msgstr "მუსიკა"
+
+msgid "News"
+msgstr "სიახლეები"
+
+msgid "Next load will use fresh data"
+msgstr "შემდეგი ჩატვირთვა გამოიყენებს ახალ მონაცემებს"
+
+msgid "No channel selected"
+msgstr "არხი არ არის არჩეული"
+
+msgid "No channels found for: %s"
+msgstr "არხები ვერ მოიძებნა: %s-ისთვის"
+
+msgid "No channels in this category"
+msgstr "ამ კატეგორიაში არხები არ არის"
+
+msgid "No channels loaded"
+msgstr "არხები არ არის ჩატვირთული"
+
+msgid "No channels to export"
+msgstr "არხები არ არის ექსპორტისთვის"
+
+msgid "No countries with channels found"
+msgstr "არხების მქონე ქვეყნები არ მოიძებნა"
+
+msgid "No country selected"
+msgstr "არჩეული ქვეყანა არ არის"
+
+msgid "No favorite channels"
+msgstr "არ არის საყვარელი არხები"
+
+msgid "No favorites to export"
+msgstr "არ არის ფავორიტები ექსპორტისთვის"
+
+msgid "No items"
+msgstr "ელემენტი არ არის"
+
+msgid "No stream URL"
+msgstr "ნაკადის URL არ არის"
+
+msgid "No stream URL available"
+msgstr "ნაკადის URL ხელმისაწვდომი არ არის"
+
+msgid "No valid channels found in database"
+msgstr "მონაცემთა ბაზაში სწორი არხები ვერ მოიძებნა"
+
+msgid "No valid stream URLs found"
+msgstr "სწორი ნაკადის URL ვერ მოიძებნა"
+
+msgid "No valid streams found"
+msgstr "სწორი ნაკადები ვერ მოიძებნა"
+
+msgid "Options"
+msgstr "ოფციები"
+
+msgid "Options for: %s"
+msgstr "პარამეტრები: %s"
+
+msgid "Play"
+msgstr "ითამაშეთ"
+
+msgid "Play Channel"
+msgstr ""
+
+msgid "Player"
+msgstr "მოთამაშე"
+
+msgid "Please restart Enigma2 manually."
+msgstr "გთხოვთ გადატვირთოთ Enigma2 ხელით."
+
+msgid "Plugin is up to date"
+msgstr "დანამატი განახლებულია"
+
+msgid "Plugin settings and configuration"
+msgstr "დანამატის პარამეტრები და კონფიგურაცია"
+
+msgid "Politics"
+msgstr "პოლიტიკა"
+
+msgid "Press GREEN for keyboard..."
+msgstr "დააჭირეთ მწვანეს კლავიატურაზე..."
+
+msgid "Press OK to check for updates"
+msgstr "დააჭირეთ OK განახლებების შესამოწმებლად"
+
+msgid "Press OK to clear logs"
+msgstr "ჟურნალების გასასუფთავებლად დააჭირეთ ღილაკს OK"
+
+msgid "Press OK to view logs"
+msgstr "ჟურნალების სანახავად დააჭირეთ OK-ს"
+
+msgid "Ready - %d channels"
+msgstr "მზად არის - %d არხი"
+
+msgid "Refresh"
+msgstr "განაახლეთ"
+
+msgid "Refresh Method"
+msgstr "განახლების მეთოდი"
+
+msgid "Refresh failed"
+msgstr "განახლება ვერ მოხერხდა"
+
+msgid "Refresh failed: %s"
+msgstr "განახლება ვერ მოხერხდა: %s"
+
+msgid "Refreshing data..."
+msgstr "მიმდინარეობს მონაცემების განახლება..."
+
+msgid "Refreshing..."
+msgstr "განახლება..."
+
+msgid "Religious"
+msgstr "რელიგიური"
+
+msgid "Remove '%s' from favorites?"
+msgstr "წაშალოთ '%s' რჩეულებიდან?"
+
+msgid "Remove Bouquet from Enigma2"
+msgstr "ამოიღეთ ბუკეტი Enigma2-დან"
+
+msgid "Remove TV Garden bouquet from Enigma2?"
+msgstr "ამოიღო სატელევიზიო ბაღის თაიგული Enigma2-დან?"
+
+msgid "Remove from Favorites"
+msgstr "წაშლა რჩეულებიდან"
+
+msgid "Removed"
+msgstr "ამოღებულია"
+
+msgid "Removed from favorites"
+msgstr "ამოღებულია რჩეულებიდან"
+
+msgid "Removed from favorites: %s"
+msgstr "წაშლილია რჩეულებიდან: %s"
+
+msgid "Save"
+msgstr "შენახვა"
+
+msgid "Science"
+msgstr "მეცნიერება"
+
+msgid "Search"
+msgstr "ძიება"
+
+msgid "Search Channels"
+msgstr "არხების ძიება"
+
+msgid "Search channels by name"
+msgstr "მოძებნეთ არხები სახელით"
+
+msgid "Search:"
+msgstr "ძიება:"
+
+msgid "Searching..."
+msgstr "ძიება..."
+
+msgid "Select"
+msgstr "აირჩიეთ"
+
+msgid "Select a category"
+msgstr "აირჩიეთ კატეგორია"
+
+msgid "Select a country"
+msgstr "აირჩიეთ ქვეყანა"
+
+msgid "Series"
+msgstr "სერიალი"
+
+msgid "Set options"
+msgstr "პარამეტრების დაყენება"
+
+msgid "Settings"
+msgstr "პარამეტრები"
+
+msgid "Shop"
+msgstr "მაღაზია"
+
+msgid "Show Flags"
+msgstr "დროშების ჩვენება"
+
+msgid "Show Logos"
+msgstr "ლოგოების ჩვენება"
+
+msgid "Showing all %d channels"
+msgstr "ნაჩვენებია ყველა %d არხი"
+
+msgid "Showing {shown} of {total} channels"
+msgstr "ნაჩვენებია {shown} სულ {სულ} არხიდან"
+
+msgid "Showing {shown} of {total} results"
+msgstr "ნაჩვენებია {shown} სულ {სულ} შედეგიდან"
+
+msgid "Sports"
+msgstr "სპორტი"
+
+msgid "Statistics:"
+msgstr "სტატისტიკა:"
+
+msgid "Stream: %s"
+msgstr "ნაკადი: %s"
+
+msgid "Stream: %s..."
+msgstr "ნაკადი: %s..."
+
+msgid "Structure created:"
+msgstr "შექმნილი სტრუქტურა:"
+
+msgid "TV Garden"
+msgstr "სატელევიზიო ბაღი"
+
+msgid "TV Garden Logs"
+msgstr "სატელევიზიო ბაღის მორები"
+
+msgid "TV Garden Settings"
+msgstr "სატელევიზიო ბაღის პარამეტრები"
+
+msgid "Top"
+msgstr "ზედა"
+
+msgid "Total channels:"
+msgstr "სულ არხები:"
+
+msgid "Travel"
+msgstr "მოგზაურობა"
+
+msgid "Unknown"
+msgstr "უცნობი"
+
+msgid "Update available!"
+msgstr "განახლება ხელმისაწვდომია!"
+
+msgid "Update cancelled"
+msgstr "განახლება გაუქმდა"
+
+msgid "Update check error"
+msgstr "განახლების შემოწმების შეცდომა"
+
+msgid "Update check failed"
+msgstr "განახლების შემოწმება ვერ მოხერხდა"
+
+msgid "Update completed successfully!"
+msgstr "განახლება წარმატებით დასრულდა!"
+
+msgid "Update error: %s"
+msgstr "განახლების შეცდომა: %s"
+
+msgid "Update failed"
+msgstr "განახლება ვერ მოხერხდა"
+
+msgid "Update failed and backup restore also failed!"
+msgstr "განახლება ვერ მოხერხდა და სარეზერვო ასლის აღდგენა ასევე ვერ მოხერხდა!"
+
+msgid "Update failed. Restored from backup."
+msgstr "განახლება ვერ მოხერხდა. აღდგენილია სარეზერვო ასლიდან."
+
+msgid "Update successful!"
+msgstr "განახლება წარმატებით დასრულდა!"
+
+msgid "Updating plugin... Please wait"
+msgstr "მოდულის განახლება... გთხოვთ დაელოდოთ"
+
+msgid "Use Hardware Acceleration"
+msgstr "გამოიყენეთ Hardware Acceleration"
+
+msgid "User Agent"
+msgstr "მომხმარებლის აგენტი"
+
+msgid "View Channel Info"
+msgstr "არხის ინფორმაციის ნახვა"
+
+msgid "View Log File"
+msgstr "ჟურნალის ფაილის ნახვა"
+
+msgid "Warning"
+msgstr "გაფრთხილება"
+
+msgid "Weather"
+msgstr "ამინდი"
+
+msgid "Will load fresh data next time"
+msgstr "შემდეგ ჯერზე ჩაიტვირთება ახალი მონაცემები"
+
+msgid "You have the latest version of TVGarden."
+msgstr "თქვენ გაქვთ TVGarden-ის უახლესი ვერსია."
+
+msgid "Your favorite channels"
+msgstr "თქვენი საყვარელი არხები"
+
+msgid "[Cache disabled]"
+msgstr "[ქეში გამორთულია]"
+
+msgid "[Fresh data]"
+msgstr "[ახალი მონაცემები]"
+
+msgid "bouquet references"
+msgstr "ბუკეტის მითითებები"
+
+msgid "channels from"
+msgstr "არხებიდან"
+
+msgid "countries"
+msgstr "ქვეყნები"
+
+msgid "files and"
+msgstr "ფაილები და"

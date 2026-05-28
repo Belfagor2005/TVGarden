@@ -36,10 +36,21 @@ msgstr "(pominięto %d YouTube)"
 msgid "1 MB"
 msgstr "1 MB"
 
+msgid "10 results"
+msgstr "10 wyników"
+
 msgid "100 channels"
 msgstr "10 kanałów"
 
+#, fuzzy
+msgid "100 results"
+msgstr "10 kanałów"
+
 msgid "1000 channels"
+msgstr "1000 kanałów"
+
+#, fuzzy
+msgid "1000 results"
 msgstr "1000 kanałów"
 
 msgid "2 MB"
@@ -51,16 +62,37 @@ msgstr "2000 kanałów"
 msgid "250 channels"
 msgstr "250 kanałów"
 
+#, fuzzy
+msgid "250 results"
+msgstr "250 kanałów"
+
+msgid "2500 results"
+msgstr "2500 wyników"
+
 msgid "4 MB"
 msgstr "4 MB"
+
+msgid "4000 results"
+msgstr "4000 wyników"
 
 msgid "50 channels"
 msgstr "50 kanałów"
 
+msgid "50 results"
+msgstr "50 wyników"
+
 msgid "500 channels"
 msgstr "500 kanałów"
 
+#, fuzzy
+msgid "500 results"
+msgstr "500 kanałów"
+
 msgid "5000 channels"
+msgstr "5000 kanałów"
+
+#, fuzzy
+msgid "5000 results"
 msgstr "5000 kanałów"
 
 msgid "512 KB"
@@ -123,6 +155,10 @@ msgstr "Dodaj do ulubionych: %s"
 msgid "All channels"
 msgstr "Wszyskich kanałów"
 
+#, fuzzy
+msgid "All results"
+msgstr "Wszyskich kanałów"
+
 msgid "Already in favorites"
 msgstr "Już w ulubionych"
 
@@ -163,7 +199,7 @@ msgid "Business"
 msgstr "Biznes"
 
 msgid "CH+/CH- = Change | OK = Toggle | STOP = Exit | by Lululla"
-msgstr ""
+msgstr "CH+/CH- = Zmień | OK = Przełącz | STOP = Wyjście | przez Lulullę"
 
 msgid "Cache Size"
 msgstr "Rozmiar pamięci podręcznej"
@@ -297,6 +333,10 @@ msgstr "Błąd ładowania kategorii"
 msgid "Error loading channels"
 msgstr "Błąd ładowania kanału"
 
+#, fuzzy
+msgid "Error loading channels: %s"
+msgstr "Błąd ładowania kanału"
+
 msgid "Error loading countries"
 msgstr "Błąd ładowania kraju"
 
@@ -339,6 +379,10 @@ msgstr "Eksportuj CAŁĄ bazę danych (Pojedynczy Plik)"
 msgid "Export Current View"
 msgstr "Eksportuj Aktualny Widok"
 
+#, fuzzy
+msgid "Export error: %s"
+msgstr "Błąd aktualizacji: %s"
+
 msgid "Export failed"
 msgstr "Eksport nieudany"
 
@@ -353,6 +397,14 @@ msgstr "Wyeksportować {count} kanałów do grupy '{name}'?"
 
 msgid "Exported"
 msgstr "Eksportowane"
+
+#, fuzzy
+msgid "Exported %d channels to %s"
+msgstr "Wyeksportowano %d  do bukietu kanałów"
+
+#, fuzzy
+msgid "Exported %d channels to '%s'"
+msgstr "Wyeksportowano %d  do bukietu kanałów"
 
 msgid "Exported %d channels to bouquet"
 msgstr "Wyeksportowano %d  do bukietu kanałów"
@@ -432,8 +484,16 @@ msgstr "Styl życia"
 msgid "List Position"
 msgstr "Pozycja na Liście"
 
+#, fuzzy
+msgid "Loading all channels in background..."
+msgstr "Ładowanie wszystkich kanałów..."
+
 msgid "Loading all channels..."
 msgstr "Ładowanie wszystkich kanałów..."
+
+#, fuzzy
+msgid "Loading already in progress..."
+msgstr "Czytanie kategorii ..."
 
 msgid "Loading categories..."
 msgstr "Czytanie kategorii ..."
@@ -444,8 +504,16 @@ msgstr "Ładowanie kanałów..."
 msgid "Loading countries..."
 msgstr "Ładowania kraju..."
 
+#, fuzzy
+msgid "Loading countries: %s (%d/%d)"
+msgstr "Ładowania kraju..."
+
 msgid "Loading favorites..."
 msgstr "Pobieranie ulubionych..."
+
+#, fuzzy
+msgid "Loading... %d channels so far"
+msgstr "Ładowanie kanałów..."
 
 msgid "Local"
 msgstr "Lokalny"
@@ -537,6 +605,10 @@ msgstr "Nie znaleziono prawidłowych kanałów w bazie danych"
 msgid "No valid stream URLs found"
 msgstr "Nie znaleziono prawidłowych adresów URL strumienia"
 
+#, fuzzy
+msgid "No valid streams found"
+msgstr "Nie znaleziono prawidłowych adresów URL strumienia"
+
 msgid "Options"
 msgstr "Opcje"
 
@@ -567,9 +639,6 @@ msgstr "Polityka"
 msgid "Press GREEN for keyboard..."
 msgstr "Naciśnij ZIELONY, aby włączyć klawiaturę..."
 
-msgid "Press GREEN for keyboard... Ready - %d channels"
-msgstr "Naciśnij ZIELONY, włączy klawiaturę... Gotowy - %d kanałów"
-
 msgid "Press OK to check for updates"
 msgstr "Naciśnij OK, aby sprawdzić dostępność aktualizacji"
 
@@ -578,6 +647,10 @@ msgstr "Naciśnij OK, aby wyczyścić dzienniki"
 
 msgid "Press OK to view logs"
 msgstr "Naciśnij OK, aby wyświetlić dzienniki"
+
+#, fuzzy
+msgid "Ready - %d channels"
+msgstr "Znaleziono %d kanałów"
 
 msgid "Refresh"
 msgstr "Odświeżać"
@@ -795,6 +868,9 @@ msgstr "kraje"
 
 msgid "files and"
 msgstr "pliki i"
+
+#~ msgid "Press GREEN for keyboard... Ready - %d channels"
+#~ msgstr "Naciśnij ZIELONY, włączy klawiaturę... Gotowy - %d kanałów"
 
 #~ msgid "TV Garden Plugin"
 #~ msgstr "Wtyczka TV Garden"

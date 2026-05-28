@@ -1,0 +1,841 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: enigma 2\n"
+"PO-Revision-Date: 2026-05-27 20:22+0000\n"
+"Last-Translator:  <EMAIL@ADDRESS>\n"
+"Language-Team: Catalan <ca@dodds.net>\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "%d favorite channels"
+msgstr "%d canals preferits"
+
+msgid "%d favorites"
+msgstr "%d preferits"
+
+msgid "(filtered %d problematic)"
+msgstr "(filtrat %d problemàtic)"
+
+msgid "(limited to first %d)"
+msgstr "(limitat al primer %d)"
+
+msgid "(skipped %d YouTube)"
+msgstr "(s'ha omès %d YouTube)"
+
+msgid "1 MB"
+msgstr ""
+
+msgid "10 results"
+msgstr "10 resultats"
+
+msgid "100 channels"
+msgstr "100 canals"
+
+msgid "100 results"
+msgstr "100 resultats"
+
+msgid "1000 channels"
+msgstr "1000 canals"
+
+msgid "1000 results"
+msgstr "1000 resultats"
+
+msgid "2 MB"
+msgstr ""
+
+msgid "2000 channels"
+msgstr "2000 canals"
+
+msgid "250 channels"
+msgstr "250 canals"
+
+msgid "250 results"
+msgstr "250 resultats"
+
+msgid "2500 results"
+msgstr "2500 resultats"
+
+msgid "4 MB"
+msgstr ""
+
+msgid "4000 results"
+msgstr "4000 resultats"
+
+msgid "50 channels"
+msgstr "50 canals"
+
+msgid "50 results"
+msgstr "50 resultats"
+
+msgid "500 channels"
+msgstr "500 canals"
+
+msgid "500 results"
+msgstr "500 resultats"
+
+msgid "5000 channels"
+msgstr "5000 canals"
+
+msgid "5000 results"
+msgstr "5000 resultats"
+
+msgid "512 KB"
+msgstr ""
+
+msgid "8 MB"
+msgstr ""
+
+msgid "=== Browser Settings ==="
+msgstr "=== Configuració del navegador ==="
+
+msgid "=== Cache Settings ==="
+msgstr "=== Configuració de la memòria cau ==="
+
+msgid "=== Export Settings ==="
+msgstr "=== Configuració d'exportació ==="
+
+msgid "=== Log Maintenance ==="
+msgstr "=== Manteniment del registre ==="
+
+msgid "=== Logging Settings ==="
+msgstr "=== Configuració de registre ==="
+
+msgid "=== Network Settings ==="
+msgstr "=== Configuració de la xarxa ==="
+
+msgid "=== Performance Settings ==="
+msgstr "=== Configuració de rendiment ==="
+
+msgid "=== Player Settings ==="
+msgstr "=== Configuració del reproductor ==="
+
+msgid "=== Search Settings ==="
+msgstr "=== Configuració de cerca ==="
+
+msgid "=== Update Settings ==="
+msgstr "=== Actualitza la configuració ==="
+
+msgid "About"
+msgstr "Sobre"
+
+msgid "About TV Garden"
+msgstr "Sobre TV Garden"
+
+msgid "About TV Garden plugin"
+msgstr "Sobre el connector TV Garden"
+
+msgid "Access free IPTV channels from around the world"
+msgstr "Accediu a canals IPTV gratuïts d'arreu del món"
+
+msgid "Add to Favorites"
+msgstr "Afegeix a Preferits"
+
+msgid "Added to favorites"
+msgstr "S'ha afegit als preferits"
+
+msgid "Added to favorites: %s"
+msgstr "Afegit als preferits: %s"
+
+msgid "All channels"
+msgstr "Tots els canals"
+
+msgid "All results"
+msgstr "Tots els resultats"
+
+msgid "Already in favorites"
+msgstr "Ja a favorits"
+
+msgid "Animation"
+msgstr "Animació"
+
+msgid "Are you sure you want to clear all log files?"
+msgstr "Esteu segur que voleu esborrar tots els fitxers de registre?"
+
+msgid "Auto"
+msgstr "Automàtic"
+
+msgid "Back"
+msgstr "Enrere"
+
+msgid "Bottom"
+msgstr "A baix"
+
+msgid "Bouquet Name Prefix"
+msgstr "Prefix del nom del ram"
+
+msgid "Browse by Category"
+msgstr "Navega per categoria"
+
+msgid "Browse by Country"
+msgstr "Navega per país"
+
+msgid "Browse channels by category"
+msgstr "Navega pels canals per categoria"
+
+msgid "Browse channels by country"
+msgstr "Navega pels canals per país"
+
+msgid "Buffer Size"
+msgstr "Mida del buffer"
+
+msgid "Business"
+msgstr "Negocis"
+
+msgid "CH+/CH- = Change | OK = Toggle | STOP = Exit | by Lululla"
+msgstr "CH+/CH- = Canvi | D'acord = Commuta | STOP = Sortir | per Lululla"
+
+msgid "Cache Size"
+msgstr "Mida de la memòria cau"
+
+msgid "Cache cleared"
+msgstr "S'ha esborrat la memòria cau"
+
+msgid "Categories"
+msgstr ""
+
+msgid "Channel Information"
+msgstr "Informació del canal"
+
+msgid "Channel Menu"
+msgstr "Menú del canal"
+
+msgid "Channel added to bouquet"
+msgstr "Canal afegit al ram"
+
+msgid "Channel not found in favorites"
+msgstr "No s'ha trobat el canal als preferits"
+
+msgid "Channels"
+msgstr "Canals"
+
+msgid "Check for Updates"
+msgstr "Comproveu si hi ha actualitzacions"
+
+msgid "Check for plugin updates"
+msgstr "Comproveu si hi ha actualitzacions de connectors"
+
+msgid "Checking for updates..."
+msgstr "S'estan buscant actualitzacions..."
+
+msgid "Classic"
+msgstr "Clàssic"
+
+msgid "Clear"
+msgstr "Clar"
+
+msgid "Clear ALL favorites?"
+msgstr "Esborrar TOTS els preferits?"
+
+msgid "Clear All Favorites"
+msgstr "Esborra tots els preferits"
+
+msgid "Clear Cache"
+msgstr "Esborra la memòria cau"
+
+msgid "Clear Log Files Now"
+msgstr "Esborra els fitxers de registre ara"
+
+msgid "Cleared %d favorites"
+msgstr "S'han esborrat %d preferits"
+
+msgid "Close"
+msgstr "Tancar"
+
+msgid "Comedy"
+msgstr "Comèdia"
+
+msgid "Connection Timeout"
+msgstr "Temps d'espera de connexió"
+
+msgid "Cooking"
+msgstr "Cuinar"
+
+msgid "Could not check for updates. Check internet connection."
+msgstr "No s'han pogut comprovar si hi ha actualitzacions. Comproveu la connexió a Internet."
+
+msgid "Could not check for updates: %s"
+msgstr "No s'han pogut comprovar si hi ha actualitzacions: %s"
+
+msgid "Countries"
+msgstr "Països"
+
+msgid "Countries exported:"
+msgstr "Països exportats:"
+
+msgid "Creating hierarchical structure..."
+msgstr "S'està creant una estructura jeràrquica..."
+
+msgid "Critical"
+msgstr "Crític"
+
+msgid "Culture"
+msgstr "Cultura"
+
+msgid "Database exported successfully"
+msgstr "Base de dades exportada correctament"
+
+msgid "Debug"
+msgstr "Depuració"
+
+msgid "Default View"
+msgstr "Vista per defecte"
+
+msgid "Documentary"
+msgstr "Documental"
+
+msgid "Editing: %s"
+msgstr "Edició: %s"
+
+msgid "Education"
+msgstr "Educació"
+
+msgid "Empty database"
+msgstr "Base de dades buida"
+
+msgid "Enable Cache"
+msgstr "Activa la memòria cau"
+
+msgid "Enable Export"
+msgstr "Activa l'exportació"
+
+msgid "Entertainment"
+msgstr "Entreteniment"
+
+msgid "Error"
+msgstr ""
+
+msgid "Error clearing favorites"
+msgstr "S'ha produït un error en esborrar els preferits"
+
+msgid "Error clearing logs: %s"
+msgstr "Error en esborrar els registres: %s"
+
+msgid "Error loading category"
+msgstr "S'ha produït un error en carregar la categoria"
+
+msgid "Error loading channels"
+msgstr "S'ha produït un error en carregar els canals"
+
+msgid "Error loading channels: %s"
+msgstr "Error en carregar els canals: %s"
+
+msgid "Error loading countries"
+msgstr "S'ha produït un error en carregar els països"
+
+msgid "Error loading favorites"
+msgstr "S'ha produït un error en carregar els preferits"
+
+msgid "Error loading information"
+msgstr "S'ha produït un error en carregar la informació"
+
+msgid "Error opening player"
+msgstr "S'ha produït un error en obrir el reproductor"
+
+msgid "Error saving favorites"
+msgstr "S'ha produït un error en desar els preferits"
+
+msgid "Error writing file: %s"
+msgstr "Error escrivint el fitxer: %s"
+
+msgid "Error: %s"
+msgstr ""
+
+msgid "Exit"
+msgstr "Sortida"
+
+msgid "Export"
+msgstr "Exporta"
+
+msgid "Export '%s' to Enigma2 bouquet?"
+msgstr "Vols exportar "%s" al ram Enigma2?"
+
+msgid "Export ALL %d favorites to Enigma2 bouquet?"
+msgstr "Exporteu TOTS els %d preferits al ram Enigma2?"
+
+msgid "Export ALL Database (Multi-File)"
+msgstr "Exporta TOTA la base de dades (multifitxer)"
+
+msgid "Export ALL Database (Single File)"
+msgstr "Exporta TOTA la base de dades (fitxer únic)"
+
+msgid "Export Current View"
+msgstr "Exporta la vista actual"
+
+msgid "Export error: %s"
+msgstr "Error d'exportació: %s"
+
+msgid "Export failed"
+msgstr "Ha fallat l'exportació"
+
+msgid "Export failed: %s"
+msgstr "Ha fallat l'exportació: %s"
+
+msgid "Export to Enigma2 Bouquet"
+msgstr "Exporta a Enigma2 Bouquet"
+
+msgid "Export {count} channels to bouquet '{name}'?"
+msgstr "Vols exportar {count} canals al ram "{name}"?"
+
+msgid "Exported"
+msgstr "Exportat"
+
+msgid "Exported %d channels to %s"
+msgstr "S'han exportat %d canals a %s"
+
+msgid "Exported %d channels to '%s'"
+msgstr "S'han exportat %d canals a '%s'"
+
+msgid "Exported %d channels to bouquet"
+msgstr "S'han exportat %d canals al bouquet"
+
+msgid "ExtePlayer3"
+msgstr ""
+
+msgid "Failed to create backup. Update cancelled."
+msgstr "No s'ha pogut crear una còpia de seguretat. Actualització cancel·lada."
+
+msgid "Failed to load database"
+msgstr "No s'ha pogut carregar la base de dades"
+
+msgid "Family"
+msgstr "Família"
+
+msgid "Favorite"
+msgstr "Favorit"
+
+msgid "Favorites"
+msgstr "Preferits"
+
+msgid "Files created:"
+msgstr "Fitxers creats:"
+
+msgid "Force Refresh"
+msgstr "Força l'actualització"
+
+msgid "Force Refresh on Browsing"
+msgstr "Força l'actualització durant la navegació"
+
+msgid "Force Refresh on Export"
+msgstr "Força l'actualització a l'exportació"
+
+msgid "Found %d channels"
+msgstr "S'han trobat %d canals"
+
+msgid "Found %d playable channels"
+msgstr "S'han trobat %d canals reproduïbles"
+
+msgid "GStreamer"
+msgstr ""
+
+msgid "General"
+msgstr ""
+
+msgid "Hierarchical export completed"
+msgstr "Exportació jeràrquica completada"
+
+msgid "Hierarchical export completed!"
+msgstr "Exportació jeràrquica completada!"
+
+msgid "History"
+msgstr "Història"
+
+msgid "Hobby"
+msgstr ""
+
+msgid "Info"
+msgstr "Informació"
+
+msgid "Item {} of {}"
+msgstr "Element {} de {}"
+
+msgid "Keyboard"
+msgstr "Teclat"
+
+msgid "Kids"
+msgstr "Nens"
+
+msgid "Legislative"
+msgstr "Legislatiu"
+
+msgid "Lifestyle"
+msgstr "Estil de vida"
+
+msgid "List Position"
+msgstr "Posició de llista"
+
+msgid "Loading all channels in background..."
+msgstr "S'estan carregant tots els canals en segon pla..."
+
+msgid "Loading all channels..."
+msgstr "S'estan carregant tots els canals..."
+
+msgid "Loading already in progress..."
+msgstr "La càrrega ja està en curs..."
+
+msgid "Loading categories..."
+msgstr "Carregant categories..."
+
+msgid "Loading channels..."
+msgstr "S'estan carregant canals..."
+
+msgid "Loading countries..."
+msgstr "S'estan carregant països..."
+
+msgid "Loading countries: %s (%d/%d)"
+msgstr "S'estan carregant països: %s (%d/%d)"
+
+msgid "Loading favorites..."
+msgstr "S'estan carregant els preferits..."
+
+msgid "Loading... %d channels so far"
+msgstr "S'estan carregant... %d canals fins ara"
+
+msgid "Local"
+msgstr ""
+
+msgid "Log Level"
+msgstr "Nivell de registre"
+
+msgid "Log file is empty or not found"
+msgstr "El fitxer de registre està buit o no s'ha trobat"
+
+msgid "Log files cleared successfully"
+msgstr "Els fitxers de registre s'han esborrat correctament"
+
+msgid "Log to File"
+msgstr "Inicieu sessió al fitxer"
+
+msgid "Logs cleared"
+msgstr "Registres esborrats"
+
+msgid "Main bouquet:"
+msgstr "Ram principal:"
+
+msgid "Max Channels for Bouquet"
+msgstr "Canals màxims per al ram"
+
+msgid "Max Channels for Sub-Bouquet"
+msgstr "Canals màxims per a sub-ram"
+
+msgid "Max Search Results"
+msgstr "Màxim resultats de cerca"
+
+msgid "Max channels for country"
+msgstr "Màxim de canals per país"
+
+msgid "Memory Optimization"
+msgstr "Optimització de la memòria"
+
+msgid "Movies"
+msgstr "Pel·lícules"
+
+msgid "Music"
+msgstr "Música"
+
+msgid "News"
+msgstr "Notícies"
+
+msgid "Next load will use fresh data"
+msgstr "La propera càrrega utilitzarà dades noves"
+
+msgid "No channel selected"
+msgstr "No s'ha seleccionat cap canal"
+
+msgid "No channels found for: %s"
+msgstr "No s'han trobat canals per a: %s"
+
+msgid "No channels in this category"
+msgstr "No hi ha canals en aquesta categoria"
+
+msgid "No channels loaded"
+msgstr "No s'ha carregat cap canal"
+
+msgid "No channels to export"
+msgstr "No hi ha canals per exportar"
+
+msgid "No countries with channels found"
+msgstr "No s'ha trobat cap país amb canals"
+
+msgid "No country selected"
+msgstr "No s'ha seleccionat cap país"
+
+msgid "No favorite channels"
+msgstr "No hi ha canals preferits"
+
+msgid "No favorites to export"
+msgstr "No hi ha cap favorit per exportar"
+
+msgid "No items"
+msgstr "No hi ha articles"
+
+msgid "No stream URL"
+msgstr "No hi ha cap URL de reproducció"
+
+msgid "No stream URL available"
+msgstr "No hi ha cap URL de reproducció disponible"
+
+msgid "No valid channels found in database"
+msgstr "No s'han trobat canals vàlids a la base de dades"
+
+msgid "No valid stream URLs found"
+msgstr "No s'han trobat URL de reproducció vàlids"
+
+msgid "No valid streams found"
+msgstr "No s'han trobat reproduccions vàlides"
+
+msgid "Options"
+msgstr "Opcions"
+
+msgid "Options for: %s"
+msgstr "Opcions per a: %s"
+
+msgid "Play"
+msgstr "Jugar"
+
+msgid "Play Channel"
+msgstr ""
+
+msgid "Player"
+msgstr "Jugador"
+
+msgid "Please restart Enigma2 manually."
+msgstr "Si us plau, reinicieu Enigma2 manualment."
+
+msgid "Plugin is up to date"
+msgstr "El connector està actualitzat"
+
+msgid "Plugin settings and configuration"
+msgstr "Configuració i configuració del connector"
+
+msgid "Politics"
+msgstr "Política"
+
+msgid "Press GREEN for keyboard..."
+msgstr "Premeu VERD per al teclat..."
+
+msgid "Press OK to check for updates"
+msgstr "Premeu D'acord per comprovar si hi ha actualitzacions"
+
+msgid "Press OK to clear logs"
+msgstr "Premeu D'acord per esborrar els registres"
+
+msgid "Press OK to view logs"
+msgstr "Premeu D'acord per veure els registres"
+
+msgid "Ready - %d channels"
+msgstr "A punt: %d canals"
+
+msgid "Refresh"
+msgstr "Actualitza"
+
+msgid "Refresh Method"
+msgstr "Mètode d'actualització"
+
+msgid "Refresh failed"
+msgstr "No s'ha pogut actualitzar"
+
+msgid "Refresh failed: %s"
+msgstr "No s'ha pogut actualitzar: %s"
+
+msgid "Refreshing data..."
+msgstr "S'estan actualitzant les dades..."
+
+msgid "Refreshing..."
+msgstr "Refrescant..."
+
+msgid "Religious"
+msgstr "Religioses"
+
+msgid "Remove '%s' from favorites?"
+msgstr "Eliminar '%s' dels preferits?"
+
+msgid "Remove Bouquet from Enigma2"
+msgstr "Elimina el ram d'Enigma2"
+
+msgid "Remove TV Garden bouquet from Enigma2?"
+msgstr "Eliminar el ram de TV Garden d'Enigma2?"
+
+msgid "Remove from Favorites"
+msgstr "Elimina dels preferits"
+
+msgid "Removed"
+msgstr "Eliminat"
+
+msgid "Removed from favorites"
+msgstr "S'ha eliminat dels preferits"
+
+msgid "Removed from favorites: %s"
+msgstr "S'ha eliminat dels preferits: %s"
+
+msgid "Save"
+msgstr "Desa"
+
+msgid "Science"
+msgstr "Ciència"
+
+msgid "Search"
+msgstr "Cerca"
+
+msgid "Search Channels"
+msgstr "Cerca canals"
+
+msgid "Search channels by name"
+msgstr "Cerca canals per nom"
+
+msgid "Search:"
+msgstr "Cerca:"
+
+msgid "Searching..."
+msgstr "S'està buscant..."
+
+msgid "Select"
+msgstr "Seleccioneu"
+
+msgid "Select a category"
+msgstr "Seleccioneu una categoria"
+
+msgid "Select a country"
+msgstr "Seleccioneu un país"
+
+msgid "Series"
+msgstr "Sèrie"
+
+msgid "Set options"
+msgstr "Estableix opcions"
+
+msgid "Settings"
+msgstr "Configuració"
+
+msgid "Shop"
+msgstr "Botiga"
+
+msgid "Show Flags"
+msgstr "Mostra banderes"
+
+msgid "Show Logos"
+msgstr "Mostra logotips"
+
+msgid "Showing all %d channels"
+msgstr "Es mostren els %d canals"
+
+msgid "Showing {shown} of {total} channels"
+msgstr "Es mostren {mostrat} d'un {total} canals"
+
+msgid "Showing {shown} of {total} results"
+msgstr "Es mostren {mostrats} d'un {total} resultats"
+
+msgid "Sports"
+msgstr "Esports"
+
+msgid "Statistics:"
+msgstr "Estadístiques:"
+
+msgid "Stream: %s"
+msgstr "Seqüència: %s"
+
+msgid "Stream: %s..."
+msgstr "Emissió: %s..."
+
+msgid "Structure created:"
+msgstr "Estructura creada:"
+
+msgid "TV Garden"
+msgstr "Jardí de TV"
+
+msgid "TV Garden Logs"
+msgstr ""
+
+msgid "TV Garden Settings"
+msgstr "Configuració de TV Garden"
+
+msgid "Top"
+msgstr "A dalt"
+
+msgid "Total channels:"
+msgstr "Canals totals:"
+
+msgid "Travel"
+msgstr "Viatjar"
+
+msgid "Unknown"
+msgstr "Desconegut"
+
+msgid "Update available!"
+msgstr "Actualització disponible!"
+
+msgid "Update cancelled"
+msgstr "Actualització cancel·lada"
+
+msgid "Update check error"
+msgstr "Error de comprovació d'actualització"
+
+msgid "Update check failed"
+msgstr "La comprovació d'actualització ha fallat"
+
+msgid "Update completed successfully!"
+msgstr "Actualització completada correctament!"
+
+msgid "Update error: %s"
+msgstr "Error d'actualització: %s"
+
+msgid "Update failed"
+msgstr "L'actualització ha fallat"
+
+msgid "Update failed and backup restore also failed!"
+msgstr "L'actualització ha fallat i la restauració de la còpia de seguretat també ha fallat!"
+
+msgid "Update failed. Restored from backup."
+msgstr "L'actualització ha fallat. Restaurat des de la còpia de seguretat."
+
+msgid "Update successful!"
+msgstr "Actualització correcta!"
+
+msgid "Updating plugin... Please wait"
+msgstr "S'està actualitzant el connector... Espereu"
+
+msgid "Use Hardware Acceleration"
+msgstr "Utilitzeu l'acceleració de maquinari"
+
+msgid "User Agent"
+msgstr "Agent d'usuari"
+
+msgid "View Channel Info"
+msgstr "Veure informació del canal"
+
+msgid "View Log File"
+msgstr "Veure fitxer de registre"
+
+msgid "Warning"
+msgstr "Avís"
+
+msgid "Weather"
+msgstr "El temps"
+
+msgid "Will load fresh data next time"
+msgstr "La propera vegada es carregarà dades noves"
+
+msgid "You have the latest version of TVGarden."
+msgstr "Tens la darrera versió de TVGarden."
+
+msgid "Your favorite channels"
+msgstr "Els teus canals preferits"
+
+msgid "[Cache disabled]"
+msgstr "[Memòria cau desactivada]"
+
+msgid "[Fresh data]"
+msgstr "[Dades noves]"
+
+msgid "bouquet references"
+msgstr "referències del ram"
+
+msgid "channels from"
+msgstr "canals de"
+
+msgid "countries"
+msgstr "països"
+
+msgid "files and"
+msgstr "fitxers i"

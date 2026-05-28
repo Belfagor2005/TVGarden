@@ -37,10 +37,21 @@ msgstr "(saltato %d YouTube)"
 msgid "1 MB"
 msgstr ""
 
+msgid "10 results"
+msgstr "10 risultati"
+
 msgid "100 channels"
 msgstr "100 canali"
 
+#, fuzzy
+msgid "100 results"
+msgstr "100 canali"
+
 msgid "1000 channels"
+msgstr "1000 canali"
+
+#, fuzzy
+msgid "1000 results"
 msgstr "1000 canali"
 
 msgid "2 MB"
@@ -52,20 +63,41 @@ msgstr "2000 canali"
 msgid "250 channels"
 msgstr "250 canali"
 
+#, fuzzy
+msgid "250 results"
+msgstr "250 canali"
+
+msgid "2500 results"
+msgstr "2500 risultati"
+
 msgid "4 MB"
 msgstr ""
+
+msgid "4000 results"
+msgstr "4000 risultati"
 
 msgid "50 channels"
 msgstr "50 canali"
 
+msgid "50 results"
+msgstr "50 risultati"
+
 msgid "500 channels"
+msgstr "500 canali"
+
+#, fuzzy
+msgid "500 results"
 msgstr "500 canali"
 
 msgid "5000 channels"
 msgstr "5000 canali"
 
+#, fuzzy
+msgid "5000 results"
+msgstr "5000 canali"
+
 msgid "512 KB"
-msgstr ""
+msgstr "512KB"
 
 msgid "8 MB"
 msgstr ""
@@ -122,6 +154,10 @@ msgid "Added to favorites: %s"
 msgstr "Aggiunto ai preferiti: %s"
 
 msgid "All channels"
+msgstr "Tutti i canali"
+
+#, fuzzy
+msgid "All results"
 msgstr "Tutti i canali"
 
 msgid "Already in favorites"
@@ -298,6 +334,10 @@ msgstr "Errore durante il caricamento delle categorie"
 msgid "Error loading channels"
 msgstr "Errore durante il caricamento dei canali"
 
+#, fuzzy
+msgid "Error loading channels: %s"
+msgstr "Errore durante il caricamento dei canali"
+
 msgid "Error loading countries"
 msgstr "Errore durante il caricamento dei Paesi"
 
@@ -340,6 +380,10 @@ msgstr "Esporta TUTTI i database(File Singolo)"
 msgid "Export Current View"
 msgstr "Esporta vista corrente"
 
+#, fuzzy
+msgid "Export error: %s"
+msgstr "Esportazione: %s"
+
 msgid "Export failed"
 msgstr "Esportazione fallita"
 
@@ -354,6 +398,14 @@ msgstr "Esportare {count} canali nel bouquet '{name}'?"
 
 msgid "Exported"
 msgstr "Esportato"
+
+#, fuzzy
+msgid "Exported %d channels to %s"
+msgstr "Esportati %d canali nel bouquet"
+
+#, fuzzy
+msgid "Exported %d channels to '%s'"
+msgstr "Esportati %d canali nel bouquet"
 
 msgid "Exported %d channels to bouquet"
 msgstr "Esportati %d canali nel bouquet"
@@ -433,8 +485,16 @@ msgstr "Stile di vita"
 msgid "List Position"
 msgstr "Posizione Lista"
 
+#, fuzzy
+msgid "Loading all channels in background..."
+msgstr "Caricamento di tutti i canali in corso..."
+
 msgid "Loading all channels..."
 msgstr "Caricamento di tutti i canali in corso..."
+
+#, fuzzy
+msgid "Loading already in progress..."
+msgstr "Caricamento categorie in corso..."
 
 msgid "Loading categories..."
 msgstr "Caricamento categorie in corso..."
@@ -445,8 +505,16 @@ msgstr "Caricamento canali in corso..."
 msgid "Loading countries..."
 msgstr "Caricamento paesi in corso..."
 
+#, fuzzy
+msgid "Loading countries: %s (%d/%d)"
+msgstr "Caricamento paesi in corso..."
+
 msgid "Loading favorites..."
 msgstr "Caricamento preferiti..."
+
+#, fuzzy
+msgid "Loading... %d channels so far"
+msgstr "Caricamento canali in corso..."
 
 msgid "Local"
 msgstr "Locale"
@@ -491,7 +559,7 @@ msgid "Music"
 msgstr "Musica"
 
 msgid "News"
-msgstr ""
+msgstr "Notizia"
 
 msgid "Next load will use fresh data"
 msgstr "Il prossimo caricamento utilizzerà dati nuovi"
@@ -538,6 +606,10 @@ msgstr "Nessun canale valido trovato nel database"
 msgid "No valid stream URLs found"
 msgstr "Nessun URL di streaming valido trovato"
 
+#, fuzzy
+msgid "No valid streams found"
+msgstr "Nessun URL di streaming valido trovato"
+
 msgid "Options"
 msgstr "Opzioni"
 
@@ -551,7 +623,7 @@ msgid "Play Channel"
 msgstr "Riproduci canale"
 
 msgid "Player"
-msgstr ""
+msgstr "Giocatore"
 
 msgid "Please restart Enigma2 manually."
 msgstr "Riavviare Enigma2 manualmente."
@@ -568,9 +640,6 @@ msgstr "Politica"
 msgid "Press GREEN for keyboard..."
 msgstr "Premi VERDE per la tastiera..."
 
-msgid "Press GREEN for keyboard... Ready - %d channels"
-msgstr "Premi VERDE per la tastiera... Pronto - %d canali"
-
 msgid "Press OK to check for updates"
 msgstr "Premere OK per verificare la disponibilità di aggiornamenti"
 
@@ -579,6 +648,10 @@ msgstr "Premere OK per cancellare i registri di Logs"
 
 msgid "Press OK to view logs"
 msgstr "Premere OK per visualizzare i registri di Logs"
+
+#, fuzzy
+msgid "Ready - %d channels"
+msgstr "Trovati %d canali"
 
 msgid "Refresh"
 msgstr "Aggiorna"
@@ -695,7 +768,7 @@ msgid "Structure created:"
 msgstr "Struttura creata:"
 
 msgid "TV Garden"
-msgstr ""
+msgstr "Giardino televisivo"
 
 msgid "TV Garden Logs"
 msgstr "Log TV Garden"
@@ -713,7 +786,7 @@ msgid "Travel"
 msgstr "Viaggi"
 
 msgid "Unknown"
-msgstr ""
+msgstr "Sconosciuto"
 
 msgid "Update available!"
 msgstr "Aggiornamento disponibile!"
@@ -752,7 +825,7 @@ msgid "Use Hardware Acceleration"
 msgstr "Utilizzare l'accelerazione hardware"
 
 msgid "User Agent"
-msgstr ""
+msgstr "Agente utente"
 
 msgid "View Channel Info"
 msgstr "Visualizza informazioni sul canale"
@@ -793,6 +866,9 @@ msgstr "paesi"
 msgid "files and"
 msgstr "file e"
 
+#~ msgid "Press GREEN for keyboard... Ready - %d channels"
+#~ msgstr "Premi VERDE per la tastiera... Pronto - %d canali"
+
 #~ msgid "=== Display Settings ==="
 #~ msgstr "=== Impostazioni Visualizzazione ==="
 
@@ -825,10 +901,6 @@ msgstr "file e"
 
 #~ msgid "DISABLED"
 #~ msgstr "DISABILITATO"
-
-#, python-format
-#~ msgid "Export: %s"
-#~ msgstr "Esportazione: %s"
 
 #, python-format
 #~ msgid "Auto-refresh: %s"

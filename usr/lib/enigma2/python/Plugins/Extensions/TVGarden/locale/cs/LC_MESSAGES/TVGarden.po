@@ -33,10 +33,21 @@ msgstr "(přeskočeno %d YouTube)"
 msgid "1 MB"
 msgstr "1 MB"
 
+msgid "10 results"
+msgstr "10 výsledků"
+
 msgid "100 channels"
 msgstr "100 kanálů"
 
+#, fuzzy
+msgid "100 results"
+msgstr "100 kanálů"
+
 msgid "1000 channels"
+msgstr "1000 kanálů"
+
+#, fuzzy
+msgid "1000 results"
 msgstr "1000 kanálů"
 
 msgid "2 MB"
@@ -49,17 +60,38 @@ msgstr "1000 kanálů"
 msgid "250 channels"
 msgstr "250 kanálů"
 
+#, fuzzy
+msgid "250 results"
+msgstr "250 kanálů"
+
+msgid "2500 results"
+msgstr "2500 výsledků"
+
 msgid "4 MB"
 msgstr "4 MB"
 
+msgid "4000 results"
+msgstr "4000 výsledků"
+
 msgid "50 channels"
 msgstr "50 kanálů"
+
+msgid "50 results"
+msgstr "50 výsledků"
 
 msgid "500 channels"
 msgstr "500 kanálů"
 
 #, fuzzy
+msgid "500 results"
+msgstr "500 kanálů"
+
+#, fuzzy
 msgid "5000 channels"
+msgstr "500 kanálů"
+
+#, fuzzy
+msgid "5000 results"
 msgstr "500 kanálů"
 
 msgid "512 KB"
@@ -123,6 +155,10 @@ msgstr "Přidáno k oblíbeným: %s"
 msgid "All channels"
 msgstr "Zobrazit všechny kanály"
 
+#, fuzzy
+msgid "All results"
+msgstr "Zobrazit všechny kanály"
+
 msgid "Already in favorites"
 msgstr "Už v oblíbených"
 
@@ -139,7 +175,7 @@ msgid "Back"
 msgstr "Zpět"
 
 msgid "Bottom"
-msgstr ""
+msgstr "Dno"
 
 msgid "Bouquet Name Prefix"
 msgstr "Předpona názvu kytice"
@@ -163,7 +199,7 @@ msgid "Business"
 msgstr "Business"
 
 msgid "CH+/CH- = Change | OK = Toggle | STOP = Exit | by Lululla"
-msgstr ""
+msgstr "CH+/CH- = změna | OK = Přepnout | STOP = Konec | od Lululla"
 
 msgid "Cache Size"
 msgstr "Velikost mezipaměti"
@@ -227,7 +263,7 @@ msgid "Comedy"
 msgstr "Komedie"
 
 msgid "Connection Timeout"
-msgstr ""
+msgstr "Časový limit připojení"
 
 msgid "Cooking"
 msgstr "Vaření"
@@ -242,10 +278,10 @@ msgid "Countries"
 msgstr "Země"
 
 msgid "Countries exported:"
-msgstr ""
+msgstr "Vyvážené země:"
 
 msgid "Creating hierarchical structure..."
-msgstr ""
+msgstr "Vytváření hierarchické struktury..."
 
 msgid "Critical"
 msgstr "Kritická"
@@ -275,7 +311,7 @@ msgid "Empty database"
 msgstr "Prázdná databáze"
 
 msgid "Enable Cache"
-msgstr ""
+msgstr "Povolit mezipaměť"
 
 msgid "Enable Export"
 msgstr "Povolit export"
@@ -298,6 +334,10 @@ msgstr "Chyba při načítání kategorie"
 msgid "Error loading channels"
 msgstr "Chyba při načítání kanálů"
 
+#, fuzzy
+msgid "Error loading channels: %s"
+msgstr "Chyba při načítání kanálů"
+
 msgid "Error loading countries"
 msgstr "Chyba při načítání zemí"
 
@@ -314,7 +354,7 @@ msgid "Error saving favorites"
 msgstr "Chyba ukládání oblíbených položek"
 
 msgid "Error writing file: %s"
-msgstr ""
+msgstr "Chyba při zápisu souboru: %s"
 
 msgid "Error: %s"
 msgstr "Chyba: %s"
@@ -332,13 +372,17 @@ msgid "Export ALL %d favorites to Enigma2 bouquet?"
 msgstr "Exportovat VŠECHNY %d oblíbené položky do kytice Enigma2?"
 
 msgid "Export ALL Database (Multi-File)"
-msgstr ""
+msgstr "Export VŠECHNY databáze (více souborů)"
 
 msgid "Export ALL Database (Single File)"
-msgstr ""
+msgstr "Export VŠECHNY databáze (jeden soubor)"
 
 msgid "Export Current View"
 msgstr "Exportovat aktuální zobrazení"
+
+#, fuzzy
+msgid "Export error: %s"
+msgstr "Export: %s"
 
 msgid "Export failed"
 msgstr "Export neuspěl"
@@ -353,7 +397,15 @@ msgid "Export {count} channels to bouquet '{name}'?"
 msgstr "Exportovat {count} kanálů do svazku '{name}'?"
 
 msgid "Exported"
-msgstr ""
+msgstr "Exportováno"
+
+#, fuzzy
+msgid "Exported %d channels to %s"
+msgstr "Exportováno %d kanálů do bouquetu"
+
+#, fuzzy
+msgid "Exported %d channels to '%s'"
+msgstr "Exportováno %d kanálů do bouquetu"
 
 msgid "Exported %d channels to bouquet"
 msgstr "Exportováno %d kanálů do bouquetu"
@@ -377,17 +429,17 @@ msgid "Favorites"
 msgstr "Oblíbené"
 
 msgid "Files created:"
-msgstr ""
+msgstr "Vytvořené soubory:"
 
 #, fuzzy
 msgid "Force Refresh"
 msgstr "Obnovit"
 
 msgid "Force Refresh on Browsing"
-msgstr ""
+msgstr "Vynutit aktualizaci při procházení"
 
 msgid "Force Refresh on Export"
-msgstr ""
+msgstr "Vynutit aktualizaci při exportu"
 
 msgid "Found %d channels"
 msgstr "Nalezeno %d kanálů"
@@ -402,10 +454,10 @@ msgid "General"
 msgstr "Hlavní"
 
 msgid "Hierarchical export completed"
-msgstr ""
+msgstr "Hierarchický export dokončen"
 
 msgid "Hierarchical export completed!"
-msgstr ""
+msgstr "Hierarchický export dokončen!"
 
 msgid "History"
 msgstr "Historie"
@@ -417,7 +469,7 @@ msgid "Info"
 msgstr "Informace"
 
 msgid "Item {} of {}"
-msgstr ""
+msgstr "Položka {} z {}"
 
 msgid "Keyboard"
 msgstr "Klávesnice"
@@ -432,10 +484,18 @@ msgid "Lifestyle"
 msgstr "Životní styl"
 
 msgid "List Position"
-msgstr ""
+msgstr "Pozice seznamu"
+
+#, fuzzy
+msgid "Loading all channels in background..."
+msgstr "Načítání všech kanálů..."
 
 msgid "Loading all channels..."
 msgstr "Načítání všech kanálů..."
+
+#, fuzzy
+msgid "Loading already in progress..."
+msgstr "Načítání kategorií..."
 
 msgid "Loading categories..."
 msgstr "Načítání kategorií..."
@@ -446,8 +506,16 @@ msgstr "Načítání kanálů..."
 msgid "Loading countries..."
 msgstr "Načítání zemí..."
 
+#, fuzzy
+msgid "Loading countries: %s (%d/%d)"
+msgstr "Načítání zemí..."
+
 msgid "Loading favorites..."
 msgstr "Načítání oblíbených položek..."
+
+#, fuzzy
+msgid "Loading... %d channels so far"
+msgstr "Načítání kanálů..."
 
 msgid "Local"
 msgstr "Místní"
@@ -468,7 +536,7 @@ msgid "Logs cleared"
 msgstr "Protokoly vymazány"
 
 msgid "Main bouquet:"
-msgstr ""
+msgstr "Hlavní kytice:"
 
 #, fuzzy
 msgid "Max Channels for Bouquet"
@@ -487,7 +555,7 @@ msgid "Max channels for country"
 msgstr "Maximální počet kanálů na zemi"
 
 msgid "Memory Optimization"
-msgstr ""
+msgstr "Optimalizace paměti"
 
 msgid "Movies"
 msgstr "Filmy"
@@ -499,7 +567,7 @@ msgid "News"
 msgstr "Novinky"
 
 msgid "Next load will use fresh data"
-msgstr ""
+msgstr "Další načtení použije čerstvá data"
 
 msgid "No channel selected"
 msgstr "Není vybrán žádný kanál"
@@ -529,7 +597,7 @@ msgid "No favorites to export"
 msgstr "Žádné oblíbené položky k exportu"
 
 msgid "No items"
-msgstr ""
+msgstr "Žádné položky"
 
 msgid "No stream URL"
 msgstr "Žádná adresa URL streamu"
@@ -541,6 +609,10 @@ msgid "No valid channels found in database"
 msgstr "V databázi nebyly nalezeny žádné platné kanály"
 
 msgid "No valid stream URLs found"
+msgstr "Nenalezeny žádné platné adresy URL streamu"
+
+#, fuzzy
+msgid "No valid streams found"
 msgstr "Nenalezeny žádné platné adresy URL streamu"
 
 msgid "Options"
@@ -573,9 +645,6 @@ msgstr "Politika"
 msgid "Press GREEN for keyboard..."
 msgstr "Stiskněte ZELENOU pro zobrazení klávesnice..."
 
-msgid "Press GREEN for keyboard... Ready - %d channels"
-msgstr "Stiskněte ZELENOU pro zobrazení klávesnice... Připraveno - %d kanálů"
-
 msgid "Press OK to check for updates"
 msgstr "Stisknutím tlačítka OK zkontrolujete aktualizace"
 
@@ -584,6 +653,10 @@ msgstr "Stisknutím tlačítka OK vymažete protokoly"
 
 msgid "Press OK to view logs"
 msgstr "Stisknutím tlačítka OK zobrazíte protokoly"
+
+#, fuzzy
+msgid "Ready - %d channels"
+msgstr "Nalezeno %d kanálů"
 
 msgid "Refresh"
 msgstr "Obnovit"
@@ -690,7 +763,7 @@ msgid "Sports"
 msgstr "Sporty"
 
 msgid "Statistics:"
-msgstr ""
+msgstr "Statistika:"
 
 msgid "Stream: %s"
 msgstr "Stream: %s"
@@ -699,7 +772,7 @@ msgid "Stream: %s..."
 msgstr "Stream: %s..."
 
 msgid "Structure created:"
-msgstr ""
+msgstr "Struktura vytvořena:"
 
 msgid "TV Garden"
 msgstr "TV Garden"
@@ -711,10 +784,10 @@ msgid "TV Garden Settings"
 msgstr "Nastavení televizní zahrady"
 
 msgid "Top"
-msgstr ""
+msgstr "Nahoru"
 
 msgid "Total channels:"
-msgstr ""
+msgstr "Celkový počet kanálů:"
 
 msgid "Travel"
 msgstr "Cestovní kancelář"
@@ -723,7 +796,7 @@ msgid "Unknown"
 msgstr "Neznámý"
 
 msgid "Update available!"
-msgstr ""
+msgstr "Aktualizace k dispozici!"
 "{server_version} {version_server}\n"
 "{installed_version} {version}\n"
 "\n"
@@ -745,7 +818,7 @@ msgid "Update error: %s"
 msgstr "Chyba aktualizace: %s"
 
 msgid "Update failed"
-msgstr ""
+msgstr "Aktualizace se nezdařila"
 "Aktualizace selhala:\n"
 "%s"
 
@@ -780,7 +853,7 @@ msgid "Weather"
 msgstr "Počasí"
 
 msgid "Will load fresh data next time"
-msgstr ""
+msgstr "Příště načte čerstvá data"
 
 #, fuzzy
 msgid "You have the latest version of TVGarden."
@@ -801,13 +874,16 @@ msgid "bouquet references"
 msgstr "odkazy na kytice"
 
 msgid "channels from"
-msgstr ""
+msgstr "kanály z"
 
 msgid "countries"
-msgstr ""
+msgstr "zemí"
 
 msgid "files and"
 msgstr "soubory a"
+
+#~ msgid "Press GREEN for keyboard... Ready - %d channels"
+#~ msgstr "Stiskněte ZELENOU pro zobrazení klávesnice... Připraveno - %d kanálů"
 
 #~ msgid "TV Garden Plugin"
 #~ msgstr "Plugin TV Garden"
@@ -826,10 +902,6 @@ msgstr "soubory a"
 
 #~ msgid "OFF"
 #~ msgstr "VYPNUT"
-
-#, python-format
-#~ msgid "Export: %s"
-#~ msgstr "Export: %s"
 
 #, python-format
 #~ msgid "Auto-refresh: %s"

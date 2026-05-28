@@ -1,0 +1,841 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: enigma 2\n"
+"PO-Revision-Date: 2026-05-27 20:51+0000\n"
+"Last-Translator:  <EMAIL@ADDRESS>\n"
+"Language-Team: Basque <translation-team-eu@googlegroups.com>\n"
+"Language: eu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "%d favorite channels"
+msgstr ""
+
+msgid "%d favorites"
+msgstr "%d gogoko"
+
+msgid "(filtered %d problematic)"
+msgstr ""
+
+msgid "(limited to first %d)"
+msgstr ""
+
+msgid "(skipped %d YouTube)"
+msgstr ""
+
+msgid "1 MB"
+msgstr ""
+
+msgid "10 results"
+msgstr ""
+
+msgid "100 channels"
+msgstr ""
+
+msgid "100 results"
+msgstr ""
+
+msgid "1000 channels"
+msgstr ""
+
+msgid "1000 results"
+msgstr ""
+
+msgid "2 MB"
+msgstr ""
+
+msgid "2000 channels"
+msgstr ""
+
+msgid "250 channels"
+msgstr "250 kanal"
+
+msgid "250 results"
+msgstr "250 emaitza"
+
+msgid "2500 results"
+msgstr "2500 emaitza"
+
+msgid "4 MB"
+msgstr ""
+
+msgid "4000 results"
+msgstr ""
+
+msgid "50 channels"
+msgstr ""
+
+msgid "50 results"
+msgstr ""
+
+msgid "500 channels"
+msgstr ""
+
+msgid "500 results"
+msgstr ""
+
+msgid "5000 channels"
+msgstr ""
+
+msgid "5000 results"
+msgstr ""
+
+msgid "512 KB"
+msgstr ""
+
+msgid "8 MB"
+msgstr ""
+
+msgid "=== Browser Settings ==="
+msgstr ""
+
+msgid "=== Cache Settings ==="
+msgstr "=== Cache ezarpenak ==="
+
+msgid "=== Export Settings ==="
+msgstr "=== Esportatu ezarpenak ==="
+
+msgid "=== Log Maintenance ==="
+msgstr "=== Erregistroen mantentze-lanak ==="
+
+msgid "=== Logging Settings ==="
+msgstr "=== Erregistroaren ezarpenak ==="
+
+msgid "=== Network Settings ==="
+msgstr "=== Sareko ezarpenak ==="
+
+msgid "=== Performance Settings ==="
+msgstr "=== Errendimendu ezarpenak ==="
+
+msgid "=== Player Settings ==="
+msgstr "=== Erreproduzitzailearen ezarpenak ==="
+
+msgid "=== Search Settings ==="
+msgstr "=== Bilaketa ezarpenak ==="
+
+msgid "=== Update Settings ==="
+msgstr "=== Eguneratu ezarpenak ==="
+
+msgid "About"
+msgstr "Buruz"
+
+msgid "About TV Garden"
+msgstr "TV Garden buruz"
+
+msgid "About TV Garden plugin"
+msgstr "TV Garden pluginari buruz"
+
+msgid "Access free IPTV channels from around the world"
+msgstr "Sar zaitez mundu osoko IPTV kanaletara doan"
+
+msgid "Add to Favorites"
+msgstr "Gehitu gogokoetara"
+
+msgid "Added to favorites"
+msgstr "Gogokoetara gehitu da"
+
+msgid "Added to favorites: %s"
+msgstr "Gogokoetara gehitu da: %s"
+
+msgid "All channels"
+msgstr "Kanal guztiak"
+
+msgid "All results"
+msgstr "Emaitza guztiak"
+
+msgid "Already in favorites"
+msgstr "Dagoeneko faboritoetan"
+
+msgid "Animation"
+msgstr "Animazioa"
+
+msgid "Are you sure you want to clear all log files?"
+msgstr "Ziur erregistro-fitxategi guztiak garbitu nahi dituzula?"
+
+msgid "Auto"
+msgstr "Autoa"
+
+msgid "Back"
+msgstr "Itzuli"
+
+msgid "Bottom"
+msgstr "Behean"
+
+msgid "Bouquet Name Prefix"
+msgstr "Sortaren izenaren aurrizkia"
+
+msgid "Browse by Category"
+msgstr "Arakatu Kategoriaren arabera"
+
+msgid "Browse by Country"
+msgstr "Arakatu herrialdearen arabera"
+
+msgid "Browse channels by category"
+msgstr "Arakatu kanalak kategoriaren arabera"
+
+msgid "Browse channels by country"
+msgstr "Arakatu kanalak herrialdeka"
+
+msgid "Buffer Size"
+msgstr "Buffer tamaina"
+
+msgid "Business"
+msgstr "Negozioak"
+
+msgid "CH+/CH- = Change | OK = Toggle | STOP = Exit | by Lululla"
+msgstr "CH+/CH- = Aldatu | Ados = Aktibatu | STOP = Irten | Egilea: Lululla"
+
+msgid "Cache Size"
+msgstr "Cachearen tamaina"
+
+msgid "Cache cleared"
+msgstr "Cachea garbitu da"
+
+msgid "Categories"
+msgstr "Kategoriak"
+
+msgid "Channel Information"
+msgstr "Kanalaren informazioa"
+
+msgid "Channel Menu"
+msgstr "Kanalaren menua"
+
+msgid "Channel added to bouquet"
+msgstr "Kanala sortari gehitu zaio"
+
+msgid "Channel not found in favorites"
+msgstr "Ez da kanalik aurkitu gogokoetan"
+
+msgid "Channels"
+msgstr "Kanalak"
+
+msgid "Check for Updates"
+msgstr ""
+
+msgid "Check for plugin updates"
+msgstr "Egiaztatu pluginen eguneratzeak"
+
+msgid "Checking for updates..."
+msgstr ""
+
+msgid "Classic"
+msgstr "Klasikoa"
+
+msgid "Clear"
+msgstr "Garbi"
+
+msgid "Clear ALL favorites?"
+msgstr "Gogoko GUZTIAK garbitu?"
+
+msgid "Clear All Favorites"
+msgstr "Garbitu gogoko guztiak"
+
+msgid "Clear Cache"
+msgstr "Garbitu cachea"
+
+msgid "Clear Log Files Now"
+msgstr "Garbitu erregistro-fitxategiak orain"
+
+msgid "Cleared %d favorites"
+msgstr "%d gogoko garbitu dira"
+
+msgid "Close"
+msgstr "Itxi"
+
+msgid "Comedy"
+msgstr "Komedia"
+
+msgid "Connection Timeout"
+msgstr "Konexioaren denbora-muga"
+
+msgid "Cooking"
+msgstr "Sukaldaritza"
+
+msgid "Could not check for updates. Check internet connection."
+msgstr "Ezin izan dira egiaztatu eguneratzeak. Egiaztatu Interneteko konexioa."
+
+msgid "Could not check for updates: %s"
+msgstr "Ezin izan dira eguneraketak egiaztatu: %s"
+
+msgid "Countries"
+msgstr "Herrialdeak"
+
+msgid "Countries exported:"
+msgstr "Esportatutako herrialdeak:"
+
+msgid "Creating hierarchical structure..."
+msgstr "Egitura hierarkikoa sortzen..."
+
+msgid "Critical"
+msgstr "Kritikoa"
+
+msgid "Culture"
+msgstr "Kultura"
+
+msgid "Database exported successfully"
+msgstr "Datu-basea ongi esportatu da"
+
+msgid "Debug"
+msgstr "Araztu"
+
+msgid "Default View"
+msgstr "Ikuspegi lehenetsia"
+
+msgid "Documentary"
+msgstr "Dokumentala"
+
+msgid "Editing: %s"
+msgstr "Edizioa: %s"
+
+msgid "Education"
+msgstr "Hezkuntza"
+
+msgid "Empty database"
+msgstr "Datu-base hutsa"
+
+msgid "Enable Cache"
+msgstr "Gaitu cachea"
+
+msgid "Enable Export"
+msgstr "Gaitu esportazioa"
+
+msgid "Entertainment"
+msgstr "Entretenimendua"
+
+msgid "Error"
+msgstr "Errorea"
+
+msgid "Error clearing favorites"
+msgstr "Errore bat gertatu da gogokoak garbitzean"
+
+msgid "Error clearing logs: %s"
+msgstr "Errorea erregistroak garbitzean: %s"
+
+msgid "Error loading category"
+msgstr "Errore bat gertatu da kategoria kargatzean"
+
+msgid "Error loading channels"
+msgstr "Errore bat gertatu da kanalak kargatzean"
+
+msgid "Error loading channels: %s"
+msgstr "Errorea kanalak kargatzean: %s"
+
+msgid "Error loading countries"
+msgstr "Errore bat gertatu da herrialdeak kargatzean"
+
+msgid "Error loading favorites"
+msgstr "Errore bat gertatu da gogokoak kargatzean"
+
+msgid "Error loading information"
+msgstr "Errore bat gertatu da informazioa kargatzean"
+
+msgid "Error opening player"
+msgstr "Errore bat gertatu da erreproduzitzailea irekitzean"
+
+msgid "Error saving favorites"
+msgstr "Errore bat gertatu da gogokoak gordetzean"
+
+msgid "Error writing file: %s"
+msgstr "Errore bat gertatu da fitxategia idazten: %s"
+
+msgid "Error: %s"
+msgstr "Errorea: %s"
+
+msgid "Exit"
+msgstr "Irten"
+
+msgid "Export"
+msgstr "Esportatu"
+
+msgid "Export '%s' to Enigma2 bouquet?"
+msgstr "'%s' Enigma2 sortara esportatu?"
+
+msgid "Export ALL %d favorites to Enigma2 bouquet?"
+msgstr "%d gogoko GUZTIAK Enigma2 sortara esportatu?"
+
+msgid "Export ALL Database (Multi-File)"
+msgstr "Esportatu datu-base GUZTIA (fitxategi anitzekoa)"
+
+msgid "Export ALL Database (Single File)"
+msgstr "Esportatu datu-base GUZTIA (fitxategi bakarra)"
+
+msgid "Export Current View"
+msgstr "Esportatu uneko ikuspegia"
+
+msgid "Export error: %s"
+msgstr "Esportatu errorea: %s"
+
+msgid "Export failed"
+msgstr "Ezin izan da esportatu"
+
+msgid "Export failed: %s"
+msgstr "Esportatu huts egin du: %s"
+
+msgid "Export to Enigma2 Bouquet"
+msgstr "Esportatu Enigma2 Bouquet-era"
+
+msgid "Export {count} channels to bouquet '{name}'?"
+msgstr "{count} kanal "{name}" sortara esportatu nahi dituzu?"
+
+msgid "Exported"
+msgstr "Esportatua"
+
+msgid "Exported %d channels to %s"
+msgstr "%d kanal esportatu dira %s-ra"
+
+msgid "Exported %d channels to '%s'"
+msgstr "%d kanal esportatu dira '%s'-ra"
+
+msgid "Exported %d channels to bouquet"
+msgstr "%d kanal esportatu dira sortara"
+
+msgid "ExtePlayer3"
+msgstr ""
+
+msgid "Failed to create backup. Update cancelled."
+msgstr "Ezin izan da babeskopia sortu. Eguneraketa bertan behera utzi da."
+
+msgid "Failed to load database"
+msgstr "Ezin izan da datu-basea kargatu"
+
+msgid "Family"
+msgstr "Familia"
+
+msgid "Favorite"
+msgstr "Gogokoena"
+
+msgid "Favorites"
+msgstr "Gogokoak"
+
+msgid "Files created:"
+msgstr "Sortutako fitxategiak:"
+
+msgid "Force Refresh"
+msgstr "Behartu freskatzea"
+
+msgid "Force Refresh on Browsing"
+msgstr "Behartu freskatzea nabigatzean"
+
+msgid "Force Refresh on Export"
+msgstr "Behartu freskatu esportazioan"
+
+msgid "Found %d channels"
+msgstr "%d kanal aurkitu dira"
+
+msgid "Found %d playable channels"
+msgstr "Erreproduzi daitezkeen %d kanal aurkitu dira"
+
+msgid "GStreamer"
+msgstr ""
+
+msgid "General"
+msgstr "Orokorra"
+
+msgid "Hierarchical export completed"
+msgstr "Esportazio hierarkikoa osatu da"
+
+msgid "Hierarchical export completed!"
+msgstr "Esportazio hierarkikoa osatu da!"
+
+msgid "History"
+msgstr "Historia"
+
+msgid "Hobby"
+msgstr "Zaletasuna"
+
+msgid "Info"
+msgstr ""
+
+msgid "Item {} of {}"
+msgstr "{}/{} elementua"
+
+msgid "Keyboard"
+msgstr "Teklatua"
+
+msgid "Kids"
+msgstr "Haurrak"
+
+msgid "Legislative"
+msgstr "Legegilea"
+
+msgid "Lifestyle"
+msgstr "Bizimodua"
+
+msgid "List Position"
+msgstr "Zerrendaren posizioa"
+
+msgid "Loading all channels in background..."
+msgstr "Kanal guztiak atzeko planoan kargatzen..."
+
+msgid "Loading all channels..."
+msgstr "Kanal guztiak kargatzen..."
+
+msgid "Loading already in progress..."
+msgstr "Dagoeneko kargatzen ari da..."
+
+msgid "Loading categories..."
+msgstr "Kategoriak kargatzen..."
+
+msgid "Loading channels..."
+msgstr "Kanalak kargatzen..."
+
+msgid "Loading countries..."
+msgstr "Herrialdeak kargatzen..."
+
+msgid "Loading countries: %s (%d/%d)"
+msgstr "Herrialdeak kargatzen: %s (%d/%d)"
+
+msgid "Loading favorites..."
+msgstr "Gogokoak kargatzen..."
+
+msgid "Loading... %d channels so far"
+msgstr "Kargatzen... %d kanal orain arte"
+
+msgid "Local"
+msgstr "Tokikoa"
+
+msgid "Log Level"
+msgstr "Erregistro Maila"
+
+msgid "Log file is empty or not found"
+msgstr "Erregistro fitxategia hutsik dago edo ez da aurkitu"
+
+msgid "Log files cleared successfully"
+msgstr "Erregistro fitxategiak behar bezala garbitu dira"
+
+msgid "Log to File"
+msgstr "Saioa Fitxategian"
+
+msgid "Logs cleared"
+msgstr "Erregistroak garbitu dira"
+
+msgid "Main bouquet:"
+msgstr "Sorta nagusia:"
+
+msgid "Max Channels for Bouquet"
+msgstr "Bouqueterako gehienezko kanalak"
+
+msgid "Max Channels for Sub-Bouquet"
+msgstr "Gehienezko kanalak azpi-sortarako"
+
+msgid "Max Search Results"
+msgstr "Gehienezko bilaketa-emaitzak"
+
+msgid "Max channels for country"
+msgstr "Gehienezko kanalak herrialderako"
+
+msgid "Memory Optimization"
+msgstr "Memoria Optimizazioa"
+
+msgid "Movies"
+msgstr "Filmak"
+
+msgid "Music"
+msgstr "Musika"
+
+msgid "News"
+msgstr "Berriak"
+
+msgid "Next load will use fresh data"
+msgstr "Hurrengo kargak datu berriak erabiliko ditu"
+
+msgid "No channel selected"
+msgstr "Ez da kanalik hautatu"
+
+msgid "No channels found for: %s"
+msgstr "Ez da kanalik aurkitu: %s"
+
+msgid "No channels in this category"
+msgstr "Kategoria honetan ez dago kanalik"
+
+msgid "No channels loaded"
+msgstr "Ez da kanalik kargatu"
+
+msgid "No channels to export"
+msgstr "Ez dago esportatzeko kanalik"
+
+msgid "No countries with channels found"
+msgstr "Ez da aurkitu kanalik duen herrialderik"
+
+msgid "No country selected"
+msgstr "Ez da herrialderik hautatu"
+
+msgid "No favorite channels"
+msgstr "Ez dago gogoko kanalik"
+
+msgid "No favorites to export"
+msgstr "Ez dago gogokorik esportatzeko"
+
+msgid "No items"
+msgstr "Ez dago elementurik"
+
+msgid "No stream URL"
+msgstr "Ez dago korrontearen URLrik"
+
+msgid "No stream URL available"
+msgstr "Ez dago korrontearen URLrik eskuragarri"
+
+msgid "No valid channels found in database"
+msgstr "Ez da datu-basean baliozko kanalik aurkitu"
+
+msgid "No valid stream URLs found"
+msgstr "Ez da aurkitu korronte URL baliozkorik"
+
+msgid "No valid streams found"
+msgstr "Ez da baliozko korronterik aurkitu"
+
+msgid "Options"
+msgstr "Aukerak"
+
+msgid "Options for: %s"
+msgstr "Aukerak: %s"
+
+msgid "Play"
+msgstr "Jolastu"
+
+msgid "Play Channel"
+msgstr ""
+
+msgid "Player"
+msgstr "Jokalari"
+
+msgid "Please restart Enigma2 manually."
+msgstr "Mesedez, berrabiarazi Enigma2 eskuz."
+
+msgid "Plugin is up to date"
+msgstr "Plugina eguneratuta dago"
+
+msgid "Plugin settings and configuration"
+msgstr "Plugin ezarpenak eta konfigurazioa"
+
+msgid "Politics"
+msgstr "Politika"
+
+msgid "Press GREEN for keyboard..."
+msgstr "Sakatu BERDE teklatua..."
+
+msgid "Press OK to check for updates"
+msgstr "Sakatu Ados eguneraketak ikusteko"
+
+msgid "Press OK to clear logs"
+msgstr "Sakatu Ados erregistroak garbitzeko"
+
+msgid "Press OK to view logs"
+msgstr "Sakatu Ados erregistroak ikusteko"
+
+msgid "Ready - %d channels"
+msgstr "Prest - %d kanal"
+
+msgid "Refresh"
+msgstr "Freskatu"
+
+msgid "Refresh Method"
+msgstr "Freskatzeko metodoa"
+
+msgid "Refresh failed"
+msgstr "Ezin izan da freskatu"
+
+msgid "Refresh failed: %s"
+msgstr "Freskatu huts egin du: %s"
+
+msgid "Refreshing data..."
+msgstr "Datuak freskatzen..."
+
+msgid "Refreshing..."
+msgstr "Freskatzen..."
+
+msgid "Religious"
+msgstr "Erlijiosoa"
+
+msgid "Remove '%s' from favorites?"
+msgstr "'%s' gogokoetatik kendu?"
+
+msgid "Remove Bouquet from Enigma2"
+msgstr "Kendu Bouquet Enigma2-tik"
+
+msgid "Remove TV Garden bouquet from Enigma2?"
+msgstr "TV Garden-sorta kendu Enigma2-tik?"
+
+msgid "Remove from Favorites"
+msgstr "Kendu gogokoetatik"
+
+msgid "Removed"
+msgstr "Kendua"
+
+msgid "Removed from favorites"
+msgstr "Gogokoetatik kendu da"
+
+msgid "Removed from favorites: %s"
+msgstr "Gogokoetatik kendu da: %s"
+
+msgid "Save"
+msgstr "Gorde"
+
+msgid "Science"
+msgstr "Zientzia"
+
+msgid "Search"
+msgstr "Bilatu"
+
+msgid "Search Channels"
+msgstr "Bilatu kanalak"
+
+msgid "Search channels by name"
+msgstr "Bilatu kanalak izenaren arabera"
+
+msgid "Search:"
+msgstr "Bilatu:"
+
+msgid "Searching..."
+msgstr "Bilatzen..."
+
+msgid "Select"
+msgstr "Hautatu"
+
+msgid "Select a category"
+msgstr "Hautatu kategoria bat"
+
+msgid "Select a country"
+msgstr "Hautatu herrialde bat"
+
+msgid "Series"
+msgstr "Seriea"
+
+msgid "Set options"
+msgstr "Ezarri aukerak"
+
+msgid "Settings"
+msgstr "Ezarpenak"
+
+msgid "Shop"
+msgstr "Denda"
+
+msgid "Show Flags"
+msgstr "Erakutsi Banderak"
+
+msgid "Show Logos"
+msgstr "Erakutsi logotipoak"
+
+msgid "Showing all %d channels"
+msgstr "%d kanal guztiak erakusten"
+
+msgid "Showing {shown} of {total} channels"
+msgstr "{Shown} kanaletatik {guztira} erakusten"
+
+msgid "Showing {shown} of {total} results"
+msgstr "{Shown}/{guztira} emaitza erakusten"
+
+msgid "Sports"
+msgstr "Kirolak"
+
+msgid "Statistics:"
+msgstr "Estatistikak:"
+
+msgid "Stream: %s"
+msgstr "Korrontea: %s"
+
+msgid "Stream: %s..."
+msgstr "Korrontea: %s..."
+
+msgid "Structure created:"
+msgstr "Sortutako egitura:"
+
+msgid "TV Garden"
+msgstr "Telebista Lorategia"
+
+msgid "TV Garden Logs"
+msgstr "Telebistako lorategiko erregistroak"
+
+msgid "TV Garden Settings"
+msgstr "TV Garden ezarpenak"
+
+msgid "Top"
+msgstr "Goiena"
+
+msgid "Total channels:"
+msgstr "Kanalak guztira:"
+
+msgid "Travel"
+msgstr "Bidaia"
+
+msgid "Unknown"
+msgstr "Ezezaguna"
+
+msgid "Update available!"
+msgstr "Eguneratzea eskuragarri!"
+
+msgid "Update cancelled"
+msgstr "Eguneraketa bertan behera utzi da"
+
+msgid "Update check error"
+msgstr "Eguneratu egiaztapen-errorea"
+
+msgid "Update check failed"
+msgstr "Eguneratzeko egiaztapenak huts egin du"
+
+msgid "Update completed successfully!"
+msgstr "Eguneratzea ondo osatu da!"
+
+msgid "Update error: %s"
+msgstr "Eguneratzeko errorea: %s"
+
+msgid "Update failed"
+msgstr "Eguneratzea huts egin du"
+
+msgid "Update failed and backup restore also failed!"
+msgstr "Huts egin du eguneratzeak eta babeskopia berreskuratzeak ere huts egin du!"
+
+msgid "Update failed. Restored from backup."
+msgstr "Eguneratzea huts egin du. Babeskopiatik leheneratu da."
+
+msgid "Update successful!"
+msgstr "Eguneratzea arrakastatsua da!"
+
+msgid "Updating plugin... Please wait"
+msgstr "Plugin-a eguneratzen... Itxaron mesedez"
+
+msgid "Use Hardware Acceleration"
+msgstr "Erabili Hardware Azelerazioa"
+
+msgid "User Agent"
+msgstr "Erabiltzaile-agentea"
+
+msgid "View Channel Info"
+msgstr "Ikusi kanalaren informazioa"
+
+msgid "View Log File"
+msgstr "Ikusi erregistro-fitxategia"
+
+msgid "Warning"
+msgstr "Abisua"
+
+msgid "Weather"
+msgstr "Eguraldia"
+
+msgid "Will load fresh data next time"
+msgstr "Datu berriak kargatuko ditu hurrengoan"
+
+msgid "You have the latest version of TVGarden."
+msgstr "TVGarden-en azken bertsioa duzu."
+
+msgid "Your favorite channels"
+msgstr "Zure gogoko kanalak"
+
+msgid "[Cache disabled]"
+msgstr "[Cachea desgaituta]"
+
+msgid "[Fresh data]"
+msgstr "[Datu berriak]"
+
+msgid "bouquet references"
+msgstr "sortaren erreferentziak"
+
+msgid "channels from"
+msgstr "kanalak"
+
+msgid "countries"
+msgstr "herrialdeak"
+
+msgid "files and"
+msgstr "fitxategiak eta"

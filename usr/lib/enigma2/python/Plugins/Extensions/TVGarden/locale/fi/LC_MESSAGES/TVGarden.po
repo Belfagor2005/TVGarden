@@ -33,10 +33,21 @@ msgstr "(YouTube: ohitettu %d)"
 msgid "1 MB"
 msgstr "1 MB"
 
+msgid "10 results"
+msgstr "10 tulosta"
+
 msgid "100 channels"
 msgstr "100 kanavaa"
 
+#, fuzzy
+msgid "100 results"
+msgstr "100 kanavaa"
+
 msgid "1000 channels"
+msgstr "1000 kanavaa"
+
+#, fuzzy
+msgid "1000 results"
 msgstr "1000 kanavaa"
 
 msgid "2 MB"
@@ -48,16 +59,37 @@ msgstr "2000 kanavaa"
 msgid "250 channels"
 msgstr "250 kanavaa"
 
+#, fuzzy
+msgid "250 results"
+msgstr "250 kanavaa"
+
+msgid "2500 results"
+msgstr "2500 tulosta"
+
 msgid "4 MB"
 msgstr "4 MB"
+
+msgid "4000 results"
+msgstr "4000 tulosta"
 
 msgid "50 channels"
 msgstr "50 kanavaa"
 
+msgid "50 results"
+msgstr "50 tulosta"
+
 msgid "500 channels"
 msgstr "500 kanavaa"
 
+#, fuzzy
+msgid "500 results"
+msgstr "500 kanavaa"
+
 msgid "5000 channels"
+msgstr "5000 kanavaa"
+
+#, fuzzy
+msgid "5000 results"
 msgstr "5000 kanavaa"
 
 msgid "512 KB"
@@ -120,6 +152,10 @@ msgstr "Lisättiin suosikkeihin: %s"
 msgid "All channels"
 msgstr "Kaikki kanavat"
 
+#, fuzzy
+msgid "All results"
+msgstr "Kaikki kanavat"
+
 msgid "Already in favorites"
 msgstr "On jo suosikeissa"
 
@@ -160,7 +196,7 @@ msgid "Business"
 msgstr "Liiketoiminta"
 
 msgid "CH+/CH- = Change | OK = Toggle | STOP = Exit | by Lululla"
-msgstr ""
+msgstr "CH+/CH- = Muutos | OK = Vaihda | STOP = Poistu | kirjoittanut Lululla"
 
 msgid "Cache Size"
 msgstr "Välimuistin koko"
@@ -294,6 +330,10 @@ msgstr "Virhe ladattaessa kategoriaa"
 msgid "Error loading channels"
 msgstr "Virhe ladattaessa kanavia"
 
+#, fuzzy
+msgid "Error loading channels: %s"
+msgstr "Virhe ladattaessa kanavia"
+
 msgid "Error loading countries"
 msgstr "Virhe ladattaessa maita"
 
@@ -336,6 +376,10 @@ msgstr "Vie KOKO tietokanta (yksittäinen tiedosto)"
 msgid "Export Current View"
 msgstr "Vie nykyinen näkymä"
 
+#, fuzzy
+msgid "Export error: %s"
+msgstr "Vie: %s"
+
 msgid "Export failed"
 msgstr "Vienti epäonnistui"
 
@@ -350,6 +394,14 @@ msgstr "Vie {count} kanavaa suosikkilistaan '{name}'?"
 
 msgid "Exported"
 msgstr "Viety"
+
+#, fuzzy
+msgid "Exported %d channels to %s"
+msgstr "Vietiin %d kanavaa suosikkilistaan"
+
+#, fuzzy
+msgid "Exported %d channels to '%s'"
+msgstr "Vietiin %d kanavaa suosikkilistaan"
 
 msgid "Exported %d channels to bouquet"
 msgstr "Vietiin %d kanavaa suosikkilistaan"
@@ -429,8 +481,16 @@ msgstr "Elämäntapa"
 msgid "List Position"
 msgstr "Suosikkilistan paikka"
 
+#, fuzzy
+msgid "Loading all channels in background..."
+msgstr "Ladataan kaikki kanavat..."
+
 msgid "Loading all channels..."
 msgstr "Ladataan kaikki kanavat..."
+
+#, fuzzy
+msgid "Loading already in progress..."
+msgstr "Ladataan kategorioita..."
 
 msgid "Loading categories..."
 msgstr "Ladataan kategorioita..."
@@ -441,8 +501,16 @@ msgstr "Ladataan kanavia..."
 msgid "Loading countries..."
 msgstr "Ladataan maita..."
 
+#, fuzzy
+msgid "Loading countries: %s (%d/%d)"
+msgstr "Ladataan maita..."
+
 msgid "Loading favorites..."
 msgstr "Ladataan suosikkeja..."
+
+#, fuzzy
+msgid "Loading... %d channels so far"
+msgstr "Ladataan kanavia..."
 
 msgid "Local"
 msgstr "Paikallinen"
@@ -534,6 +602,10 @@ msgstr "Tietokannasta ei löytynyt kelvollisia kanavia"
 msgid "No valid stream URLs found"
 msgstr "Kelvollisia striimin URL-osoitteita ei löytynyt"
 
+#, fuzzy
+msgid "No valid streams found"
+msgstr "Kelvollisia striimin URL-osoitteita ei löytynyt"
+
 msgid "Options"
 msgstr "Optiot"
 
@@ -564,9 +636,6 @@ msgstr "Politiikka"
 msgid "Press GREEN for keyboard..."
 msgstr "Paina VIHREÄÄ näppäimistöä varten..."
 
-msgid "Press GREEN for keyboard... Ready - %d channels"
-msgstr "Näppäimistö painamalla VIHREÄÄ...Valmiina - %d kanavaa"
-
 msgid "Press OK to check for updates"
 msgstr "Paina OK tarkistaaksesi päivitykset"
 
@@ -575,6 +644,10 @@ msgstr "Tyhjennä lokit painamalla OK"
 
 msgid "Press OK to view logs"
 msgstr "Paina OK nähdäksesi lokit"
+
+#, fuzzy
+msgid "Ready - %d channels"
+msgstr "Löytyi %d kanavaa"
 
 msgid "Refresh"
 msgstr "Virkistä"
@@ -793,6 +866,9 @@ msgstr "maat"
 msgid "files and"
 msgstr "tiedostot ja"
 
+#~ msgid "Press GREEN for keyboard... Ready - %d channels"
+#~ msgstr "Näppäimistö painamalla VIHREÄÄ...Valmiina - %d kanavaa"
+
 #~ msgid "TV Garden Plugin"
 #~ msgstr "TV Garden -lisäosa"
 
@@ -810,10 +886,6 @@ msgstr "tiedostot ja"
 
 #~ msgid "OFF"
 #~ msgstr "POIS PÄÄLTÄ"
-
-#, python-format
-#~ msgid "Export: %s"
-#~ msgstr "Vie: %s"
 
 #, python-format
 #~ msgid "Auto-refresh: %s"

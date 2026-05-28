@@ -33,10 +33,21 @@ msgstr "(kihagyva %d YouTube)"
 msgid "1 MB"
 msgstr "1 MB"
 
+msgid "10 results"
+msgstr "10 találat"
+
 msgid "100 channels"
 msgstr "100 csatorna"
 
+#, fuzzy
+msgid "100 results"
+msgstr "100 csatorna"
+
 msgid "1000 channels"
+msgstr "1000 csatorna"
+
+#, fuzzy
+msgid "1000 results"
 msgstr "1000 csatorna"
 
 msgid "2 MB"
@@ -49,17 +60,38 @@ msgstr "1000 csatorna"
 msgid "250 channels"
 msgstr "250 csatorna"
 
+#, fuzzy
+msgid "250 results"
+msgstr "250 csatorna"
+
+msgid "2500 results"
+msgstr "2500 találat"
+
 msgid "4 MB"
 msgstr "4 MB"
 
+msgid "4000 results"
+msgstr "4000 találat"
+
 msgid "50 channels"
 msgstr "50 csatorna"
+
+msgid "50 results"
+msgstr "50 találat"
 
 msgid "500 channels"
 msgstr "500 csatorna"
 
 #, fuzzy
+msgid "500 results"
+msgstr "500 csatorna"
+
+#, fuzzy
 msgid "5000 channels"
+msgstr "500 csatorna"
+
+#, fuzzy
+msgid "5000 results"
 msgstr "500 csatorna"
 
 msgid "512 KB"
@@ -93,7 +125,7 @@ msgid "=== Player Settings ==="
 msgstr "=== Lejátszóbeállítások ==="
 
 msgid "=== Search Settings ==="
-msgstr ""
+msgstr "=== Keresési beállítások ==="
 
 msgid "=== Update Settings ==="
 msgstr "=== Beállítások frissítése ==="
@@ -122,6 +154,10 @@ msgstr "Hozzáadva a kedvencekhez: %s"
 msgid "All channels"
 msgstr "Összes csatorna"
 
+#, fuzzy
+msgid "All results"
+msgstr "Összes csatorna"
+
 msgid "Already in favorites"
 msgstr "Már a kedvencek között van"
 
@@ -138,7 +174,7 @@ msgid "Back"
 msgstr "Vissza"
 
 msgid "Bottom"
-msgstr ""
+msgstr "Alsó"
 
 msgid "Bouquet Name Prefix"
 msgstr "Csokor név előtagja"
@@ -162,7 +198,7 @@ msgid "Business"
 msgstr "Üzleti"
 
 msgid "CH+/CH- = Change | OK = Toggle | STOP = Exit | by Lululla"
-msgstr ""
+msgstr "CH+/CH- = Változás | OK = Váltás | STOP = Kilépés | írta Lululla"
 
 msgid "Cache Size"
 msgstr "Cache méret"
@@ -210,7 +246,7 @@ msgid "Clear All Favorites"
 msgstr "Minden kedvenc törlése"
 
 msgid "Clear Cache"
-msgstr ""
+msgstr "Törölje a gyorsítótárat"
 
 msgid "Clear Log Files Now"
 msgstr "Naplófájlok törlése most"
@@ -225,7 +261,7 @@ msgid "Comedy"
 msgstr "Humor"
 
 msgid "Connection Timeout"
-msgstr ""
+msgstr "Kapcsolat időtúllépése"
 
 msgid "Cooking"
 msgstr "Főzés"
@@ -240,10 +276,10 @@ msgid "Countries"
 msgstr "Országok"
 
 msgid "Countries exported:"
-msgstr ""
+msgstr "Exportált országok:"
 
 msgid "Creating hierarchical structure..."
-msgstr ""
+msgstr "Hierarchikus struktúra létrehozása..."
 
 msgid "Critical"
 msgstr "Kritikus"
@@ -273,7 +309,7 @@ msgid "Empty database"
 msgstr "Üres adatbázis"
 
 msgid "Enable Cache"
-msgstr ""
+msgstr "Gyorsítótár engedélyezése"
 
 msgid "Enable Export"
 msgstr "Exportálás engedélyezése"
@@ -296,6 +332,10 @@ msgstr "Hiba a kategória betöltésekor"
 msgid "Error loading channels"
 msgstr "Hiba a csatornák betöltésekor"
 
+#, fuzzy
+msgid "Error loading channels: %s"
+msgstr "Hiba a csatornák betöltésekor"
+
 msgid "Error loading countries"
 msgstr "Hiba az országok betöltésekor"
 
@@ -312,7 +352,7 @@ msgid "Error saving favorites"
 msgstr "Hiba a kedvencek mentésénél"
 
 msgid "Error writing file: %s"
-msgstr ""
+msgstr "Hiba a fájl írása közben: %s"
 
 msgid "Error: %s"
 msgstr "Hiba: %s"
@@ -330,13 +370,17 @@ msgid "Export ALL %d favorites to Enigma2 bouquet?"
 msgstr "Exportálja az ÖSSZES %d kedvencet az Enigma2 csokorba?"
 
 msgid "Export ALL Database (Multi-File)"
-msgstr ""
+msgstr "ÖSSZES adatbázis exportálása (több fájl)"
 
 msgid "Export ALL Database (Single File)"
-msgstr ""
+msgstr "ÖSSZES adatbázis exportálása (egy fájl)"
 
 msgid "Export Current View"
 msgstr "Aktuális nézet exportálása"
+
+#, fuzzy
+msgid "Export error: %s"
+msgstr "Exportálás: %s"
 
 msgid "Export failed"
 msgstr "Exportálás sikertelen"
@@ -351,7 +395,15 @@ msgid "Export {count} channels to bouquet '{name}'?"
 msgstr "{count} csatorna exportálása a(z) „{name}” csokorba?"
 
 msgid "Exported"
-msgstr ""
+msgstr "Exportált"
+
+#, fuzzy
+msgid "Exported %d channels to %s"
+msgstr "%d csatorna exportálása csokorba"
+
+#, fuzzy
+msgid "Exported %d channels to '%s'"
+msgstr "%d csatorna exportálása csokorba"
 
 msgid "Exported %d channels to bouquet"
 msgstr "%d csatorna exportálása csokorba"
@@ -375,16 +427,16 @@ msgid "Favorites"
 msgstr "Kedvencek"
 
 msgid "Files created:"
-msgstr ""
+msgstr "Létrehozott fájlok:"
 
 msgid "Force Refresh"
-msgstr ""
+msgstr "Frissítés kényszerítése"
 
 msgid "Force Refresh on Browsing"
-msgstr ""
+msgstr "Frissítés kényszerítése böngészéskor"
 
 msgid "Force Refresh on Export"
-msgstr ""
+msgstr "Frissítés kényszerítése exportáláskor"
 
 msgid "Found %d channels"
 msgstr "%d csatorna található"
@@ -399,10 +451,10 @@ msgid "General"
 msgstr "Általános"
 
 msgid "Hierarchical export completed"
-msgstr ""
+msgstr "A hierarchikus exportálás befejeződött"
 
 msgid "Hierarchical export completed!"
-msgstr ""
+msgstr "A hierarchikus exportálás befejeződött!"
 
 msgid "History"
 msgstr "Előzmények"
@@ -414,7 +466,7 @@ msgid "Info"
 msgstr "Információ"
 
 msgid "Item {} of {}"
-msgstr ""
+msgstr "{}/{} elem"
 
 msgid "Keyboard"
 msgstr "Billentyűzet"
@@ -429,10 +481,18 @@ msgid "Lifestyle"
 msgstr "Életmód"
 
 msgid "List Position"
-msgstr ""
+msgstr "Lista pozíció"
+
+#, fuzzy
+msgid "Loading all channels in background..."
+msgstr "Az összes csatorna betöltése..."
 
 msgid "Loading all channels..."
 msgstr "Az összes csatorna betöltése..."
+
+#, fuzzy
+msgid "Loading already in progress..."
+msgstr "A kategóriák betöltése..."
 
 msgid "Loading categories..."
 msgstr "A kategóriák betöltése..."
@@ -443,8 +503,16 @@ msgstr "Csatornák betöltése..."
 msgid "Loading countries..."
 msgstr "Országok betöltése..."
 
+#, fuzzy
+msgid "Loading countries: %s (%d/%d)"
+msgstr "Országok betöltése..."
+
 msgid "Loading favorites..."
 msgstr "Kedvencek betöltése..."
+
+#, fuzzy
+msgid "Loading... %d channels so far"
+msgstr "Csatornák betöltése..."
 
 msgid "Local"
 msgstr "Helyi"
@@ -465,7 +533,7 @@ msgid "Logs cleared"
 msgstr "Naplók törölve"
 
 msgid "Main bouquet:"
-msgstr ""
+msgstr "Fő csokor:"
 
 #, fuzzy
 msgid "Max Channels for Bouquet"
@@ -476,14 +544,14 @@ msgid "Max Channels for Sub-Bouquet"
 msgstr "Max. csatornák száma csokoronként"
 
 msgid "Max Search Results"
-msgstr ""
+msgstr "Maximális keresési eredmények"
 
 #, fuzzy
 msgid "Max channels for country"
 msgstr "Maximális csatornák száma országonként"
 
 msgid "Memory Optimization"
-msgstr ""
+msgstr "Memória optimalizálás"
 
 msgid "Movies"
 msgstr "Filmek"
@@ -495,7 +563,7 @@ msgid "News"
 msgstr "Hírek"
 
 msgid "Next load will use fresh data"
-msgstr ""
+msgstr "A következő betöltés friss adatokat használ"
 
 msgid "No channel selected"
 msgstr "Nincs csatorna kiválasztva"
@@ -525,7 +593,7 @@ msgid "No favorites to export"
 msgstr "Nincs exportálandó kedvenc"
 
 msgid "No items"
-msgstr ""
+msgstr "Nincsenek tételek"
 
 msgid "No stream URL"
 msgstr "Nincs stream URL"
@@ -537,6 +605,10 @@ msgid "No valid channels found in database"
 msgstr "Nem található érvényes csatorna az adatbázisban"
 
 msgid "No valid stream URLs found"
+msgstr "Érvényes stream URL-ek nem találhatóak"
+
+#, fuzzy
+msgid "No valid streams found"
 msgstr "Érvényes stream URL-ek nem találhatóak"
 
 msgid "Options"
@@ -569,9 +641,6 @@ msgstr "Politika"
 msgid "Press GREEN for keyboard..."
 msgstr "Nyomja meg a ZÖLD gombot a billentyűzethez..."
 
-msgid "Press GREEN for keyboard... Ready - %d channels"
-msgstr "Nyomja meg a ZÖLD gombot a billentyűzet aktiválásához... Kész - %d csatorna"
-
 msgid "Press OK to check for updates"
 msgstr "Nyomja meg az OK gombot a frissítések ellenőrzéséhez"
 
@@ -581,11 +650,15 @@ msgstr "Nyomja meg az OK gombot a naplók törléséhez"
 msgid "Press OK to view logs"
 msgstr "Nyomja meg az OK gombot a naplók megtekintéséhez"
 
+#, fuzzy
+msgid "Ready - %d channels"
+msgstr "%d csatorna található"
+
 msgid "Refresh"
 msgstr "Frissítés"
 
 msgid "Refresh Method"
-msgstr ""
+msgstr "Frissítési módszer"
 
 msgid "Refresh failed"
 msgstr "A frissítés sikertelen"
@@ -685,7 +758,7 @@ msgid "Sports"
 msgstr "Sportok"
 
 msgid "Statistics:"
-msgstr ""
+msgstr "Statisztika:"
 
 msgid "Stream: %s"
 msgstr "Stream: %s"
@@ -694,7 +767,7 @@ msgid "Stream: %s..."
 msgstr "Stream: %s..."
 
 msgid "Structure created:"
-msgstr ""
+msgstr "Létrehozott szerkezet:"
 
 msgid "TV Garden"
 msgstr "TV Kert"
@@ -709,7 +782,7 @@ msgid "Top"
 msgstr ""
 
 msgid "Total channels:"
-msgstr ""
+msgstr "Összes csatorna:"
 
 msgid "Travel"
 msgstr "Utazás"
@@ -718,7 +791,7 @@ msgid "Unknown"
 msgstr "Ismeretlen"
 
 msgid "Update available!"
-msgstr ""
+msgstr "Frissítés elérhető!"
 "{server_version} {version_server}\n"
 "{installed_version} {version}\n"
 "\n"
@@ -773,7 +846,7 @@ msgid "Weather"
 msgstr "Időjárás"
 
 msgid "Will load fresh data next time"
-msgstr ""
+msgstr "Legközelebb friss adatokat tölt be"
 
 #, fuzzy
 msgid "You have the latest version of TVGarden."
@@ -794,13 +867,16 @@ msgid "bouquet references"
 msgstr "csokorreferenciák"
 
 msgid "channels from"
-msgstr ""
+msgstr "csatornák innen"
 
 msgid "countries"
-msgstr ""
+msgstr "országokban"
 
 msgid "files and"
 msgstr "fájlok és"
+
+#~ msgid "Press GREEN for keyboard... Ready - %d channels"
+#~ msgstr "Nyomja meg a ZÖLD gombot a billentyűzet aktiválásához... Kész - %d csatorna"
 
 #~ msgid "TV Garden Plugin"
 #~ msgstr "TV Garden plugin"
@@ -819,10 +895,6 @@ msgstr "fájlok és"
 
 #~ msgid "OFF"
 #~ msgstr "KI"
-
-#, python-format
-#~ msgid "Export: %s"
-#~ msgstr "Exportálás: %s"
 
 #, python-format
 #~ msgid "Auto-refresh: %s"

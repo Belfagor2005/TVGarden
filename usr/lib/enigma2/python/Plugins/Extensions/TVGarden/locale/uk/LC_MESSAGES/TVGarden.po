@@ -1,0 +1,842 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: enigma 2\n"
+"PO-Revision-Date: 2026-05-28 00:26+0000\n"
+"Last-Translator:  <EMAIL@ADDRESS>\n"
+"Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "%d favorite channels"
+msgstr "%d улюблених каналів"
+
+msgid "%d favorites"
+msgstr "%d обраних"
+
+msgid "(filtered %d problematic)"
+msgstr "(відфільтровано %d проблемних)"
+
+msgid "(limited to first %d)"
+msgstr "(обмежено першими %d)"
+
+msgid "(skipped %d YouTube)"
+msgstr "(пропущено %d YouTube)"
+
+msgid "1 MB"
+msgstr "1 Мб"
+
+msgid "10 results"
+msgstr "10 результатів"
+
+msgid "100 channels"
+msgstr "100 каналів"
+
+msgid "100 results"
+msgstr "100 результатів"
+
+msgid "1000 channels"
+msgstr "1000 каналів"
+
+msgid "1000 results"
+msgstr "1000 результатів"
+
+msgid "2 MB"
+msgstr "2 Мб"
+
+msgid "2000 channels"
+msgstr "2000 каналів"
+
+msgid "250 channels"
+msgstr "250 каналів"
+
+msgid "250 results"
+msgstr "250 результатів"
+
+msgid "2500 results"
+msgstr "2500 результатів"
+
+msgid "4 MB"
+msgstr "4 МБ"
+
+msgid "4000 results"
+msgstr "4000 результатів"
+
+msgid "50 channels"
+msgstr "50 каналів"
+
+msgid "50 results"
+msgstr "50 результатів"
+
+msgid "500 channels"
+msgstr "500 каналів"
+
+msgid "500 results"
+msgstr "500 результатів"
+
+msgid "5000 channels"
+msgstr "5000 каналів"
+
+msgid "5000 results"
+msgstr "5000 результатів"
+
+msgid "512 KB"
+msgstr "512 Кб"
+
+msgid "8 MB"
+msgstr "8 Мб"
+
+msgid "=== Browser Settings ==="
+msgstr "=== Налаштування браузера ==="
+
+msgid "=== Cache Settings ==="
+msgstr "=== Параметри кешу ==="
+
+msgid "=== Export Settings ==="
+msgstr "=== Експорт налаштувань ==="
+
+msgid "=== Log Maintenance ==="
+msgstr "=== Ведення журналу ==="
+
+msgid "=== Logging Settings ==="
+msgstr "=== Параметри журналювання ==="
+
+msgid "=== Network Settings ==="
+msgstr "=== Налаштування мережі ==="
+
+msgid "=== Performance Settings ==="
+msgstr "=== Параметри продуктивності ==="
+
+msgid "=== Player Settings ==="
+msgstr "=== Налаштування гравця ==="
+
+msgid "=== Search Settings ==="
+msgstr "=== Налаштування пошуку ==="
+
+msgid "=== Update Settings ==="
+msgstr "=== Оновити налаштування ==="
+
+msgid "About"
+msgstr "про"
+
+msgid "About TV Garden"
+msgstr "Про TV Garden"
+
+msgid "About TV Garden plugin"
+msgstr "Про плагін TV Garden"
+
+msgid "Access free IPTV channels from around the world"
+msgstr "Доступ до безкоштовних каналів IPTV з усього світу"
+
+msgid "Add to Favorites"
+msgstr "Додати до вибраного"
+
+msgid "Added to favorites"
+msgstr "Додано до обраних"
+
+msgid "Added to favorites: %s"
+msgstr "Додано до вибраного: %s"
+
+msgid "All channels"
+msgstr "Всі канали"
+
+msgid "All results"
+msgstr "Всі результати"
+
+msgid "Already in favorites"
+msgstr "Вже в обраному"
+
+msgid "Animation"
+msgstr "Анімація"
+
+msgid "Are you sure you want to clear all log files?"
+msgstr "Ви впевнені, що бажаєте очистити всі файли журналу?"
+
+msgid "Auto"
+msgstr "Авто"
+
+msgid "Back"
+msgstr "Назад"
+
+msgid "Bottom"
+msgstr "Дно"
+
+msgid "Bouquet Name Prefix"
+msgstr "Префікс назви букета"
+
+msgid "Browse by Category"
+msgstr "Перегляд за категорією"
+
+msgid "Browse by Country"
+msgstr "Перегляд за країнами"
+
+msgid "Browse channels by category"
+msgstr "Переглядайте канали за категоріями"
+
+msgid "Browse channels by country"
+msgstr "Переглядайте канали за країнами"
+
+msgid "Buffer Size"
+msgstr "Розмір буфера"
+
+msgid "Business"
+msgstr "Бізнес"
+
+msgid "CH+/CH- = Change | OK = Toggle | STOP = Exit | by Lululla"
+msgstr "CH+/CH- = Змінити | OK = Перемкнути | СТОП = Вихід | від Lululla"
+
+msgid "Cache Size"
+msgstr "Розмір кешу"
+
+msgid "Cache cleared"
+msgstr "Кеш очищено"
+
+msgid "Categories"
+msgstr "Категорії"
+
+msgid "Channel Information"
+msgstr "Інформація про канал"
+
+msgid "Channel Menu"
+msgstr "Меню каналу"
+
+msgid "Channel added to bouquet"
+msgstr "Канал додано до букету"
+
+msgid "Channel not found in favorites"
+msgstr "Канал не знайдено у вибраному"
+
+msgid "Channels"
+msgstr "Канали"
+
+msgid "Check for Updates"
+msgstr "Перевірте наявність оновлень"
+
+msgid "Check for plugin updates"
+msgstr "Перевірте наявність оновлень плагіна"
+
+msgid "Checking for updates..."
+msgstr "Перевірка оновлень..."
+
+msgid "Classic"
+msgstr "класичний"
+
+msgid "Clear"
+msgstr "ясно"
+
+msgid "Clear ALL favorites?"
+msgstr "Очистити ВСІ вибрані?"
+
+msgid "Clear All Favorites"
+msgstr "Очистити всі вибрані"
+
+msgid "Clear Cache"
+msgstr "Очистити кеш"
+
+msgid "Clear Log Files Now"
+msgstr "Очистити файли журналу зараз"
+
+msgid "Cleared %d favorites"
+msgstr "Видалено %d вибраного"
+
+msgid "Close"
+msgstr "Закрити"
+
+msgid "Comedy"
+msgstr "Комедія"
+
+msgid "Connection Timeout"
+msgstr "Час очікування підключення"
+
+msgid "Cooking"
+msgstr "Кулінарія"
+
+msgid "Could not check for updates. Check internet connection."
+msgstr "Не вдалося перевірити наявність оновлень. Перевірте підключення до Інтернету."
+
+msgid "Could not check for updates: %s"
+msgstr "Не вдалося перевірити наявність оновлень: %s"
+
+msgid "Countries"
+msgstr "Країни"
+
+msgid "Countries exported:"
+msgstr "Країни експорту:"
+
+msgid "Creating hierarchical structure..."
+msgstr "Створення ієрархічної структури..."
+
+msgid "Critical"
+msgstr "Критичний"
+
+msgid "Culture"
+msgstr "Культура"
+
+msgid "Database exported successfully"
+msgstr "Базу даних успішно експортовано"
+
+msgid "Debug"
+msgstr "Налагодження"
+
+msgid "Default View"
+msgstr "Перегляд за умовчанням"
+
+msgid "Documentary"
+msgstr "Документальний фільм"
+
+msgid "Editing: %s"
+msgstr "Редагування: %s"
+
+msgid "Education"
+msgstr "Освіта"
+
+msgid "Empty database"
+msgstr "Порожня база даних"
+
+msgid "Enable Cache"
+msgstr "Увімкнути кеш"
+
+msgid "Enable Export"
+msgstr "Увімкнути експорт"
+
+msgid "Entertainment"
+msgstr "Розваги"
+
+msgid "Error"
+msgstr "Помилка"
+
+msgid "Error clearing favorites"
+msgstr "Помилка очищення вибраного"
+
+msgid "Error clearing logs: %s"
+msgstr "Помилка очищення журналів: %s"
+
+msgid "Error loading category"
+msgstr "Помилка завантаження категорії"
+
+msgid "Error loading channels"
+msgstr "Помилка завантаження каналів"
+
+msgid "Error loading channels: %s"
+msgstr "Помилка завантаження каналів: %s"
+
+msgid "Error loading countries"
+msgstr "Помилка завантаження країн"
+
+msgid "Error loading favorites"
+msgstr "Помилка завантаження вибраного"
+
+msgid "Error loading information"
+msgstr "Помилка завантаження інформації"
+
+msgid "Error opening player"
+msgstr "Помилка відкриття плеєра"
+
+msgid "Error saving favorites"
+msgstr "Помилка збереження вибраного"
+
+msgid "Error writing file: %s"
+msgstr "Помилка запису файлу: %s"
+
+msgid "Error: %s"
+msgstr "Помилка: %s"
+
+msgid "Exit"
+msgstr "Вихід"
+
+msgid "Export"
+msgstr "Експорт"
+
+msgid "Export '%s' to Enigma2 bouquet?"
+msgstr "Експортувати «%s» у букет Enigma2?"
+
+msgid "Export ALL %d favorites to Enigma2 bouquet?"
+msgstr "Експортувати ВСІ %d вибране до букету Enigma2?"
+
+msgid "Export ALL Database (Multi-File)"
+msgstr "Експорт ВСІХ баз даних (багатофайлів)"
+
+msgid "Export ALL Database (Single File)"
+msgstr "Експорт ВСІХ баз даних (один файл)"
+
+msgid "Export Current View"
+msgstr "Експорт поточного перегляду"
+
+msgid "Export error: %s"
+msgstr "Помилка експорту: %s"
+
+msgid "Export failed"
+msgstr "Помилка експорту"
+
+msgid "Export failed: %s"
+msgstr "Помилка експорту: %s"
+
+msgid "Export to Enigma2 Bouquet"
+msgstr "Експорт до Enigma2 Bouquet"
+
+msgid "Export {count} channels to bouquet '{name}'?"
+msgstr "Експортувати {count} каналів до групи "{name}"?"
+
+msgid "Exported"
+msgstr "Експортовано"
+
+msgid "Exported %d channels to %s"
+msgstr "Експортовано %d каналів до %s"
+
+msgid "Exported %d channels to '%s'"
+msgstr "Експортовано %d каналів до "%s""
+
+msgid "Exported %d channels to bouquet"
+msgstr "Експортовано %d каналів у букет"
+
+msgid "ExtePlayer3"
+msgstr ""
+
+msgid "Failed to create backup. Update cancelled."
+msgstr "Не вдалося створити резервну копію. Оновлення скасовано."
+
+msgid "Failed to load database"
+msgstr "Не вдалося завантажити базу даних"
+
+msgid "Family"
+msgstr "Сім'я"
+
+msgid "Favorite"
+msgstr "улюблений"
+
+msgid "Favorites"
+msgstr "Вибране"
+
+msgid "Files created:"
+msgstr "Створено файлів:"
+
+msgid "Force Refresh"
+msgstr "Примусово оновити"
+
+msgid "Force Refresh on Browsing"
+msgstr "Примусово оновлювати під час перегляду"
+
+msgid "Force Refresh on Export"
+msgstr "Примусово оновити під час експорту"
+
+msgid "Found %d channels"
+msgstr "Знайдено %d каналів"
+
+msgid "Found %d playable channels"
+msgstr "Знайдено %d доступних каналів"
+
+msgid "GStreamer"
+msgstr ""
+
+msgid "General"
+msgstr "Загальний"
+
+msgid "Hierarchical export completed"
+msgstr "Ієрархічний експорт завершено"
+
+msgid "Hierarchical export completed!"
+msgstr "Ієрархічний експорт завершено!"
+
+msgid "History"
+msgstr "історія"
+
+msgid "Hobby"
+msgstr "хобі"
+
+msgid "Info"
+msgstr "Інформація"
+
+msgid "Item {} of {}"
+msgstr "Елемент {} з {}"
+
+msgid "Keyboard"
+msgstr "Клавіатура"
+
+msgid "Kids"
+msgstr "діти"
+
+msgid "Legislative"
+msgstr "Законодавча"
+
+msgid "Lifestyle"
+msgstr "Спосіб життя"
+
+msgid "List Position"
+msgstr "Позиція списку"
+
+msgid "Loading all channels in background..."
+msgstr "Завантаження всіх каналів у фоновому режимі..."
+
+msgid "Loading all channels..."
+msgstr "Завантаження всіх каналів..."
+
+msgid "Loading already in progress..."
+msgstr "Завантаження вже триває..."
+
+msgid "Loading categories..."
+msgstr "Завантаження категорій..."
+
+msgid "Loading channels..."
+msgstr "Завантаження каналів..."
+
+msgid "Loading countries..."
+msgstr "Завантаження країн..."
+
+msgid "Loading countries: %s (%d/%d)"
+msgstr "Завантаження країн: %s (%d/%d)"
+
+msgid "Loading favorites..."
+msgstr "Завантаження вибраного..."
+
+msgid "Loading... %d channels so far"
+msgstr "Завантаження... Наразі %d каналів"
+
+msgid "Local"
+msgstr "Місцевий"
+
+msgid "Log Level"
+msgstr "Рівень журналу"
+
+msgid "Log file is empty or not found"
+msgstr "Файл журналу порожній або не знайдений"
+
+msgid "Log files cleared successfully"
+msgstr "Файли журналу успішно очищено"
+
+msgid "Log to File"
+msgstr "Увійдіть у файл"
+
+msgid "Logs cleared"
+msgstr "Журнали очищено"
+
+msgid "Main bouquet:"
+msgstr "Основний букет:"
+
+msgid "Max Channels for Bouquet"
+msgstr "Макс каналів для букета"
+
+msgid "Max Channels for Sub-Bouquet"
+msgstr "Максимальна кількість каналів для суббукета"
+
+msgid "Max Search Results"
+msgstr "Максимальна кількість результатів пошуку"
+
+msgid "Max channels for country"
+msgstr "Максимальна кількість каналів для країни"
+
+msgid "Memory Optimization"
+msgstr "Оптимізація пам'яті"
+
+msgid "Movies"
+msgstr "фільми"
+
+msgid "Music"
+msgstr "музика"
+
+msgid "News"
+msgstr "Новини"
+
+msgid "Next load will use fresh data"
+msgstr "Наступне завантаження використовуватиме свіжі дані"
+
+msgid "No channel selected"
+msgstr "Канал не вибрано"
+
+msgid "No channels found for: %s"
+msgstr "Не знайдено каналів для: %s"
+
+msgid "No channels in this category"
+msgstr "У цій категорії немає каналів"
+
+msgid "No channels loaded"
+msgstr "Немає завантажених каналів"
+
+msgid "No channels to export"
+msgstr "Немає каналів для експорту"
+
+msgid "No countries with channels found"
+msgstr "Не знайдено країн із каналами"
+
+msgid "No country selected"
+msgstr "Країна не вибрана"
+
+msgid "No favorite channels"
+msgstr "Немає улюблених каналів"
+
+msgid "No favorites to export"
+msgstr "Немає вибраного для експорту"
+
+msgid "No items"
+msgstr "Немає елементів"
+
+msgid "No stream URL"
+msgstr "Немає URL-адреси потоку"
+
+msgid "No stream URL available"
+msgstr "URL-адреса потоку недоступна"
+
+msgid "No valid channels found in database"
+msgstr "У базі даних не знайдено дійсних каналів"
+
+msgid "No valid stream URLs found"
+msgstr "Не знайдено дійсних URL-адрес потоку"
+
+msgid "No valid streams found"
+msgstr "Не знайдено дійсних потоків"
+
+msgid "Options"
+msgstr "Опції"
+
+msgid "Options for: %s"
+msgstr "Параметри для: %s"
+
+msgid "Play"
+msgstr "грати"
+
+msgid "Play Channel"
+msgstr "Відтворити канал"
+
+msgid "Player"
+msgstr "гравець"
+
+msgid "Please restart Enigma2 manually."
+msgstr "Перезапустіть Enigma2 вручну."
+
+msgid "Plugin is up to date"
+msgstr "Плагін оновлений"
+
+msgid "Plugin settings and configuration"
+msgstr "Налаштування та конфігурація плагіна"
+
+msgid "Politics"
+msgstr "Політика"
+
+msgid "Press GREEN for keyboard..."
+msgstr "Натисніть ЗЕЛЕНИЙ для клавіатури..."
+
+msgid "Press OK to check for updates"
+msgstr "Натисніть OK, щоб перевірити наявність оновлень"
+
+msgid "Press OK to clear logs"
+msgstr "Натисніть OK, щоб очистити журнали"
+
+msgid "Press OK to view logs"
+msgstr "Натисніть OK, щоб переглянути журнали"
+
+msgid "Ready - %d channels"
+msgstr "Готово - %d каналів"
+
+msgid "Refresh"
+msgstr "Оновити"
+
+msgid "Refresh Method"
+msgstr "Метод оновлення"
+
+msgid "Refresh failed"
+msgstr "Не вдалося оновити"
+
+msgid "Refresh failed: %s"
+msgstr "Не вдалося оновити: %s"
+
+msgid "Refreshing data..."
+msgstr "Оновлення даних..."
+
+msgid "Refreshing..."
+msgstr "Оновлення..."
+
+msgid "Religious"
+msgstr "Релігійний"
+
+msgid "Remove '%s' from favorites?"
+msgstr "Видалити "%s" з вибраного?"
+
+msgid "Remove Bouquet from Enigma2"
+msgstr "Видаліть Bouquet з Enigma2"
+
+msgid "Remove TV Garden bouquet from Enigma2?"
+msgstr "Видалити TV Garden bouquet з Enigma2?"
+
+msgid "Remove from Favorites"
+msgstr "Видалити з вибраного"
+
+msgid "Removed"
+msgstr "Видалено"
+
+msgid "Removed from favorites"
+msgstr "Видалено з вибраного"
+
+msgid "Removed from favorites: %s"
+msgstr "Видалено з вибраного: %s"
+
+msgid "Save"
+msgstr "зберегти"
+
+msgid "Science"
+msgstr "Наука"
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "Search Channels"
+msgstr "Пошук каналів"
+
+msgid "Search channels by name"
+msgstr "Пошук каналів за назвою"
+
+msgid "Search:"
+msgstr "пошук:"
+
+msgid "Searching..."
+msgstr "Пошук..."
+
+msgid "Select"
+msgstr "Виберіть"
+
+msgid "Select a category"
+msgstr "Виберіть категорію"
+
+msgid "Select a country"
+msgstr "Виберіть країну"
+
+msgid "Series"
+msgstr "Серія"
+
+msgid "Set options"
+msgstr "Встановити параметри"
+
+msgid "Settings"
+msgstr "Налаштування"
+
+msgid "Shop"
+msgstr "Магазин"
+
+msgid "Show Flags"
+msgstr "Показати прапори"
+
+msgid "Show Logos"
+msgstr "Показати логотипи"
+
+msgid "Showing all %d channels"
+msgstr "Показано всі %d канали"
+
+msgid "Showing {shown} of {total} channels"
+msgstr "Показано {shown} із {total} каналів"
+
+msgid "Showing {shown} of {total} results"
+msgstr "Показано {shown} із {total} результатів"
+
+msgid "Sports"
+msgstr "спорт"
+
+msgid "Statistics:"
+msgstr "Статистика:"
+
+msgid "Stream: %s"
+msgstr "Потік: %s"
+
+msgid "Stream: %s..."
+msgstr "Потік: %s..."
+
+msgid "Structure created:"
+msgstr "Створена структура:"
+
+msgid "TV Garden"
+msgstr ""
+
+msgid "TV Garden Logs"
+msgstr "ТВ Садові колоди"
+
+msgid "TV Garden Settings"
+msgstr "Налаштування TV Garden"
+
+msgid "Top"
+msgstr "Топ"
+
+msgid "Total channels:"
+msgstr "Всього каналів:"
+
+msgid "Travel"
+msgstr "Подорожі"
+
+msgid "Unknown"
+msgstr "Невідомий"
+
+msgid "Update available!"
+msgstr "Доступне оновлення!"
+
+msgid "Update cancelled"
+msgstr "Оновлення скасовано"
+
+msgid "Update check error"
+msgstr "Помилка перевірки оновлення"
+
+msgid "Update check failed"
+msgstr "Не вдалося перевірити оновлення"
+
+msgid "Update completed successfully!"
+msgstr "Оновлення успішно завершено!"
+
+msgid "Update error: %s"
+msgstr "Помилка оновлення: %s"
+
+msgid "Update failed"
+msgstr "Не вдалося оновити"
+
+msgid "Update failed and backup restore also failed!"
+msgstr "Помилка оновлення та відновлення резервної копії!"
+
+msgid "Update failed. Restored from backup."
+msgstr "Не вдалося оновити. Відновлено з резервної копії."
+
+msgid "Update successful!"
+msgstr "Оновлення успішне!"
+
+msgid "Updating plugin... Please wait"
+msgstr "Оновлення плагіна... Зачекайте"
+
+msgid "Use Hardware Acceleration"
+msgstr "Використовуйте апаратне прискорення"
+
+msgid "User Agent"
+msgstr "Агент користувача"
+
+msgid "View Channel Info"
+msgstr "Переглянути інформацію про канал"
+
+msgid "View Log File"
+msgstr "Переглянути файл журналу"
+
+msgid "Warning"
+msgstr "УВАГА"
+
+msgid "Weather"
+msgstr "Погода"
+
+msgid "Will load fresh data next time"
+msgstr "Наступного разу буде завантажено свіжі дані"
+
+msgid "You have the latest version of TVGarden."
+msgstr "У вас остання версія TVGarden."
+
+msgid "Your favorite channels"
+msgstr "Ваші улюблені канали"
+
+msgid "[Cache disabled]"
+msgstr "[Кеш вимкнено]"
+
+msgid "[Fresh data]"
+msgstr "[Свіжі дані]"
+
+msgid "bouquet references"
+msgstr "посилання на букет"
+
+msgid "channels from"
+msgstr "канали з"
+
+msgid "countries"
+msgstr "країни"
+
+msgid "files and"
+msgstr "файли та"

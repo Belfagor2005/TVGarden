@@ -1,0 +1,841 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: enigma 2\n"
+"PO-Revision-Date: 2026-05-27 20:01+0000\n"
+"Last-Translator:  <EMAIL@ADDRESS>\n"
+"Language-Team: Azerbaijani\n"
+"Language: az\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "%d favorite channels"
+msgstr "%d sevimli kanal"
+
+msgid "%d favorites"
+msgstr "%d sevimli"
+
+msgid "(filtered %d problematic)"
+msgstr "(filtrlənmiş %d problemli)"
+
+msgid "(limited to first %d)"
+msgstr "(ilk %d ilə məhdudlaşır)"
+
+msgid "(skipped %d YouTube)"
+msgstr "(%d YouTube atlandı)"
+
+msgid "1 MB"
+msgstr ""
+
+msgid "10 results"
+msgstr "10 nəticə"
+
+msgid "100 channels"
+msgstr "100 kanal"
+
+msgid "100 results"
+msgstr "100 nəticə"
+
+msgid "1000 channels"
+msgstr "1000 kanal"
+
+msgid "1000 results"
+msgstr "1000 nəticə"
+
+msgid "2 MB"
+msgstr ""
+
+msgid "2000 channels"
+msgstr "2000 kanal"
+
+msgid "250 channels"
+msgstr "250 kanal"
+
+msgid "250 results"
+msgstr "250 nəticə"
+
+msgid "2500 results"
+msgstr "2500 nəticə"
+
+msgid "4 MB"
+msgstr ""
+
+msgid "4000 results"
+msgstr "4000 nəticə"
+
+msgid "50 channels"
+msgstr "50 kanal"
+
+msgid "50 results"
+msgstr "50 nəticə"
+
+msgid "500 channels"
+msgstr "500 kanal"
+
+msgid "500 results"
+msgstr "500 nəticə"
+
+msgid "5000 channels"
+msgstr "5000 kanal"
+
+msgid "5000 results"
+msgstr "5000 nəticə"
+
+msgid "512 KB"
+msgstr ""
+
+msgid "8 MB"
+msgstr ""
+
+msgid "=== Browser Settings ==="
+msgstr "=== Brauzer Parametrləri ==="
+
+msgid "=== Cache Settings ==="
+msgstr "=== Keş Ayarları ==="
+
+msgid "=== Export Settings ==="
+msgstr "=== İxrac Parametrləri ==="
+
+msgid "=== Log Maintenance ==="
+msgstr "=== Giriş Baxımı ==="
+
+msgid "=== Logging Settings ==="
+msgstr "=== Giriş Parametrləri ==="
+
+msgid "=== Network Settings ==="
+msgstr "=== Şəbəkə Parametrləri ==="
+
+msgid "=== Performance Settings ==="
+msgstr "=== Performans Parametrləri ==="
+
+msgid "=== Player Settings ==="
+msgstr "=== Oyunçu Parametrləri ==="
+
+msgid "=== Search Settings ==="
+msgstr "=== Axtarış Parametrləri ==="
+
+msgid "=== Update Settings ==="
+msgstr "=== Parametrləri Yeniləyin ==="
+
+msgid "About"
+msgstr "Haqqında"
+
+msgid "About TV Garden"
+msgstr "TV Garden haqqında"
+
+msgid "About TV Garden plugin"
+msgstr "TV Garden plagini haqqında"
+
+msgid "Access free IPTV channels from around the world"
+msgstr "Dünyanın hər yerindən pulsuz IPTV kanallarına daxil olun"
+
+msgid "Add to Favorites"
+msgstr "Sevimlilərə əlavə edin"
+
+msgid "Added to favorites"
+msgstr "Sevimlilərə əlavə edildi"
+
+msgid "Added to favorites: %s"
+msgstr "Sevimlilərə əlavə edildi: %s"
+
+msgid "All channels"
+msgstr "Bütün kanallar"
+
+msgid "All results"
+msgstr "Bütün nəticələr"
+
+msgid "Already in favorites"
+msgstr "Artıq sevimlilərdədir"
+
+msgid "Animation"
+msgstr "Animasiya"
+
+msgid "Are you sure you want to clear all log files?"
+msgstr "Bütün jurnal fayllarını silmək istədiyinizə əminsiniz?"
+
+msgid "Auto"
+msgstr "Avtomatik"
+
+msgid "Back"
+msgstr "Geri"
+
+msgid "Bottom"
+msgstr "Aşağı"
+
+msgid "Bouquet Name Prefix"
+msgstr "Buket Adı Prefiksi"
+
+msgid "Browse by Category"
+msgstr "Kateqoriyaya görə gözdən keçirin"
+
+msgid "Browse by Country"
+msgstr "Ölkəyə görə gözdən keçirin"
+
+msgid "Browse channels by category"
+msgstr "Kateqoriyaya görə kanalları nəzərdən keçirin"
+
+msgid "Browse channels by country"
+msgstr "Ölkə üzrə kanalları nəzərdən keçirin"
+
+msgid "Buffer Size"
+msgstr "Bufer ölçüsü"
+
+msgid "Business"
+msgstr "Biznes"
+
+msgid "CH+/CH- = Change | OK = Toggle | STOP = Exit | by Lululla"
+msgstr "CH+/CH- = Dəyişiklik | OK = Keçid | STOP = Çıx | Lululla tərəfindən"
+
+msgid "Cache Size"
+msgstr "Keş ölçüsü"
+
+msgid "Cache cleared"
+msgstr "Keş təmizləndi"
+
+msgid "Categories"
+msgstr "Kateqoriyalar"
+
+msgid "Channel Information"
+msgstr "Kanal Məlumatı"
+
+msgid "Channel Menu"
+msgstr "Kanal Menyu"
+
+msgid "Channel added to bouquet"
+msgstr "Kanal buketə əlavə edildi"
+
+msgid "Channel not found in favorites"
+msgstr "Kanal sevimlilərdə tapılmadı"
+
+msgid "Channels"
+msgstr "Kanallar"
+
+msgid "Check for Updates"
+msgstr "Yeniləmələri yoxlayın"
+
+msgid "Check for plugin updates"
+msgstr "Plugin yeniləmələrini yoxlayın"
+
+msgid "Checking for updates..."
+msgstr "Güncəlləmələr yoxlanılır..."
+
+msgid "Classic"
+msgstr "Klassik"
+
+msgid "Clear"
+msgstr "Təmiz"
+
+msgid "Clear ALL favorites?"
+msgstr "BÜTÜN sevimlilər silinsin?"
+
+msgid "Clear All Favorites"
+msgstr "Bütün Sevimliləri Sil"
+
+msgid "Clear Cache"
+msgstr "Keşi təmizləyin"
+
+msgid "Clear Log Files Now"
+msgstr "Giriş Fayllarını İndi Sil"
+
+msgid "Cleared %d favorites"
+msgstr "%d favorit silindi"
+
+msgid "Close"
+msgstr "Bağlayın"
+
+msgid "Comedy"
+msgstr "Komediya"
+
+msgid "Connection Timeout"
+msgstr "Bağlantı Taymout"
+
+msgid "Cooking"
+msgstr "Bişirmək"
+
+msgid "Could not check for updates. Check internet connection."
+msgstr "Yeniləmələri yoxlamaq mümkün olmadı. İnternet bağlantısını yoxlayın."
+
+msgid "Could not check for updates: %s"
+msgstr "Yeniləmələri yoxlamaq mümkün olmadı: %s"
+
+msgid "Countries"
+msgstr "ölkələr"
+
+msgid "Countries exported:"
+msgstr "İxrac edilən ölkələr:"
+
+msgid "Creating hierarchical structure..."
+msgstr "İyerarxik strukturun yaradılması..."
+
+msgid "Critical"
+msgstr "Tənqidi"
+
+msgid "Culture"
+msgstr "Mədəniyyət"
+
+msgid "Database exported successfully"
+msgstr "Verilənlər bazası uğurla eksport edildi"
+
+msgid "Debug"
+msgstr ""
+
+msgid "Default View"
+msgstr "Defolt Görünüş"
+
+msgid "Documentary"
+msgstr "Sənədli film"
+
+msgid "Editing: %s"
+msgstr "Redaktə: %s"
+
+msgid "Education"
+msgstr "Təhsil"
+
+msgid "Empty database"
+msgstr "Boş verilənlər bazası"
+
+msgid "Enable Cache"
+msgstr "Keşi aktivləşdirin"
+
+msgid "Enable Export"
+msgstr "İxracını aktivləşdirin"
+
+msgid "Entertainment"
+msgstr "Əyləncə"
+
+msgid "Error"
+msgstr "Xəta"
+
+msgid "Error clearing favorites"
+msgstr "Sevimliləri silərkən xəta baş verdi"
+
+msgid "Error clearing logs: %s"
+msgstr "Jurnalların təmizlənməsi xətası: %s"
+
+msgid "Error loading category"
+msgstr "Kateqoriya yüklənərkən xəta baş verdi"
+
+msgid "Error loading channels"
+msgstr "Kanalları yükləmə xətası"
+
+msgid "Error loading channels: %s"
+msgstr "Kanalları yükləmə xətası: %s"
+
+msgid "Error loading countries"
+msgstr "Ölkələri yükləmə xətası"
+
+msgid "Error loading favorites"
+msgstr "Sevimliləri yükləmə xətası"
+
+msgid "Error loading information"
+msgstr "Məlumatı yükləmə xətası"
+
+msgid "Error opening player"
+msgstr "Pleyeri açma xətası"
+
+msgid "Error saving favorites"
+msgstr "Sevimliləri yadda saxlama xətası"
+
+msgid "Error writing file: %s"
+msgstr "Faylın yazılması xətası: %s"
+
+msgid "Error: %s"
+msgstr "Xəta: %s"
+
+msgid "Exit"
+msgstr "Çıx"
+
+msgid "Export"
+msgstr "İxrac"
+
+msgid "Export '%s' to Enigma2 bouquet?"
+msgstr "'%s' Enigma2 buketinə eksport edilsin?"
+
+msgid "Export ALL %d favorites to Enigma2 bouquet?"
+msgstr "BÜTÜN %d sevimlilər Enigma2 buketinə eksport edilsin?"
+
+msgid "Export ALL Database (Multi-File)"
+msgstr "BÜTÜN verilənlər bazasını ixrac edin (Çox fayllı)"
+
+msgid "Export ALL Database (Single File)"
+msgstr "BÜTÜN verilənlər bazasını ixrac edin (tək fayl)"
+
+msgid "Export Current View"
+msgstr "Cari Görünüşü ixrac edin"
+
+msgid "Export error: %s"
+msgstr "Eksport xətası: %s"
+
+msgid "Export failed"
+msgstr "İxrac alınmadı"
+
+msgid "Export failed: %s"
+msgstr "Eksport alınmadı: %s"
+
+msgid "Export to Enigma2 Bouquet"
+msgstr "Enigma2 Buketinə ixrac edin"
+
+msgid "Export {count} channels to bouquet '{name}'?"
+msgstr "{count} kanal '{name}' buketinə eksport edilsin?"
+
+msgid "Exported"
+msgstr "İxrac edildi"
+
+msgid "Exported %d channels to %s"
+msgstr "%d kanal %s-ə eksport edildi"
+
+msgid "Exported %d channels to '%s'"
+msgstr "%d kanal '%s'-ə eksport edildi"
+
+msgid "Exported %d channels to bouquet"
+msgstr "%d kanal buketə eksport edildi"
+
+msgid "ExtePlayer3"
+msgstr ""
+
+msgid "Failed to create backup. Update cancelled."
+msgstr "Yedək yaratmaq alınmadı. Yeniləmə ləğv edildi."
+
+msgid "Failed to load database"
+msgstr "Verilənlər bazasını yükləmək alınmadı"
+
+msgid "Family"
+msgstr "Ailə"
+
+msgid "Favorite"
+msgstr "Sevimli"
+
+msgid "Favorites"
+msgstr "Sevimlilər"
+
+msgid "Files created:"
+msgstr "Yaradılan fayllar:"
+
+msgid "Force Refresh"
+msgstr "Məcburi Yeniləmə"
+
+msgid "Force Refresh on Browsing"
+msgstr "Baxışda Yeniləməyə məcbur edin"
+
+msgid "Force Refresh on Export"
+msgstr "İxrac zamanı Yeniləməyə məcbur edin"
+
+msgid "Found %d channels"
+msgstr "%d kanal tapıldı"
+
+msgid "Found %d playable channels"
+msgstr "%d oxuna bilən kanal tapıldı"
+
+msgid "GStreamer"
+msgstr ""
+
+msgid "General"
+msgstr ""
+
+msgid "Hierarchical export completed"
+msgstr "İerarxik ixrac tamamlandı"
+
+msgid "Hierarchical export completed!"
+msgstr "İerarxik ixrac tamamlandı!"
+
+msgid "History"
+msgstr "Tarix"
+
+msgid "Hobby"
+msgstr "Hobbi"
+
+msgid "Info"
+msgstr "Məlumat"
+
+msgid "Item {} of {}"
+msgstr "{} elementinin {}"
+
+msgid "Keyboard"
+msgstr "Klaviatura"
+
+msgid "Kids"
+msgstr "Uşaqlar"
+
+msgid "Legislative"
+msgstr "Qanunvericilik"
+
+msgid "Lifestyle"
+msgstr "Həyat tərzi"
+
+msgid "List Position"
+msgstr "Siyahı Mövqeyi"
+
+msgid "Loading all channels in background..."
+msgstr "Bütün kanallar arxa fonda yüklənir..."
+
+msgid "Loading all channels..."
+msgstr "Bütün kanallar yüklənir..."
+
+msgid "Loading already in progress..."
+msgstr "Yüklənmə artıq davam edir..."
+
+msgid "Loading categories..."
+msgstr "Kateqoriyalar yüklənir..."
+
+msgid "Loading channels..."
+msgstr "Kanallar yüklənir..."
+
+msgid "Loading countries..."
+msgstr "Ölkələr yüklənir..."
+
+msgid "Loading countries: %s (%d/%d)"
+msgstr "Ölkələr yüklənir: %s (%d/%d)"
+
+msgid "Loading favorites..."
+msgstr "Sevimlilər yüklənir..."
+
+msgid "Loading... %d channels so far"
+msgstr "Yüklənir... indiyə qədər %d kanal"
+
+msgid "Local"
+msgstr "yerli"
+
+msgid "Log Level"
+msgstr "Giriş Səviyyəsi"
+
+msgid "Log file is empty or not found"
+msgstr "Jurnal faylı boşdur və ya tapılmayıb"
+
+msgid "Log files cleared successfully"
+msgstr "Log faylları uğurla silindi"
+
+msgid "Log to File"
+msgstr "Fayla daxil olun"
+
+msgid "Logs cleared"
+msgstr "Qeydlər təmizləndi"
+
+msgid "Main bouquet:"
+msgstr "Əsas buket:"
+
+msgid "Max Channels for Bouquet"
+msgstr "Buket üçün Maksimum Kanallar"
+
+msgid "Max Channels for Sub-Bouquet"
+msgstr "Alt Buket üçün Maksimum Kanallar"
+
+msgid "Max Search Results"
+msgstr "Maksimum Axtarış Nəticələri"
+
+msgid "Max channels for country"
+msgstr "Ölkə üçün maksimum kanallar"
+
+msgid "Memory Optimization"
+msgstr "Yaddaşın optimallaşdırılması"
+
+msgid "Movies"
+msgstr "Filmlər"
+
+msgid "Music"
+msgstr "Musiqi"
+
+msgid "News"
+msgstr "Xəbərlər"
+
+msgid "Next load will use fresh data"
+msgstr "Növbəti yükləmə təzə datadan istifadə edəcək"
+
+msgid "No channel selected"
+msgstr "Kanal seçilməyib"
+
+msgid "No channels found for: %s"
+msgstr "%s üçün heç bir kanal tapılmadı"
+
+msgid "No channels in this category"
+msgstr "Bu kateqoriyada kanal yoxdur"
+
+msgid "No channels loaded"
+msgstr "Heç bir kanal yüklənmədi"
+
+msgid "No channels to export"
+msgstr "Eksport ediləcək kanal yoxdur"
+
+msgid "No countries with channels found"
+msgstr "Kanalları olan ölkə tapılmadı"
+
+msgid "No country selected"
+msgstr "Heç bir ölkə seçilməyib"
+
+msgid "No favorite channels"
+msgstr "Sevimli kanal yoxdur"
+
+msgid "No favorites to export"
+msgstr "Eksport üçün favorit yoxdur"
+
+msgid "No items"
+msgstr "Element yoxdur"
+
+msgid "No stream URL"
+msgstr "Axın URL yoxdur"
+
+msgid "No stream URL available"
+msgstr "Axın URL-i mövcud deyil"
+
+msgid "No valid channels found in database"
+msgstr "Verilənlər bazasında etibarlı kanal tapılmadı"
+
+msgid "No valid stream URLs found"
+msgstr "Etibarlı axın URL-ləri tapılmadı"
+
+msgid "No valid streams found"
+msgstr "Etibarlı axın tapılmadı"
+
+msgid "Options"
+msgstr "Seçimlər"
+
+msgid "Options for: %s"
+msgstr "Seçimlər: %s"
+
+msgid "Play"
+msgstr "Oyna"
+
+msgid "Play Channel"
+msgstr "Oynatma Kanalı"
+
+msgid "Player"
+msgstr "Oyunçu"
+
+msgid "Please restart Enigma2 manually."
+msgstr "Lütfən, Enigma2-ni əl ilə yenidən başladın."
+
+msgid "Plugin is up to date"
+msgstr "Plugin yenilənib"
+
+msgid "Plugin settings and configuration"
+msgstr "Plugin parametrləri və konfiqurasiyası"
+
+msgid "Politics"
+msgstr "Siyasət"
+
+msgid "Press GREEN for keyboard..."
+msgstr "Klaviatura üçün YAŞIL basın..."
+
+msgid "Press OK to check for updates"
+msgstr "Yeniləmələri yoxlamaq üçün OK düyməsini basın"
+
+msgid "Press OK to clear logs"
+msgstr "Qeydləri təmizləmək üçün OK düyməsini basın"
+
+msgid "Press OK to view logs"
+msgstr "Qeydlərə baxmaq üçün OK düyməsini basın"
+
+msgid "Ready - %d channels"
+msgstr "Hazır - %d kanal"
+
+msgid "Refresh"
+msgstr "Yeniləyin"
+
+msgid "Refresh Method"
+msgstr "Yeniləmə üsulu"
+
+msgid "Refresh failed"
+msgstr "Yeniləmə uğursuz oldu"
+
+msgid "Refresh failed: %s"
+msgstr "Yeniləmə uğursuz oldu: %s"
+
+msgid "Refreshing data..."
+msgstr "Data təzələnir..."
+
+msgid "Refreshing..."
+msgstr "Təzələnir..."
+
+msgid "Religious"
+msgstr "Dini"
+
+msgid "Remove '%s' from favorites?"
+msgstr ""%s" sevimlilərdən silinsin?"
+
+msgid "Remove Bouquet from Enigma2"
+msgstr "Buketi Enigma2-dən çıxarın"
+
+msgid "Remove TV Garden bouquet from Enigma2?"
+msgstr "TV Garden buketi Enigma2-dən silinsin?"
+
+msgid "Remove from Favorites"
+msgstr "Sevimlilərdən silin"
+
+msgid "Removed"
+msgstr "Silindi"
+
+msgid "Removed from favorites"
+msgstr "Sevimlilərdən silindi"
+
+msgid "Removed from favorites: %s"
+msgstr "Sevimlilərdən silindi: %s"
+
+msgid "Save"
+msgstr "Saxla"
+
+msgid "Science"
+msgstr "Elm"
+
+msgid "Search"
+msgstr "Axtar"
+
+msgid "Search Channels"
+msgstr "Kanalları axtarın"
+
+msgid "Search channels by name"
+msgstr "Kanalları adla axtarın"
+
+msgid "Search:"
+msgstr "Axtar:"
+
+msgid "Searching..."
+msgstr "Axtarılır..."
+
+msgid "Select"
+msgstr "seçin"
+
+msgid "Select a category"
+msgstr "Kateqoriya seçin"
+
+msgid "Select a country"
+msgstr "Ölkə seçin"
+
+msgid "Series"
+msgstr "Serial"
+
+msgid "Set options"
+msgstr "Seçimləri təyin edin"
+
+msgid "Settings"
+msgstr "Parametrlər"
+
+msgid "Shop"
+msgstr "Mağaza"
+
+msgid "Show Flags"
+msgstr "Bayraqları göstərin"
+
+msgid "Show Logos"
+msgstr "Loqoları göstərin"
+
+msgid "Showing all %d channels"
+msgstr "Bütün %d kanal göstərilir"
+
+msgid "Showing {shown} of {total} channels"
+msgstr "{total} kanaldan {göstərilir}"
+
+msgid "Showing {shown} of {total} results"
+msgstr "{total} nəticədən {göstərilir}"
+
+msgid "Sports"
+msgstr "İdman"
+
+msgid "Statistics:"
+msgstr "Statistika:"
+
+msgid "Stream: %s"
+msgstr "Yayım: %s"
+
+msgid "Stream: %s..."
+msgstr "Yayım: %s..."
+
+msgid "Structure created:"
+msgstr "Yaradılan struktur:"
+
+msgid "TV Garden"
+msgstr "Televiziya bağçası"
+
+msgid "TV Garden Logs"
+msgstr "TV bağ jurnalları"
+
+msgid "TV Garden Settings"
+msgstr "TV Bağça Parametrləri"
+
+msgid "Top"
+msgstr "Üst"
+
+msgid "Total channels:"
+msgstr "Ümumi kanallar:"
+
+msgid "Travel"
+msgstr "Səyahət"
+
+msgid "Unknown"
+msgstr "Naməlum"
+
+msgid "Update available!"
+msgstr "Yeniləmə əlçatandır!"
+
+msgid "Update cancelled"
+msgstr "Yeniləmə ləğv edildi"
+
+msgid "Update check error"
+msgstr "Yeniləmə yoxlama xətası"
+
+msgid "Update check failed"
+msgstr "Yeniləmə yoxlaması alınmadı"
+
+msgid "Update completed successfully!"
+msgstr "Güncəlləmə uğurla tamamlandı!"
+
+msgid "Update error: %s"
+msgstr "Yeniləmə xətası: %s"
+
+msgid "Update failed"
+msgstr "Yeniləmə uğursuz oldu"
+
+msgid "Update failed and backup restore also failed!"
+msgstr "Yeniləmə uğursuz oldu və ehtiyat nüsxəni bərpa etmək də uğursuz oldu!"
+
+msgid "Update failed. Restored from backup."
+msgstr "Yeniləmə uğursuz oldu. Yedəkdən bərpa edildi."
+
+msgid "Update successful!"
+msgstr "Güncəlləmə uğurlu oldu!"
+
+msgid "Updating plugin... Please wait"
+msgstr "Plugin yenilənir... Lütfən, gözləyin"
+
+msgid "Use Hardware Acceleration"
+msgstr "Hardware Acceleration istifadə edin"
+
+msgid "User Agent"
+msgstr "İstifadəçi Agenti"
+
+msgid "View Channel Info"
+msgstr "Kanal Məlumatına Baxın"
+
+msgid "View Log File"
+msgstr "Günlük Faylına baxın"
+
+msgid "Warning"
+msgstr "Xəbərdarlıq"
+
+msgid "Weather"
+msgstr "Hava"
+
+msgid "Will load fresh data next time"
+msgstr "Növbəti dəfə təzə data yüklənəcək"
+
+msgid "You have the latest version of TVGarden."
+msgstr "Siz TVGarden proqramının ən son versiyasına sahibsiniz."
+
+msgid "Your favorite channels"
+msgstr "Sevimli kanallarınız"
+
+msgid "[Cache disabled]"
+msgstr "[Keş deaktivdir]"
+
+msgid "[Fresh data]"
+msgstr "[Təzə məlumat]"
+
+msgid "bouquet references"
+msgstr "buket istinadları"
+
+msgid "channels from"
+msgstr "-dan kanallar"
+
+msgid "countries"
+msgstr "ölkələr"
+
+msgid "files and"
+msgstr "fayllar və"

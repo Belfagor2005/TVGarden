@@ -2,6 +2,7 @@
 
 
 
+
 msgid "%d favorite channels"
 msgstr ""
 
@@ -20,10 +21,19 @@ msgstr ""
 msgid "1 MB"
 msgstr ""
 
+msgid "10 results"
+msgstr ""
+
 msgid "100 channels"
 msgstr ""
 
+msgid "100 results"
+msgstr ""
+
 msgid "1000 channels"
+msgstr ""
+
+msgid "1000 results"
 msgstr ""
 
 msgid "2 MB"
@@ -35,16 +45,34 @@ msgstr ""
 msgid "250 channels"
 msgstr ""
 
+msgid "250 results"
+msgstr ""
+
+msgid "2500 results"
+msgstr ""
+
 msgid "4 MB"
+msgstr ""
+
+msgid "4000 results"
 msgstr ""
 
 msgid "50 channels"
 msgstr ""
 
+msgid "50 results"
+msgstr ""
+
 msgid "500 channels"
 msgstr ""
 
+msgid "500 results"
+msgstr ""
+
 msgid "5000 channels"
+msgstr ""
+
+msgid "5000 results"
 msgstr ""
 
 msgid "512 KB"
@@ -105,6 +133,9 @@ msgid "Added to favorites: %s"
 msgstr ""
 
 msgid "All channels"
+msgstr ""
+
+msgid "All results"
 msgstr ""
 
 msgid "Already in favorites"
@@ -281,6 +312,9 @@ msgstr ""
 msgid "Error loading channels"
 msgstr ""
 
+msgid "Error loading channels: %s"
+msgstr ""
+
 msgid "Error loading countries"
 msgstr ""
 
@@ -323,6 +357,9 @@ msgstr ""
 msgid "Export Current View"
 msgstr ""
 
+msgid "Export error: %s"
+msgstr ""
+
 msgid "Export failed"
 msgstr ""
 
@@ -336,6 +373,12 @@ msgid "Export {count} channels to bouquet '{name}'?"
 msgstr ""
 
 msgid "Exported"
+msgstr ""
+
+msgid "Exported %d channels to %s"
+msgstr ""
+
+msgid "Exported %d channels to '%s'"
 msgstr ""
 
 msgid "Exported %d channels to bouquet"
@@ -416,7 +459,13 @@ msgstr ""
 msgid "List Position"
 msgstr ""
 
+msgid "Loading all channels in background..."
+msgstr ""
+
 msgid "Loading all channels..."
+msgstr ""
+
+msgid "Loading already in progress..."
 msgstr ""
 
 msgid "Loading categories..."
@@ -428,7 +477,13 @@ msgstr ""
 msgid "Loading countries..."
 msgstr ""
 
+msgid "Loading countries: %s (%d/%d)"
+msgstr ""
+
 msgid "Loading favorites..."
+msgstr ""
+
+msgid "Loading... %d channels so far"
 msgstr ""
 
 msgid "Local"
@@ -521,6 +576,9 @@ msgstr ""
 msgid "No valid stream URLs found"
 msgstr ""
 
+msgid "No valid streams found"
+msgstr ""
+
 msgid "Options"
 msgstr ""
 
@@ -551,9 +609,6 @@ msgstr ""
 msgid "Press GREEN for keyboard..."
 msgstr ""
 
-msgid "Press GREEN for keyboard... Ready - %d channels"
-msgstr ""
-
 msgid "Press OK to check for updates"
 msgstr ""
 
@@ -561,6 +616,9 @@ msgid "Press OK to clear logs"
 msgstr ""
 
 msgid "Press OK to view logs"
+msgstr ""
+
+msgid "Ready - %d channels"
 msgstr ""
 
 msgid "Refresh"
