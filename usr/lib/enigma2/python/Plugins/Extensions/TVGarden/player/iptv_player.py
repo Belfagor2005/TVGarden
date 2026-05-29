@@ -553,11 +553,14 @@ class TVGardenPlayer(
 
         # YouTube detection
         if "youtube.com" in stream_url or "youtu.be" in stream_url or "youtube-nocookie.com" in stream_url:
-            log.info("YouTube channel detected: %s" % channel_name, module="Player")
+            log.info(
+                "YouTube channel detected: %s" %
+                channel_name, module="Player")
             resolved = get_youtube_stream(stream_url)
             if resolved:
                 stream_url = resolved
-                log.info("YouTube resolved: %s..." % stream_url[:80], module="Player")
+                log.info("YouTube resolved: %s..." %
+                         stream_url[:80], module="Player")
             else:
                 log.error("Failed to resolve YouTube stream", module="Player")
                 self.show_error_message("YouTube stream not available")
@@ -620,15 +623,16 @@ class TVGardenPlayer(
                 user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
                 # Forza l'uso di questo UA per questo stream
                 if "#User-Agent=" not in stream_url:
-                    stream_url += "#User-Agent=" + user_agent.replace(" ", "%20")
+                    stream_url += "#User-Agent=" + \
+                        user_agent.replace(" ", "%20")
 
             # Add User-Agent if needed
             if "#User-Agent=" not in stream_url:
                 # stream_url_with_ua = stream_url + "#User-Agent=TVGarden/1.0"
                 user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-                stream_url_with_ua = stream_url + "#User-Agent=" + user_agent.replace(" ", "%20")
+                stream_url_with_ua = stream_url + \
+                    "#User-Agent=" + user_agent.replace(" ", "%20")
                 url_encoded = stream_url_with_ua.replace(":", "%3a")
-
 
             # Build service reference string with additional parameters
             if self.should_use_hardware_acceleration(stream_url):
