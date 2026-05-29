@@ -17,13 +17,16 @@ def find_ytdlp():
     for path in paths:
         if exists(path):
             try:
-                result = subprocess.run([path, "--version"], capture_output=True, timeout=5)
+                result = subprocess.run(
+                    [path, "--version"], capture_output=True, timeout=5)
                 if result.returncode == 0:
                     log.debug("yt-dlp found: %s" % path, module="YouTube")
                     return path
-            except:
+            except BaseException:
                 pass
-    log.error("yt-dlp not found. Install with: opkg install yt-dlp", module="YouTube")
+    log.error(
+        "yt-dlp not found. Install with: opkg install yt-dlp",
+        module="YouTube")
     return None
 
 
@@ -62,11 +65,13 @@ def get_stream_with_ytdlp(ytdlp_path, video_id):
         cmd = [ytdlp_path] + fmt + [youtube_url]
         log.debug("Trying format: %s" % " ".join(fmt), module="YouTube")
         try:
-            result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+            result = subprocess.run(
+                cmd, capture_output=True, text=True, timeout=30)
             if result.returncode == 0:
                 stream_url = result.stdout.strip()
                 if stream_url.startswith(("http://", "https://")):
-                    log.info("YouTube stream obtained: %s..." % stream_url[:80], module="YouTube")
+                    log.info("YouTube stream obtained: %s..." %
+                             stream_url[:80], module="YouTube")
                     return stream_url
         except subprocess.TimeoutExpired:
             log.warning("Timeout for format: %s" % fmt, module="YouTube")
