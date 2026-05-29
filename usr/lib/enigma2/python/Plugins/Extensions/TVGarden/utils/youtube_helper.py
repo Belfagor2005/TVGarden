@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
-
 import subprocess
 import re
 from os.path import exists
 from urllib.parse import unquote
-
 from ..helpers import log
-
 """
 TV Garden Plugin - Youtube scraping
 Advanced scrapingg
@@ -20,16 +17,13 @@ def find_ytdlp():
     for path in paths:
         if exists(path):
             try:
-                result = subprocess.run(
-                    [path, "--version"], capture_output=True, timeout=5)
+                result = subprocess.run([path, "--version"], capture_output=True, timeout=5)
                 if result.returncode == 0:
                     log.debug("yt-dlp found: %s" % path, module="YouTube")
                     return path
-            except BaseException:
+            except Exception:
                 pass
-    log.error(
-        "yt-dlp not found. Install with: opkg install yt-dlp",
-        module="YouTube")
+    log.error("yt-dlp not found. Install with: opkg install yt-dlp", module="YouTube")
     return None
 
 
@@ -68,13 +62,11 @@ def get_stream_with_ytdlp(ytdlp_path, video_id):
         cmd = [ytdlp_path] + fmt + [youtube_url]
         log.debug("Trying format: %s" % " ".join(fmt), module="YouTube")
         try:
-            result = subprocess.run(
-                cmd, capture_output=True, text=True, timeout=30)
+            result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
             if result.returncode == 0:
                 stream_url = result.stdout.strip()
                 if stream_url.startswith(("http://", "https://")):
-                    log.info("YouTube stream obtained: %s..." %
-                             stream_url[:80], module="YouTube")
+                    log.info("YouTube stream obtained: %s..." % stream_url[:80], module="YouTube")
                     return stream_url
         except subprocess.TimeoutExpired:
             log.warning("Timeout for format: %s" % fmt, module="YouTube")
@@ -83,8 +75,8 @@ def get_stream_with_ytdlp(ytdlp_path, video_id):
     return None
 
 
+"""
 def get_youtube_stream(url):
-    """Main function: given YouTube URL, return direct stream URL"""
     video_id = extract_video_id(url)
     if not video_id:
         log.error("Cannot extract video ID from %s" % url, module="YouTube")
@@ -93,3 +85,55 @@ def get_youtube_stream(url):
     if not ytdlp:
         return None
     return get_stream_with_ytdlp(ytdlp, video_id)
+"""
+
+
+def get_youtube_stream(url):
+    video_id = extract_video_id(url)
+    if not video_id:
+        log.error("Cannot extract video ID")
+        return None
+
+    ytdlp = find_ytdlp()
+    if not ytdlp:
+        log.error("yt-dlp not found")
+        return None
+
+    # Prova solo formati MP4 (18=360p, 22=720p, 37=1080p, 38=4K)
+    formats = ["18", "22", "37", "38"]
+    for fmt in formats:
+        cmd = [ytdlp, "-g", "-f", fmt, "https://www.youtube.com/watch?v=" + video_id]
+        try:
+            result = subprocess.run(cmd, capture_output=True, text=True, timeout=20)
+            if result.returncode == 0:
+                stream_url = result.stdout.strip()
+                if stream_url.startswith(("http://", "https://")):
+                    log.info(f"YouTube MP4 format {fmt} obtained")
+                    return stream_url
+        except Exception as e:
+            log.warning(f"Format {fmt} failed: {e}")
+            continue
+
+    # Se nessun MP4 funziona, prova best (ma sarà HLS)
+    log.warning("Falling back to best format (may be HLS)")
+    cmd = [ytdlp, "-g", "-f", "best", "https://www.youtube.com/watch?v=" + video_id]
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=20)
+        if result.returncode == 0:
+            stream_url = result.stdout.strip()
+            """
+            # if stream_url.startswith(("http://", "https://")):
+                # # Aggiungi User-Agent per tentare di evitare 403
+                # if "#User-Agent=" not in stream_url:
+                    # stream_url += "#User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+                # return stream_url
+            """
+            if stream_url.startswith("http"):
+                stream_url += "#User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+                stream_url += "#Referer=https://www.youtube.com"
+                return stream_url
+    except Exception:
+        pass
+
+    log.error("No working YouTube stream found")
+    return None

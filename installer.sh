@@ -3,7 +3,7 @@
 # TV Garden Installer for Enigma2
 # wget -q --no-check-certificate "https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/installer.sh" -O - | /bin/sh
 
-version='2.5'
+version='2.6'
 echo "TVGarden Version: $version"
 echo "Changelog:"
 echo "- Add youtube streaming on player"
