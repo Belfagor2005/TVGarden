@@ -334,7 +334,7 @@ class ChannelsBrowser(BaseBrowser):
                         "[CHANNELS DEBUG] ⏭️ Skipping YouTube: %s" % name,
                         file=stderr
                     )
-                    continue  # skip this channel
+                    # continue  # skip this channel
 
                 # 4. Basic URL validation
                 if not stream_url:
@@ -425,18 +425,23 @@ class ChannelsBrowser(BaseBrowser):
                             "")),
                     "found_in": str(found_in),
                     "original_index": idx,
-                    "is_youtube": False,
+                    "is_youtube": is_youtube,  # False,
                 }
 
-                menu_items.append((name, idx))
+                # menu_items.append((name, idx))
                 self.menu_channels.append(channel_data)
 
                 valid_count += 1
                 log.debug("✓ Added: %s" % name, module="Channels")
 
             self.menu_channels.sort(key=lambda c: c['name'].lower())
-            menu_items = [(c['name'], idx)
-                          for idx, c in enumerate(self.menu_channels)]
+            menu_items = []
+            for idx, c in enumerate(self.menu_channels):
+                display_name = c['name']
+                if c.get('is_youtube', False):
+                    display_name = "[YT] " + display_name
+                menu_items.append((display_name, idx))
+
             self["menu"].setList(menu_items)
 
             if menu_items:
@@ -475,7 +480,7 @@ class ChannelsBrowser(BaseBrowser):
             status_text += cache_info
 
             if youtube_count > 0:
-                status_text += " " + _("(skipped %d YouTube)") % youtube_count
+                status_text += " " + _("(%d YouTube)") % youtube_count
 
             if problematic_count > 0:
                 status_text += " " + \

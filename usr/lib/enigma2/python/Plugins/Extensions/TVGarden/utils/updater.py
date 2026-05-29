@@ -20,13 +20,13 @@ class PluginUpdater:
     """Plugin update manager"""
 
     # Repository information
-    REPO_OWNER = "Belfagor2005"
+    REPO_OWNER = "OwnerPlugins"
     REPO_NAME = "TVGarden"
     REPO_BRANCH = "main"
 
     # GitHub URLs
     RAW_CONTENT = "https://raw.githubusercontent.com"
-    INSTALLER_URL = "https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/installer.sh"
+    INSTALLER_URL = "https://raw.githubusercontent.com/OwnerPlugins/TVGarden/main/installer.sh"
 
     # Backup directory
     BACKUP_DIR = "/tmp/tvgarden_backup"
@@ -43,7 +43,7 @@ class PluginUpdater:
     def get_latest_version(self):
         """Get latest version from installer.sh - Python 2/3 compatible"""
         try:
-            installer_url = "https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/installer.sh"
+            installer_url = "https://raw.githubusercontent.com/OwnerPlugins/TVGarden/main/installer.sh"
 
             log.debug(
                 "Checking version from: %s" %
@@ -197,7 +197,7 @@ class PluginUpdater:
         """Download and run installer script - USANDO WGET COME NELL'INSTALLER"""
         try:
             log.info("Running TVGarden installer...", module="Updater")
-            cmd = 'wget -q --no-check-certificate "https://raw.githubusercontent.com/Belfagor2005/TVGarden/main/installer.sh" -O - | /bin/sh'
+            cmd = 'wget -q --no-check-certificate "https://raw.githubusercontent.com/OwnerPlugins/TVGarden/main/installer.sh" -O - | /bin/sh'
             log.debug("Executing: %s" % cmd, module="Updater")
             result = subprocess.call(cmd, shell=True)
 

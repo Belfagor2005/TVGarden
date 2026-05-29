@@ -1,7 +1,7 @@
 <h1 align="center">📺 TV Garden Plugin for Enigma2</h1>
 
 ![Visitors](https://komarev.com/ghpvc/?username=Belfagor2005&label=Repository%20Views&color=blueviolet)
-[![Version](https://img.shields.io/badge/Version-2.4-blue.svg)](https://github.com/Belfagor2005/TVGarden)
+[![Version](https://img.shields.io/badge/Version-2.5-blue.svg)](https://github.com/Belfagor2005/TVGarden)
 [![Enigma2](https://img.shields.io/badge/Enigma2-Plugin-ff6600.svg)](https://www.enigma2.net)
 [![Python](https://img.shields.io/badge/Python-2.7%2B-blue.svg)](https://www.python.org)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
@@ -270,7 +270,6 @@ TVGarden/
 ### Features
 - **Real-time Case-Insensitive Search** - Instant results as you type
 - **Virtual Keyboard** - Full text input support
-- **Smart Filtering** - YouTube/DRM content automatically filtered
 - **Configurable Limits** - 10-1000 results (default: 200)
 - **Cache-aware** - Uses cached data when available
 
