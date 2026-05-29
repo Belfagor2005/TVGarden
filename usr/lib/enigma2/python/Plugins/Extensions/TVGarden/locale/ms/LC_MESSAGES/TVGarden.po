@@ -15,6 +15,10 @@ msgstr "%d saluran kegemaran"
 msgid "%d favorites"
 msgstr "%d kegemaran"
 
+#, fuzzy
+msgid "(%d YouTube)"
+msgstr "(dilangkau %d YouTube)"
+
 msgid "(filtered %d problematic)"
 msgstr "(ditapis %d bermasalah)"
 

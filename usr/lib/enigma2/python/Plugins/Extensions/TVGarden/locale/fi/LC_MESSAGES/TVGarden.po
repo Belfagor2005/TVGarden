@@ -21,6 +21,10 @@ msgstr "Suosikkikanavat %d"
 msgid "%d favorites"
 msgstr "%d suosikkia"
 
+#, fuzzy
+msgid "(%d YouTube)"
+msgstr "(YouTube: ohitettu %d)"
+
 msgid "(filtered %d problematic)"
 msgstr "(suodatettu %d ongelmallista)"
 

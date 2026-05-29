@@ -5,10 +5,14 @@
 
 
 
+
 msgid "%d favorite channels"
 msgstr ""
 
 msgid "%d favorites"
+msgstr ""
+
+msgid "(%d YouTube)"
 msgstr ""
 
 msgid "(filtered %d problematic)"

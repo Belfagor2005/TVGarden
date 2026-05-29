@@ -21,6 +21,10 @@ msgstr "%d oblíbených kanálů"
 msgid "%d favorites"
 msgstr "%d oblíbených"
 
+#, fuzzy
+msgid "(%d YouTube)"
+msgstr "(přeskočeno %d YouTube)"
+
 msgid "(filtered %d problematic)"
 msgstr "(filtrováno %d problematické)"
 
@@ -796,8 +800,8 @@ msgid "Unknown"
 msgstr "Neznámý"
 
 msgid "Update available!"
-msgstr "Aktualizace k dispozici!"
-"{server_version} {version_server}\n"
+msgstr ""
+"Aktualizace k dispozici!{server_version} {version_server}\n"
 "{installed_version} {version}\n"
 "\n"
 "{update_available}"
@@ -818,8 +822,8 @@ msgid "Update error: %s"
 msgstr "Chyba aktualizace: %s"
 
 msgid "Update failed"
-msgstr "Aktualizace se nezdařila"
-"Aktualizace selhala:\n"
+msgstr ""
+"Aktualizace se nezdařilaAktualizace selhala:\n"
 "%s"
 
 msgid "Update failed and backup restore also failed!"

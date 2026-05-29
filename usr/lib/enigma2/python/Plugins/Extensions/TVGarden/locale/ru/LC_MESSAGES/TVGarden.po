@@ -21,6 +21,10 @@ msgstr "%d любимые каналы"
 msgid "%d favorites"
 msgstr "%d избранные"
 
+#, fuzzy
+msgid "(%d YouTube)"
+msgstr "(пропущено %d YouTube)"
+
 msgid "(filtered %d problematic)"
 msgstr "(отфильтрованный %d проблематичен)"
 
@@ -791,8 +795,8 @@ msgid "Unknown"
 msgstr "Неизвестно"
 
 msgid "Update available!"
-msgstr "Доступно обновление!"
-"{server_version} {version_server}\n"
+msgstr ""
+"Доступно обновление!{server_version} {version_server}\n"
 "{installed_version} {version}\n"
 "\n"
 "{update_available}"

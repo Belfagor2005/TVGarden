@@ -21,6 +21,10 @@ msgstr "%d obľúbených kanálov"
 msgid "%d favorites"
 msgstr "%d obľúbených"
 
+#, fuzzy
+msgid "(%d YouTube)"
+msgstr "(preskočené %d YouTube)"
+
 msgid "(filtered %d problematic)"
 msgstr "(filtrované %d problematické)"
 

@@ -17,6 +17,10 @@ msgstr "%d favorite channels"
 msgid "%d favorites"
 msgstr "%d favorites"
 
+#, fuzzy
+msgid "(%d YouTube)"
+msgstr "(skipped %d YouTube)"
+
 msgid "(filtered %d problematic)"
 msgstr "(filtered %d problematic)"
 

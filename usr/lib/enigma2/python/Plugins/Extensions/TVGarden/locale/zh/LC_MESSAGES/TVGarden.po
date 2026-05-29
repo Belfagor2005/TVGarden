@@ -25,6 +25,10 @@ msgstr "%d 个喜爱的频道"
 msgid "%d favorites"
 msgstr "%d 个收藏夹"
 
+#, fuzzy
+msgid "(%d YouTube)"
+msgstr "（跳过 %d 个 YouTube）"
+
 msgid "(filtered %d problematic)"
 msgstr "（过滤了 %d 个有问题的）"
 

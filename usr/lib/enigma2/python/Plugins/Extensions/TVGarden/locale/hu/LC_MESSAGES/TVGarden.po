@@ -21,6 +21,10 @@ msgstr "%d kedvenc csatornák"
 msgid "%d favorites"
 msgstr "%d kedvenc"
 
+#, fuzzy
+msgid "(%d YouTube)"
+msgstr "(kihagyva %d YouTube)"
+
 msgid "(filtered %d problematic)"
 msgstr "(szűrt %d problémás)"
 
@@ -791,8 +795,8 @@ msgid "Unknown"
 msgstr "Ismeretlen"
 
 msgid "Update available!"
-msgstr "Frissítés elérhető!"
-"{server_version} {version_server}\n"
+msgstr ""
+"Frissítés elérhető!{server_version} {version_server}\n"
 "{installed_version} {version}\n"
 "\n"
 "{update_available}"

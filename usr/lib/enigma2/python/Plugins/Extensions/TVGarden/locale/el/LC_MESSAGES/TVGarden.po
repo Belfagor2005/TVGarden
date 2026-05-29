@@ -25,6 +25,10 @@ msgstr "%d αγαπημένα κανάλια"
 msgid "%d favorites"
 msgstr "%d αγαπημένα"
 
+#, fuzzy
+msgid "(%d YouTube)"
+msgstr "(παραλείφθηκαν %d YouTube)"
+
 msgid "(filtered %d problematic)"
 msgstr "(φιλτράρισμα %d προβληματικών)"
 
