@@ -1,35 +1,32 @@
-<screen name="TVGardenAbout" position="center,center" size="2560,1440" title="TV Garden" backgroundColor="#1a1a2e" flags="wfNoBorder">
+<screen name="TVGardenAbout" position="center,center" size="2560,1440" title="TV Garden" backgroundColor="#ff000000" flags="wfNoBorder">
 	<!-- Button pixmaps (solo rosso) -->
-	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/redbutton.png" position="63,1384" size="280,8" alphatest="blend" transparent="1" />
-	
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/redbutton.png" position="63,1384" size="280,8" alphatest="blend" transparent="1"/>
 	<!-- Donation icons (doppie per About) -->
-	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/kofi.png" position="1512,973" size="200,200" scale="1" alphatest="blend" transparent="1" />
-	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/paypal.png" position="1733,973" size="200,200" scale="1" alphatest="blend" transparent="1" />
-	
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/kofi.png" position="1512,973" size="200,200" scale="1" alphatest="blend" transparent="1"/>
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/paypal.png" position="1733,973" size="200,200" scale="1" alphatest="blend" transparent="1"/>
 	<!-- Background -->
-	<ePixmap name="" position="0,0" size="2560,1440" alphatest="blend" zPosition="-1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/images/wqhd/background.png" scale="1" />
-	
+	<ePixmap name="" position="0,0" size="2560,1440" alphatest="blend" zPosition="-1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/images/wqhd/background.png" scale="1"/>
 	<!-- Logo -->
-	<ePixmap name="" position="2235,1083" size="267,107" alphatest="blend" zPosition="1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/logo.png" scale="1" transparent="1" />
-	
+	<ePixmap name="" position="2235,1083" size="267,107" alphatest="blend" zPosition="1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/TVGarden/icons/logo.png" scale="1" transparent="1"/>
 	<!-- Button text (solo rosso) -->
-	<widget source="key_red" render="Label" position="67,1300" zPosition="1" size="280,80" font="Regular;43" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend" />
-	
+	<widget source="key_red" render="Label" position="67,1300" zPosition="1" size="280,80" font="Regular;43" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend"/>
 	<!-- Scrolltext (testo About) -->
-	<widget name="scrolltext" position="64,213" size="1360,948" font="Regular;37" halign="left" valign="top" foregroundColor="#e0e0e0" transparent="1" zPosition="2" />
-	
+	<widget name="scrolltext" position="64,213" size="1360,948" font="Regular;37" halign="left" valign="top" foregroundColor="#e0e0e0" transparent="1" zPosition="2"/>
 	<!-- Title -->
 	<widget source="title" render="Label" position="59,27" size="2360,107" font="Regular;72" halign="left" valign="center" foregroundColor="#3333ff" zPosition="5" alphatest="blend" transparent="1"/>
-	
 	<!-- Version -->
-	<widget name="version" position="1228,1301" size="1301,81" font="Regular;43" halign="center" foregroundColor="#3333ff" transparent="1" alphatest="blend" render="Label" />
-	
+	<widget name="version" position="1228,1301" size="1301,81" font="Regular;43" halign="center" foregroundColor="#3333ff" transparent="1" alphatest="blend" render="Label"/>
 	<!-- Bottom bar -->
-	<eLabel backgroundColor="#001a2336" cornerRadius="40" position="11,1279" size="2540,120" zPosition="-80" />
-	
+	<eLabel backgroundColor="#001a2336" cornerRadius="40" position="11,1279" size="2540,120" zPosition="-80"/>
 	<!-- Text background -->
-	<eLabel name="" position="48,203" size="1387,1023" zPosition="-1" cornerRadius="24" backgroundColor="#00171a1c" foregroundColor="#00171a1c" />
-	
+	<eLabel name="" position="48,203" size="1387,1023" zPosition="-1" cornerRadius="24" backgroundColor="#00171a1c" foregroundColor="#00171a1c"/>
 	<!-- Video Picture -->
-	<widget source="session.VideoPicture" render="Pig" position="1479,280" zPosition="19" size="1040,616" backgroundColor="#ff000000" transparent="0" cornerRadius="19" />
+    <widget source="global.CurrentTime" render="Label" position="1918,94" size="422,156" font="Lcdx; 112" halign="right" valign="center" backgroundColor="#914167" foregroundColor="#ffffff" transparent="1">
+        <convert type="ClockToText">Default</convert>
+    </widget>
+    <eLabel backgroundColor="#181b2e" position="0,0" size="2560,1440" transparent="0" zPosition="-9" foregroundColor="#ffffff" />
+    <widget source="session.CurrentService" render="Label" position="1764,272" size="734,60" font="cvfont;35" backgroundColor="#181b2e" transparent="1" halign="left" foregroundColor="#ffffff" zPosition="30" valign="center" noWrap="1">
+        <convert type="ServiceName">Name</convert>
+    </widget>
+    <widget source="session.VideoPicture" render="Pig" position="1768,339" zPosition="20" size="730,415" backgroundColor="#ff000000" transparent="0" />
 </screen>
