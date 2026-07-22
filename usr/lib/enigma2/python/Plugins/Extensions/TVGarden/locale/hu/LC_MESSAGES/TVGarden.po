@@ -795,7 +795,7 @@ msgid "Unknown"
 msgstr "Ismeretlen"
 
 msgid "Update available!"
-msgstr ""
+msgstr "Frissítés elérhető!"
 "Frissítés elérhető!{server_version} {version_server}\n"
 "{installed_version} {version}\n"
 "\n"

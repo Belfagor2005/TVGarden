@@ -795,7 +795,7 @@ msgid "Unknown"
 msgstr "Неизвестно"
 
 msgid "Update available!"
-msgstr ""
+msgstr "Доступно обновление!"
 "Доступно обновление!{server_version} {version_server}\n"
 "{installed_version} {version}\n"
 "\n"

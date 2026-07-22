@@ -288,7 +288,7 @@ msgid "Culture"
 msgstr "文化"
 
 msgid "Database exported successfully"
-msgstr ""
+msgstr "数据库导出成功"
 
 msgid "Debug"
 msgstr "调试"
@@ -627,7 +627,7 @@ msgid "Politics"
 msgstr "政治"
 
 msgid "Press GREEN for keyboard..."
-msgstr ""
+msgstr "按绿色键盘..."
 
 msgid "Press OK to check for updates"
 msgstr "按“确定”检查更新"

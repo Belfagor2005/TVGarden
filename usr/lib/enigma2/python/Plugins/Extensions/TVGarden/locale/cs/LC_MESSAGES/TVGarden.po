@@ -800,7 +800,7 @@ msgid "Unknown"
 msgstr "Neznámý"
 
 msgid "Update available!"
-msgstr ""
+msgstr "Aktualizace k dispozici!"
 "Aktualizace k dispozici!{server_version} {version_server}\n"
 "{installed_version} {version}\n"
 "\n"
@@ -822,7 +822,7 @@ msgid "Update error: %s"
 msgstr "Chyba aktualizace: %s"
 
 msgid "Update failed"
-msgstr ""
+msgstr "Aktualizace se nezdařila"
 "Aktualizace se nezdařilaAktualizace selhala:\n"
 "%s"
 
