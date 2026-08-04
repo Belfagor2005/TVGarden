@@ -208,7 +208,6 @@ class TVGardenMain(Screen):
             (_("About"), "about", _("About TV Garden plugin"))
         ]
 
-
         # self["menu"] = MenuList(self.menu_items, entry=lambda x: x[0])
 
         self["menu"] = MenuList(self.menu_items)
