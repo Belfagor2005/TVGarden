@@ -16,7 +16,7 @@
     <widget source="key_yellow" render="Label" position="314,650" zPosition="1" size="140,40" font="Regular;43" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend" />
     <widget source="key_blue" render="Label" position="454,650" zPosition="1" size="140,40" font="Regular;43" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend" />
     <!-- Menu -->
-    <widget name="menu" position="32,106" size="680,500" font="Regular;43" itemHeight="34" scrollbarMode="showOnDemand" backgroundColor="#16213e" />
+    <widget name="menu" position="32,106" size="680,500" font="Regular;43" itemHeight="34" scrollbarMode="showOnDemand" backgroundColor="#16213e" zPosition="6" />
     <!-- Title -->
     <widget source="title" render="Label" position="30,14" size="1180,54" font="Regular;72" halign="left" valign="center" foregroundColor="#3333ff" zPosition="5" alphatest="blend" transparent="1" />
     <widget source="status" render="Label" position="614,650" size="650,40" font="Regular;43" halign="center" valign="center" foregroundColor="#3333ff" zPosition="5" alphatest="blend" transparent="1" />
@@ -25,7 +25,7 @@
     <!-- Menu background -->
     <eLabel name="" position="24,102" size="694,512" zPosition="-1" cornerRadius="12" backgroundColor="#171a1c" foregroundColor="#171a1c" />
     <!-- Video Picture -->
-    <widget source="global.CurrentTime" render="Label" position="959,47" size="211,78" font="Lcdx; 112" halign="right" valign="center" backgroundColor="#914167" foregroundColor="#ffffff" transparent="1">
+    <widget source="global.CurrentTime" render="Label" position="959,47" size="211,78" font="Regular; 112" halign="right" valign="center" backgroundColor="#914167" foregroundColor="#ffffff" transparent="1">
       <convert type="ClockToText">Default</convert>
     </widget>
     <eLabel backgroundColor="#181b2e" position="0,0" size="1280,720" transparent="0" zPosition="-9" foregroundColor="#ffffff" />

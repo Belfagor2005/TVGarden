@@ -20,7 +20,7 @@
 	<widget source="title" render="Label" position="59,27" size="2360,107" font="Regular;72" halign="left" valign="center" foregroundColor="#3333ff" zPosition="3" alphatest="blend" transparent="1" />
 	<widget source="status" render="Label" position="1228,1301" size="1301,81" font="Regular;43" halign="center" valign="center" foregroundColor="#3333ff" zPosition="5" alphatest="blend" transparent="1" />
 	<!-- Video Picture -->
-    <widget source="global.CurrentTime" render="Label" position="1918,94" size="422,156" font="Lcdx; 112" halign="right" valign="center" backgroundColor="#914167" foregroundColor="#ffffff" transparent="1">
+    <widget source="global.CurrentTime" render="Label" position="1918,94" size="422,156" font="Regular; 112" halign="right" valign="center" backgroundColor="#914167" foregroundColor="#ffffff" transparent="1">
         <convert type="ClockToText">Default</convert>
     </widget>
     <eLabel backgroundColor="#181b2e" position="0,0" size="2560,1440" transparent="0" zPosition="-9" foregroundColor="#ffffff" />

@@ -14,7 +14,7 @@
 	<widget source="key_yellow" render="Label" position="627,1300" zPosition="1" size="280,80" font="Regular;43" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend"/>
 	<widget source="key_blue" render="Label" position="907,1300" zPosition="1" size="280,80" font="Regular;43" foregroundColor="#3333ff" halign="center" valign="center" transparent="1" alphatest="blend"/>
 	<!-- Menu -->
-	<widget name="menu" position="64,213" size="1360,1000" font="Regular;43" itemHeight="67" scrollbarMode="showOnDemand" backgroundColor="#16213e"/>
+	<widget name="menu" position="64,213" size="1360,1000" font="Regular;43" itemHeight="67" scrollbarMode="showOnDemand" backgroundColor="#16213e" zPosition="6"/>
 	<!-- Title -->
 	<widget source="title" render="Label" position="59,27" size="2360,107" font="Regular;72" halign="left" valign="center" foregroundColor="#3333ff" zPosition="5" alphatest="blend" transparent="1"/>
 	<widget source="status" render="Label" position="1228,1301" size="1301,81" font="Regular;43" halign="center" valign="center" foregroundColor="#3333ff" zPosition="5" alphatest="blend" transparent="1"/>
@@ -25,7 +25,7 @@
 	<!-- Flag (specifico per CountriesBrowser) -->
 	<widget name="flag" position="1532,959" size="380,240" alphatest="blend" scale="1" zPosition="8"/>
 	<!-- Video Picture -->
-    <widget source="global.CurrentTime" render="Label" position="1918,94" size="422,156" font="Lcdx; 112" halign="right" valign="center" backgroundColor="#914167" foregroundColor="#ffffff" transparent="1">
+    <widget source="global.CurrentTime" render="Label" position="1918,94" size="422,156" font="Regular; 112" halign="right" valign="center" backgroundColor="#914167" foregroundColor="#ffffff" transparent="1">
         <convert type="ClockToText">Default</convert>
     </widget>
     <eLabel backgroundColor="#181b2e" position="0,0" size="2560,1440" transparent="0" zPosition="-9" foregroundColor="#ffffff" />

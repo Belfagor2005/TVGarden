@@ -21,7 +21,7 @@
 	<!-- Text background -->
 	<eLabel name="" position="48,203" size="1387,1023" zPosition="-1" cornerRadius="24" backgroundColor="#00171a1c" foregroundColor="#00171a1c"/>
 	<!-- Video Picture -->
-    <widget source="global.CurrentTime" render="Label" position="1918,94" size="422,156" font="Lcdx; 112" halign="right" valign="center" backgroundColor="#914167" foregroundColor="#ffffff" transparent="1">
+    <widget source="global.CurrentTime" render="Label" position="1918,94" size="422,156" font="Regular; 112" halign="right" valign="center" backgroundColor="#914167" foregroundColor="#ffffff" transparent="1">
         <convert type="ClockToText">Default</convert>
     </widget>
     <eLabel backgroundColor="#181b2e" position="0,0" size="2560,1440" transparent="0" zPosition="-9" foregroundColor="#ffffff" />
