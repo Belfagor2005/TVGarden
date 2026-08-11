@@ -10,43 +10,46 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "%d favorite channels"
-msgstr ""
+msgstr "%d kanal gogokoenak"
 
 msgid "%d favorites"
 msgstr "%d gogoko"
 
-msgid "(filtered %d problematic)"
+msgid "(%d YouTube)"
 msgstr ""
+
+msgid "(filtered %d problematic)"
+msgstr "(iragaziz %d arazo)"
 
 msgid "(limited to first %d)"
-msgstr ""
+msgstr "(lehen %d-ra mugatuta)"
 
 msgid "(skipped %d YouTube)"
-msgstr ""
+msgstr "(%d YouTube saltatu da)"
 
 msgid "1 MB"
 msgstr ""
 
 msgid "10 results"
-msgstr ""
+msgstr "10 emaitza"
 
 msgid "100 channels"
-msgstr ""
+msgstr "100 kanal"
 
 msgid "100 results"
-msgstr ""
+msgstr "100 emaitza"
 
 msgid "1000 channels"
-msgstr ""
+msgstr "1000 kanal"
 
 msgid "1000 results"
-msgstr ""
+msgstr "1000 emaitza"
 
 msgid "2 MB"
 msgstr ""
 
 msgid "2000 channels"
-msgstr ""
+msgstr "2000 kanal"
 
 msgid "250 channels"
 msgstr "250 kanal"
@@ -61,25 +64,25 @@ msgid "4 MB"
 msgstr ""
 
 msgid "4000 results"
-msgstr ""
+msgstr "4000 emaitza"
 
 msgid "50 channels"
-msgstr ""
+msgstr "50 kanal"
 
 msgid "50 results"
-msgstr ""
+msgstr "50 emaitza"
 
 msgid "500 channels"
-msgstr ""
+msgstr "500 kanal"
 
 msgid "500 results"
-msgstr ""
+msgstr "500 emaitza"
 
 msgid "5000 channels"
-msgstr ""
+msgstr "5000 kanal"
 
 msgid "5000 results"
-msgstr ""
+msgstr "5000 emaitza"
 
 msgid "512 KB"
 msgstr ""
@@ -88,7 +91,7 @@ msgid "8 MB"
 msgstr ""
 
 msgid "=== Browser Settings ==="
-msgstr ""
+msgstr "=== Arakatzailearen ezarpenak ==="
 
 msgid "=== Cache Settings ==="
 msgstr "=== Cache ezarpenak ==="
@@ -211,13 +214,13 @@ msgid "Channels"
 msgstr "Kanalak"
 
 msgid "Check for Updates"
-msgstr ""
+msgstr "Egiaztatu eguneratzeak"
 
 msgid "Check for plugin updates"
 msgstr "Egiaztatu pluginen eguneratzeak"
 
 msgid "Checking for updates..."
-msgstr ""
+msgstr "Eguneratzeak bilatzen..."
 
 msgid "Classic"
 msgstr "Klasikoa"
@@ -376,7 +379,7 @@ msgid "Export to Enigma2 Bouquet"
 msgstr "Esportatu Enigma2 Bouquet-era"
 
 msgid "Export {count} channels to bouquet '{name}'?"
-msgstr "{count} kanal "{name}" sortara esportatu nahi dituzu?"
+msgstr "{count} kanal \\\\\\\"{name}\\\\\\\" sortara esportatu nahi dituzu?"
 
 msgid "Exported"
 msgstr "Esportatua"

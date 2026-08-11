@@ -1,21 +1,5 @@
 #, fuzzy
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 msgid "%d favorite channels"
 msgstr ""
 

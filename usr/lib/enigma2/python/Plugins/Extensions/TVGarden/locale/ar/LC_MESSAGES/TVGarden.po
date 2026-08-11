@@ -25,6 +25,10 @@ msgstr "%d من القنوات المفضلة"
 msgid "%d favorites"
 msgstr "%d مفضلة"
 
+#, fuzzy
+msgid "(%d YouTube)"
+msgstr "(تم تخطي %d على YouTube)"
+
 msgid "(filtered %d problematic)"
 msgstr "(تمت تصفية %d مشكلة)"
 
@@ -437,7 +441,7 @@ msgid "Found %d playable channels"
 msgstr "تم العثور على %d قناة قابلة للتشغيل"
 
 msgid "GStreamer"
-msgstr ""
+msgstr "جي ستريمر"
 
 msgid "General"
 msgstr "عام"
@@ -626,10 +630,10 @@ msgid "Press GREEN for keyboard..."
 msgstr "اضغط على اللون الأخضر للوحة المفاتيح..."
 
 msgid "Press OK to check for updates"
-msgstr "اضغط على "موافق" للتحقق من وجود تحديثات"
+msgstr "اضغط على \\\\\\\"موافق\\\\\\\" للتحقق من وجود تحديثات"
 
 msgid "Press OK to clear logs"
-msgstr "اضغط على "موافق" لمسح السجلات"
+msgstr "اضغط على \\\\\\\"موافق\\\\\\\" لمسح السجلات"
 
 msgid "Press OK to view logs"
 msgstr "اضغط على موافق لعرض السجلات"

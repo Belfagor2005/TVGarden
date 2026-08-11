@@ -25,6 +25,10 @@ msgstr "%d chaînes préférées"
 msgid "%d favorites"
 msgstr "%d favoris"
 
+#, fuzzy
+msgid "(%d YouTube)"
+msgstr "(%d YouTube ignoré)"
+
 msgid "(filtered %d problematic)"
 msgstr "(filtré %d problématique)"
 
@@ -386,7 +390,7 @@ msgid "Export to Enigma2 Bouquet"
 msgstr "Exporter vers le bouquet Enigma2"
 
 msgid "Export {count} channels to bouquet '{name}'?"
-msgstr "Exporter {count} chaînes vers le bouquet "{name}" ?"
+msgstr "Exporter {count} chaînes vers le bouquet \\\\\\\"{name}\\\\\\\" ?"
 
 msgid "Exported"
 msgstr "Exporté"
@@ -419,7 +423,7 @@ msgid "Favorites"
 msgstr "Favoris"
 
 msgid "Files created:"
-msgstr ""
+msgstr "Fichiers créés :"
 
 msgid "Force Refresh"
 msgstr "Forcer l'actualisation"
@@ -431,7 +435,7 @@ msgid "Force Refresh on Export"
 msgstr "Forcer l'actualisation à l'exportation"
 
 msgid "Found %d channels"
-msgstr ""
+msgstr "%d chaînes trouvées"
 
 msgid "Found %d playable channels"
 msgstr "%d chaînes jouables trouvées"
